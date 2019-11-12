@@ -1,0 +1,8 @@
+{
+  "appId": "com.chenfri.app",
+  "appName": "chenfri",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
