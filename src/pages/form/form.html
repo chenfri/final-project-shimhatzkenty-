@@ -1,0 +1,52 @@
+<ion-content padding> 
+    <div class="beginForm">
+        <h2>פרטים אישיים</h2>
+       <form>
+            <ion-item>
+                <ion-label floating>שם מלא</ion-label>
+                <ion-input text-right type="text" name="title" [(ngModel)] = "user.fullName" ></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating >כתובת דוא"ל</ion-label>
+                <ion-input name="username" [(ngModel)] = "user.email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>כתובת מגורים</ion-label>
+                <ion-textarea name="address" text-right [(ngModel)] = "user.address"></ion-textarea>
+            </ion-item>
+            <button ion-button type="submit" (click)= "get_location_by_coordinates()">השתמש בשירותי מיקום</button>
+
+            <ion-item>
+                <ion-label floating>מספר פלאפון</ion-label>
+                <ion-textarea text-right type="number" name="phone" [(ngModel)] = "user.phone"></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>אני ממלא את הטופס בשם מישהו אחר</ion-label>
+                <ion-checkbox [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
+            </ion-item> 
+            <ion-item *ngIf="user.onBehalf" >
+                <ion-label floating >נא מלא את שמך המלא</ion-label>
+                <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
+            </ion-item> 
+            <ion-item *ngIf="user.onBehalf">
+                <ion-label floating>קרבה לקשיש</ion-label>
+                <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
+            </ion-item>    
+
+            <h4>:תחומי עיניין ותחביבים</h4>
+                <ion-item *ngFor="let hobbies of hobbies; let i = index">
+                    <ion-label> {{ hobbies.species }} </ion-label>
+                    <ion-checkbox [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
+                </ion-item>
+
+            <br>
+            <button ion-button type="submit" (click)= "check_field_value()">שמירה</button>
+
+
+      </form>
+    </div>
+</ion-content>
+  
