@@ -32,6 +32,6 @@ export class LoginPage {
        alert("הפרטים אינם נכונים");
      console.error(e); 
   }
+  
   }
 
-}
