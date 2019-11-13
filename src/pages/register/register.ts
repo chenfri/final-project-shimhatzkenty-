@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { User } from '../../module/user';
-import { AngularFireAuth } from 'angularfire2/auth';
+//import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 
 @IonicPage()
@@ -14,7 +14,7 @@ export class RegisterPage
   user= {} as User;
 
   constructor(public alertCtrl: AlertController ,public navCtrl: NavController,
-    private ofauth:AngularFireAuth) {
+    /*private ofauth:AngularFireAuth*/) {
   }
 
 
@@ -29,7 +29,7 @@ export class RegisterPage
   }
 
 
- async registry()
+ /*async registry()
   {
     try{
       const res = await this.ofauth.auth.createUserWithEmailAndPassword
@@ -46,5 +46,5 @@ export class RegisterPage
       console.error(e);
     }
   }
-
+*/
 }
