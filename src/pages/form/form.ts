@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AlertController ,NavController} from 'ionic-angular';
 import { User } from '../../module/User'
-//import 'firebase/firestore';
-//import firebase, { firestore } from 'firebase';
+import 'firebase/firestore';
+import firebase, { firestore } from 'firebase';
 import { HomePage } from '../home/home';
 
 
@@ -48,7 +48,7 @@ export class Form
       }
     ];
 
-    //this.get_data_from_firebase();
+    this.get_data_from_firebase();
  
   }
  
@@ -80,25 +80,26 @@ export class Form
     if(typeof( this.user.fullName) === "undefined" || typeof( this.user.email) === "undefined" ||
     typeof( this.user.phone) === "undefined" || typeof( this.user.address) === "undefined")
       this.showAlertError();
-    //  else
-       // this.add_data_to_firebase();
+      else
+         this.add_data_to_firebase();
   }
 
 
-    //update the variables if someone fill the form behalf elderly
-    onbehalf()
+  //update the variables if someone fill the form behalf elderly
+  onbehalf()
+  {
+    if(this.user.onBehalf === false)
+      this.user.onBehalf = true;
+    else
     {
-      if(this.user.onBehalf === false)
-        this.user.onBehalf = true;
-      else
-      {
-        this.user.onBehalf = false;
-        this.user.nameAssistant = null;
-        this.user.relationship = null;
-      }
+      this.user.onBehalf = false;
+      this.user.nameAssistant = null;
+      this.user.relationship = null;
     }
+  }
 
-    //check which checkbox was clicked and update the array
+
+  //check which checkbox was clicked and update the array
   CheckboxClicked(item: any, $event)
   {
     console.log('CheckboxClicked for ' + item.species);
@@ -113,7 +114,7 @@ export class Form
     }
   }
 
-  /*
+  
    add_data_to_firebase()
   {
     const db = firebase.firestore();
@@ -127,7 +128,6 @@ export class Form
         nameAssistant: this.user.nameAssistant,
         relationship: this.user.relationship,
         hobbies: this.hobbies,
-        //elderly: this.user.elderly
       })
       .then(() => {
         this.showAlertSuccess();
@@ -135,6 +135,7 @@ export class Form
       }).catch((error)=> {
         console.log })
   }
+
 
     get_data_from_firebase()
   {
@@ -153,6 +154,6 @@ export class Form
         
     })
   }
-*/
+
 
 }
