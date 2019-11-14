@@ -1,6 +1,6 @@
 {
-  "appId": "com.chenfri.app",
-  "appName": "chenfri",
+  "appId": "io.simhatzkenty.app",
+  "appName": "simhatzkenty",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

@@ -37,7 +37,7 @@ export class RegisterPage
       (this.user.email, this.user.password);
       if(res)
       {
-        console.log(res.user.uid);
+        //console.log(res.user.uid);
         this.showAlert();
         this.navCtrl.push(HomePage);
       }
