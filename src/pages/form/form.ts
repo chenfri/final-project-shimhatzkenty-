@@ -15,6 +15,7 @@ export class Form
  {
     user = {} as User;
     public hobbies: any[] 
+    uid: ""
     
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
    ) 
@@ -94,14 +95,15 @@ export class Form
       (this.user.email, this.user.password);
       if(res)
       {
-        console.log(res.user.uid);
+       // console.log(firebase.auth().currentUser.uid);
+       this.uid = res.uid;
+        console.log(this.uid);
         this.showAlert();
-      //  this.navCtrl.push(HomePage);
+
       }
       else
-      {
         this.showAlertError();
-      }
+      
     }
     catch(e)
     {
@@ -155,7 +157,7 @@ export class Form
    add_data_to_firebase()
   {
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
+    db.collection('ElderlyUsers').doc(this.uid).set(
       {
         fullName: this.user.fullName,
         address: this.user.address,
@@ -176,8 +178,9 @@ export class Form
 
     get_data_from_firebase()
   {
+
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
+    db.collection('ElderlyUsers').doc().get()
     .then(result =>{
       if (!result.exists) return
         this.user.fullName = result.data().fullName;
