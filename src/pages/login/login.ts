@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../module/user';
-import { AngularFireAuth } from 'angularfire2/auth';
+//import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 
 @IonicPage()
@@ -11,13 +11,13 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
   user= {} as User;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private ofauth: AngularFireAuth) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, /*private ofauth: AngularFireAuth*/) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-
+/*
   signIn_function()
   {
     const res = this.ofauth.auth.signInWithEmailAndPassword(this.user.email , this.user.password);
@@ -32,6 +32,6 @@ export class LoginPage {
        alert("הפרטים אינם נכונים");
      console.error(e); 
   }
-  
+  */
   }
 

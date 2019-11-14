@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:648272650299:android:9594dea06821405a03bc1e",
+        "mobilesdk_app_id": "1:648272650299:android:7fe77c857f8ad00503bc1e",
         "android_client_info": {
           "package_name": "com.chenfri.app"
         }
@@ -52,11 +52,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "648272650299-jcfgt9le30o9bhjhsbdq2d6hu22ektp1.apps.googleusercontent.com",
+          "client_id": "648272650299-1coidlp2qr0li4ms2q7uo1eul7g1fpvf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "io.ionic.starter",
-            "certificate_hash": "45221dac8e399ad018eb801afe52bb0629374a2e"
+            "certificate_hash": "1e5407ef4f39484af42db4c89feb1182347e2168"
           }
         },
         {
