@@ -1,0 +1,27 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>registry</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="registry">
+
+        <ion-item>
+            <ion-label floating>כתובת דוא"ל</ion-label>
+            <ion-input type="email" [(ngModel)] = "user.email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>סיסמא</ion-label>
+            <ion-input type="password" [(ngModel)] = "user.password"></ion-input>
+        </ion-item>
+        <button ion-button (click)= "registry(user)">registry</button>
+</div>
+</ion-content>

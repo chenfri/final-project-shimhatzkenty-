@@ -1,0 +1,19 @@
+<ion-content   padding class="login-page">
+  <div class="login-bar" >
+
+    <ion-item>
+        <ion-label floating>כתובת דוא"ל</ion-label>
+        <ion-input [(ngModel)] = "user.email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>סיסמא</ion-label>
+        <ion-input type="password" [(ngModel)] = "user.password"></ion-input>
+    </ion-item >
+    
+    <ion-item>
+        <button ion-button (click)= "signIn_function(user)">login</button>
+    </ion-item>
+         
+  </div>
+</ion-content >
