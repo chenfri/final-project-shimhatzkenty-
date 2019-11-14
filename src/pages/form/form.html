@@ -2,24 +2,23 @@
     <div class="beginForm">
         <h2>פרטים אישיים</h2>
        <form>
-
             <ion-item>
-                    <ion-label floating >כתובת דוא"ל</ion-label>
-                    <ion-input name="username" [(ngModel)] = "user.email"></ion-input>
-                </ion-item>
-    
-                <ion-item>
-                    <ion-label floating>סיסמא</ion-label>
-                    <ion-input type="password" [(ngModel)] = "user.password"></ion-input>
-                </ion-item>
-
-                <button ion-button type="submit" (click)= "registry()">צור משתמש</button>
-
-            <ion-item>
-                <ion-label floating>שם מלא</ion-label>
-                <ion-input text-right type="text" name="title" [(ngModel)] = "user.fullName" ></ion-input>
+                <ion-label floating >כתובת דוא"ל</ion-label>
+                <ion-input name="username" [(ngModel)] = "user.email"></ion-input>
             </ion-item>
 
+            <ion-item>
+                <ion-label floating>סיסמא</ion-label>
+                <ion-input type="password" name="password" [(ngModel)] = "user.password"></ion-input>
+            </ion-item>
+
+            <button ion-button type="submit" (click)= "registry()">יצירת חשבון</button>
+
+            <ion-item>
+                    <ion-label floating>שם מלא</ion-label>
+                    <ion-input text-right type="text" name="title" [(ngModel)] = "user.fullName" ></ion-input>
+                </ion-item>
+    
             <ion-item>
                 <ion-label floating>כתובת מגורים</ion-label>
                 <ion-textarea name="address" text-right [(ngModel)] = "user.address"></ion-textarea>

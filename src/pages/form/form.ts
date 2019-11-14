@@ -78,7 +78,7 @@ export class Form
   {
     let alert = this.alertCtrl.create({
       title: '!הפרטים נשמרו בהצלחה',
-      subTitle: 'שים לב, יש למלא טופס פרטים אישיים' ,
+      subTitle: 'שים לב, יש למלא את כל הטופס' ,
       buttons: ['OK']
     });
     alert.present();
@@ -94,9 +94,13 @@ export class Form
       (this.user.email, this.user.password);
       if(res)
       {
-        //console.log(res.user.uid);
+        console.log(res.user.uid);
         this.showAlert();
-        this.navCtrl.push(HomePage);
+      //  this.navCtrl.push(HomePage);
+      }
+      else
+      {
+        this.showAlertError();
       }
     }
     catch(e)
@@ -110,8 +114,8 @@ export class Form
   //check all user inputs are legal
   check_field_value()
   {
-    if(typeof( this.user.fullName) === "undefined" || typeof( this.user.email) === "undefined" ||
-    typeof( this.user.phone) === "undefined" || typeof( this.user.address) === "undefined")
+    if(typeof( this.user.fullName) === "undefined"  ||typeof( this.user.phone) === "undefined" 
+    || typeof( this.user.address) === "undefined")
       this.showAlertError();
       else
          this.add_data_to_firebase();
