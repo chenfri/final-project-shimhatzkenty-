@@ -3,9 +3,8 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { Form } from '../pages/form/form';
-import {LoginPage} from '../pages/login/login'
-import {RegisterPage} from '../pages/register/register'
+//import { Form } from '../pages/form/form';
+
 import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'

@@ -9,6 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {RegisterPage} from '../pages/register/register'
 import {LoginPage} from '../pages/login/login'
+import {contactPage} from '../pages/contactPage/contactPage'
 
 //import { AngularFireAuth } from 'angularfire2/auth'
 
@@ -35,7 +36,9 @@ export const firebaseConfig = {
     HomePage,
     Form,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    contactPage,
+
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ export const firebaseConfig = {
     MyApp,
     HomePage,
     Form,
+    contactPage,
     RegisterPage,
     LoginPage
   ],

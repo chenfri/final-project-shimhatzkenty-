@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
 import { AlertController ,NavController} from 'ionic-angular';
 import { User } from '../../module/User'
+<<<<<<< HEAD
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
 import { HomePage } from '../home/home';
+=======
+//import 'firebase/firestore';
+//import firebase, { firestore } from 'firebase';
+//import { HomePage } from '../home/home';
+>>>>>>> 1e874e360c6ff8352f956b2f25190340ddc5bb0d
 
 
 @Component({
