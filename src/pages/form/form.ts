@@ -96,7 +96,7 @@ export class Form
       if(res)
       {
        // console.log(firebase.auth().currentUser.uid);
-       this.uid = res.uid;
+       //this.uid = res.uid;
         console.log(this.uid);
         this.showAlert();
 

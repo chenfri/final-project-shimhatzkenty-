@@ -1,23 +1,31 @@
-<ion-content >
+ <ion-content >
+
 
     <div class ="homePage">
       <img src="https://scontent.fsdv1-2.fna.fbcdn.net/v/t1.0-9/69164053_2389147494498549_5752760186460700672_o.jpg?_nc_cat=102&_nc_oc=AQmfuOqWCzkzav11SwauYk052ZaHQnIARrQgdQ_uxWzGrmAg8C211j8Vaxjty6SA97c&_nc_ht=scontent.fsdv1-2.fna&oh=1df52bed29686574fecd26d95bd1fd72&oe=5E23B525"
-          style="width:5000px;height:260px;" />
-      <div class ="title">
+          style="width:5000px;height:200px;" />
+    
 
-        <ion-navbar>
-          <button ion-button  (click)="login()">כניסת משתמש רשום</button>
-          <button ion-button  (click)="contactPage()">צור קשר</button>
-          <button ion-button (click)="logout()">גלריה</button>
-          <button ion-button (click)="form()">רישום לאזרח הותיק</button>
-          <button ion-button (click)="form()">הרשם כמתנדב</button>
-          <button ion-button (click)="logout()">עמוד הבית</button>
-        </ion-navbar>
+          <ion-navbar class = "navbarHome">
+              <button ion-button  (click)="logout()">כניסת משתמש רשום</button>
+              <button ion-button  (click)="contactPage()">צור קשר</button>
+              <button ion-button (click)="logout()">גלריה</button>
+              <button ion-button (click)="form()">רישום לאזרח הותיק</button>
+              <button ion-button (click)="form()">הרשם כמתנדב</button>
+              <button ion-button (click)="logout()">עמוד הבית</button>
 
-        <h6 class="title">"ברוכים הבאים למיזם "שמחת זקנתי</h6>
-      </div>
+            </ion-navbar>
+
+  <div class ="title">
+      <h6 class="title">"ברוכים הבאים למיזם "שמחת זקנתי</h6>
+   </div>
   
-      <pre style="width: 50%; float: right; font-size: large; font-family: Arial;"> 
+      <pre
+        style="width: 50%;
+                float: right;
+                font-size: large;
+                font-family: Arial;
+                "> 
       .׳שמחת זקנתי׳ הוא מיזם חברתי השואף לרומם את רוחם 
       ולהפיג את בדידותם של קשישים בבתיהם הפרטיים או במרכזים ציבוריים
   
@@ -30,11 +38,12 @@
     לא תאמינו כמה שמחה תוכלו להכניס לחייהם של אותם אנשים
       .שבעקבות גילם או מצבם הרפואי מעבירים את הזמן לבד
       
-      </pre>
+    </pre>
   
       <iframe width="420" height="345" src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1">
       </iframe>
   
+    
     </div>
   </ion-content>
   
