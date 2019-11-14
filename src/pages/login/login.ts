@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../module/user';
 //import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
-
+import * as firebase from 'firebase/app';
+ 
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -14,15 +15,14 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, /*private ofauth: AngularFireAuth*/) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-/*
+
   signIn_function()
   {
-    const res = this.ofauth.auth.signInWithEmailAndPassword(this.user.email , this.user.password);
-    if(res)
+    const res = firebase.auth().signInWithEmailAndPassword(this.user.email , this.user.password);
+    if(res){
+      console.log("success")
        this.navCtrl.push(HomePage);
+    }
   }
   catch(e)
   {
@@ -32,6 +32,6 @@ export class LoginPage {
        alert("הפרטים אינם נכונים");
      console.error(e); 
   }
-  */
+  
   }
 

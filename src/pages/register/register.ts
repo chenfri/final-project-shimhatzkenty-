@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { User } from '../../module/user';
-//import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
-import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
-import {AngularFireAuth} from '@angular/fire/auth'
+import * as firebase from 'firebase/app';
 
 @IonicPage()
 @Component({
@@ -15,8 +13,7 @@ export class RegisterPage
 {
   user= {} as User;
 
-  constructor(public alertCtrl: AlertController ,public navCtrl: NavController,
-    private firebaseAuthentication: AngularFireAuth) {
+  constructor(public alertCtrl: AlertController ,public navCtrl: NavController) {
   }
 
 
@@ -33,8 +30,10 @@ export class RegisterPage
 
  async registry()
   {
+    console.log(this.user.email);
+    console.log(this.user.password);
     try{
-      const res = await this.firebaseAuthentication.auth.createUserWithEmailAndPassword
+      const res = await firebase.auth().createUserWithEmailAndPassword
       (this.user.email, this.user.password);
       if(res)
       {
