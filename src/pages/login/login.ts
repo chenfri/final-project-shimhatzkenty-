@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../module/user';
-//import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
- 
+import { Form } from '../form/form';
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -21,7 +21,8 @@ export class LoginPage {
     const res = firebase.auth().signInWithEmailAndPassword(this.user.email , this.user.password);
     if(res){
       console.log("success")
-       this.navCtrl.push(HomePage);
+      console.log(firebase.auth().currentUser.uid);
+       this.navCtrl.push(Form);
     }
   }
   catch(e)

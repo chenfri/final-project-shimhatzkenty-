@@ -48,10 +48,14 @@ export class Form
       }
     ];
 
-    this.get_data_from_firebase();
+    if(firebase.auth().currentUser != null)
+      this.get_data_from_firebase();
+
   }
 
  
+
+  
   showAlertSuccess()
   {
     let alert = this.alertCtrl.create({
@@ -87,8 +91,6 @@ export class Form
 
  async registry()
   {
-    console.log(this.user.email);
-    console.log(this.user.password);
     try{
       const res = await firebase.auth().createUserWithEmailAndPassword
       (this.user.email, this.user.password);
@@ -139,7 +141,7 @@ export class Form
   //check which checkbox was clicked and update the array
   CheckboxClicked(item: any, $event)
   {
-    console.log('CheckboxClicked for ' + item.species);
+    //console.log('CheckboxClicked for ' + item.species);
     for(let i = 0 ; i< this.hobbies.length ; i++)
     {
       
@@ -152,10 +154,10 @@ export class Form
   }
 
   
-   add_data_to_firebase()
+  add_data_to_firebase()
   {
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(this.uid).set(
+    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
         address: this.user.address,
@@ -174,11 +176,11 @@ export class Form
   }
 
 
-    get_data_from_firebase()
+  get_data_from_firebase()
   {
 
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc().get()
+    db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).get()
     .then(result =>{
       if (!result.exists) return
         this.user.fullName = result.data().fullName;

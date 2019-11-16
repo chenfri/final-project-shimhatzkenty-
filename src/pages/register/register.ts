@@ -3,6 +3,7 @@ import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { User } from '../../module/user';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
+import {LoginPage} from '../login/login'
 
 @IonicPage()
 @Component({
@@ -39,7 +40,7 @@ export class RegisterPage
       {
         //console.log(res.user.uid);
         this.showAlert();
-        this.navCtrl.push(HomePage);
+        this.navCtrl.push(LoginPage);
       }
     }
     catch(e)
