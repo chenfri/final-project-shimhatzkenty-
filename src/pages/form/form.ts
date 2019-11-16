@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { AlertController ,NavController} from 'ionic-angular';
 import { User } from '../../module/User'
-
+import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
-import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-form',
@@ -50,8 +49,8 @@ export class Form
     ];
 
     this.get_data_from_firebase();
- 
   }
+
  
   showAlertSuccess()
   {
@@ -96,7 +95,7 @@ export class Form
       if(res)
       {
        // console.log(firebase.auth().currentUser.uid);
-       //this.uid = res.uid;
+        this.uid = res.uid;
         console.log(this.uid);
         this.showAlert();
 
@@ -110,7 +109,6 @@ export class Form
       console.error(e);
     }
   }
-
 
 
   //check all user inputs are legal
