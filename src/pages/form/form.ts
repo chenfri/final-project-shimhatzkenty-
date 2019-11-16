@@ -56,52 +56,20 @@ export class Form
 
   }
 
- 
-  showAlertSuccess()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'בוצע',
-      subTitle: '!הפרטים נשמרו בהצלחה',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  showAlertError()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: '!חובה למלא את כל השדות',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  
-  showAlert()
-  {
-    let alert = this.alertCtrl.create({
-      title: '!הפרטים נשמרו בהצלחה',
-      subTitle: 'שים לב, יש למלא את כל הטופס' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
 
  async registry()
   {
+    if(this.user.email == "" ||this.user.password == "")
+       this.showAlertError2();
     try{
       const res = await firebase.auth().createUserWithEmailAndPassword
       (this.user.email, this.user.password);
       if(res)
         this.showAlert();
-      else
-        this.showAlertError();
     }
     catch(e)
     {
+      this.showAlertError3();
       console.error(e);
     }
   }
@@ -196,5 +164,60 @@ export class Form
     })
   }
 
+
+ //---------- diffrent methods for errors ---------------
+  showAlertSuccess()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: '!הפרטים נשמרו בהצלחה',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showAlertError()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: '!חובה למלא את כל השדות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  
+  showAlertError2()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: '!חובה למלא כתובת דוא"ל וסיסמא',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showAlertError3()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמא באורך של 6 תווים לפחות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showAlert()
+  {
+    let alert = this.alertCtrl.create({
+      title: '!הפרטים נשמרו בהצלחה',
+      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
 }
