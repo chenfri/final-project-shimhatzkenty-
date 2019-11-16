@@ -8,5 +8,6 @@ export interface User
     onBehalf: boolean,
     nameAssistant: string,
     relationship: string,
+    loggedIn: boolean
 }
 

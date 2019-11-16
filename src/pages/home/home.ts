@@ -4,6 +4,8 @@ import { Form } from '../form/form';
 import { contactPage } from '../contactPage/contactPage'
 import {RegisterPage} from '../register/register'
 import {LoginPage} from '../login/login'
+import { User } from '../../module/User'
+import firebase, { firestore } from 'firebase';
 
 
 
@@ -11,9 +13,16 @@ import {LoginPage} from '../login/login'
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage 
+{
+  user = {} as User;
 
   constructor(public navCtrl: NavController) {
+    if(firebase.auth().currentUser != null)
+      this.user.loggedIn = true;
+    else  
+     this.user.loggedIn = false;
+
   }
 
   form() {
@@ -23,14 +32,12 @@ export class HomePage {
     this.navCtrl.push(contactPage);
   }
 
-  registry()
-  {
+  registry(){
     this.navCtrl.push(RegisterPage);
   }
 
 
-  login()
-  {
+  login(){
     this.navCtrl.push(LoginPage);
   }
   

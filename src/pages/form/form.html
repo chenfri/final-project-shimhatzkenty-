@@ -12,7 +12,13 @@
                 <ion-input type="password" name="password" [(ngModel)] = "user.password"></ion-input>
             </ion-item>
 
-            <button ion-button type="submit" (click)= "registry()">יצירת חשבון</button>
+            <ion-item *ngIf = "!user.loggedIn">
+                <button ion-button type="submit" (click)= "registry()">יצירת חשבון</button>
+            </ion-item>
+
+            <ion-item *ngIf = "user.loggedIn">
+                <button ion-button type="submit" (click)= "  update_email_or_password()">עדכון פרטים</button>
+            </ion-item>
 
             <ion-item>
                     <ion-label floating>שם מלא</ion-label>

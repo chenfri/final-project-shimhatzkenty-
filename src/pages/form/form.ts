@@ -11,13 +11,11 @@ import firebase, { firestore } from 'firebase';
 })
 
 export class Form
- {
+{
     user = {} as User;
     public hobbies: any[] 
-    uid: ""
     
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
-   ) 
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController) 
   {
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
@@ -49,13 +47,16 @@ export class Form
     ];
 
     if(firebase.auth().currentUser != null)
+    {
+      this.user.loggedIn = true;
       this.get_data_from_firebase();
+    }
+    else  
+     this.user.loggedIn = false;
 
   }
 
  
-
-  
   showAlertSuccess()
   {
     let alert = this.alertCtrl.create({
@@ -95,16 +96,9 @@ export class Form
       const res = await firebase.auth().createUserWithEmailAndPassword
       (this.user.email, this.user.password);
       if(res)
-      {
-       // console.log(firebase.auth().currentUser.uid);
-        this.uid = res.uid;
-        console.log(this.uid);
         this.showAlert();
-
-      }
       else
         this.showAlertError();
-      
     }
     catch(e)
     {
@@ -113,6 +107,14 @@ export class Form
   }
 
 
+  update_email_or_password()
+  {
+    firebase.auth().currentUser.updatePassword(this.user.password);
+    firebase.auth().currentUser.updateEmail(this.user.email);
+    this.navCtrl.push(HomePage);
+  }
+
+  
   //check all user inputs are legal
   check_field_value()
   {
@@ -178,7 +180,6 @@ export class Form
 
   get_data_from_firebase()
   {
-
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
     .then(result =>{
