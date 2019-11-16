@@ -36,14 +36,13 @@ export class HomePage
     this.navCtrl.push(RegisterPage);
   }
 
-
   login(){
     this.navCtrl.push(LoginPage);
   }
   
-  // logout() {
-  //   this.fAuth.auth.signOut();
-  //   this.navCtrl.push(LoginPage);
-  // }
+   logout() {
+    firebase.auth().signOut;
+    this.navCtrl.push(HomePage);
+ }
 
 }
