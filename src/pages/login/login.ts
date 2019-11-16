@@ -22,7 +22,7 @@ export class LoginPage {
     if(res){
       console.log("success")
       console.log(firebase.auth().currentUser.uid);
-       this.navCtrl.push(Form);
+       this.navCtrl.push(HomePage);
     }
   }
   catch(e)

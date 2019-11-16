@@ -180,7 +180,7 @@ export class Form
   {
 
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).get()
+    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
     .then(result =>{
       if (!result.exists) return
         this.user.fullName = result.data().fullName;
