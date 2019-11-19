@@ -46,13 +46,14 @@ export class Form
       }
     ];
 
-    if(firebase.auth().currentUser != null)
-    {
-      this.user.loggedIn = true;
-      this.get_data_from_firebase();
-    }
-    else  
-     this.user.loggedIn = false;
+    firebase.auth().onAuthStateChanged((useri) => {
+      if(useri){
+        console.log("logged")
+        this.get_data_from_firebase();
+        console.log(useri.uid)
+      }else
+        console.log("not logged")
+    });
 
   }
 

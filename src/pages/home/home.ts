@@ -17,13 +17,18 @@ export class HomePage
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController) {
-    if(firebase.auth().currentUser != null)
-      this.user.loggedIn = true;
-    else  
-     this.user.loggedIn = false;
-
+  constructor(public navCtrl: NavController)
+  {
+    
+    firebase.auth().onAuthStateChanged((user) =>{
+      if(user)
+        this.user.loggedIn = true;
+      else
+        this.user.loggedIn = false;
+    });
   }
+
+
 
   form() {
     this.navCtrl.push(Form);
@@ -41,7 +46,7 @@ export class HomePage
   }
   
    logout() {
-    firebase.auth().signOut;
+    firebase.auth().signOut();
     this.navCtrl.push(HomePage);
  }
 

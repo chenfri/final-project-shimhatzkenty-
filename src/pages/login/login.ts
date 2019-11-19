@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { User } from '../../module/user';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
@@ -12,26 +12,50 @@ import { Form } from '../form/form';
 })
 export class LoginPage {
   user= {} as User;
-  constructor(public navCtrl: NavController, public navParams: NavParams, /*private ofauth: AngularFireAuth*/) {
+  constructor(public navCtrl: NavController, ,public alertCtrl: AlertController) {
   }
 
 
   signIn_function()
   {
-    const res = firebase.auth().signInWithEmailAndPassword(this.user.email , this.user.password);
-    if(res){
-      console.log("success")
-      console.log(firebase.auth().currentUser.uid);
-       this.navCtrl.push(HomePage);
+
+    if(this.user.email == "" ||this.user.password == "")
+      this.showAlertError2()
+    else{
+
+      firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(data=> {
+      console.log(this.user.email)
+      console.log(this.user.password)
+      console.log("login success")
+      this.navCtrl.push(HomePage);
+  
+      }).catch(error => {
+        this.showAlertError3();
+      console.error(error); 
+
+      })
     }
   }
-  catch(e)
+
+  showAlertError2()
   {
-    if(typeof( this.user.email) === "undefined" || typeof( this.user.password) === "undefined")
-       alert("חובה להכניס כתובת דואל וסיסמא");
-    else //check this.
-       alert("הפרטים אינם נכונים");
-     console.error(e); 
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: '!חובה למלא כתובת דוא"ל וסיסמא',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
+
+  showAlertError3()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמא באורך של 6 תווים לפחות',
+      buttons: ['OK']
+    });
+    alert.present();
   }
   
   }
