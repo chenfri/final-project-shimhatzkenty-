@@ -23,25 +23,25 @@ export class Form
 
     this.hobbies = [
       {
-          'species' : 'music',
+          'species' : 'מוסיקה',
           'currentValue' : false
       },{
-          'species' : 'chess',
+          'species' : 'שחמט',
           'currentValue' : false
       },{
-          'species' : 'backgammon',
+          'species' : 'ששבש',
           'currentValue' : false
       },{
-          'species' : 'checkers',
+          'species' : 'דמקה',
           'currentValue' : false
       },{
-          'species' : 'talk',
+          'species' : 'דיבור',
           'currentValue' : false
       },{
-          'species' : 'dance',
+          'species' : 'ריקוד',
           'currentValue' : false
       },{
-        'species' : 'magic',
+        'species' : 'קסמים',
         'currentValue' : false
       }
     ];

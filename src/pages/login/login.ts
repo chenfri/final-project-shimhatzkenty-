@@ -12,7 +12,7 @@ import { Form } from '../form/form';
 })
 export class LoginPage {
   user= {} as User;
-  constructor(public navCtrl: NavController, ,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController) {
   }
 
 
