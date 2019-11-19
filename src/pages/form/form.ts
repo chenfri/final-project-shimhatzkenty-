@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
 
+
 @Component({
   selector: 'page-form',
   templateUrl: 'form.html' ,
@@ -15,7 +16,7 @@ export class Form
     user = {} as User;
     public hobbies: any[] 
     
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController) 
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController, public geolocation:Geolocation) 
   {
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
