@@ -30,8 +30,13 @@ export class HomePage
 
 
 
-  form() {
+  elderly_form() {
     this.navCtrl.push(Form);
+    this.user.elderly = true;
+  }
+  volunteer_form() {
+    this.navCtrl.push(Form);
+    this.user.elderly = false;
   }
   contactPage() {
     this.navCtrl.push(contactPage);

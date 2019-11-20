@@ -5,9 +5,10 @@ export interface User
     fullName: string,
     phone: string,
     address: string,
+    loggedIn: boolean,
     onBehalf: boolean,
     nameAssistant: string,
     relationship: string,
-    loggedIn: boolean
+    elderly: boolean
 }
 

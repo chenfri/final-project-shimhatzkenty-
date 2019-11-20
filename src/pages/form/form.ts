@@ -16,8 +16,9 @@ export class Form
     user = {} as User;
     public hobbies: any[] 
     
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController, public geolocation:Geolocation) 
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController) 
   {
+    console.log(this.user.elderly);
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;

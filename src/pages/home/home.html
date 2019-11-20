@@ -10,9 +10,9 @@
               <button ion-button (click)="logout()">התנתק</button>
               <button ion-button  (click)="contactPage()">צור קשר</button>
               <button ion-button (click)="logout()">גלריה</button>
-              <button *ngIf = "user.loggedIn" ion-button (click)="form()">עדכון פרטים אישיים</button>
-              <button *ngIf = "!user.loggedIn" ion-button (click)="form()">הרשם כמתנדב</button>
-              <button *ngIf = "!user.loggedIn" ion-button (click)="form()">רישום לאזרח הותיק</button>
+              <button *ngIf = "user.loggedIn" ion-button (click)="elderly_form()">עדכון פרטים אישיים</button>
+              <button *ngIf = "!user.loggedIn" ion-button (click)="volunteer_form()">הרשם כמתנדב</button>
+              <button *ngIf = "!user.loggedIn" ion-button (click)="elderly_form()">רישום לאזרח הותיק</button>
               <button ion-button  (click)="login()">כניסת משתמש רשום</button>
           </ion-navbar>
 
