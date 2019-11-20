@@ -40,9 +40,9 @@
                 <ion-label floating>:מרחק נסיעה מקסימלי בק"מ</ion-label>
                 <ion-range min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range"></ion-range>
             </ion-item>
-            <h5>המרחק שנבחר: {{user.range}}</h5>
 
-            
+            <h5 *ngIf= "!user.elderly">המרחק שנבחר: {{user.range}}</h5>
+
             <ion-item *ngIf="user.elderly">
                 <ion-label>אני ממלא את הטופס בשם מישהו אחר</ion-label>
                 <ion-checkbox [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
