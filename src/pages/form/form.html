@@ -36,18 +36,19 @@
                 <ion-textarea text-right type="number" name="phone" [(ngModel)] = "user.phone"></ion-textarea>
             </ion-item>
 
-            <ion-item>
-                <ion-label>אני ממלא את הטופס בשם מישהו אחר</ion-label>
-                <ion-checkbox [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
-            </ion-item> 
-            <ion-item *ngIf="user.onBehalf" >
-                <ion-label floating >נא מלא את שמך המלא</ion-label>
-                <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
-            </ion-item> 
-            <ion-item *ngIf="user.onBehalf">
-                <ion-label floating>קרבה לקשיש</ion-label>
-                <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
-            </ion-item>    
+                <ion-item *ngIf="user.elderly">
+                    <ion-label>אני ממלא את הטופס בשם מישהו אחר</ion-label>
+                    <ion-checkbox [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
+                </ion-item> 
+                <ion-item *ngIf="user.onBehalf">
+                    <ion-label floating >נא מלא את שמך המלא</ion-label>
+                    <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
+                </ion-item> 
+                <ion-item *ngIf="user.onBehalf">
+                    <ion-label floating>קרבה לקשיש</ion-label>
+                    <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
+                </ion-item>  
+           
 
             <h4>:תחומי עיניין ותחביבים</h4>
                 <ion-item *ngFor="let hobbies of hobbies; let i = index">

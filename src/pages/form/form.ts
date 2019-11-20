@@ -22,7 +22,7 @@ export class Form
     console.log("if elderly:")
     this.user.elderly = this.params.get('elderly');
     console.log(this.user.elderly)
-    
+
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;
@@ -52,6 +52,8 @@ export class Form
       }
     ];
 
+  //  if(firebase.auth().currentUser)
+      //console.log(firebase.auth().currentUser)
     firebase.auth().onAuthStateChanged((useri) => {
       if(useri){
         console.log("logged")
@@ -106,7 +108,12 @@ export class Form
     || typeof( this.user.address) === "undefined")
       this.showAlertError();
       else
-         this.add_data_to_firebase();
+      {
+        if(this.user.elderly)
+          this.add_data_to_firebase_Elderly();
+        else
+          this.add_data_to_firebase_Volunteer();
+      }
   }
 
 
@@ -139,8 +146,27 @@ export class Form
     }
   }
 
+
+  add_data_to_firebase_Volunteer()
+  {
+    const db = firebase.firestore();
+    db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
+      {
+        fullName: this.user.fullName,
+        address: this.user.address,
+        phone: this.user.phone,
+        email: this.user.email,
+        hobbies: this.hobbies,
+      })
+      .then(() => {
+        this.showAlertSuccess();
+        this.navCtrl.push(HomePage);
+      }).catch((error)=> {
+        console.log })
+  }
   
-  add_data_to_firebase()
+
+  add_data_to_firebase_Elderly()
   {
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
@@ -165,19 +191,34 @@ export class Form
   get_data_from_firebase()
   {
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
-    .then(result =>{
-      if (!result.exists) return
-        this.user.fullName = result.data().fullName;
-        this.user.address = result.data().address;
-        this.user.phone = result.data().phone
-        this.user.email = result.data().email
-        this.user.onBehalf = result.data().behalf
-        this.user.nameAssistant = result.data().nameAssistant
-        this.user.relationship = result.data().relationship
-        this.hobbies = result.data().hobbies
-        
-    })
+
+    if(this.user.elderly)
+    {
+      db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
+      .then(result =>{
+        if (!result.exists) return
+          this.user.fullName = result.data().fullName;
+          this.user.address = result.data().address;
+          this.user.phone = result.data().phone
+          this.user.email = result.data().email
+          this.user.onBehalf = result.data().behalf
+          this.user.nameAssistant = result.data().nameAssistant
+          this.user.relationship = result.data().relationship
+          this.hobbies = result.data().hobbies    
+       })
+    }
+    else
+    {
+      db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
+      .then(result =>{
+        if (!result.exists) return
+          this.user.fullName = result.data().fullName;
+          this.user.address = result.data().address;
+          this.user.phone = result.data().phone
+          this.user.email = result.data().email
+          this.hobbies = result.data().hobbies
+       })
+    }
   }
 
 

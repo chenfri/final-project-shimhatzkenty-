@@ -6,49 +6,63 @@ import {RegisterPage} from '../register/register'
 import {LoginPage} from '../login/login'
 import { User } from '../../module/User'
 import firebase, { firestore } from 'firebase';
-import {  ViewController , NavParams, ModalController, ModalOptions, Modal } from 'ionic-angular';
-
 
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage 
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController,
-    public params: NavParams,  public viewCtrl : ViewController)
+  constructor(public navCtrl: NavController)
   {
-    
+  
     firebase.auth().onAuthStateChanged((user) =>{
       if(user)
+      {
         this.user.loggedIn = true;
+        this.get_data_from_firebase();
+      }
       else
         this.user.loggedIn = false;
     });
-    //this.closeModal();
   }
 
-  public closeModal(){
+
+  get_data_from_firebase()
+  {
+    const db = firebase.firestore();
+
+      db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
+      .then(result =>{
+        if (result.exists)
+          this.user.elderly = true;
+        else
+        {
+          db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
+          .then(result =>{
+            if (result.exists)
+              this.user.elderly = false;
+            else return;
+        }
+       ) }
+    })
+  }
   
-    let data = { 'name':'myName','id':'456123' };
-    this.viewCtrl.dismiss(data);
-    }
 
   elderly_form() {
-    this.user.elderly = true;
-    //this.closeModal();
-    
+    this.user.elderly = true;   
     this.navCtrl.push(Form, { 'elderly':this.user.elderly});
-  
-  //  this.user.elderly = true;
   }
+
   volunteer_form() {
-    this.navCtrl.push(Form);
     this.user.elderly = false;
+    this.navCtrl.push(Form, { 'elderly':this.user.elderly});
   }
+
   contactPage() {
     this.navCtrl.push(contactPage);
   }
