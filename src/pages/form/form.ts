@@ -4,7 +4,7 @@ import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
-
+import { IonicPage, NavParams, ModalController, ModalOptions, Modal } from 'ionic-angular';
 
 @Component({
   selector: 'page-form',
@@ -16,9 +16,13 @@ export class Form
     user = {} as User;
     public hobbies: any[] 
     
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController) 
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
+    public modalCtrl: ModalController,public params: NavParams) 
   {
-    console.log(this.user.elderly);
+    console.log("if elderly:")
+    this.user.elderly = this.params.get('elderly');
+    console.log(this.user.elderly)
+    
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;
@@ -52,13 +56,22 @@ export class Form
       if(useri){
         console.log("logged")
         this.get_data_from_firebase();
-        console.log(useri.uid)
+      //  console.log(useri.uid)
       }else
         console.log("not logged")
     });
 
+    //this.openModalNew();
+
   }
 
+  openModalNew() {
+    let MyNewModal = this.modalCtrl.create(HomePage);
+    MyNewModal.onDidDismiss(data => {
+    console.log(data);  // getting as null
+    });
+  //  MyNewModal.present();
+    }
 
  async registry()
   {
