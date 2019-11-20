@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import {RegisterPage} from '../pages/register/register'
 import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
+import {adminPage} from '../pages/Admin/adminPage';
 
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
@@ -34,6 +35,7 @@ export const firebaseConfig = {
     RegisterPage,
     LoginPage,
     contactPage,
+    adminPage
 
   ],
   imports: [
@@ -48,7 +50,8 @@ export const firebaseConfig = {
     Form,
     contactPage,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    adminPage
   ],
   providers: [
     StatusBar,

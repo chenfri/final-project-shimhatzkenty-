@@ -6,7 +6,8 @@ import {RegisterPage} from '../register/register'
 import {LoginPage} from '../login/login'
 import { User } from '../../module/User'
 import firebase, { firestore } from 'firebase';
-
+import { IonicPage, AlertController } from 'ionic-angular';
+import {adminPage} from '../Admin/adminPage'
 
 @Component({
   selector: 'page-home',
@@ -17,7 +18,7 @@ export class HomePage
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public params: NavParams)
+  constructor(public navCtrl: NavController, public params: NavParams,public alertCtrl: AlertController)
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -32,21 +33,42 @@ export class HomePage
   {
     const db = firebase.firestore();
 
-      db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
+    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
       .then(result =>{
-        if (result.exists)
+        if (result.exists){
           this.user.elderly = true;
+        }
         else
         {
           db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
           .then(result =>{
-            if (result.exists)
-              this.user.elderly = false;
-            else return;
+            if (result.exists){
+              this.user.volunteer = true;
+          
+
+          }
+            else{
+              db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
+              .then(result =>{
+                if (result.exists){
+                  this.user.Admin = true;  
+                  this.navCtrl.push(adminPage);
+
+
+                }
+                else return;   })
+
+
+
+            }
         }
        ) }
+
+
     })
+   
   }
+
   
 
   elderly_form() {
