@@ -28,6 +28,7 @@ export class Form
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;
+    this.user.range = 0;
 
     this.hobbies = [
       {
@@ -89,8 +90,10 @@ export class Form
   //check all user inputs are legal
   check_field_value()
   {
-    if(typeof( this.user.fullName) === "undefined"  ||typeof( this.user.phone) === "undefined" 
-    || typeof( this.user.address) === "undefined")
+    console.log("range:")
+    console.log(this.user.range);
+    if(typeof(this.user.fullName) === "undefined"  ||typeof(this.user.phone) === "undefined" 
+    || typeof(this.user.address) === "undefined")
       this.showAlertError();
       else
       {
@@ -142,6 +145,7 @@ export class Form
         phone: this.user.phone,
         email: this.user.email,
         hobbies: this.hobbies,
+        range: this.user.range
       })
       .then(() => {
         this.showAlertSuccess();
@@ -189,7 +193,7 @@ export class Form
           this.user.onBehalf = result.data().behalf
           this.user.nameAssistant = result.data().nameAssistant
           this.user.relationship = result.data().relationship
-          this.hobbies = result.data().hobbies    
+          this.hobbies = result.data().hobbies
        })
     }
     else
@@ -202,6 +206,7 @@ export class Form
           this.user.phone = result.data().phone
           this.user.email = result.data().email
           this.hobbies = result.data().hobbies
+          this.user.range = result.data().range
        })
     }
   }

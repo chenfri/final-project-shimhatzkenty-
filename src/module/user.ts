@@ -9,6 +9,7 @@ export interface User
     onBehalf: boolean,
     nameAssistant: string,
     relationship: string,
+    range: number,
     elderly: boolean
 }
 
