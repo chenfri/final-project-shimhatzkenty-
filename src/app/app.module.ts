@@ -11,11 +11,7 @@ import {RegisterPage} from '../pages/register/register'
 import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 
-//import { AngularFireAuth } from 'angularfire2/auth'
-
 import * as firebase from 'firebase';
-//import { Firebase } from '@ionic-native/firebase';
-import {AngularFireModule} from 'angularfire2'
 import {AngularFireAuthModule} from 'angularfire2/auth'
 
 export const firebaseConfig = {
@@ -43,8 +39,7 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireAuthModule,
-  //  AngularFireAuth
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
