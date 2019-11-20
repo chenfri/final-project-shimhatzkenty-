@@ -36,18 +36,25 @@
                 <ion-textarea text-right type="number" name="phone" [(ngModel)] = "user.phone"></ion-textarea>
             </ion-item>
 
-                <ion-item *ngIf="user.elderly">
-                    <ion-label>אני ממלא את הטופס בשם מישהו אחר</ion-label>
-                    <ion-checkbox [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
-                </ion-item> 
-                <ion-item *ngIf="user.onBehalf">
-                    <ion-label floating >נא מלא את שמך המלא</ion-label>
-                    <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
-                </ion-item> 
-                <ion-item *ngIf="user.onBehalf">
-                    <ion-label floating>קרבה לקשיש</ion-label>
-                    <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
-                </ion-item>  
+            <ion-item *ngIf= "!user.elderly">
+                <ion-label floating>:מרחק נסיעה מקסימלי בק"מ</ion-label>
+                <ion-range min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range"></ion-range>
+            </ion-item>
+
+            <h5 *ngIf= "!user.elderly">המרחק שנבחר: {{user.range}}</h5>
+
+            <ion-item *ngIf="user.elderly">
+                <ion-label>אני ממלא את הטופס בשם מישהו אחר</ion-label>
+                <ion-checkbox [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
+            </ion-item> 
+            <ion-item *ngIf="user.onBehalf">
+                <ion-label floating >נא מלא את שמך המלא</ion-label>
+                <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
+            </ion-item> 
+            <ion-item *ngIf="user.onBehalf">
+                <ion-label floating>קרבה לקשיש</ion-label>
+                <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
+            </ion-item>  
            
 
             <h4>:תחומי עיניין ותחביבים</h4>
