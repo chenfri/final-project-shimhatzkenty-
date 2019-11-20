@@ -13,6 +13,7 @@ import { Form } from '../form/form';
 export class LoginPage {
   user= {} as User;
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController) {
+    this.user.loggedIn = false;
   }
 
 
@@ -21,14 +22,15 @@ export class LoginPage {
 
     if(this.user.email == "" ||this.user.password == "")
       this.showAlertError2()
-    else{
-
+    else
+    {
       firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(data=> {
       console.log(this.user.email)
       console.log(this.user.password)
       console.log("login success")
-      this.navCtrl.push(HomePage);
-  
+      this.user.loggedIn = true;
+      this.navCtrl.push(HomePage, {'login': this.user.loggedIn});
+      
       }).catch(error => {
         this.showAlertError3();
       console.error(error); 

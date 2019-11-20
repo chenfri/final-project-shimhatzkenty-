@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { AlertController ,NavController} from 'ionic-angular';
+import { AlertController ,NavController,NavParams} from 'ionic-angular';
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
-import { IonicPage, NavParams, ModalController, ModalOptions, Modal } from 'ionic-angular';
 
 @Component({
   selector: 'page-form',
@@ -16,12 +15,15 @@ export class Form
     user = {} as User;
     public hobbies: any[] 
     
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
-    public modalCtrl: ModalController,public params: NavParams) 
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController, public params: NavParams) 
   {
     console.log("if elderly:")
     this.user.elderly = this.params.get('elderly');
     console.log(this.user.elderly)
+
+    console.log("if logged in")
+    this.user.loggedIn = this.params.get('login');
+    console.log(this.user.loggedIn)
 
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
@@ -52,28 +54,10 @@ export class Form
       }
     ];
 
-  //  if(firebase.auth().currentUser)
-      //console.log(firebase.auth().currentUser)
-    firebase.auth().onAuthStateChanged((useri) => {
-      if(useri){
-        console.log("logged")
-        this.get_data_from_firebase();
-      //  console.log(useri.uid)
-      }else
-        console.log("not logged")
-    });
-
-    //this.openModalNew();
-
+    if(this.user.loggedIn)
+      this.get_data_from_firebase();
   }
 
-  openModalNew() {
-    let MyNewModal = this.modalCtrl.create(HomePage);
-    MyNewModal.onDidDismiss(data => {
-    console.log(data);  // getting as null
-    });
-  //  MyNewModal.present();
-    }
 
  async registry()
   {
@@ -93,6 +77,7 @@ export class Form
   }
 
 
+  //if the user want to change his user to password 
   update_email_or_password()
   {
     firebase.auth().currentUser.updatePassword(this.user.password);

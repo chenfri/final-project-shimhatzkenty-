@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController ,NavParams} from 'ionic-angular';
 import { Form } from '../form/form';
 import { contactPage } from '../contactPage/contactPage'
 import {RegisterPage} from '../register/register'
@@ -17,18 +17,14 @@ export class HomePage
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController)
+  constructor(public navCtrl: NavController, public params: NavParams)
   {
-  
-    firebase.auth().onAuthStateChanged((user) =>{
-      if(user)
-      {
-        this.user.loggedIn = true;
-        this.get_data_from_firebase();
-      }
-      else
-        this.user.loggedIn = false;
-    });
+    console.log("if login:")
+    this.user.loggedIn = this.params.get('login');
+    console.log(this.user.loggedIn)
+
+    if(this.user.loggedIn)
+      this.get_data_from_firebase();
   }
 
 
@@ -55,12 +51,12 @@ export class HomePage
 
   elderly_form() {
     this.user.elderly = true;   
-    this.navCtrl.push(Form, { 'elderly':this.user.elderly});
+    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn});
   }
 
   volunteer_form() {
     this.user.elderly = false;
-    this.navCtrl.push(Form, { 'elderly':this.user.elderly});
+    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn});
   }
 
   contactPage() {
