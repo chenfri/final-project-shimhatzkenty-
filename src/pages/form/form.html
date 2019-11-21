@@ -58,11 +58,29 @@
            
 
             <h4>:תחומי עיניין ותחביבים</h4>
-                <ion-item *ngFor="let hobbies of hobbies; let i = index">
-                    <ion-label> {{ hobbies.species }} </ion-label>
-                    <ion-checkbox [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
-                </ion-item>
+            <ion-item *ngFor="let hobbies of hobbies; let i = index">
+                <ion-label> {{ hobbies.species }} </ion-label>
+                <ion-checkbox [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
+            </ion-item>
 
+            <br>
+            <h5>:זמנים נוחים למפגש</h5>
+            <ion-list radio-group>
+                <ion-item *ngFor="let time of time; let i = index">
+                        <ion-label> {{ time.species }} </ion-label>
+                        <ion-radio [checked]="time.currentValue" (click)="radioClicked(time)"></ion-radio>
+                </ion-item>
+            </ion-list>
+            <br>
+
+            <h5 *ngIf="!user.elderly">:תדירות מפגשים</h5>
+            <ion-list radio-group *ngIf="!user.elderly">
+                <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
+                        <ion-label> {{ numOfMeeting.species }} </ion-label>
+                        <ion-radio [checked]="numOfMeeting.currentValue" (click)="radioClicked(numOfMeeting)"></ion-radio>
+                </ion-item>
+            </ion-list>
+            
             <br>
             <button ion-button type="submit" (click)= "check_field_value()">שמירה</button>
 

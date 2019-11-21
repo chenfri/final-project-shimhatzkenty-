@@ -14,6 +14,8 @@ export class Form
 {
     user = {} as User;
     public hobbies: any[] 
+    public time: any[]
+    public numOfMeeting: any[]
     
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController, public params: NavParams) 
   {
@@ -54,6 +56,35 @@ export class Form
         'currentValue' : false
       }
     ];
+
+
+    this.time = [
+      {
+          'species' : 'בוקר',
+          'currentValue' : false
+      },{
+          'species' : 'אחה"צ',
+          'currentValue' : false
+      },{
+          'species' : 'ערב',
+          'currentValue' : false
+      },{
+          'species' : 'לא משנה',
+          'currentValue' : false
+      }];
+
+
+      this.numOfMeeting = [
+        {
+          'species' : 'פעם בשבוע /שבועיים',
+          'currentValue' : false
+      },{
+          'species' : 'פעם בחודש',
+          'currentValue' : false
+      },{
+          'species' : 'באופן אקראי',
+          'currentValue' : false
+      }];
 
     if(this.user.loggedIn)
       this.get_data_from_firebase();
@@ -135,6 +166,27 @@ export class Form
   }
 
 
+  //check which radio was clicked and update the array
+  radioClicked(item: any, $event)
+  {
+    console.log('radioClicked for ' + item.species);
+    for(let i = 0 ; i< this.time.length ; i++)
+    {
+      if(this.time[i].currentValue) //if this radio war pressed
+      this.time[i] = {
+          'species' : this.time[i].species,
+         'currentValue' : !this.time[i].currentValue
+        }
+
+      if(this.time[i] === item)
+        this.time[i] ={
+          'species' : item.species,
+          'currentValue' : !item.currentValue
+        };
+    }
+  }
+
+
   add_data_to_firebase_Volunteer()
   {
     const db = firebase.firestore();
@@ -145,7 +197,8 @@ export class Form
         phone: this.user.phone,
         email: this.user.email,
         hobbies: this.hobbies,
-        range: this.user.range
+        range: this.user.range,
+        meeting_time: this.time
       })
       .then(() => {
         this.showAlertSuccess();
@@ -168,6 +221,7 @@ export class Form
         nameAssistant: this.user.nameAssistant,
         relationship: this.user.relationship,
         hobbies: this.hobbies,
+        meeting_time: this.time
       })
       .then(() => {
         this.showAlertSuccess();
@@ -193,7 +247,8 @@ export class Form
           this.user.onBehalf = result.data().behalf
           this.user.nameAssistant = result.data().nameAssistant
           this.user.relationship = result.data().relationship
-          this.hobbies = result.data().hobbies
+          this.hobbies = result.data().hobbies,
+          this.time = result.data().meeting_time
        })
     }
     else
@@ -206,7 +261,8 @@ export class Form
           this.user.phone = result.data().phone
           this.user.email = result.data().email
           this.hobbies = result.data().hobbies
-          this.user.range = result.data().range
+          this.user.range = result.data().range,
+          this.time = result.data().meeting_time
        })
     }
   }
