@@ -68,7 +68,7 @@
             <ion-list radio-group>
                 <ion-item *ngFor="let time of time; let i = index">
                         <ion-label> {{ time.species }} </ion-label>
-                        <ion-radio [checked]="time.currentValue" (click)="radioClicked(time)"></ion-radio>
+                        <ion-radio [checked]="time.currentValue" (click)="radioClicked1(time)"></ion-radio>
                 </ion-item>
             </ion-list>
             <br>
@@ -77,7 +77,7 @@
             <ion-list radio-group *ngIf="!user.elderly">
                 <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
                         <ion-label> {{ numOfMeeting.species }} </ion-label>
-                        <ion-radio [checked]="numOfMeeting.currentValue" (click)="radioClicked(numOfMeeting)"></ion-radio>
+                        <ion-radio [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
                 </ion-item>
             </ion-list>
             

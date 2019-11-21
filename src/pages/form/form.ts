@@ -76,15 +76,16 @@ export class Form
 
       this.numOfMeeting = [
         {
-          'species' : 'פעם בשבוע /שבועיים',
-          'currentValue' : false
-      },{
-          'species' : 'פעם בחודש',
-          'currentValue' : false
-      },{
-          'species' : 'באופן אקראי',
-          'currentValue' : false
-      }];
+            'species' : 'פעם בשבוע/ שבועיים',
+            'currentValue' : false
+        },{
+            'species' : 'פעם בחודש',
+            'currentValue' : false
+        },{
+            'species' : 'באופן אקראי',
+            'currentValue' : false
+        }];
+
 
     if(this.user.loggedIn)
       this.get_data_from_firebase();
@@ -121,18 +122,39 @@ export class Form
   //check all user inputs are legal
   check_field_value()
   {
+    let flag = 0;
     console.log("range:")
     console.log(this.user.range);
+
     if(typeof(this.user.fullName) === "undefined"  ||typeof(this.user.phone) === "undefined" 
     || typeof(this.user.address) === "undefined")
-      this.showAlertError();
-      else
+     { this.showAlertError();
+      flag=1;}
+
+    else if(this.check_array1() == 1){
+      this.showAlertError4();
+      flag=1;}
+
+    else if(this.check_array2() == 1)
+    {
+      this.showAlertError5();
+      flag=1;}
+
+    else if(!this.user.elderly)
+    {
+      if(this.check_array3() ==1)
       {
-        if(this.user.elderly)
-          this.add_data_to_firebase_Elderly();
-        else
-          this.add_data_to_firebase_Volunteer();
-      }
+        this.showAlertError6();
+        flag=1;}
+    }
+
+    if(flag == 0)
+    {
+      if(this.user.elderly)
+        this.add_data_to_firebase_Elderly();
+      else
+        this.add_data_to_firebase_Volunteer();
+    }
   }
 
 
@@ -149,43 +171,7 @@ export class Form
     }
   }
 
-
-  //check which checkbox was clicked and update the array
-  CheckboxClicked(item: any, $event)
-  {
-    //console.log('CheckboxClicked for ' + item.species);
-    for(let i = 0 ; i< this.hobbies.length ; i++)
-    {
-      
-      if(this.hobbies[i] === item)
-        this.hobbies[i] ={
-          'species' : item.species,
-          'currentValue' : !item.currentValue
-        };
-    }
-  }
-
-
-  //check which radio was clicked and update the array
-  radioClicked(item: any, $event)
-  {
-    console.log('radioClicked for ' + item.species);
-    for(let i = 0 ; i< this.time.length ; i++)
-    {
-      if(this.time[i].currentValue) //if this radio war pressed
-      this.time[i] = {
-          'species' : this.time[i].species,
-         'currentValue' : !this.time[i].currentValue
-        }
-
-      if(this.time[i] === item)
-        this.time[i] ={
-          'species' : item.species,
-          'currentValue' : !item.currentValue
-        };
-    }
-  }
-
+// ------------------------------ firebase functions ---------------------------------
 
   add_data_to_firebase_Volunteer()
   {
@@ -198,7 +184,8 @@ export class Form
         email: this.user.email,
         hobbies: this.hobbies,
         range: this.user.range,
-        meeting_time: this.time
+        meeting_time: this.time,
+        num_of_meetings: this.numOfMeeting
       })
       .then(() => {
         this.showAlertSuccess();
@@ -263,8 +250,100 @@ export class Form
           this.hobbies = result.data().hobbies
           this.user.range = result.data().range,
           this.time = result.data().meeting_time
+          this.numOfMeeting = result.data().num_of_meetings
        })
     }
+  }
+
+  //---------------------- checkbox and radio functions ------------------------
+
+    //check which checkbox was clicked and update the array
+    CheckboxClicked(item: any, $event)
+    {
+      //console.log('CheckboxClicked for ' + item.species);
+      for(let i = 0 ; i< this.hobbies.length ; i++)
+      {
+        
+        if(this.hobbies[i] === item)
+          this.hobbies[i] ={
+            'species' : item.species,
+            'currentValue' : !item.currentValue
+          };
+      }
+    }
+  
+  
+    //check which radio was clicked and update the array
+    radioClicked1(item: any, $event)
+    {
+      console.log('radioClicked for ' + item.species);
+      for(let i = 0 ; i< this.time.length ; i++)
+      {
+        if(this.time[i].currentValue) //if this radio was pressed
+        this.time[i] = {
+            'species' : this.time[i].species,
+           'currentValue' : !this.time[i].currentValue
+          }
+  
+        if(this.time[i] === item)
+          this.time[i] ={
+            'species' : item.species,
+            'currentValue' : !item.currentValue
+          };
+      }
+    }
+  
+     //check which radio was clicked and update the array
+     radioClicked2(item: any, $event)
+     {
+       console.log('radioClicked for ' + item.species);
+       for(let i = 0 ; i< this.numOfMeeting.length ; i++)
+       {
+         if(this.numOfMeeting[i].currentValue) //if this radio was pressed
+         this.numOfMeeting[i] = {
+             'species' : this.numOfMeeting[i].species,
+            'currentValue' : !this.numOfMeeting[i].currentValue
+           }
+   
+         if(this.numOfMeeting[i] === item)
+           this.numOfMeeting[i] ={
+             'species' : item.species,
+             'currentValue' : !item.currentValue
+           };
+       }
+     }
+
+
+  //-------- methods that check if the array are have 'ture' value --------
+
+  check_array1()
+  {
+    for(let i = 0 ; i< this.hobbies.length ; i++)
+    {
+      if(this.hobbies[i].currentValue)
+        return 0;
+    }
+    return 1;
+  }
+
+  check_array2()
+  {
+    for(let i = 0 ; i< this.time.length ; i++)
+    {
+      if(this.time[i].currentValue) //if this radio was pressed
+        return 0;
+    }
+    return 1;
+  }
+
+  check_array3()
+  {
+    for(let i = 0 ; i< this.numOfMeeting.length ; i++)
+    {
+      if(this.numOfMeeting[i].currentValue) //if this radio was pressed
+        return 0;
+    }
+    return 1;
   }
 
 
@@ -307,6 +386,39 @@ export class Form
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמא באורך של 6 תווים לפחות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showAlertError4()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור תחביב אחד לפחות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showAlertError5()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור זמן שמתאים למפגש',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showAlertError6()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle:'חובה לבחור תדירות מפגשים',
       buttons: ['OK']
     });
     alert.present();
