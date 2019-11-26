@@ -4,6 +4,7 @@ import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
+import { EmailValidator } from '@angular/forms';
 
 @Component({
   selector: 'page-form',
@@ -95,18 +96,26 @@ export class Form
  async registry()
   {
     if(this.user.email == "" ||this.user.password == "")
-       this.showAlertError2();
-    try{
-      const res = await firebase.auth().createUserWithEmailAndPassword
-      (this.user.email, this.user.password);
-      if(res)
-        this.showAlert();
-    }
-    catch(e)
+       this. error_emptyEmailOrPassword();
+
+    else
     {
-      this.showAlertError3();
-      console.error(e);
-    }
+
+      try{
+        const res = await firebase.auth().createUserWithEmailAndPassword
+        (this.user.email, this.user.password);
+        if(res)
+          this.showAlert();
+      }
+      catch(e)
+      {
+        console.error(e);
+        if(e.message == "The email address is already in use by another account.")
+          this.error_emailIsAllreadyExist();
+        else
+          this.error_illegalEmailOrPassword();
+      }
+  }
   }
 
 
@@ -115,6 +124,7 @@ export class Form
   {
     firebase.auth().currentUser.updatePassword(this.user.password);
     firebase.auth().currentUser.updateEmail(this.user.email);
+    this.showAlert_changeEmailAndPassword();
     this.navCtrl.push(HomePage);
   }
 
@@ -128,23 +138,23 @@ export class Form
 
     if(typeof(this.user.fullName) === "undefined"  ||typeof(this.user.phone) === "undefined" 
     || typeof(this.user.address) === "undefined")
-     { this.showAlertError();
+     { this. error_emptyFields();
       flag=1;}
 
     else if(this.check_array1() == 1){
-      this.showAlertError4();
+      this.error_hobbies();
       flag=1;}
 
     else if(this.check_array2() == 1)
     {
-      this.showAlertError5();
+      this.error_timeOfMeeting();
       flag=1;}
 
     else if(!this.user.elderly)
     {
       if(this.check_array3() ==1)
       {
-        this.showAlertError6();
+        this.error_numOfMeeting();
         flag=1;}
     }
 
@@ -358,8 +368,30 @@ export class Form
     alert.present();
   }
 
+  
+  showAlert_changeEmailAndPassword()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'כתובת הדוא"ל והסיסמה שונו בהצלחה',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
 
-  showAlertError()
+  showAlert()
+  {
+    let alert = this.alertCtrl.create({
+      title: '!הפרטים נשמרו בהצלחה',
+      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  error_emptyFields()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
@@ -370,7 +402,7 @@ export class Form
   }
 
   
-  showAlertError2()
+  error_emptyEmailOrPassword()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
@@ -381,7 +413,7 @@ export class Form
   }
 
 
-  showAlertError3()
+  error_illegalEmailOrPassword()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
@@ -392,7 +424,7 @@ export class Form
   }
 
 
-  showAlertError4()
+  error_hobbies()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
@@ -403,7 +435,7 @@ export class Form
   }
 
 
-  showAlertError5()
+  error_timeOfMeeting()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
@@ -414,7 +446,7 @@ export class Form
   }
 
 
-  showAlertError6()
+  error_numOfMeeting()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
@@ -425,11 +457,11 @@ export class Form
   }
 
 
-  showAlert()
+  error_emailIsAllreadyExist()
   {
     let alert = this.alertCtrl.create({
-      title: '!הפרטים נשמרו בהצלחה',
-      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      title: 'שגיאה',
+      subTitle:'כתובת הדוא"ל כבר קיימת המערכת',
       buttons: ['OK']
     });
     alert.present();
