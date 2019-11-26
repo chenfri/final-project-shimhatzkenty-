@@ -4,6 +4,7 @@ import { User } from '../../module/user';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
 import { Form } from '../form/form';
+import {adminPage} from '../Admin/adminPage'
 
 @IonicPage()
 @Component({
@@ -29,6 +30,17 @@ export class LoginPage {
       console.log(this.user.password)
       console.log("login success")
       this.user.loggedIn = true;
+
+      const db = firebase.firestore();
+
+      db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(result =>{
+        if (result.exists){
+            this.user.Admin = true;  
+            this.navCtrl.push(adminPage);
+        }
+     })
+
+
       this.navCtrl.push(HomePage, {'login': this.user.loggedIn});
       
       }).catch(error => {

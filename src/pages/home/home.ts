@@ -42,30 +42,19 @@ export class HomePage
         {
           db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
           .then(result =>{
-            if (result.exists){
+            if (result.exists)
               this.user.volunteer = true;
-          
-
-          }
-            else{
-              db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
-              .then(result =>{
-                if (result.exists){
-                  this.user.Admin = true;  
-                  this.navCtrl.push(adminPage);
-
-
-                }
-                else return;   })
+                    
+            else return;   })
 
 
 
             }
         }
-       ) }
+       ) 
 
 
-    })
+    
    
   }
 
