@@ -3,6 +3,12 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <universal-links>
+        <host name="https://simhatzkenty.page.link/amTC" scheme="https" />
+        <host name="simhat-zkenty.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback" />
+        </host>
+    </universal-links>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

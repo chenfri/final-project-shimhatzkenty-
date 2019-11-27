@@ -43,7 +43,11 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-firebase-authentication": {}
+      "cordova-plugin-firebase-authentication": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "990804424608487",
+        "APP_NAME": "SimhatZkenty"
+      }
     }
   }
 }
