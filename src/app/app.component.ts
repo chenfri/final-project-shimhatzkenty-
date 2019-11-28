@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { adminPage } from '../pages/Admin/adminPage'
 //import { Form } from '../pages/form/form';
 
 import { HomePage } from '../pages/home/home';
