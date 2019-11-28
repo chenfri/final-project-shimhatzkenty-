@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 //import {Facebook} from '@ionic-native/facebook/ngx'
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 import { Form } from '../pages/form/form';
 import { MyApp } from './app.component';
@@ -60,6 +61,7 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
+    GooglePlus,
  //   Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

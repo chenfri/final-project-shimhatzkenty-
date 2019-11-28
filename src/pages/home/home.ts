@@ -9,6 +9,10 @@ import firebase from 'firebase';
 import {AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 //import {Facebook} from '@ionic-native/facebook/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import {Platform} from 'ionic-angular';
+import {Observable} from 'rxjs/observable'
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'page-home',
@@ -18,9 +22,11 @@ import {AngularFireAuth} from 'angularfire2/auth';
 export class HomePage 
 {
   user = {} as User;
+  userr :Observable<firebase.User>
+  loginD:any 
 
-  constructor(public navCtrl: NavController, public params: NavParams,
-    public alertCtrl: AlertController, public auth: AngularFireAuth)
+  constructor(public navCtrl: NavController, public params: NavParams, private gplus:GooglePlus,
+    public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -33,6 +39,81 @@ export class HomePage
       this.get_data_from_firebase();
   }
 
+
+  gmail()
+  {
+    if(this.platform.is('capacitor'))
+    {
+      alert("capacitor platform")
+      this.googleLogin();
+    }
+    else if(this.platform.is('android'))
+    {
+      alert("android platform")
+      this.nativeGoogleLogin();
+    }
+    else if(this.platform.is('mobile'))
+    {
+      alert("mobile platform")
+      this.googleLogin();
+    }
+    else
+    {
+      alert("web platform")
+      this.gmailLogin();
+    }
+
+  }
+
+
+   nativeGoogleLogin1() 
+  {
+   this.gplus.login({}).then(res => {
+    alert("logged in") 
+    this.loginD = res}, (err)=>{})
+  }
+  
+  async nativeGoogleLogin() {
+  try {
+    alert("a")
+    const gplusUser = await this.gplus.login({
+      'webClientId': 'your-webClientId-XYZ.apps.googleusercontent.com',
+      'offline': true,
+      'scopes': 'profile email'
+    })
+    alert("b")
+    return await this.auth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
+
+  } catch(err) {
+    alert("c")
+    console.log(err)
+  }
+}
+
+  googleLogin(): Promise<any> {
+    alert("a")
+    return new Promise((resolve, reject) => { 
+      alert("b")
+        this.gplus.login({
+          'webClientId': '377941126479-70vb0jtmhuoksg2r0r3jhbi9975b4sla.apps.googleusercontent.com',  
+          'offline': true
+        }).then( res => {
+                const googleCredential = firebase.auth.GoogleAuthProvider
+                    .credential(res.idToken);
+                    alert("c")
+                firebase.auth().signInWithCredential(googleCredential)
+              .then( response => {
+                alert("d")
+                  console.log("Firebase success: " + JSON.stringify(response));
+                  resolve(response)
+              });
+        }, err => {
+          alert("e")
+            console.error("Error: ", err)
+            reject(err);
+        });
+      });
+      }
 
   gmailLogin()
   {
