@@ -8,7 +8,7 @@ import {User} from '../../module/User'
 import firebase from 'firebase';
 import {AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {Facebook} from '@ionic-native/facebook/ngx';
+//import {Facebook} from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'page-home',
@@ -20,7 +20,7 @@ export class HomePage
   user = {} as User;
 
   constructor(public navCtrl: NavController, public params: NavParams,
-    public alertCtrl: AlertController, public auth: AngularFireAuth,private facebook:Facebook)
+    public alertCtrl: AlertController, public auth: AngularFireAuth)
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
