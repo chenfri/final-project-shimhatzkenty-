@@ -34,12 +34,20 @@ export class HomePage
   }
 
 
+  gmailLogin()
+  {
+    this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+      console.log(res)
+      alert("success")
+    })
+  }
+
 facebookLogin()
 {
   console.log("gg")
   this.auth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((res)=>{
     alert(res.user.uid)
-    this.navCtrl.push(RegisterPage);
+  //  this.navCtrl.push(RegisterPage);
 
   })
 }
@@ -58,6 +66,7 @@ facebooklogin()
     { console.log(JSON.stringify(error))})
   })
 }
+
 
 
 

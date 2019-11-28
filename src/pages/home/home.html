@@ -15,7 +15,8 @@
               <button *ngIf = "!user.elderly && user.loggedIn" ion-button (click)="volunteer_form()">עדכון פרטים אישיים</button>
               <button *ngIf = "!user.loggedIn" ion-button (click)="elderly_form()">רישום לאזרח הותיק</button>
               <button ion-button  (click)="login()">כניסת משתמש רשום</button>
-              <button ion-button (click)="facebooklogin()">התחבר עם פייסבוק</button>
+              <button ion-button (click)="facebookLogin()">התחבר עם פייסבוק</button>
+              <button ion-button (click)="gmailLogin()">התחבר עם גמייל</button>
           </ion-navbar>
 
   <div class ="title">
