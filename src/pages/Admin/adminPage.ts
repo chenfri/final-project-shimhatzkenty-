@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import {User} from '../../module/User'
 
 @Component({
   selector: 'adminPage',
@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class adminPage
  {
  
+    user = {} as User;
   constructor(){
 
   }
