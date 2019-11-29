@@ -3,7 +3,7 @@ import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { User } from '../../module/user';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
-import { Form } from '../form/form';
+import {AngularFireAuth} from 'angularfire2/auth';
 import {adminPage} from '../Admin/adminPage'
 
 @IonicPage()
@@ -13,7 +13,7 @@ import {adminPage} from '../Admin/adminPage'
 })
 export class LoginPage {
   user= {} as User;
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController, private auth: AngularFireAuth) {
     this.user.loggedIn = false;
   }
 
@@ -39,8 +39,6 @@ export class LoginPage {
             this.navCtrl.push(adminPage);
         }
      })
-
-
       this.navCtrl.push(HomePage, {'login': this.user.loggedIn});
       
       }).catch(error => {
@@ -50,6 +48,15 @@ export class LoginPage {
       })
     }
   }
+
+
+  resetPassword()
+  { 
+    if(this.user.email == "")
+      alert("חובה לכתוב כתובת דוא'ל")
+    else
+      return this.auth.auth.sendPasswordResetEmail(this.user.email) 
+  } 
 
   showAlertError2()
   {

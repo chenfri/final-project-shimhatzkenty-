@@ -8,11 +8,10 @@ import {User} from '../../module/User'
 import firebase from 'firebase';
 import {AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
-//import {Facebook} from '@ionic-native/facebook/ngx';
+import {Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/observable'
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'page-home',
@@ -22,11 +21,9 @@ import { ThrowStmt } from '@angular/compiler';
 export class HomePage 
 {
   user = {} as User;
-  userr :Observable<firebase.User>
-  loginD:any 
 
   constructor(public navCtrl: NavController, public params: NavParams, private gplus:GooglePlus,
-    public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
+        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform, private fb: Facebook)
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -52,42 +49,19 @@ export class HomePage
       alert("android platform")
       this.nativeGoogleLogin();
     }
-    else if(this.platform.is('mobile'))
-    {
-      alert("mobile platform")
-      this.googleLogin();
-    }
     else
     {
       alert("web platform")
       this.gmailLogin();
     }
-
   }
 
 
-   nativeGoogleLogin1() 
-  {
-   this.gplus.login({}).then(res => {
-    alert("logged in") 
-    this.loginD = res}, (err)=>{})
-  }
-  
-  async nativeGoogleLogin() {
-  try {
-    alert("a")
-    const gplusUser = await this.gplus.login({
-      'webClientId': 'your-webClientId-XYZ.apps.googleusercontent.com',
-      'offline': true,
-      'scopes': 'profile email'
-    })
-    alert("b")
-    return await this.auth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
-
-  } catch(err) {
-    alert("c")
-    console.log(err)
-  }
+   nativeGoogleLogin() {
+     alert("a")
+    this.gplus.login({})
+    .then(res => {alert(res)})
+    .catch(err => {alert(err)});
 }
 
   googleLogin(): Promise<any> {
@@ -115,6 +89,7 @@ export class HomePage
       });
       }
 
+
   gmailLogin()
   {
     this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
@@ -122,6 +97,8 @@ export class HomePage
       alert("success")
     })
   }
+
+
 
 facebookLogin()
 {
