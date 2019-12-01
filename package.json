@@ -48,7 +48,11 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "990804424608487",
         "APP_NAME": "SimhatZkenty"
-      }
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "534888552279-e4qr1ifkf0s2943t3q58i5viuau6m00v.apps.googleusercontent.com"
+      },
+      "cordova-plugin-nativestorage": {}
     }
   }
 }
