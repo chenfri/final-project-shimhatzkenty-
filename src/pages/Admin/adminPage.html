@@ -1,7 +1,7 @@
 
 <h2 class = "titleAdmin">דף ניהול</h2>
 
-<table>
+<!--<table>
 <h3 class = "tableTitle">קשישים</h3>
 
   <tr>
@@ -9,19 +9,21 @@
         <th>טלפון</th>
         <th>שם מלא</th>
   </tr>
-  <ion-row *ngFor="let value of resultData" >
+  <ion-row *ngFor="let value of temp" >
         <ion-col>
-                {{value.Name}}
+                {{value.fullName}}
         </ion-col>
         <ion-col text-right>
-                {{value.Telephone}}
+                {{value.phone}}
         </ion-col>
         <ion-col text-right>
                 {{value.Address}}
         </ion-col>
     
             </ion-row>
+        -->
   <!-- <tr>
+    
     <td>Centro comercial Moctezuma</td>
     <td>Francisco Chang</td>
     <td>Mexico</td>
@@ -45,24 +47,20 @@
     <td>Magazzini Alimentari Riuniti</td>
     <td>Giovanni Rovelli</td>
     <td>Italy</td>
-  </tr> -->
-</table>
+  </tr> 
+</table>-->
 
 <table>
         <h3 class = "tableTitle">מתנדבים</h3>
-        
+   
           <tr>
             <th>כתובת</th>
             <th>טלפון</th>
             <th>שם מלא</th>
           </tr>
+    
           <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-          </tr>
-          <tr>
-            <td>Centro comercial Moctezuma</td>
+            <td></td>
             <td>Francisco Chang</td>
             <td>Mexico</td>
           </tr>
@@ -86,4 +84,5 @@
             <td>Giovanni Rovelli</td>
             <td>Italy</td>
           </tr>
+   
         </table>
