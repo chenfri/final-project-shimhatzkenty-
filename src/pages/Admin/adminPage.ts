@@ -10,13 +10,7 @@ import firebase, { firestore } from 'firebase';
 
 export class adminPage
  {
-<<<<<<< HEAD
   currentEvent:any;
-=======
- 
-    user = {} as User;
-  constructor(){
->>>>>>> e5e8ec526800f1d2db105458fdbc81e1ecfcc04d
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) 
