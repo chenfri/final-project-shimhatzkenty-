@@ -12,6 +12,7 @@ import {Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/observable'
+import { adminPage } from '../Admin/adminPage';
 
 @Component({
   selector: 'page-home',
@@ -175,5 +176,21 @@ facebooklogin()
     firebase.auth().signOut();
     this.navCtrl.push(HomePage);
  }
+
+ get_data_from_firebase22()
+ {
+   let eldely = []
+   let volunteer = []
+   let j =0 , k = 0
+   const db = firebase.firestore();
+   const result = db.collection('ElderlyUsers').get().then(res =>
+   {  res.forEach(i => { eldely[j]=(i.data()); j++}) })
+
+   const result1 = db.collection('volunteerUsers').get().then(res =>
+    {res.forEach(i =>{ volunteer[k]=(i.data());k++})})
+
+   this.navCtrl.push(adminPage, {'eldely': eldely , 'volunteer': volunteer});
+
+ } 
 
 }
