@@ -1,3 +1,15 @@
+.tableTitle{
+  text-align: center;
+  align-items: center;
+  
+}
+
+.titleAdmin
+{
+  text-align: center;
+  align-items: center;
+}
+
 #customers {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -17,6 +29,6 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
+  background-color: rgb(204, 204, 204);
   color: white;
 }
