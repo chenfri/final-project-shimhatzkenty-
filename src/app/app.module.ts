@@ -4,8 +4,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-import {Facebook} from '@ionic-native/facebook/ngx'
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+// import {Facebook} from '@ionic-native/facebook/ngx'
+// import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 import { Form } from '../pages/form/form';
 import { MyApp } from './app.component';
@@ -18,6 +18,7 @@ import {adminPage} from '../pages/Admin/adminPage';
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
 import {AngularFireModule} from 'angularfire2'
+import { HttpModule } from '@angular/http';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDYpEw_jy9bhMFXZ0hTMJRay8hu_OHq6Fw",
@@ -46,7 +47,8 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -61,8 +63,8 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    GooglePlus,
-    Facebook,
+    // GooglePlus,
+    // Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

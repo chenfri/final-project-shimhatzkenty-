@@ -6,6 +6,7 @@ import { map } from 'rxjs/operator/map';
 import {AngularFirestore} from 'angularfire2/firestore'
 import { AngularFirestoreDocument, AngularFirestoreCollection} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+
 @Component({
   selector: 'adminPage',
   templateUrl: 'adminPage.html' ,
