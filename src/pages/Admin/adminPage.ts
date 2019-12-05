@@ -19,8 +19,8 @@ export class adminPage
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) 
   {
     this.userE = this.navParams.get('eldely');
-   // console.log(this.userE)
     this.userV = this.navParams.get('volunteer');
+<<<<<<< HEAD
     //console.log(this.userV)
    this.readCsvData();
 
@@ -29,6 +29,15 @@ export class adminPage
   private readCsvData() {
     let temp = [[12,1],[1,2]]
     this.http.get( temp.toString())
+=======
+    console.log(this.userV)
+    this.setArray()
+  //  this.readCsvData();
+  }
+
+  private readCsvData() {
+    this.http.get( 'assets/test.csv')
+>>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
       .subscribe(
       data => this.extractData(data),
       err => this.handleError(err)
@@ -36,19 +45,33 @@ export class adminPage
   }
  
   private extractData(res) {
+<<<<<<< HEAD
     let csvData = res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
     this.headerRow = ["name","adrress"]
+=======
+    let csvData =  res['_body'] || '';
+    let parsedData = papa.parse(csvData).data;
+    this.headerRow = parsedData[0]
+>>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
  
     parsedData.splice(0, 1);
     this.csvData = parsedData;
   }
  
+<<<<<<< HEAD
 
   downloadCSV() {
     let csv = papa.unparse({
       fields: this.headerRow,
       data: this.csvData 
+=======
+  downloadCSV() {
+    console.log(this.csvData)
+    let csv = papa.unparse({
+      fields: this.headerRow,
+      data: this.csvData,
+>>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
        });
  
     // Dummy implementation for Desktop download purpose
@@ -61,6 +84,15 @@ export class adminPage
     document.body.removeChild(a);
   }
  
+  setArray()
+  {
+    let arr = []
+
+    for(let i = 0 ; i < 4 ; i ++)
+      arr.push([this.userE[i]])
+    console.log(arr)
+  }
+
   private handleError(err) {
     console.log('something went wrong: ', err);
   }

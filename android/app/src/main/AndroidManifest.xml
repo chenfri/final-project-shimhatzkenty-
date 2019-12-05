@@ -12,7 +12,11 @@
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+<<<<<<< HEAD
             android:name="com.simhatZkenty.app.MainActivity"
+=======
+            android:name="com.simhatzkenty.app.MainActivity"
+>>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
             android:label="שמחת זקנתי"
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask">
@@ -60,9 +64,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Navigator.getUserMedia -->
     <!-- Video -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
     <!-- Audio -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/> -->
     
 </manifest>

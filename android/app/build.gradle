@@ -3,11 +3,15 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
+<<<<<<< HEAD
         applicationId "com.simhatZkenty.app"
+=======
+        applicationId "com.simhatzkenty.app"
+>>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
