@@ -29,42 +29,34 @@ export class adminPage
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) 
   {
     this.userE = this.navParams.get('eldely');
-   // console.log(this.userE)
     this.userV = this.navParams.get('volunteer');
-    //console.log(this.userV)
-    //this.readCsvData();
+    console.log(this.userV)
+    this.setArray()
+  //  this.readCsvData();
   }
-  // private readCsvData() {
-  //   this.http.get( this.userE.toString())
-  //     .subscribe(
-  //     data => this.extractData(data),
-  //     err => this.handleError(err)
-  //     );
-  // }
+
+  private readCsvData() {
+    this.http.get( 'assets/test.csv')
+      .subscribe(
+      data => this.extractData(data),
+      err => this.handleError(err)
+      );
+  }
  
-  // private extractData(res) {
-  //   let csvData =  this.userE.toString();//res['_body'] || '';
-  //   let parsedData = papa.parse(csvData).data;
-  //   this.headerRow = ["name","adrress","telephone"]
+  private extractData(res) {
+    let csvData =  res['_body'] || '';
+    let parsedData = papa.parse(csvData).data;
+    this.headerRow = parsedData[0]
  
-  //   parsedData.splice(0, 1);
-  //   this.csvData = parsedData;
-  // }
+    parsedData.splice(0, 1);
+    this.csvData = parsedData;
+  }
  
   downloadCSV() {
-    let temp = "chen"
-   // let csvData =  temp.toString();//res['_body'] || '';
-   // let parsedData = papa.parse(csvData).data;
-    //console.log(csvData);
-
-    this.headerRow = ["name","adrress"]
-
-    //parsedData.splice(0, 1);
-    //this.csvData = parsedData;
-  
+    console.log(this.csvData)
     let csv = papa.unparse({
       fields: this.headerRow,
-      data: temp,
+      data: this.csvData,
        });
  
     // Dummy implementation for Desktop download purpose
@@ -77,6 +69,15 @@ export class adminPage
     document.body.removeChild(a);
   }
  
+  setArray()
+  {
+    let arr = []
+
+    for(let i = 0 ; i < 4 ; i ++)
+      arr.push([this.userE[i]])
+    console.log(arr)
+  }
+
   private handleError(err) {
     console.log('something went wrong: ', err);
   }
