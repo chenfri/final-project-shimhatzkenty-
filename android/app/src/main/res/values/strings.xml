@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">chenfri</string>
     <string name="title_activity_main">chenfri</string>
-    <string name="package_name">com.chenfri.app</string>
-    <string name="custom_url_scheme">com.chenfri.app</string>
+    <string name="package_name">com.simhatZkenty.app</string>
+    <string name="custom_url_scheme">com.simhatZkenty.app</string>
     <string name="facebook_app_id">990804424608487</string>
 </resources>

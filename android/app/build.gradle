@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.chenfri.app"
+        applicationId "com.simhatZkenty.app"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
