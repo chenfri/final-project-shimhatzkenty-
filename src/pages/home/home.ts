@@ -8,8 +8,8 @@ import {User} from '../../module/User'
 import firebase from 'firebase';
 import {AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+// import {Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+// import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/observable'
 import { adminPage } from '../Admin/adminPage';
@@ -23,8 +23,9 @@ export class HomePage
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public params: NavParams, private gplus:GooglePlus,
-        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform, private fb: Facebook)
+  constructor(public navCtrl: NavController, public params: NavParams, //private gplus:GooglePlus,
+        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform,// private fb: Facebook
+        )
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -43,12 +44,12 @@ export class HomePage
     if(this.platform.is('capacitor'))
     {
       alert("capacitor platform")
-      this.googleLogin();
+    //  this.googleLogin();
     }
     else if(this.platform.is('android'))
     {
       alert("android platform")
-      this.nativeGoogleLogin();
+     // this.nativeGoogleLogin();
     }
     else
     {
@@ -58,37 +59,37 @@ export class HomePage
   }
 
 
-   nativeGoogleLogin() {
-     alert("a")
-    this.gplus.login({})
-    .then(res => {alert(res)})
-    .catch(err => {alert(err)});
-}
+//    nativeGoogleLogin() {
+//      alert("a")
+//     this.gplus.login({})
+//     .then(res => {alert(res)})
+//     .catch(err => {alert(err)});
+// }
 
-  googleLogin(): Promise<any> {
-    alert("a")
-    return new Promise((resolve, reject) => { 
-      alert("b")
-        this.gplus.login({
-          'webClientId': '377941126479-70vb0jtmhuoksg2r0r3jhbi9975b4sla.apps.googleusercontent.com',  
-          'offline': true
-        }).then( res => {
-                const googleCredential = firebase.auth.GoogleAuthProvider
-                    .credential(res.idToken);
-                    alert("c")
-                firebase.auth().signInWithCredential(googleCredential)
-              .then( response => {
-                alert("d")
-                  console.log("Firebase success: " + JSON.stringify(response));
-                  resolve(response)
-              });
-        }, err => {
-          alert("e")
-            console.error("Error: ", err)
-            reject(err);
-        });
-      });
-      }
+  // googleLogin(): Promise<any> {
+  //   alert("a")
+  //   return new Promise((resolve, reject) => { 
+  //     alert("b")
+  //       this.gplus.login({
+  //         'webClientId': '377941126479-70vb0jtmhuoksg2r0r3jhbi9975b4sla.apps.googleusercontent.com',  
+  //         'offline': true
+  //       }).then( res => {
+  //               const googleCredential = firebase.auth.GoogleAuthProvider
+  //                   .credential(res.idToken);
+  //                   alert("c")
+  //               firebase.auth().signInWithCredential(googleCredential)
+  //             .then( response => {
+  //               alert("d")
+  //                 console.log("Firebase success: " + JSON.stringify(response));
+  //                 resolve(response)
+  //             });
+  //       }, err => {
+  //         alert("e")
+  //           console.error("Error: ", err)
+  //           reject(err);
+  //       });
+  //     });
+  //     }
 
 
   gmailLogin()
