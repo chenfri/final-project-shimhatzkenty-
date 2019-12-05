@@ -194,8 +194,7 @@ facebooklogin()
     const result2 = db.collection('message').get().then(res =>
       {res.forEach(i =>{ messages[l]=(i.data());l++})})
 
-   this.navCtrl.push(adminPage, {'eldely': eldely , 'volunteer': volunteer , 'messages': messages});
-  console.log(messages)
+    this.navCtrl.push(adminPage, {'eldely': eldely , 'volunteer': volunteer , 'messages': messages});
  } 
 
 }

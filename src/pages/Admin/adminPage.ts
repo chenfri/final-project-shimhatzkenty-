@@ -34,9 +34,9 @@ export class adminPage
     this.userE = this.navParams.get('eldely');
     this.userV = this.navParams.get('volunteer');
     this.messages = this.navParams.get('messages');
-    
+
     console.log(this.messages)
-    this.setArray()
+    //this.setArray()
   //  this.readCsvData();
   }
 
@@ -58,7 +58,7 @@ export class adminPage
   }
  
   downloadCSV() {
-    console.log(this.csvData)
+   // console.log(this.csvData)
     let csv = papa.unparse({
       fields: this.headerRow,
       data: this.csvData,
@@ -74,14 +74,7 @@ export class adminPage
     document.body.removeChild(a);
   }
  
-  setArray()
-  {
-    let arr = []
-
-    for(let i = 0 ; i < 4 ; i ++)
-      arr.push([this.userE[i]])
-    console.log(arr)
-  }
+ 
 
   private handleError(err) {
     console.log('something went wrong: ', err);

@@ -25,8 +25,8 @@ export class contactPage
     db.collection('message').doc().set(
       {
         fullName: this.contactMessage.fullName,
-        address: this.contactMessage.phoneNumber,
-        phone: this.contactMessage.message,
+        phoneNumber: this.contactMessage.phoneNumber,
+        message: this.contactMessage.message,
       
       })
       .then(() => {
