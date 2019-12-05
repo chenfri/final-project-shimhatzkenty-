@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from '../../module/User'
 import { NavController,NavParams} from 'ionic-angular';
-import firebase, { firestore } from 'firebase';
-import { map } from 'rxjs/operator/map';
-import {AngularFirestore} from 'angularfire2/firestore'
-import { AngularFirestoreDocument, AngularFirestoreCollection} from 'angularfire2/firestore';
-import { Observable } from 'rxjs';
-
 import { Http } from '@angular/http';
 import * as papa from 'papaparse';
 
@@ -19,10 +13,6 @@ export class adminPage
  {
   userE = {} as User;
   userV = {} as User;
-  public hobbies: any[] 
-  public time: any[]
-  public numOfMeeting: any[]
-  posts :any
   csvData: any[] = [];
   headerRow: any[] = [];
 
@@ -32,39 +22,33 @@ export class adminPage
    // console.log(this.userE)
     this.userV = this.navParams.get('volunteer');
     //console.log(this.userV)
-    //this.readCsvData();
+   this.readCsvData();
+
   }
-  // private readCsvData() {
-  //   this.http.get( this.userE.toString())
-  //     .subscribe(
-  //     data => this.extractData(data),
-  //     err => this.handleError(err)
-  //     );
-  // }
- 
-  // private extractData(res) {
-  //   let csvData =  this.userE.toString();//res['_body'] || '';
-  //   let parsedData = papa.parse(csvData).data;
-  //   this.headerRow = ["name","adrress","telephone"]
- 
-  //   parsedData.splice(0, 1);
-  //   this.csvData = parsedData;
-  // }
- 
-  downloadCSV() {
-    let temp = "chen"
-   // let csvData =  temp.toString();//res['_body'] || '';
-   // let parsedData = papa.parse(csvData).data;
-    //console.log(csvData);
 
+  private readCsvData() {
+    let temp = [[12,1],[1,2]]
+    this.http.get( temp.toString())
+      .subscribe(
+      data => this.extractData(data),
+      err => this.handleError(err)
+      );
+  }
+ 
+  private extractData(res) {
+    let csvData = res['_body'] || '';
+    let parsedData = papa.parse(csvData).data;
     this.headerRow = ["name","adrress"]
+ 
+    parsedData.splice(0, 1);
+    this.csvData = parsedData;
+  }
+ 
 
-    //parsedData.splice(0, 1);
-    //this.csvData = parsedData;
-  
+  downloadCSV() {
     let csv = papa.unparse({
       fields: this.headerRow,
-      data: temp,
+      data: this.csvData 
        });
  
     // Dummy implementation for Desktop download purpose
