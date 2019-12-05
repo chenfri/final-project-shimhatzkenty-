@@ -1,4 +1,4 @@
-package com.chenfri.app;
+package com.simhatzkenty.app;
 
 import android.os.Bundle;
 

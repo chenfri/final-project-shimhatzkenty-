@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">chenfri</string>
-    <string name="title_activity_main">chenfri</string>
-    <string name="package_name">com.chenfri.app</string>
-    <string name="custom_url_scheme">com.chenfri.app</string>
+    <string name="app_name">chenfsimhatzkenty</string>
+    <string name="title_activity_main">simhatzkenty</string>
+    <string name="package_name">com.simhatzkenty.app</string>
+    <string name="custom_url_scheme">com.simhatzkenty.app</string>
     <string name="facebook_app_id">990804424608487</string>
 </resources>
