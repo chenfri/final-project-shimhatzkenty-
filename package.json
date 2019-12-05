@@ -31,6 +31,7 @@
     "@swimlane/ngx-datatable": "^16.0.2",
     "@types/papaparse": "^5.0.2",
     "angularfire2": "^5.2.3",
+    "convert-array-to-csv": "^1.0.9",
     "firebase": "^7.3.0",
     "ionic-angular": "3.9.5",
     "ionicons": "3.0.0",
