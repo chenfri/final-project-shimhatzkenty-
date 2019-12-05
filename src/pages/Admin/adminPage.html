@@ -48,3 +48,21 @@
         </tr>
        
       </table>
+
+      <table id="customers">
+        <h4 class = "tableTitle">הודעות</h4>
+      
+          <tr>
+            <th>שם מלא</th>
+            <th>טלפון</th>
+            <th>הודעה</th>
+          </tr>
+          
+      
+          <tr *ngFor="let value of messages">
+            <td>{{value.message}}</td>
+            <td>{{value.phoneNumber}}</td>
+            <td>{{value.fullName}}</td>
+          </tr>
+         
+        </table>

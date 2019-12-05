@@ -6,6 +6,7 @@ import { map } from 'rxjs/operator/map';
 import {AngularFirestore} from 'angularfire2/firestore'
 import { AngularFirestoreDocument, AngularFirestoreCollection} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import { contactMessage } from '../../module/contactMessage'
 
 import { Http } from '@angular/http';
 import * as papa from 'papaparse';
@@ -19,6 +20,8 @@ export class adminPage
  {
   userE = {} as User;
   userV = {} as User;
+  messages = {} as contactMessage;
+
   public hobbies: any[] 
   public time: any[]
   public numOfMeeting: any[]
@@ -30,7 +33,9 @@ export class adminPage
   {
     this.userE = this.navParams.get('eldely');
     this.userV = this.navParams.get('volunteer');
-    console.log(this.userV)
+    this.messages = this.navParams.get('messages');
+    
+    console.log(this.messages)
     this.setArray()
   //  this.readCsvData();
   }
