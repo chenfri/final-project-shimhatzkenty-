@@ -24,7 +24,6 @@ export class HomePage
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
         public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
   {
-    alert.s
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
