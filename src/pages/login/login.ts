@@ -14,9 +14,14 @@ import {AngularFireAuth} from 'angularfire2/auth';
 export class LoginPage
 {
   user= {} as User;
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController, private auth: AngularFireAuth) {
+
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
+     private auth: AngularFireAuth)
+  {
     this.user.loggedIn = false;
     this.user.Admin = false;
+    this.user.elderly = false;
+    this.user.volunteer = false;
   }
 
   signIn_function()
@@ -34,12 +39,19 @@ export class LoginPage
       this.user.loggedIn = true;
       const db = firebase.firestore();
       db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
-        .then(result =>{ if(result.exists)
-                          this.user.Admin = true;
-                          this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin});})
+        .then(result =>{
+         if(result.exists)
+            this.user.Admin = true;
+            this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin,
+             'elderly':this.user.elderly,'volunteer':this.user.volunteer});})
       
       }).catch(error => {
-        this.showAlertError3();
+        if(error.code == "auth/user-not-found")
+          this.showAlertError4();
+        else if (error.code == "auth/wrong-password")
+          this.showAlertError5();
+        else
+          this.showAlertError3();
       console.error(error); 
 
       })
@@ -75,6 +87,25 @@ export class LoginPage
     });
     alert.present();
   }
+
+  showAlertError4()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'כתובת הדואל לא קיימת , נא נסה שנית',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
   
+  showAlertError5()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'סיסמה לא נכונה, נא נסה שנית',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
+  }

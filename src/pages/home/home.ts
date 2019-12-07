@@ -30,15 +30,20 @@ export class HomePage
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
 
-    console.log("if login:")
+    console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
 
-    if(this.user.loggedIn)
-      this.checkIfElderly();
+    console.log("if elderly:")
+    this.user.elderly = this.params.get('elderly');
+    console.log(this.user.elderly)
 
-   /* if(firebase.auth().currentUser != null)
-      console.log("uid: "firebase.auth().currentUser.uid);*/
+    console.log("if volunteer:")
+    this.user.volunteer = this.params.get('volunteer');
+    console.log(this.user.volunteer)
+
+    if(this.user.loggedIn && this.user.Admin == false)
+      this.checkIfElderly();
 
   }
 
@@ -148,8 +153,14 @@ facebooklogin()
           db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
           .then(result =>{
             if (result.exists)
-              this.user.volunteer = true;      
-            else return;   })
+              this.user.volunteer = true;     
+            else 
+            {
+              this.user.Admin = true;  
+              const db = firebase.firestore();
+              db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
+           }
+           })
         }
       }) 
   }
@@ -157,12 +168,16 @@ facebooklogin()
 
   elderly_form() {
     this.user.elderly = true;   
-    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn});
+    this.user.volunteer = false;
+    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
+     'volunteer': this.user.volunteer,});
   }
 
   volunteer_form() {
     this.user.elderly = false;
-    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn});
+    this.user.volunteer = true;
+    this.navCtrl.push(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
+     'login':this.user.loggedIn});
   }
 
   contactPage() {
@@ -181,13 +196,13 @@ facebooklogin()
  
  get_data_for_admin()
  {
-   let eldely = []
+   let elderly = []
    let volunteer = []
    let messages = []
    let j =0 , k = 0 , l=0
    const db = firebase.firestore();
    const result = db.collection('ElderlyUsers').get().then(res =>
-   {  res.forEach(i => {eldely[j]=(i.data()); j++}) })
+   {  res.forEach(i => {elderly[j]=(i.data()); j++}) })
 
 
    const result1 = db.collection('volunteerUsers').get().then(res =>
@@ -196,7 +211,8 @@ facebooklogin()
     const result2 = db.collection('message').get().then(res =>
       {res.forEach(i =>{ messages[l]=(i.data());l++})})
 
-    this.navCtrl.push(adminPage, {'eldely': eldely, 'volunteer': volunteer, 'messages': messages , 'login': this.user.loggedIn});
+    this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
+     'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin});
  } 
 
 }

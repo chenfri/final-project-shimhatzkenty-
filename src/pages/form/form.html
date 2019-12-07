@@ -1,17 +1,16 @@
+<ion-content class= "formCSS"  padding>
+        <input style="float: left;" type="submit" (click)= "click_home()" value="חזרה לדף הבית">
+</ion-content>
+
 <ion-content padding class= "formCSS" style="float: right;">
    
-    <h2 class= "titleForm">פרטים אישיים</h2>
-    <form class="form" style="float: right;">
-            <br><br>     
+    <h2 class= "titleForm">פרטים אישיים</h2><br><br>
+    <form class="form" style="float: right;"> <br><br>     
         <label style="float: right;">כתובת דוא"ל</label>
         <input style="float: right;" type="text" name="username" [(ngModel)] = "user.email">
-          
         <label style="float: right;">סיסמא</label>
         <input type="text" name="password" [(ngModel)] = "user.password">
-     
         <input style="float: right;" *ngIf = "!user.loggedIn" type="submit" (click)= "registry()" value="יצירת חשבון">
-
-      
         <input *ngIf = "user.loggedIn" type="submit" (click)= "update_email_or_password()" value="עדכון פרטים">    
 
         <br><br><br><br>
@@ -57,11 +56,14 @@
             <ion-item *ngIf="user.onBehalf">
                 <ion-label floating>קרבה לקשיש</ion-label>
                 <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
-        </ion-item>  
-           
-        <br><br><br><br>
+            </ion-item>  
+            <br><br><br><br>
 
-
+            <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
+            <ion-item  *ngFor="let hobbies of hobbies; let i = index">
+                <ion-label> {{ hobbies.species }} </ion-label>
+                <ion-checkbox [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
+            </ion-item>
 
     <ion-grid style="    background-color: #ffffff80;">
         <ion-row>
@@ -98,26 +100,18 @@
         </ion-row>
     </ion-grid>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+         <!----------------------------------------------just for volunteer------------------------------------------------------------------------>
+            <h5 class="titleForm" *ngIf="!user.elderly">:תדירות מפגשים</h5>
+            <ion-list radio-group *ngIf="!user.elderly">
+                <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
+                        <ion-label> {{ numOfMeeting.species }} </ion-label>
+                        <ion-radio [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
+                </ion-item>
+            </ion-list>
+            
             <br>
             <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
-
             <br><br><br><br>
-
       </form>
-
 </ion-content>
   

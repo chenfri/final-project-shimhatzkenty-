@@ -10,7 +10,7 @@ export interface User
     nameAssistant: string,
     relationship: string,
     range: number,
-    elderly: boolean
+    elderly: boolean,
     volunteer:boolean,
     Admin: boolean
 }

@@ -19,14 +19,18 @@ export class Form
     public numOfMeeting: any[]
     
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController, public params: NavParams) 
-  {  
+  {
+    console.log("if login:")
+    this.user.loggedIn = this.params.get('login');
+    console.log(this.user.loggedIn)
+
     console.log("if elderly:")
     this.user.elderly = this.params.get('elderly');
     console.log(this.user.elderly)
 
-    console.log("if login:")
-    this.user.loggedIn = this.params.get('login');
-    console.log(this.user.loggedIn)
+    console.log("if volunteer:")
+    this.user.volunteer = this.params.get('volunteer');
+    console.log(this.user.volunteer)
 
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
@@ -125,12 +129,14 @@ export class Form
     firebase.auth().currentUser.updatePassword(this.user.password);
     firebase.auth().currentUser.updateEmail(this.user.email);
     this.showAlert_changeEmailAndPassword();
-    this.navCtrl.push(HomePage);
+    this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly
+     ,'volunteer': this.user.volunteer});
   }
 
   click_home()
   {
-    this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
+    this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
+    'volunteer': this.user.volunteer})
   }
   
   //check all user inputs are legal
@@ -203,7 +209,8 @@ export class Form
       })
       .then(() => {
         this.showAlertSuccess();
-        this.navCtrl.push(HomePage);
+        this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
+         'volunteer': this.user.volunteer})
       }).catch((error)=> {
         console.log })
   }
@@ -226,7 +233,8 @@ export class Form
       })
       .then(() => {
         this.showAlertSuccess();
-        this.navCtrl.push(HomePage);
+        this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly
+        ,'volunteer': this.user.volunteer});
       }).catch((error)=> {
         console.log })
   }
@@ -252,7 +260,7 @@ export class Form
           this.time = result.data().meeting_time
        })
     }
-    else
+    else if(this.user.volunteer)
     {
       db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
       .then(result =>{
