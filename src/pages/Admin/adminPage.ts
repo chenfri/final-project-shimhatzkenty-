@@ -5,6 +5,7 @@ import { contactMessage } from '../../module/contactMessage'
 import { HomePage } from '../home/home';
 import { Http } from '@angular/http';
 import * as papa from 'papaparse';
+import {Form} from '../from/form'
 
 @Component({
   selector: 'adminPage',
@@ -20,7 +21,7 @@ export class adminPage
   csvData: any[] = [];
   headerRow: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http , public form: Form) 
   {
     this.user.loggedIn = this.navParams.get('login');
     console.log(this.user.loggedIn)
@@ -33,6 +34,8 @@ export class adminPage
     console.log(this.messages)
     //this.setArray()
   //  this.readCsvData();
+
+  this.form.registry();
   }
 
   private readCsvData() {
