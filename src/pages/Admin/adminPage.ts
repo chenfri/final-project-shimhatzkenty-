@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from '../../module/User'
 import { NavController,NavParams} from 'ionic-angular';
-<<<<<<< HEAD
-=======
 import firebase, { firestore } from 'firebase';
 import { map } from 'rxjs/operator/map';
 import {AngularFirestore} from 'angularfire2/firestore'
@@ -10,7 +8,6 @@ import { AngularFirestoreDocument, AngularFirestoreCollection} from 'angularfire
 import { Observable } from 'rxjs';
 import { contactMessage } from '../../module/contactMessage'
 
->>>>>>> d2177398e5d7d973543d8eb668fe23200b191fad
 import { Http } from '@angular/http';
 import * as papa from 'papaparse';
 
@@ -23,15 +20,12 @@ export class adminPage
  {
   userE = {} as User;
   userV = {} as User;
-<<<<<<< HEAD
-=======
   messages = {} as contactMessage;
 
   public hobbies: any[] 
   public time: any[]
   public numOfMeeting: any[]
   posts :any
->>>>>>> d2177398e5d7d973543d8eb668fe23200b191fad
   csvData: any[] = [];
   headerRow: any[] = [];
 
@@ -39,16 +33,13 @@ export class adminPage
   {
     this.userE = this.navParams.get('eldely');
     this.userV = this.navParams.get('volunteer');
-<<<<<<< HEAD
     let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
     this.extractData(temp)
-=======
     this.messages = this.navParams.get('messages');
 
     console.log(this.messages)
     //this.setArray()
   //  this.readCsvData();
->>>>>>> d2177398e5d7d973543d8eb668fe23200b191fad
   }
 
   private readCsvData() {
@@ -69,11 +60,7 @@ export class adminPage
   }
  
   downloadCSV() {
-<<<<<<< HEAD
     let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
-=======
-   // console.log(this.csvData)
->>>>>>> d2177398e5d7d973543d8eb668fe23200b191fad
     let csv = papa.unparse({
       fields: this.headerRow,
       data: temp,

@@ -11,10 +11,17 @@ import {adminPage} from '../Admin/adminPage'
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+
+export class LoginPage
+{
   user= {} as User;
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController, private auth: AngularFireAuth) {
     this.user.loggedIn = false;
+    this.user.Admin = false;
+    const db = firebase.firestore();
+    db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
+      .then(result =>{ if(result.exists)
+                        this.user.Admin = true;})
   }
 
 
@@ -26,20 +33,11 @@ export class LoginPage {
     else
     {
       firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(data=> {
-      console.log(this.user.email)
+     /* console.log(this.user.email)
       console.log(this.user.password)
-      console.log("login success")
+      console.log("login success")*/
       this.user.loggedIn = true;
-
-      const db = firebase.firestore();
-
-      db.collection('Admin').doc(firebase.auth().currentUser.uid).get().then(result =>{
-        if (result.exists){
-            this.user.Admin = true;  
-            this.navCtrl.push(adminPage);
-        }
-     })
-      this.navCtrl.push(HomePage, {'login': this.user.loggedIn});
+      this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin});
       
       }).catch(error => {
         this.showAlertError3();

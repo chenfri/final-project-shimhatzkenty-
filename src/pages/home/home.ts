@@ -11,7 +11,6 @@ import {AngularFireAuth} from 'angularfire2/auth';
 // import {Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 // import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import {Platform} from 'ionic-angular';
-import {Observable} from 'rxjs/observable'
 import { adminPage } from '../Admin/adminPage';
 
 @Component({
@@ -23,13 +22,16 @@ export class HomePage
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public params: NavParams, //private gplus:GooglePlus,
-        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform,// private fb: Facebook
-        )
+  constructor(public navCtrl: NavController, public params: NavParams,
+        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
+
+    console.log("if admin:")
+    this.user.Admin = this.params.get('admin');
+    console.log(this.user.Admin)
 
     if(firebase.auth().currentUser != null)
     console.log(firebase.auth().currentUser.uid);
@@ -178,7 +180,7 @@ facebooklogin()
     this.navCtrl.push(HomePage);
  }
 
- get_data_from_firebase22()
+ get_data_for_admin()
  {
    let eldely = []
    let volunteer = []

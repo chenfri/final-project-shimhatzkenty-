@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-//import { EmailComposer } from '@ionic-native/email-composer/ngx';
-=======
 import { contactMessage } from '../../module/contactMessage'
 import firebase from 'firebase';
 import { AlertController ,NavController,NavParams} from 'ionic-angular';
 import { HomePage } from '../home/home';
->>>>>>> d2177398e5d7d973543d8eb668fe23200b191fad
 
 
 @Component({
@@ -16,17 +12,12 @@ import { HomePage } from '../home/home';
 
 export class contactPage
  {
-<<<<<<< HEAD
- 
-  constructor(){
-=======
   contactMessage = {} as contactMessage;
   
 
   constructor(public alertCtrl: AlertController,public navCtrl: NavController , public params: NavParams){
 
   }
->>>>>>> d2177398e5d7d973543d8eb668fe23200b191fad
 
   add_data_to_firebase()
   {
