@@ -8,10 +8,9 @@ import {User} from '../../module/User'
 import firebase from 'firebase';
 import {AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
-// import {Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-// import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import {Platform} from 'ionic-angular';
 import { adminPage } from '../Admin/adminPage';
+import {AlertProvider} from '../../providers/alert/alert'
 
 @Component({
   selector: 'page-home',
@@ -22,10 +21,10 @@ export class HomePage
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public params: NavParams,
+  constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
         public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
   {
-    
+    alert.s
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
@@ -46,97 +45,6 @@ export class HomePage
       this.checkIfElderly();
 
   }
-
-
-  gmail()
-  {
-    if(this.platform.is('capacitor'))
-    {
-      alert("capacitor platform")
-    //  this.googleLogin();
-    }
-    else if(this.platform.is('android'))
-    {
-      alert("android platform")
-     // this.nativeGoogleLogin();
-    }
-    else
-    {
-      alert("web platform")
-      this.gmailLogin();
-    }
-  }
-
-
-//    nativeGoogleLogin() {
-//      alert("a")
-//     this.gplus.login({})
-//     .then(res => {alert(res)})
-//     .catch(err => {alert(err)});
-// }
-
-  // googleLogin(): Promise<any> {
-  //   alert("a")
-  //   return new Promise((resolve, reject) => { 
-  //     alert("b")
-  //       this.gplus.login({
-  //         'webClientId': '377941126479-70vb0jtmhuoksg2r0r3jhbi9975b4sla.apps.googleusercontent.com',  
-  //         'offline': true
-  //       }).then( res => {
-  //               const googleCredential = firebase.auth.GoogleAuthProvider
-  //                   .credential(res.idToken);
-  //                   alert("c")
-  //               firebase.auth().signInWithCredential(googleCredential)
-  //             .then( response => {
-  //               alert("d")
-  //                 console.log("Firebase success: " + JSON.stringify(response));
-  //                 resolve(response)
-  //             });
-  //       }, err => {
-  //         alert("e")
-  //           console.error("Error: ", err)
-  //           reject(err);
-  //       });
-  //     });
-  //     }
-
-
-  gmailLogin()
-  {
-    this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
-      console.log(res)
-      alert("success")
-    })
-  }
-
-
-
-facebookLogin()
-{
-  console.log("gg")
-  this.auth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((res)=>{
-    alert(res.user.uid)
-  //  this.navCtrl.push(RegisterPage);
-
-  })
-}
-
-
-facebooklogin()
-{
-  let provider = new firebase.auth.FacebookAuthProvider();
-  firebase.auth().signInWithRedirect(provider).then(()=>{ 
-    console.log("a")
-    firebase.auth().getRedirectResult().then((result)=>{
-      console.log(result.user.uid) 
-      console.log("b")
-   
-    }).catch(function(error)
-    { console.log(JSON.stringify(error))})
-  })
-}
-
-
 
 
   checkIfElderly()
@@ -196,14 +104,11 @@ facebooklogin()
  
  get_data_for_admin()
  {
-   let elderly = []
-   let volunteer = []
-   let messages = []
+   let elderly = [] , volunteer = [] , messages = []
    let j =0 , k = 0 , l=0
    const db = firebase.firestore();
    const result = db.collection('ElderlyUsers').get().then(res =>
    {  res.forEach(i => {elderly[j]=(i.data()); j++}) })
-
 
    const result1 = db.collection('volunteerUsers').get().then(res =>
     {res.forEach(i =>{ volunteer[k]=(i.data());k++})})
@@ -214,5 +119,99 @@ facebooklogin()
     this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
      'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin});
  } 
+
+
+ //----------------------------------------------------------------
+ 
+ gmail()
+ {
+   if(this.platform.is('capacitor'))
+   {
+     alert("capacitor platform")
+   //  this.googleLogin();
+   }
+   else if(this.platform.is('android'))
+   {
+     alert("android platform")
+    // this.nativeGoogleLogin();
+   }
+   else
+   {
+     alert("web platform")
+     this.gmailLogin();
+   }
+ }
+
+
+//    nativeGoogleLogin() {
+//      alert("a")
+//     this.gplus.login({})
+//     .then(res => {alert(res)})
+//     .catch(err => {alert(err)});
+// }
+
+ // googleLogin(): Promise<any> {
+ //   alert("a")
+ //   return new Promise((resolve, reject) => { 
+ //     alert("b")
+ //       this.gplus.login({
+ //         'webClientId': '377941126479-70vb0jtmhuoksg2r0r3jhbi9975b4sla.apps.googleusercontent.com',  
+ //         'offline': true
+ //       }).then( res => {
+ //               const googleCredential = firebase.auth.GoogleAuthProvider
+ //                   .credential(res.idToken);
+ //                   alert("c")
+ //               firebase.auth().signInWithCredential(googleCredential)
+ //             .then( response => {
+ //               alert("d")
+ //                 console.log("Firebase success: " + JSON.stringify(response));
+ //                 resolve(response)
+ //             });
+ //       }, err => {
+ //         alert("e")
+ //           console.error("Error: ", err)
+ //           reject(err);
+ //       });
+ //     });
+ //     }
+
+
+ gmailLogin()
+ {
+   this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+     console.log(res)
+     alert("success")
+   })
+ }
+
+
+
+facebookLogin()
+{
+ console.log("gg")
+ this.auth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((res)=>{
+   alert(res.user.uid)
+ //  this.navCtrl.push(RegisterPage);
+
+ })
+}
+
+
+facebooklogin()
+{
+ let provider = new firebase.auth.FacebookAuthProvider();
+ firebase.auth().signInWithRedirect(provider).then(()=>{ 
+   console.log("a")
+   firebase.auth().getRedirectResult().then((result)=>{
+     console.log(result.user.uid) 
+     console.log("b")
+  
+   }).catch(function(error)
+   { console.log(JSON.stringify(error))})
+ })
+}
+
+
+
 
 }

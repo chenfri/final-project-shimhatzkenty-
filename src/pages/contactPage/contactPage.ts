@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { contactMessage } from '../../module/contactMessage'
+import { contactMessage } from '../../module/contactMessage';
 import firebase from 'firebase';
 import { AlertController ,NavController,NavParams} from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { User } from '../../module/User'
+import { User } from '../../module/User';
+import {AlertProvider} from '../../providers/alert/alert';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class contactPage
   user = {} as User
   
 
-  constructor(public alertCtrl: AlertController,public navCtrl: NavController , public params: NavParams)
+  constructor(public alert: AlertProvider ,public navCtrl: NavController , public params: NavParams)
   {
     this.user.loggedIn = this.params.get('login');
   }
@@ -33,7 +34,7 @@ export class contactPage
       
       })
       .then(() => {
-        this.showAlertSuccess();
+        this.alert.showAlert_sendMessage()
         this.navCtrl.push(HomePage);
       }).catch((error)=> {
         console.log })
@@ -44,16 +45,5 @@ export class contactPage
   {
     this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
   }
-
-  showAlertSuccess()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'בוצע',
-      subTitle: '!ההודעה נשלחה בהצלחה',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-  
   
 }

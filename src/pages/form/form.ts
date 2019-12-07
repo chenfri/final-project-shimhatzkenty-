@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
 import {Platform} from 'ionic-angular';
+import {AlertProvider} from '../../providers/alert/alert'
 
 @Component({
   selector: 'page-form',
@@ -18,8 +19,10 @@ export class Form
     public time: any[]
     public numOfMeeting: any[]
     
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController, public params: NavParams) 
+  constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
+     public params: NavParams, public alert: AlertProvider) 
   {
+
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
@@ -99,9 +102,8 @@ export class Form
 
  async registry()
   {
-    if(this.user.email == "" ||this.user.password == "")
-       this. error_emptyEmailOrPassword();
-
+    if(this.user.email == "undefined" ||this.user.password == "undefined")
+        this.alert.error_emptyEmailOrPassword();
     else
     {
 
@@ -109,15 +111,15 @@ export class Form
         const res = await firebase.auth().createUserWithEmailAndPassword
         (this.user.email, this.user.password);
         if(res)
-          this.showAlert();
+          this.alert.showAlert();
       }
       catch(e)
       {
         console.error(e);
         if(e.message == "The email address is already in use by another account.")
-          this.error_emailIsAllreadyExist();
+          this.alert.error_emailIsAllreadyExist();
         else
-          this.error_illegalEmailOrPassword();
+          this.alert.error_illegalEmailOrPassword();
       }
   }
   }
@@ -128,7 +130,7 @@ export class Form
   {
     firebase.auth().currentUser.updatePassword(this.user.password);
     firebase.auth().currentUser.updateEmail(this.user.email);
-    this.showAlert_changeEmailAndPassword();
+    this.alert.showAlert_changeEmailAndPassword();
     this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly
      ,'volunteer': this.user.volunteer});
   }
@@ -148,23 +150,23 @@ export class Form
 
     if(typeof(this.user.fullName) === "undefined"  ||typeof(this.user.phone) === "undefined" 
     || typeof(this.user.address) === "undefined")
-     { this. error_emptyFields();
+     { this.alert.error_emptyFields();
       flag=1;}
 
     else if(this.check_array1() == 1){
-      this.error_hobbies();
+      this.alert.error_hobbies();
       flag=1;}
 
     else if(this.check_array2() == 1)
     {
-      this.error_timeOfMeeting();
+      this.alert.error_timeOfMeeting();
       flag=1;}
 
     else if(!this.user.elderly)
     {
       if(this.check_array3() ==1)
       {
-        this.error_numOfMeeting();
+        this.alert.error_numOfMeeting();
         flag=1;}
     }
 
@@ -208,7 +210,7 @@ export class Form
         num_of_meetings: this.numOfMeeting
       })
       .then(() => {
-        this.showAlertSuccess();
+        this.alert.showAlertSuccess();
         this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
          'volunteer': this.user.volunteer})
       }).catch((error)=> {
@@ -232,7 +234,7 @@ export class Form
         meeting_time: this.time
       })
       .then(() => {
-        this.showAlertSuccess();
+        this.alert.showAlertSuccess();
         this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly
         ,'volunteer': this.user.volunteer});
       }).catch((error)=> {
@@ -366,117 +368,6 @@ export class Form
         return 0;
     }
     return 1;
-  }
-
-
- //---------- diffrent methods for errors ---------------
-  showAlertSuccess()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'בוצע',
-      subTitle: '!הפרטים נשמרו בהצלחה',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  
-  showAlert_changeEmailAndPassword()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'בוצע',
-      subTitle: 'כתובת הדוא"ל והסיסמה שונו בהצלחה',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-  
-
-  showAlert()
-  {
-    let alert = this.alertCtrl.create({
-      title: '!הפרטים נשמרו בהצלחה',
-      subTitle: 'שים לב, יש למלא את כל הטופס' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_emptyFields()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: '!חובה למלא את כל השדות',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  
-  error_emptyEmailOrPassword()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: '!חובה למלא כתובת דוא"ל וסיסמא',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_illegalEmailOrPassword()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמא באורך של 6 תווים לפחות',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_hobbies()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור תחביב אחד לפחות',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_timeOfMeeting()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור זמן שמתאים למפגש',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_numOfMeeting()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle:'חובה לבחור תדירות מפגשים',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_emailIsAllreadyExist()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle:'כתובת הדוא"ל כבר קיימת המערכת',
-      buttons: ['OK']
-    });
-    alert.present();
   }
 
 }
