@@ -68,7 +68,7 @@
         
                     <ion-list radio-group *ngIf="!user.elderly">
                         <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
-                                <ion-label style="float:right ;"> {{ numOfMeeting.species }} </ion-label>
+                                <ion-label style="text-align: right;"> {{ numOfMeeting.species }} </ion-label>
                                 <ion-checkbox item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
@@ -76,11 +76,11 @@
 
             </ion-col>
             <ion-col>
-                    <h5 class="titleForm" style="float: right;">:זמנים נוחים למפגש</h5>
+                    <h5 class="titleForm">:זמנים נוחים למפגש</h5>
 
                     <ion-list radio-group >
                         <ion-item *ngFor="let time of time; let i = index">
-                                <ion-label style="float: right;"> {{ time.species }} </ion-label>
+                                <ion-label style="text-align: right;" > {{ time.species }} </ion-label>
                                 <ion-checkbox item-right [checked]="time.currentValue" (click)="radioClicked1(time)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
@@ -89,7 +89,7 @@
                     <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
 
                     <ion-item  *ngFor="let hobbies of hobbies; let i = index">
-                        <ion-label style="float: right;"> {{ hobbies.species }} </ion-label>
+                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
                         <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
                     </ion-item>
             </ion-col>
