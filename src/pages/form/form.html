@@ -13,8 +13,8 @@
 
       
         <input *ngIf = "user.loggedIn" type="submit" (click)= "update_email_or_password()" value="עדכון פרטים">    
-<br><br><br><br>
 
+        <br><br><br><br>
         
          <label style="float: right;">שם מלא</label>
          <input text-right type="text" name="title" [(ngModel)] = "user.fullName" >
@@ -24,7 +24,8 @@
         <label style="float: right;">כתובת מגורים</label>
         <input type="text" name="address" [(ngModel)] = "user.address">
        
-        <button style="float: right;" ion-button type="submit" (click)= "get_location_by_coordinates()">השתמש בשירותי מיקום</button>
+        <input style="float: right;"  type="submit" (click)= "get_location_by_coordinates()" value="השתמש בשירותי מיקום">
+
         <br><br><br><br>
         
         <label style="float: right;">מספר פלאפון</label>
@@ -32,22 +33,22 @@
 
         <!----------------------------------------------just for volunteer------------------------------------------------------------------------>
 
-        <label class="slidecontainer" *ngIf= "!user.elderly" style="float: right;">:מרחק נסיעה מקסימלי בק"מ 
+        <label class= "titleForm"  style="float: right;" *ngIf= "!user.elderly" >:מרחק נסיעה מקסימלי בק"מ </label>
+        <label style="float: right; width: 100%;" *ngIf= "!user.elderly" >
 
         <br><br>
+
         <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange">
 
-    
+        המרחק שנבחר: {{user.range}}
 
-        <h5 class= "titleForm" *ngIf= "!user.elderly">המרחק שנבחר: {{user.range}}</h5>
         <br><br><br><br>
         </label>
 
         <!----------------------------------------------just for elderly------------------------------------------------------------------------>
-
-        <label  *ngIf="user.elderly" style="float: right;" >אני ממלא את הטופס בשם מישהו אחר
-            <input class="container"  type="checkbox" [checked]="user.onBehalf" (click) = "onbehalf()">
-        </label>
+        
+        <ion-checkbox *ngIf="user.elderly" style="float: right;"  [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
+        <label *ngIf="user.elderly" style="float:right ;"> אני ממלא את הטופס בשם מישהו אחר</label>
 
         <ion-item *ngIf="user.onBehalf">
             <ion-label floating >נא מלא את שמך המלא</ion-label>
@@ -56,35 +57,61 @@
             <ion-item *ngIf="user.onBehalf">
                 <ion-label floating>קרבה לקשיש</ion-label>
                 <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
-            </ion-item>  
+        </ion-item>  
            
-            <br><br><br><br>
+        <br><br><br><br>
 
 
-            <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
-            <ion-item  *ngFor="let hobbies of hobbies; let i = index">
-                <ion-label> {{ hobbies.species }} </ion-label>
-                <ion-checkbox [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
-            </ion-item>
 
-            <br>
-            <h5 class="titleForm">:זמנים נוחים למפגש</h5>
-            <ion-list radio-group>
-                <ion-item *ngFor="let time of time; let i = index">
-                        <ion-label> {{ time.species }} </ion-label>
-                        <ion-radio [checked]="time.currentValue" (click)="radioClicked1(time)"></ion-radio>
-                </ion-item>
-            </ion-list>
-            <br>
+    <ion-grid style="    background-color: #ffffff80;">
+        <ion-row>
+            <ion-col>
+                    <h5 class="titleForm" *ngIf="!user.elderly">:תדירות מפגשים</h5>
+        
+                    <ion-list radio-group *ngIf="!user.elderly">
+                        <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
+                                <ion-label style="float:right ;"> {{ numOfMeeting.species }} </ion-label>
+                                <ion-checkbox item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-checkbox>
+                        </ion-item>
+                    </ion-list>
+                    
+            </ion-col>
+            <ion-col>
+                    <h5 class="titleForm" style="float: right;">:זמנים נוחים למפגש</h5>
 
-            <h5 class="titleForm" *ngIf="!user.elderly">:תדירות מפגשים</h5>
-            <ion-list radio-group *ngIf="!user.elderly">
-                <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
-                        <ion-label> {{ numOfMeeting.species }} </ion-label>
-                        <ion-radio [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
-                </ion-item>
-            </ion-list>
-            
+                    <ion-list radio-group >
+                        <ion-item *ngFor="let time of time; let i = index">
+                                <ion-label style="float: right;"> {{ time.species }} </ion-label>
+                                <ion-checkbox item-right [checked]="time.currentValue" (click)="radioClicked1(time)"></ion-checkbox>
+                        </ion-item>
+                    </ion-list>
+            </ion-col>
+            <ion-col>
+                    <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
+
+                    <ion-item  *ngFor="let hobbies of hobbies; let i = index">
+                        <ion-label style="float: right;"> {{ hobbies.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
+                    </ion-item>
+            </ion-col>
+                  
+        </ion-row>
+    </ion-grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
             <br>
             <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
 
