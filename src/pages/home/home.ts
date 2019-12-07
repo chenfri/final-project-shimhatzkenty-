@@ -25,19 +25,21 @@ export class HomePage
   constructor(public navCtrl: NavController, public params: NavParams,
         public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
   {
+    
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
 
-    console.log("if admin:")
+    console.log("if login:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
 
-    if(firebase.auth().currentUser != null)
-    console.log(firebase.auth().currentUser.uid);
-
     if(this.user.loggedIn)
-      this.get_data_from_firebase();
+      this.checkIfElderly();
+
+   /* if(firebase.auth().currentUser != null)
+      console.log("uid: "firebase.auth().currentUser.uid);*/
+
   }
 
 
@@ -132,7 +134,7 @@ facebooklogin()
 
 
 
-  get_data_from_firebase()
+  checkIfElderly()
   {
     const db = firebase.firestore();
 

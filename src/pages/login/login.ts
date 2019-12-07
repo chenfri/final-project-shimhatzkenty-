@@ -4,7 +4,6 @@ import { User } from '../../module/user';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {adminPage} from '../Admin/adminPage'
 
 @IonicPage()
 @Component({
@@ -18,12 +17,7 @@ export class LoginPage
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController, private auth: AngularFireAuth) {
     this.user.loggedIn = false;
     this.user.Admin = false;
-    const db = firebase.firestore();
-    db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
-      .then(result =>{ if(result.exists)
-                        this.user.Admin = true;})
   }
-
 
   signIn_function()
   {
@@ -36,8 +30,13 @@ export class LoginPage
      /* console.log(this.user.email)
       console.log(this.user.password)
       console.log("login success")*/
+
       this.user.loggedIn = true;
-      this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin});
+      const db = firebase.firestore();
+      db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
+        .then(result =>{ if(result.exists)
+                          this.user.Admin = true;
+                          this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin});})
       
       }).catch(error => {
         this.showAlertError3();

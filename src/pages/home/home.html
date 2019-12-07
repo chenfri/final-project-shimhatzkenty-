@@ -11,9 +11,9 @@
           <button *ngIf = "!user.loggedIn && !user.Admin" ion-button (click)="volunteer_form()">הרשם כמתנדב</button>
           <button *ngIf = "!user.elderly && user.loggedIn && !user.Admin" ion-button (click)="volunteer_form()">עדכון פרטים אישיים</button>
           <button *ngIf = "!user.loggedIn" ion-button (click)="elderly_form()">רישום לאזרח הותיק</button>
-          <button *ngIf = "!user.Admin"  ion-button (click)="login()">כניסת משתמש רשום</button>
-          <button *ngIf = "!user.Admin" ion-button (click)="facebookLogin()">התחבר עם פייסבוק</button>
-          <button *ngIf = "!user.Admin" ion-button (click)="gmail()">התחבר עם גמייל</button>
+          <button *ngIf = "!user.loggedIn"  ion-button (click)="login()">כניסת משתמש רשום</button>
+          <button *ngIf = "!user.loggedIn" ion-button (click)="facebookLogin()">התחבר עם פייסבוק</button>
+          <button *ngIf = "!user.loggedIn" ion-button (click)="gmail()">התחבר עם גמייל</button>
           <button *ngIf = "user.Admin" ion-button (click)=" get_data_for_admin()"> אדמין</button>
       </ion-navbar>
 

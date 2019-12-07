@@ -24,7 +24,7 @@ export class Form
     this.user.elderly = this.params.get('elderly');
     console.log(this.user.elderly)
 
-    console.log("if logged in")
+    console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
 
