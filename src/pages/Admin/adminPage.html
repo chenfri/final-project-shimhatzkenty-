@@ -1,3 +1,5 @@
+<ion-content >
+
 <ion-header>
 
     <!-- <ion-title>
@@ -11,7 +13,7 @@
 
 </ion-header>
 
-<h2 class = "titleAdmin">דף ניהול</h2>
+<h2  class = "titleAdmin">דף ניהול</h2>
 <table id="customers">
   <h4 class = "tableTitle">:קשישים שהתחברו לאפליקציה</h4>
 
@@ -56,6 +58,7 @@
             <th>שם מלא</th>
             <th>טלפון</th>
             <th>הודעה</th>
+            <th>מחק הודעה</th>
           </tr>
           
       
@@ -63,6 +66,10 @@
             <td>{{value.message}}</td>
             <td>{{value.phoneNumber}}</td>
             <td>{{value.fullName}}</td>
+            <td><button (click)="delete(item)">[x]</button></td>
+          
+            
           </tr>
          
         </table>
+      </ion-content>

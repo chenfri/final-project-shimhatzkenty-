@@ -84,4 +84,13 @@ export class adminPage
     return index;
   }
  
-}
+
+  private deletefromMessage(item) {
+      const db = firebase.firestore();
+      let deleteDoc = db.collection('message').doc(item).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  }
+ }

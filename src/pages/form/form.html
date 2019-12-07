@@ -1,70 +1,74 @@
-<ion-content padding> 
-    <div class="beginForm">
-        <h2>פרטים אישיים</h2>
-       <form>
-            <ion-item>
-                <ion-label floating >כתובת דוא"ל</ion-label>
-                <ion-input name="username" [(ngModel)] = "user.email"></ion-input>
-            </ion-item>
+<ion-content padding class= "formCSS" style="float: right;">
+   
+    <h2 class= "titleForm">פרטים אישיים</h2>
+    <form class="form" style="float: right;">
+            <br><br>     
+        <label style="float: right;">כתובת דוא"ל</label>
+        <input style="float: right;" type="text" name="username" [(ngModel)] = "user.email">
+          
+        <label style="float: right;">סיסמא</label>
+        <input type="text" name="password" [(ngModel)] = "user.password">
+     
+        <input style="float: right;" *ngIf = "!user.loggedIn" type="submit" (click)= "registry()" value="יצירת חשבון">
 
-            <ion-item>
-                <ion-label floating>סיסמא</ion-label>
-                <ion-input type="password" name="password" [(ngModel)] = "user.password"></ion-input>
-            </ion-item>
+      
+        <input *ngIf = "user.loggedIn" type="submit" (click)= "update_email_or_password()" value="עדכון פרטים">    
+<br><br><br><br>
 
-            <ion-item *ngIf = "!user.loggedIn">
-                <button ion-button type="submit" (click)= "registry()">יצירת חשבון</button>
-            </ion-item>
-
-            <ion-item *ngIf = "user.loggedIn">
-                <button ion-button type="submit" (click)= "update_email_or_password()">עדכון פרטים</button>
-            </ion-item>
-
-            <ion-item>
-                    <ion-label floating>שם מלא</ion-label>
-                    <ion-input text-right type="text" name="title" [(ngModel)] = "user.fullName" ></ion-input>
-                </ion-item>
+        
+         <label style="float: right;">שם מלא</label>
+         <input text-right type="text" name="title" [(ngModel)] = "user.fullName" >
+         
     
-            <ion-item>
-                <ion-label floating>כתובת מגורים</ion-label>
-                <ion-textarea name="address" text-right [(ngModel)] = "user.address"></ion-textarea>
-            </ion-item>
-            <button ion-button type="submit" (click)= "get_location_by_coordinates()">השתמש בשירותי מיקום</button>
+        
+        <label style="float: right;">כתובת מגורים</label>
+        <input type="text" name="address" [(ngModel)] = "user.address">
+       
+        <button style="float: right;" ion-button type="submit" (click)= "get_location_by_coordinates()">השתמש בשירותי מיקום</button>
+        <br><br><br><br>
+        
+        <label style="float: right;">מספר פלאפון</label>
+        <input text-right type="text" name="phone" [(ngModel)] = "user.phone" >
 
-            <ion-item>
-                <ion-label floating>מספר פלאפון</ion-label>
-                <ion-textarea text-right type="number" name="phone" [(ngModel)] = "user.phone"></ion-textarea>
-            </ion-item>
+        <!----------------------------------------------just for volunteer------------------------------------------------------------------------>
 
-            <ion-item *ngIf= "!user.elderly">
-                <ion-label floating>:מרחק נסיעה מקסימלי בק"מ</ion-label>
-                <ion-range min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range"></ion-range>
-            </ion-item>
+        <label class="slidecontainer" *ngIf= "!user.elderly" style="float: right;">:מרחק נסיעה מקסימלי בק"מ 
 
-            <h5 *ngIf= "!user.elderly">המרחק שנבחר: {{user.range}}</h5>
+        <br><br>
+        <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange">
 
-            <ion-item *ngIf="user.elderly">
-                <ion-label>אני ממלא את הטופס בשם מישהו אחר</ion-label>
-                <ion-checkbox [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
-            </ion-item> 
-            <ion-item *ngIf="user.onBehalf">
-                <ion-label floating >נא מלא את שמך המלא</ion-label>
-                <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
-            </ion-item> 
+    
+
+        <h5 class= "titleForm" *ngIf= "!user.elderly">המרחק שנבחר: {{user.range}}</h5>
+        <br><br><br><br>
+        </label>
+
+        <!----------------------------------------------just for elderly------------------------------------------------------------------------>
+
+        <label  *ngIf="user.elderly" style="float: right;" >אני ממלא את הטופס בשם מישהו אחר
+            <input class="container"  type="checkbox" [checked]="user.onBehalf" (click) = "onbehalf()">
+        </label>
+
+        <ion-item *ngIf="user.onBehalf">
+            <ion-label floating >נא מלא את שמך המלא</ion-label>
+            <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
+        </ion-item> 
             <ion-item *ngIf="user.onBehalf">
                 <ion-label floating>קרבה לקשיש</ion-label>
                 <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
             </ion-item>  
            
+            <br><br><br><br>
 
-            <h4>:תחומי עיניין ותחביבים</h4>
-            <ion-item *ngFor="let hobbies of hobbies; let i = index">
+
+            <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
+            <ion-item  *ngFor="let hobbies of hobbies; let i = index">
                 <ion-label> {{ hobbies.species }} </ion-label>
                 <ion-checkbox [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
             </ion-item>
 
             <br>
-            <h5>:זמנים נוחים למפגש</h5>
+            <h5 class="titleForm">:זמנים נוחים למפגש</h5>
             <ion-list radio-group>
                 <ion-item *ngFor="let time of time; let i = index">
                         <ion-label> {{ time.species }} </ion-label>
@@ -73,7 +77,7 @@
             </ion-list>
             <br>
 
-            <h5 *ngIf="!user.elderly">:תדירות מפגשים</h5>
+            <h5 class="titleForm" *ngIf="!user.elderly">:תדירות מפגשים</h5>
             <ion-list radio-group *ngIf="!user.elderly">
                 <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
                         <ion-label> {{ numOfMeeting.species }} </ion-label>
@@ -82,10 +86,11 @@
             </ion-list>
             
             <br>
-            <button ion-button type="submit" (click)= "check_field_value()">שמירה</button>
+            <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
 
+            <br><br><br><br>
 
       </form>
-    </div>
+
 </ion-content>
   
