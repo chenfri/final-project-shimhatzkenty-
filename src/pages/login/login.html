@@ -1,23 +1,22 @@
 <ion-content   padding class="login-page">
-  <div class="login-bar" >
-<h2>התחברות למערכת</h2>
-    <ion-item>
-        <ion-label floating>כתובת דוא"ל</ion-label>
-        <ion-input [(ngModel)] = "user.email"></ion-input>
-    </ion-item>
+    <input style="float: left;" type="submit" (click)= "click_home()" value="חזרה לדף הבית">
+    <br><br><br>
 
-    <ion-item>
-        <ion-label floating>סיסמא</ion-label>
-        <ion-input type="password" [(ngModel)] = "user.password"></ion-input>
-    </ion-item >
+    <div class="login-bar">
     
-    <ion-item>
-        <button ion-button (click)= "signIn_function(user)">התחבר</button>
-    </ion-item>
+        <h2 class="titleLogin">התחברות למערכת</h2>
 
-    <ion-item>
-      <button ion-button (click)= "resetPassword(user)">שכחתי סיסמא</button>
-  </ion-item>
-         
+        <br><br><br>
+
+        <label style="float: right;">כתובת דוא"ל</label>
+        <ion-input [(ngModel)] = "user.email"></ion-input>
+
+        <label  style="float: right;">סיסמא</label>
+        <ion-input  [(ngModel)] = "user.password"></ion-input>
+    
+        <input type="submit"  (click)= "signIn_function(user)" value="התחבר">
+
+        <input type="submit"  (click)= "resetPassword(user)" value="שכחתי סיסמא">
+               
   </div>
 </ion-content >
