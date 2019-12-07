@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">chenfsimhatzkenty</string>
+    <string name="app_name">simhatzkenty</string>
     <string name="title_activity_main">simhatzkenty</string>
     <string name="package_name">com.simhatzkenty.app</string>
     <string name="custom_url_scheme">com.simhatzkenty.app</string>

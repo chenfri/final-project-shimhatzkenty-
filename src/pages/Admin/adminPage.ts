@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { User } from '../../module/User'
 import { NavController,NavParams} from 'ionic-angular';
-import firebase, { firestore } from 'firebase';
-import { map } from 'rxjs/operator/map';
-import {AngularFirestore} from 'angularfire2/firestore'
-import { AngularFirestoreDocument, AngularFirestoreCollection} from 'angularfire2/firestore';
-import { Observable } from 'rxjs';
 import { contactMessage } from '../../module/contactMessage'
-
+import { HomePage } from '../home/home';
 import { Http } from '@angular/http';
 import * as papa from 'papaparse';
 
@@ -18,21 +13,21 @@ import * as papa from 'papaparse';
 
 export class adminPage
  {
+  user = {} as User
   userE = {} as User;
   userV = {} as User;
   messages = {} as contactMessage;
-
-  public hobbies: any[] 
-  public time: any[]
-  public numOfMeeting: any[]
-  posts :any
   csvData: any[] = [];
   headerRow: any[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) 
   {
+    this.user.loggedIn = this.navParams.get('login');
+    console.log(this.user.loggedIn)
     this.userE = this.navParams.get('eldely');
     this.userV = this.navParams.get('volunteer');
+    let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
+    this.extractData(temp)
     this.messages = this.navParams.get('messages');
 
     console.log(this.messages)
@@ -52,16 +47,16 @@ export class adminPage
     let csvData =  res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
     this.headerRow = parsedData[0]
- 
+    this.headerRow = ["name","adrress" , "phone"]
     parsedData.splice(0, 1);
     this.csvData = parsedData;
   }
  
   downloadCSV() {
-   // console.log(this.csvData)
+    let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
     let csv = papa.unparse({
       fields: this.headerRow,
-      data: this.csvData,
+      data: temp,
        });
  
     // Dummy implementation for Desktop download purpose
@@ -74,7 +69,10 @@ export class adminPage
     document.body.removeChild(a);
   }
  
- 
+  click_home()
+  {
+    this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
+  }
 
   private handleError(err) {
     console.log('something went wrong: ', err);
@@ -85,12 +83,12 @@ export class adminPage
   }
  
 
-  private deletefromMessage(item) {
-      const db = firebase.firestore();
-      let deleteDoc = db.collection('message').doc(item).delete().then(function() {
-        console.log("Document successfully deleted!");
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
-    });
-  }
+  // private deletefromMessage(item) {
+  //     const db = firebase.firestore();
+  //     let deleteDoc = db.collection('message').doc(item).delete().then(function() {
+  //       console.log("Document successfully deleted!");
+  //   }).catch(function(error) {
+  //       console.error("Error removing document: ", error);
+  //   });
+  // }
  }

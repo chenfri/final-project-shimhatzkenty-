@@ -1,36 +1,42 @@
 <ion-content >
 
 <ion-header>
-
-    <!-- <ion-title>
-      דף ניהול
-    </ion-title> -->
     <ion-buttons end>
       <button ion-button icon-only (click)="downloadCSV()">
           <ion-icon name="download">   ייצוא לאקסל</ion-icon>
+          <button ion-button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
         </button>
     </ion-buttons>
-
 </ion-header>
 
 <h2  class = "titleAdmin">דף ניהול</h2>
 <table id="customers">
   <h4 class = "tableTitle">:קשישים שהתחברו לאפליקציה</h4>
-
     <tr>
       <th>כתובת</th>
       <th>טלפון</th>
       <th>שם מלא</th>
     </tr>
-    
+  <tr *ngFor="let value of userE">
+    <td>{{value.address}}</td>
+    <td>{{value.phone}}</td>
+    <td>{{value.fullName}}</td>
+  </tr>
+</table>
 
-    <tr *ngFor="let value of userE">
+<table id="customers">
+  <h4 class = "tableTitle">:מתנדבים שהתחברו לאפליקציה</h4>
+    <tr>
+      <th>כתובת</th>
+      <th>טלפון</th>
+      <th>שם מלא</th>
+    </tr>
+    <tr *ngFor="let value of userV">
       <td>{{value.address}}</td>
       <td>{{value.phone}}</td>
       <td>{{value.fullName}}</td>
     </tr>
-   
-  </table>
+</table>
 
 
   <table id="customers">

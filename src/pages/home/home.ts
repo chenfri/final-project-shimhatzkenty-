@@ -11,7 +11,6 @@ import {AngularFireAuth} from 'angularfire2/auth';
 // import {Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 // import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import {Platform} from 'ionic-angular';
-import {Observable} from 'rxjs/observable'
 import { adminPage } from '../Admin/adminPage';
 
 @Component({
@@ -23,19 +22,24 @@ export class HomePage
 {
   user = {} as User;
 
-  constructor(public navCtrl: NavController, public params: NavParams, //private gplus:GooglePlus,
-        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform,// private fb: Facebook
-        )
+  constructor(public navCtrl: NavController, public params: NavParams,
+        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
   {
+    
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
 
-    if(firebase.auth().currentUser != null)
-    console.log(firebase.auth().currentUser.uid);
+    console.log("if login:")
+    this.user.Admin = this.params.get('admin');
+    console.log(this.user.Admin)
 
     if(this.user.loggedIn)
-      this.get_data_from_firebase();
+      this.checkIfElderly();
+
+   /* if(firebase.auth().currentUser != null)
+      console.log("uid: "firebase.auth().currentUser.uid);*/
+
   }
 
 
@@ -130,7 +134,7 @@ facebooklogin()
 
 
 
-  get_data_from_firebase()
+  checkIfElderly()
   {
     const db = firebase.firestore();
 
@@ -162,15 +166,11 @@ facebooklogin()
   }
 
   contactPage() {
-    this.navCtrl.push(contactPage);
-  }
-
-  registry(){
-    this.navCtrl.push(RegisterPage);
+    this.navCtrl.push(contactPage, {'login':this.user.loggedIn});
   }
 
   login(){
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.push(LoginPage, {'login':this.user.loggedIn});
   }
   
    logout() {
@@ -178,7 +178,8 @@ facebooklogin()
     this.navCtrl.push(HomePage);
  }
 
- get_data_from_firebase22()
+ 
+ get_data_for_admin()
  {
    let eldely = []
    let volunteer = []
@@ -186,7 +187,8 @@ facebooklogin()
    let j =0 , k = 0 , l=0
    const db = firebase.firestore();
    const result = db.collection('ElderlyUsers').get().then(res =>
-   {  res.forEach(i => { eldely[j]=(i.data()); j++}) })
+   {  res.forEach(i => {eldely[j]=(i.data()); j++}) })
+
 
    const result1 = db.collection('volunteerUsers').get().then(res =>
     {res.forEach(i =>{ volunteer[k]=(i.data());k++})})
@@ -194,7 +196,7 @@ facebooklogin()
     const result2 = db.collection('message').get().then(res =>
       {res.forEach(i =>{ messages[l]=(i.data());l++})})
 
-    this.navCtrl.push(adminPage, {'eldely': eldely , 'volunteer': volunteer , 'messages': messages});
+    this.navCtrl.push(adminPage, {'eldely': eldely, 'volunteer': volunteer, 'messages': messages , 'login': this.user.loggedIn});
  } 
 
 }
