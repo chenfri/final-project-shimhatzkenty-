@@ -5,7 +5,7 @@ import { contactMessage } from '../../module/contactMessage'
 import { HomePage } from '../home/home';
 import { Http } from '@angular/http';
 import * as papa from 'papaparse';
-import {Form} from '../from/form'
+import { RegisterPage } from '../register/register';
 
 @Component({
   selector: 'adminPage',
@@ -21,11 +21,11 @@ export class adminPage
   csvData: any[] = [];
   headerRow: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http , public form: Form) 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http ) 
   {
     this.user.loggedIn = this.navParams.get('login');
-    console.log(this.user.loggedIn)
     this.userE = this.navParams.get('eldely');
+    this.user.Admin = this.navParams.get('admin');
     this.userV = this.navParams.get('volunteer');
     let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
     this.extractData(temp)
@@ -34,8 +34,6 @@ export class adminPage
     console.log(this.messages)
     //this.setArray()
   //  this.readCsvData();
-
-  this.form.registry();
   }
 
   private readCsvData() {
@@ -75,6 +73,11 @@ export class adminPage
   click_home()
   {
     this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
+  }
+
+  click_manageUser()
+  {
+    this.navCtrl.push(RegisterPage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
   }
 
   private handleError(err) {

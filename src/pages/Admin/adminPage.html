@@ -5,6 +5,7 @@
       <button ion-button icon-only (click)="downloadCSV()">
           <ion-icon name="download">   ייצוא לאקסל</ion-icon>
           <button ion-button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
+          <button ion-button type="submit" (click)= "click_manageUser()">ניהול משתמשים</button>
         </button>
     </ion-buttons>
 </ion-header>
@@ -39,43 +40,22 @@
 </table>
 
 
-  <table id="customers">
-      <h4 class = "tableTitle">:מתנדבים שהתחברו לאפליקציה</h4>
-    
-        <tr>
-          <th>כתובת</th>
-          <th>טלפון</th>
-          <th>שם מלא</th>
-        </tr>
-        
-    
-        <tr *ngFor="let value of userV">
-          <td>{{value.address}}</td>
-          <td>{{value.phone}}</td>
-          <td>{{value.fullName}}</td>
-        </tr>
-       
-      </table>
+<table id="customers">
+  <h4 class = "tableTitle">הודעות</h4>
 
-      <table id="customers">
-        <h4 class = "tableTitle">הודעות</h4>
-      
-          <tr>
-            <th>שם מלא</th>
-            <th>טלפון</th>
-            <th>הודעה</th>
-            <th>מחק הודעה</th>
-          </tr>
-          
-      
-          <tr *ngFor="let value of messages">
-            <td>{{value.message}}</td>
-            <td>{{value.phoneNumber}}</td>
-            <td>{{value.fullName}}</td>
-            <td><button (click)="delete(item)">[x]</button></td>
-          
-            
-          </tr>
-         
-        </table>
-      </ion-content>
+    <tr>
+      <th>שם מלא</th>
+      <th>טלפון</th>
+      <th>הודעה</th>
+      <th>מחק הודעה</th>
+    </tr>
+    
+
+    <tr *ngFor="let value of messages">
+      <td>{{value.message}}</td>
+      <td>{{value.phoneNumber}}</td>
+      <td>{{value.fullName}}</td>
+      <td><button (click)="delete(item)">[x]</button></td>
+    </tr>
+  </table>
+</ion-content>

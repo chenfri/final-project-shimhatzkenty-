@@ -17,6 +17,8 @@ export class LoginPage
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController, private auth: AngularFireAuth) {
     this.user.loggedIn = false;
     this.user.Admin = false;
+    this.user.elderly = false;
+    this.user.volunteer = false;
   }
 
   signIn_function()
@@ -36,7 +38,7 @@ export class LoginPage
       db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
         .then(result =>{ if(result.exists)
                           this.user.Admin = true;
-                          this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin});})
+                          this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin, 'elderly':this.user.elderly,'volunteer':this.user.volunteer});})
       
       }).catch(error => {
         this.showAlertError3();
