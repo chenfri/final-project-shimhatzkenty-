@@ -166,15 +166,11 @@ facebooklogin()
   }
 
   contactPage() {
-    this.navCtrl.push(contactPage);
-  }
-
-  registry(){
-    this.navCtrl.push(RegisterPage);
+    this.navCtrl.push(contactPage, {'login':this.user.loggedIn});
   }
 
   login(){
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.push(LoginPage, {'login':this.user.loggedIn});
   }
   
    logout() {
@@ -182,6 +178,7 @@ facebooklogin()
     this.navCtrl.push(HomePage);
  }
 
+ 
  get_data_for_admin()
  {
    let eldely = []
@@ -199,7 +196,7 @@ facebooklogin()
     const result2 = db.collection('message').get().then(res =>
       {res.forEach(i =>{ messages[l]=(i.data());l++})})
 
-    this.navCtrl.push(adminPage, {'eldely': eldely , 'volunteer': volunteer , 'messages': messages});
+    this.navCtrl.push(adminPage, {'eldely': eldely, 'volunteer': volunteer, 'messages': messages , 'login': this.user.loggedIn});
  } 
 
 }

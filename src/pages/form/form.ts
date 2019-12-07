@@ -4,7 +4,7 @@ import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
-import { EmailValidator } from '@angular/forms';
+import {Platform} from 'ionic-angular';
 
 @Component({
   selector: 'page-form',
@@ -19,7 +19,7 @@ export class Form
     public numOfMeeting: any[]
     
   constructor(public navCtrl: NavController ,public alertCtrl: AlertController, public params: NavParams) 
-  {
+  {  
     console.log("if elderly:")
     this.user.elderly = this.params.get('elderly');
     console.log(this.user.elderly)
