@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-package com.simhatZkenty.app;
-=======
 package com.simhatzkenty.app;
->>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
 
 import android.os.Bundle;
 

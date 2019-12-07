@@ -1,15 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-<<<<<<< HEAD
-    <string name="app_name">chenfri</string>
-    <string name="title_activity_main">chenfri</string>
-    <string name="package_name">com.simhatZkenty.app</string>
-    <string name="custom_url_scheme">com.simhatZkenty.app</string>
-=======
-    <string name="app_name">chenfsimhatzkenty</string>
+    <string name="app_name">simhatzkenty</string>
     <string name="title_activity_main">simhatzkenty</string>
     <string name="package_name">com.simhatzkenty.app</string>
     <string name="custom_url_scheme">com.simhatzkenty.app</string>
->>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
     <string name="facebook_app_id">990804424608487</string>
 </resources>

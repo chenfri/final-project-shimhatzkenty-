@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
-  "appId": "com.simhatZkenty.app",
-  "appName": "simhatzkenty",
-=======
   "appId": "com.simhatzkenty.app",
   "appName": "MyIonicProject",
->>>>>>> 8a0eff9410544e013b4a1cb8a4ded702712d88c7
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
