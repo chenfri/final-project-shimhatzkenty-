@@ -169,13 +169,15 @@ facebooklogin()
   elderly_form() {
     this.user.elderly = true;   
     this.user.volunteer = false;
-    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn, 'volunteer': this.user.volunteer,});
+    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
+     'volunteer': this.user.volunteer,});
   }
 
   volunteer_form() {
     this.user.elderly = false;
     this.user.volunteer = true;
-    this.navCtrl.push(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer, 'login':this.user.loggedIn});
+    this.navCtrl.push(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
+     'login':this.user.loggedIn});
   }
 
   contactPage() {
@@ -194,13 +196,13 @@ facebooklogin()
  
  get_data_for_admin()
  {
-   let eldely = []
+   let elderly = []
    let volunteer = []
    let messages = []
    let j =0 , k = 0 , l=0
    const db = firebase.firestore();
    const result = db.collection('ElderlyUsers').get().then(res =>
-   {  res.forEach(i => {eldely[j]=(i.data()); j++}) })
+   {  res.forEach(i => {elderly[j]=(i.data()); j++}) })
 
 
    const result1 = db.collection('volunteerUsers').get().then(res =>
@@ -209,7 +211,8 @@ facebooklogin()
     const result2 = db.collection('message').get().then(res =>
       {res.forEach(i =>{ messages[l]=(i.data());l++})})
 
-    this.navCtrl.push(adminPage, {'eldely': eldely, 'volunteer': volunteer, 'messages': messages , 'login': this.user.loggedIn});
+    this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
+     'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin});
  } 
 
 }

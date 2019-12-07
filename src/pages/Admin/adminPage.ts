@@ -24,7 +24,7 @@ export class adminPage
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http ) 
   {
     this.user.loggedIn = this.navParams.get('login');
-    this.userE = this.navParams.get('eldely');
+    this.userE = this.navParams.get('elderly');
     this.user.Admin = this.navParams.get('admin');
     this.userV = this.navParams.get('volunteer');
     let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]

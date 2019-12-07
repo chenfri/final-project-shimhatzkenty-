@@ -129,13 +129,14 @@ export class Form
     firebase.auth().currentUser.updatePassword(this.user.password);
     firebase.auth().currentUser.updateEmail(this.user.email);
     this.showAlert_changeEmailAndPassword();
-    this.navCtrl.push(HomePage);
+    this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly
+     ,'volunteer': this.user.volunteer});
   }
 
   click_home()
   {
     this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
-     'admin': this.user.Admin ,'volunteer': this.user.volunteer})
+    'volunteer': this.user.volunteer})
   }
   
   //check all user inputs are legal
@@ -209,7 +210,7 @@ export class Form
       .then(() => {
         this.showAlertSuccess();
         this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
-         'admin': this.user.Admin, 'volunteer': this.user.volunteer})
+         'volunteer': this.user.volunteer})
       }).catch((error)=> {
         console.log })
   }
@@ -232,7 +233,8 @@ export class Form
       })
       .then(() => {
         this.showAlertSuccess();
-        this.navCtrl.push(HomePage);
+        this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly
+        ,'volunteer': this.user.volunteer});
       }).catch((error)=> {
         console.log })
   }
