@@ -20,9 +20,8 @@ export class adminPage
   {
     this.userE = this.navParams.get('eldely');
     this.userV = this.navParams.get('volunteer');
-    console.log(this.userV)
-    this.setArray()
-    this.readCsvData();
+    let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
+    this.extractData(temp)
   }
 
   private readCsvData() {
@@ -34,20 +33,19 @@ export class adminPage
   }
  
   private extractData(res) {
-    console.log(res)
     let csvData =  res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
     this.headerRow = parsedData[0]
- 
+    this.headerRow = ["name","adrress" , "phone"]
     parsedData.splice(0, 1);
     this.csvData = parsedData;
   }
  
   downloadCSV() {
-    console.log(this.csvData)
+    let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
     let csv = papa.unparse({
       fields: this.headerRow,
-      data: this.csvData,
+      data: temp,
        });
  
     // Dummy implementation for Desktop download purpose

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
+//import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class contactPage
  {
  
-  constructor(private emailComposer: EmailComposer){
+  constructor(){
 
   }
 

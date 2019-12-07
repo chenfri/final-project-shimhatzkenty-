@@ -185,7 +185,8 @@ facebooklogin()
    let j =0 , k = 0
    const db = firebase.firestore();
    const result = db.collection('ElderlyUsers').get().then(res =>
-   {  res.forEach(i => { eldely[j]=(i.data()); j++}) })
+   {  res.forEach(i => {eldely[j]=(i.data()); j++}) })
+
 
    const result1 = db.collection('volunteerUsers').get().then(res =>
     {res.forEach(i =>{ volunteer[k]=(i.data());k++})})
