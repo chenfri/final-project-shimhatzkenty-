@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { User } from '../../module/User'
 import { NavController,NavParams} from 'ionic-angular';
-import firebase, { firestore } from 'firebase';
-import { map } from 'rxjs/operator/map';
-import {AngularFirestore} from 'angularfire2/firestore'
-import { AngularFirestoreDocument, AngularFirestoreCollection} from 'angularfire2/firestore';
-import { Observable } from 'rxjs';
 import { contactMessage } from '../../module/contactMessage'
-
+import { HomePage } from '../home/home';
 import { Http } from '@angular/http';
 import * as papa from 'papaparse';
 
@@ -76,7 +71,10 @@ export class adminPage
     document.body.removeChild(a);
   }
  
- 
+  click_home()
+  {
+    this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
+  }
 
   private handleError(err) {
     console.log('something went wrong: ', err);

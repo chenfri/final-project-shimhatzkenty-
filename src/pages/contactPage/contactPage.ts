@@ -36,6 +36,12 @@ export class contactPage
         console.log })
   }
 
+
+  click_home()
+  {
+    this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
+  }
+
   showAlertSuccess()
   {
     let alert = this.alertCtrl.create({

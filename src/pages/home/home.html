@@ -3,7 +3,7 @@
       <img src="https://scontent.fsdv1-2.fna.fbcdn.net/v/t1.0-9/69164053_2389147494498549_5752760186460700672_o.jpg?_nc_cat=102&_nc_oc=AQmfuOqWCzkzav11SwauYk052ZaHQnIARrQgdQ_uxWzGrmAg8C211j8Vaxjty6SA97c&_nc_ht=scontent.fsdv1-2.fna&oh=1df52bed29686574fecd26d95bd1fd72&oe=5E23B525"
           style="width:5000px;height:200px;" />
     
-      <ion-navbar class = "navbarHome">
+      <ion-navbar hideBackButton class = "navbarHome">
           <button ion-button (click)="logout()">התנתק</button>
           <button *ngIf = "!user.Admin" ion-button (click)="contactPage()">צור קשר</button>
           <button ion-button (click)="logout()">גלריה</button>

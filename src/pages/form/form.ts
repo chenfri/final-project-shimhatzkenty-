@@ -128,6 +128,10 @@ export class Form
     this.navCtrl.push(HomePage);
   }
 
+  click_home()
+  {
+    this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
+  }
   
   //check all user inputs are legal
   check_field_value()
