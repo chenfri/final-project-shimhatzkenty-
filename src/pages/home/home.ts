@@ -182,7 +182,8 @@ facebooklogin()
  {
    let eldely = []
    let volunteer = []
-   let j =0 , k = 0
+   let messages = []
+   let j =0 , k = 0 , l=0
    const db = firebase.firestore();
    const result = db.collection('ElderlyUsers').get().then(res =>
    {  res.forEach(i => {eldely[j]=(i.data()); j++}) })
@@ -191,8 +192,10 @@ facebooklogin()
    const result1 = db.collection('volunteerUsers').get().then(res =>
     {res.forEach(i =>{ volunteer[k]=(i.data());k++})})
 
-   this.navCtrl.push(adminPage, {'eldely': eldely , 'volunteer': volunteer});
+    const result2 = db.collection('message').get().then(res =>
+      {res.forEach(i =>{ messages[l]=(i.data());l++})})
 
+    this.navCtrl.push(adminPage, {'eldely': eldely , 'volunteer': volunteer , 'messages': messages});
  } 
 
 }

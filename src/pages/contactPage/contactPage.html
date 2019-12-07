@@ -16,13 +16,13 @@
       </div>
       <div class="column">
         <form action="/action_page.php">
-          <label for="fname">שם מלא</label>
-          <input type="text" id="fname" name="firstname" placeholder="רשום כאן את השם המלא.."  >
-          <label for="lname">פלאפון</label>
-          <input type="text" id="lname" name="lastname" placeholder="רשום כאן את מס' הפלאפון..">
-          <label for="subject">הודעה</label>
-          <textarea id="subject" name="subject" placeholder="...." style="height:170px"></textarea>
-          <input type="submit" value="Submit">
+          <label for="fullName">שם מלא</label>
+          <input type="text" name="fullName" [(ngModel)] = "contactMessage.fullName" placeholder="רשום כאן את השם המלא.."  >
+          <label for="phoneNumber">פלאפון</label>
+          <input type="text" id="phone" name="phoneNumber" [(ngModel)] = "contactMessage.phoneNumber" placeholder="רשום כאן את מס' הפלאפון..">
+          <label for="message">הודעה</label>
+          <textarea id="message" name="message" [(ngModel)] = "contactMessage.message"  style="height:170px"></textarea>
+          <input type="submit" (click)= " add_data_to_firebase()" value="Submit">
         </form>
       </div>
     </div>
