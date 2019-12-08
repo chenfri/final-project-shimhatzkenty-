@@ -65,4 +65,10 @@ export class LoginPage
       return this.auth.auth.sendPasswordResetEmail(this.user.email) 
   } 
 
+
+  click_home()
+  {
+    this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
+    'volunteer': this.user.volunteer})
+  }
 }

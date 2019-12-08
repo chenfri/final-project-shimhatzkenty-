@@ -4,7 +4,7 @@
           style="width:5000px;height:200px;" />
     
       <ion-navbar hideBackButton class = "navbarHome">
-          <button ion-button (click)="logout()">התנתק</button>
+          <button *ngIf = "user.loggedIn" ion-button (click)="logout()">התנתק</button>
           <button *ngIf = "!user.Admin" ion-button (click)="contactPage()">צור קשר</button>
           <button ion-button (click)="logout()">גלריה</button>
           <button *ngIf = "user.elderly && user.loggedIn && !user.Admin" ion-button (click)="elderly_form()">עדכון פרטים אישיים</button>

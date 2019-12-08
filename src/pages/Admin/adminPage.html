@@ -14,28 +14,32 @@
 <table id="customers">
   <h4 class = "tableTitle">:קשישים שהתחברו לאפליקציה</h4>
     <tr>
+      <th>מחק משתמש</th>
       <th>כתובת</th>
       <th>טלפון</th>
       <th>שם מלא</th>
     </tr>
   <tr *ngFor="let value of userE">
-    <td>{{value.address}}</td>
-    <td>{{value.phone}}</td>
-    <td>{{value.fullName}}</td>
+      <td><button (click)="deleteElderlyUser(value[3])">[x]</button></td>
+    <td>{{value[0]}}</td>
+    <td>{{value[1]}}</td>
+    <td>{{value[2]}}</td>
   </tr>
 </table>
 
 <table id="customers">
   <h4 class = "tableTitle">:מתנדבים שהתחברו לאפליקציה</h4>
     <tr>
+      <th>מחק משתמש</th>
       <th>כתובת</th>
       <th>טלפון</th>
       <th>שם מלא</th>
     </tr>
     <tr *ngFor="let value of userV">
-      <td>{{value.address}}</td>
-      <td>{{value.phone}}</td>
-      <td>{{value.fullName}}</td>
+      <td><button (click)="deleteVolunteerUser(value[3])">[x]</button></td>
+      <td>{{value[0]}}</td>
+      <td>{{value[1]}}</td>
+      <td>{{value[2]}}</td>
     </tr>
 </table>
 
@@ -44,18 +48,18 @@
   <h4 class = "tableTitle">הודעות</h4>
 
     <tr>
+      <th>מחק הודעה</th>
       <th>שם מלא</th>
       <th>טלפון</th>
       <th>הודעה</th>
-      <th>מחק הודעה</th>
     </tr>
     
 
     <tr *ngFor="let value of messages">
-      <td>{{value.message}}</td>
-      <td>{{value.phoneNumber}}</td>
-      <td>{{value.fullName}}</td>
-      <td><button (click)="delete(item)">[x]</button></td>
+      <td><button (click)="deleteMessage(value.id)">[x]</button></td>
+      <td>{{value.data.message}}</td>
+      <td>{{value.data.phoneNumber}}</td>
+      <td>{{value.data.fullName}}</td>
     </tr>
   </table>
 </ion-content>

@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {NavController ,NavParams} from 'ionic-angular';
 import {Form} from '../form/form';
 import {contactPage} from '../contactPage/contactPage'
-import {RegisterPage} from '../register/register'
 import {LoginPage} from '../login/login'
 import {User} from '../../module/User'
 import firebase from 'firebase';
@@ -104,16 +103,29 @@ export class HomePage
  get_data_for_admin()
  {
    let elderly = [] , volunteer = [] , messages = []
-   let j =0 , k = 0 , l=0
+   let k = 0 , l = 0 , j = 0 
    const db = firebase.firestore();
    const result = db.collection('ElderlyUsers').get().then(res =>
-   {  res.forEach(i => {elderly[j]=(i.data()); j++}) })
+   {  res.forEach(i => { elderly[k]= [
+     i.data().fullName,
+     i.data().phone,
+     i.data().address,
+      i.id]
+    k++})})
 
    const result1 = db.collection('volunteerUsers').get().then(res =>
-    {res.forEach(i =>{ volunteer[k]=(i.data());k++})})
+    {res.forEach(i =>{ volunteer[j]= [
+      i.data().fullName,
+      i.data().phone,
+      i.data().address,
+       i.id]
+     j++})})
 
     const result2 = db.collection('message').get().then(res =>
-      {res.forEach(i =>{ messages[l]=(i.data());l++})})
+      {res.forEach(i =>{ messages[l]={
+        data: i.data() ,
+        id : i.id }
+        l++})})
 
     this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
      'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin});

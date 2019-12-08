@@ -4,8 +4,8 @@ import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
-import {Platform} from 'ionic-angular';
 import {AlertProvider} from '../../providers/alert/alert'
+import {Functions} from '../../providers/functions'
 
 @Component({
   selector: 'page-form',
@@ -19,7 +19,7 @@ export class Form
     public time: any[]
     public numOfMeeting: any[]
     
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
+  constructor(public navCtrl: NavController , public func: Functions,
      public params: NavParams, public alert: AlertProvider) 
   {
 
@@ -100,8 +100,9 @@ export class Form
   }
 
 
- async registry()
+  async registry()
   {
+    //this.func.registry();
     if(this.user.email == "undefined" ||this.user.password == "undefined")
         this.alert.error_emptyEmailOrPassword();
     else
@@ -121,7 +122,7 @@ export class Form
         else
           this.alert.error_illegalEmailOrPassword();
       }
-  }
+    }
   }
 
 
@@ -135,11 +136,16 @@ export class Form
      ,'volunteer': this.user.volunteer});
   }
 
+
   click_home()
   {
-    this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
-    'volunteer': this.user.volunteer})
+    if(typeof(this.user.fullName) === "undefined" )
+        this.alert.error_showAlert()
+    else
+      this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
+      'volunteer': this.user.volunteer})
   }
+  
   
   //check all user inputs are legal
   check_field_value()
