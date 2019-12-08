@@ -3,110 +3,72 @@
 
 .login-page{
     
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/4k-wallpaper-background-blur-blurred-background-1242348.jpg?alt=media&token=86486b62-a59b-4f74-a73e-a83116d15e32") ;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/4k-wallpaper-background-blur-blurred-background-1242348.jpg?alt=media&token=86486b62-a59b-4f74-a73e-a83116d15e32") ;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  
 
-    .titleLogin{
-        float: right;
-    }
+  .titleLogin{
+      float: right;
+  }
 
 * {
-    box-sizing: border-box;
-  }
-
-  /* Style inputs */
-  input[type=text], select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    resize: vertical;
-
-  }
-  
-  input[type=submit] {
-    background-color: #af4c4c96; 
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  input[type=submit]:hover {
-    background-color:#945151;
-  }
-  
-  /* Style the container/contact section */
-  .container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 10px;
-  }
-  
-  /* Create two columns that float next to eachother */
-  .column {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-    padding: 20px;
-  }
-  
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  
-  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    .column, input[type=submit] {
-      width: 100%;
-      margin-top: 0;
-    }
-  }
-
-//   .slidecontainer {
-//     width: 100%;
-
-//   }
-  
-  .slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-  }
-  
-  .slider:hover {
-    opacity: 1;
-  }
-  
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #af4c4c96;
-    cursor: pointer;
-  }
-  
-  .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #945151;
-    cursor: pointer;
-  }
-.ion-grid{
-    width: 80%;
-    background-color: #ffffff80;
+  box-sizing: border-box;
 }
+
+/* Style inputs */
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+
+}
+
+input[type=submit] {
+  background-color: #af4c4c96; 
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color:#945151;
+}
+
+/* Style the container/contact section */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+/* Create two columns that float next to eachother */
+.column {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+  padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+
 }
