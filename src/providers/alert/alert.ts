@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController ,NavController,NavParams} from 'ionic-angular';
+import { AlertController} from 'ionic-angular';
 @Injectable()
 export class AlertProvider
 {
@@ -33,6 +33,17 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: '!הפרטים נשמרו בהצלחה',
+      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  error_showAlert()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
       subTitle: 'שים לב, יש למלא את כל הטופס' ,
       buttons: ['OK']
     });

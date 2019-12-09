@@ -12,11 +12,13 @@ import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
 
+//import * as admin from 'firebase-admin';
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
 import {AngularFireModule} from 'angularfire2'
 import { HttpModule } from '@angular/http';
 import { AlertProvider } from '../providers/alert/alert';
+import {Functions} from '../providers/functions'
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDYpEw_jy9bhMFXZ0hTMJRay8hu_OHq6Fw",
@@ -30,6 +32,10 @@ export const firebaseConfig = {
   };
 
   firebase.initializeApp(firebaseConfig);
+  /*admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: 'https://simhat-zkenty.firebaseio.com'
+  });*/
 @NgModule({
   declarations: [
     MyApp,
@@ -63,6 +69,7 @@ export const firebaseConfig = {
     // GooglePlus,
     // Facebook,
     AlertProvider,
+    Functions,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AlertProvider
   ]
