@@ -1,9 +1,9 @@
- <ion-content >
-    <div class ="homePage">
+ <ion-content class = "homePage">
+   
       <img src="https://scontent.fsdv1-2.fna.fbcdn.net/v/t1.0-9/69164053_2389147494498549_5752760186460700672_o.jpg?_nc_cat=102&_nc_oc=AQmfuOqWCzkzav11SwauYk052ZaHQnIARrQgdQ_uxWzGrmAg8C211j8Vaxjty6SA97c&_nc_ht=scontent.fsdv1-2.fna&oh=1df52bed29686574fecd26d95bd1fd72&oe=5E23B525"
           style="width:5000px;height:200px;" />
     
-      <ion-navbar hideBackButton class = "navbarHome">
+          <ion-navbar hideBackButton class = "navbarHome">
           <button ion-button (click)="logout()">התנתק</button>
           <button *ngIf = "!user.Admin" ion-button (click)="contactPage()">צור קשר</button>
           <button ion-button (click)="logout()">גלריה</button>
@@ -17,9 +17,9 @@
           <button *ngIf = "user.Admin" ion-button (click)=" get_data_for_admin()"> אדמין</button>
       </ion-navbar>
 
-      <div class ="title">
+      <div class ="downHomePage">
         <h6 class="title">"ברוכים הבאים למיזם "שמחת זקנתי</h6>
-      </div>
+     
   
       <pre style=" font-size: large; font-family: Arial;"> 
       .׳שמחת זקנתי׳ הוא מיזם חברתי השואף לרומם את רוחם 
@@ -35,7 +35,8 @@
   
       <iframe width="420" height="345" src="https://www.youtube.com/embed/lbGyb5EfzPY">
       </iframe>
-  </div>
+  </div> 
+
 </ion-content>
   
   
