@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { AlertController ,NavController,NavParams} from 'ionic-angular';
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
@@ -6,6 +5,9 @@ import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
 import {AlertProvider} from '../../providers/alert/alert'
 import {Functions} from '../../providers/functions'
+import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'
+import { Component  } from '@angular/core';
+
 
 @Component({
   selector: 'page-form',
@@ -18,11 +20,12 @@ export class Form
     public hobbies: any[] 
     public time: any[]
     public numOfMeeting: any[]
+
     
   constructor(public navCtrl: NavController , public func: Functions,
-     public params: NavParams, public alert: AlertProvider) 
+     public params: NavParams, public alert: AlertProvider,
+      private geolocation : Geolocation) 
   {
-
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
@@ -65,7 +68,6 @@ export class Form
       }
     ];
 
-
     this.time = [
       {
           'species' : 'בוקר',
@@ -80,7 +82,6 @@ export class Form
           'species' : 'לא משנה',
           'currentValue' : false
       }];
-
 
       this.numOfMeeting = [
         {
@@ -97,6 +98,7 @@ export class Form
 
     if(this.user.loggedIn)
       this.get_data_from_firebase();
+
   }
 
 
@@ -139,11 +141,30 @@ export class Form
 
   click_home()
   {
-    if(typeof(this.user.fullName) === "undefined" )
-        this.alert.error_showAlert()
+    const db = firebase.firestore();
+
+    if(typeof(this.user.email) != "undefined" && typeof(this.user.password) != "undefined")
+    {
+      if(this.user.elderly)
+      {
+        db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
+        .then(result =>{
+          if (!result.exists)
+            this.alert.error_showAlert()
+        })
+      }
+      else if(this.user.volunteer)
+      {
+        db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
+        .then(result =>{
+          if (!result.exists)
+            this.alert.error_showAlert()
+        })
+      }
+    }
     else
       this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
-      'volunteer': this.user.volunteer})
+            'volunteer': this.user.volunteer})
   }
   
   

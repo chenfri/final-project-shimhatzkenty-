@@ -117,6 +117,17 @@ export class AlertProvider
   }
 
 
+  showAlert_deleteMessage()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: '!ההודעה נמחקה בהצלחה',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
   error_hobbies()
   {
     let alert = this.alertCtrl.create({
