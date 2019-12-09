@@ -7,6 +7,7 @@ import { Http } from '@angular/http';
 import * as papa from 'papaparse';
 import { RegisterPage } from '../register/register';
 import firebase, { firestore } from 'firebase';
+import {AlertProvider} from '../../providers/alert/alert'
 //import * as admin from 'firebase-admin';
 
 @Component({
@@ -23,22 +24,23 @@ export class adminPage
   csvData: any[] = [];
   headerRow: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http ,public alertCtrl: AlertController) 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+     private http: Http ,public alertCtrl: AlertController , public alert: AlertProvider) 
   {
     this.user.loggedIn = this.navParams.get('login');
     this.userE = this.navParams.get('elderly');
     this.user.Admin = this.navParams.get('admin');
     this.userV = this.navParams.get('volunteer');
+    this.messages = this.navParams.get('messages');
 
     let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
     this.extractData(temp)
-    this.messages = this.navParams.get('messages');
 
     console.log(this.messages)
     console.log(this.userE )
     console.log( this.userV)
     //this.setArray()
-  //  this.readCsvData();
+    // this.readCsvData();
   }
 
   private readCsvData() {
@@ -59,7 +61,6 @@ export class adminPage
   }
  
   downloadCSV() {
-    //let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
     let tmp= []
     for(let i = 0 ; i < 2 ; i++)
     {
@@ -100,18 +101,18 @@ export class adminPage
     return index;
   }
  
-  
 
   deleteMessage(item)
   {
-    console.log(item)
       const db = firebase.firestore();
-      let deleteDoc = db.collection('message').doc(item).delete().then(function() {
+      db.collection('message').doc(item).delete().then(() =>{
+        this.alert.showAlert_deleteMessage()
         console.log("Document successfully deleted!");
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
   }
+
 
   deleteElderlyUser(item)
   {
