@@ -11,7 +11,7 @@ import {RegisterPage} from '../pages/register/register'
 import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
-import { Geolocation } from '@ionic-native/geolocation';
+//import { Geolocation } from '@ionic-native/geolocation';
 
 //import * as admin from 'firebase-admin';
 import * as firebase from 'firebase';
@@ -71,7 +71,7 @@ export const firebaseConfig = {
     // Facebook,
     AlertProvider,
     Functions,
-    Geolocation,
+    //Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AlertProvider
   ]

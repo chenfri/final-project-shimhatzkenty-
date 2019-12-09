@@ -25,7 +25,7 @@
 
 #navbarHome {
     overflow: hidden;
-    background:rgb(255, 88, 41);
+    background: #fdbb4b;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -46,9 +46,11 @@
       color: white;
       background:rgb(255, 88, 41);
       text-align: center;
-      padding: 14px 30px;
+      padding: 14px 18px;
       text-decoration: none;
       float: right;
+      border: 3px solid #fdbb4b;
+
     }
     
     button:hover {

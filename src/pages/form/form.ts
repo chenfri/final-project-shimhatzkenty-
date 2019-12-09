@@ -5,7 +5,7 @@ import 'firebase/firestore';
 import firebase, { firestore } from 'firebase';
 import {AlertProvider} from '../../providers/alert/alert'
 import {Functions} from '../../providers/functions'
-import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'
+//import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'
 import { Component  } from '@angular/core';
 
 
@@ -24,7 +24,8 @@ export class Form
     
   constructor(public navCtrl: NavController , public func: Functions,
      public params: NavParams, public alert: AlertProvider,
-      private geolocation : Geolocation) 
+      //private geolocation : Geolocation
+      ) 
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
