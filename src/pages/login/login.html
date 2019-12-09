@@ -8,10 +8,14 @@
 
       <br><br><br>
 
-      <label style="float: right;">כתובת דוא"ל</label>
+      <label style="float: right;
+      font-weight: bold;
+      font-size: initial;">כתובת דוא"ל</label>
       <input  style="float: right;" type="text" name="email" [(ngModel)] = "user.email">
 
-      <label  style="float: right;">סיסמא</label>
+      <label  style="float: right;
+      font-weight: bold;
+      font-size: initial;">סיסמא</label>
       <input  style="float: right;" type="text" name="password" [(ngModel)] = "user.password">
   
       <input type="submit"  (click)= "signIn_function(user)" value="התחבר">

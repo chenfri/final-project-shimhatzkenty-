@@ -1,89 +1,61 @@
+.homePage{
 
-
-   //background: #fffdd8;
-
-
-    .title {
+  .HomePagetitle {
         color: rgb(23, 1, 124);
         font-size:40px;
         font-weight: bold;
-    }
-    .toolbar-content-md {
-      background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%E2%80%8F%E2%80%8F%D7%9C%D7%9B%D7%99%D7%93%D7%94.PNG?alt=media&token=0bedc638-5bc2-4505-8582-426f3791ae86");
-    }
-
-
-.navbarHome {
-    overflow: hidden;
-    background-color: #333;
-  }
-  
-  .navbar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  .dropdown {
-    float: left;
-    overflow: hidden;
-  }
-  
-  .dropdown .dropbtn {
-    font-size: 16px;  
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit;
-    margin: 0;
-  }
-  
-  .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #ddd;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-    .homePage {
-        background-color: #fffdd8;
-     // background-image: url("https://kpu-jakartaselatankota.go.id/wp-content/uploads/2017/05/sequence-01-still0023.jpg");
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-     // background-position: center;
-      
-      
-      color: black;
-        align-content: center;
-        align-items: center;
+        font-family: Calibri;
         text-align: center;
-        font-style: Arial;
-        font-size: 25px;
     }
+    .navbarHome {
+      background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%9B%D7%95%D7%9B%D7%91%D7%99%D7%9D.jpeg?alt=media&token=ca72e5f7-89f6-4d37-a062-42a5ca808c26");
+    }
+
+    .homePageText{
+      //  font-size: large; 
+      //  font-family: Calibri ;
+      //  text-align: center;
+       background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=e4b52660-e414-4d05-b6c4-1a9a449dc217");
+       background-repeat: no-repeat;
+       background-size: contain;
+       background-position: center;
+
+
+    }
+
+#navbarHome {
+    overflow: hidden;
+    background:rgb(255, 88, 41);
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+ 
+  
+  }
+
+  .downHomePage {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/11-page-001.jpg?alt=media&token=a922c4f7-3ce0-4903-8f72-87451da1f56f");
+    background-repeat: no-repeat;
+
+  }
+    
+    button {
+      display: block;
+      color: white;
+      background:rgb(255, 88, 41);
+      text-align: center;
+      padding: 14px 30px;
+      text-decoration: none;
+      float: right;
+    }
+    
+    button:hover {
+      background-color: rgb(253, 249, 212);
+      color: black;
+    }
+  .pics{
+    align-items: center;
+  }
+  }
