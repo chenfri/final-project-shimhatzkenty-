@@ -8,7 +8,7 @@
         <label style="float: right;">כתובת דוא"ל</label>
         <input style="float: right;" type="text" name="username" [(ngModel)] = "user.email">
         <label style="float: right;">סיסמא</label>
-        <input type="text" name="password" [(ngModel)] = "user.password">
+        <input type="password" name="password" [(ngModel)] = "user.password">
         <input style="float: right;" *ngIf = "!user.loggedIn" type="submit" (click)= "registry()" value="יצירת חשבון">
         <input *ngIf = "user.loggedIn" type="submit" (click)= "update_email_or_password()" value="עדכון פרטים">    
 

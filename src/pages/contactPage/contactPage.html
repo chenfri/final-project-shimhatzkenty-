@@ -1,29 +1,30 @@
-<ion-content >
+<ion-content  class="contactPage">
 
-<div class="container">
-  <div style="text-align:center">
-    <h2>צור קשר</h2>
-    <p>השאר לנו הודעה :) </p>
-    <button ion-button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
-  </div>
+    <div class="container">
+      <div style="text-align:center">
+        <h2>צור קשר</h2>
+        <p>השאר לנו הודעה :) </p>
+        <button ion-button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
+      </div>
 
-  <div class="row">
-    <div class="column">
-      <img src=" https://scontent.fhfa2-2.fna.fbcdn.net/v/t1.0-9/68835633_2390706401009325_1345018826068066304_o.jpg?_nc_cat=102&_nc_oc=AQlIn0YpZI5jIhaQMPOSeht265--nvl8SvTOmRZ7Kuu8Bt-oS8nJhI02r8sZJjCSbr4&_nc_ht=scontent.fhfa2-2.fna&oh=5b90a0d7a66f6bdde2f30a8640a3132b&oe=5E54C928" 
-          style="width:100%">     
-    </div>
+      <div class="row">
+          <div class="column">
+            <img src=" https://scontent.fhfa2-2.fna.fbcdn.net/v/t1.0-9/68835633_2390706401009325_1345018826068066304_o.jpg?_nc_cat=102&_nc_oc=AQlIn0YpZI5jIhaQMPOSeht265--nvl8SvTOmRZ7Kuu8Bt-oS8nJhI02r8sZJjCSbr4&_nc_ht=scontent.fhfa2-2.fna&oh=5b90a0d7a66f6bdde2f30a8640a3132b&oe=5E54C928" 
+                style="width:100%; ">     
+          </div>
 
-    <div class="column">
-      <form action="/action_page.php">
-        <label for="fullName">שם מלא</label>
-        <input type="text" name="fullName" [(ngModel)] = "contactMessage.fullName" placeholder="רשום כאן את השם המלא.."  >
-        <label for="phoneNumber">פלאפון</label>
-        <input type="text" id="phone" name="phoneNumber" [(ngModel)] = "contactMessage.phoneNumber" placeholder="רשום כאן את מס' הפלאפון..">
-        <label for="message">הודעה</label>
-        <textarea id="message" name="message" [(ngModel)] = "contactMessage.message"  style="height:170px"></textarea>
-        <button ion-button type="submit" (click)= "add_data_to_firebase()">שלח</button>
-      </form>
-    </div>
-  </div>
+          <div class="column">
+            <form action="/action_page.php">
+              <label for="fullName">שם מלא</label>
+              <input type="text" name="fullName" [(ngModel)] = "contactMessage.fullName" placeholder="..רשום כאן את השם המלא"  >
+              <label for="phoneNumber">פלאפון</label>
+              <input type="text" id="phone" name="phoneNumber" [(ngModel)] = "contactMessage.phoneNumber" placeholder="..רשום כאן את מס' הפלאפון">
+              <label for="message">הודעה</label>
+              <textarea id="message" name="message" [(ngModel)] = "contactMessage.message"  style="height:170px"></textarea>
+              <button ion-button type="submit" (click)= "add_data_to_firebase()">שלח</button>
+            </form>
+          </div>
+      </div>
+  
 </div>
 </ion-content>

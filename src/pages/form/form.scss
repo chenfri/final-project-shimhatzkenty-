@@ -7,7 +7,8 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    
+    font-weight: bold;
+
 
     .titleForm{
         float: right;
@@ -18,7 +19,7 @@
   }
 
   /* Style inputs */
-  input[type=text], select, textarea {
+  input[type=text],input[type=password], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

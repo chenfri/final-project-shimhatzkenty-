@@ -1,19 +1,23 @@
-<ion-header>
-    <h4>יצירת מנהל חדש</h4>
-</ion-header>
 
-<ion-content padding>
-  <div class="registry">
-    <button ion-button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
-        <ion-item>
-            <ion-label floating>כתובת דוא"ל</ion-label>
-            <ion-input type="email" [(ngModel)] = "user.email"></ion-input>
-        </ion-item>
+<ion-content padding class="registerPage">
+    
+    <input style="float: left;" type="submit" (click)= "click_home()" value="חזרה לדף הבית">
 
-        <ion-item>
-            <ion-label floating>סיסמא</ion-label>
-            <ion-input type="password" [(ngModel)] = "user.password"></ion-input>
-        </ion-item>
-        <button ion-button (click)= "registry(user)">שמור</button>
-</div>
+    <br><br><br>
+
+    <div class="login-bar">
+            <h2 class="titleRegisterPage">יצירת מנהל חדש</h2>
+            <br><br><br>
+            <label style="float: right;
+                            font-weight: bold;
+                            font-size: initial;">כתובת דוא"ל</label>
+            <input  style="float: right;" type="text" name="email" [(ngModel)] = "user.email">
+
+            <label  style="float: right;
+                            font-weight: bold;
+                            font-size: initial;">סיסמא</label>
+            <input  style="float: right;" type="password" name="password" [(ngModel)] = "user.password">
+            <br><br>
+            <input type="submit"  (click)= "registry(user)" value="שמור">
+ </div>
 </ion-content>

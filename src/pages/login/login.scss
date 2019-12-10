@@ -3,10 +3,10 @@
 
 .login-page{
     
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/Webp.net-resizeimage.jpg?alt=media&token=16a4dbfe-7164-47f1-8146-ddf7bd53f5be") ;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/backgroundpages.png?alt=media&token=50e7a897-39d4-4a51-bd5d-b6d770627d91") ;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center;
+    background-size: cover;
   
   
 
@@ -21,7 +21,7 @@
 }
 
 /* Style inputs */
-input[type=text], select, textarea {
+input[type=text],input[type=password], select, textarea  {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;

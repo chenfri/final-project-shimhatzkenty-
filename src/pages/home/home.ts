@@ -18,6 +18,8 @@ import {AlertProvider} from '../../providers/alert/alert'
 
 export class HomePage 
 {
+ 
+
   user = {} as User;
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
@@ -223,6 +225,16 @@ facebooklogin()
 }
 
 
-
-
+imageObject: Array<object> = [{
+  image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8',
+  ///thumbImage: 'assets/img/slider/1_min.jpeg',
+  //alt: 'alt of image',
+  title: 'title of image'
+}, {
+  image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8', // Support base64 image
+  //thumbImage: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+  title: 'Image title', //Optional: You can use this key if want to show image with title
+  //alt: 'Image alt' //Optional: You can use this key if want to show image with alt
+}
+];
 }
