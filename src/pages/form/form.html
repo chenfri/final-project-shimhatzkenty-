@@ -75,7 +75,16 @@
     <!------------------------------------------------------------------------------------------------->
 
             </ion-col>
+            
             <ion-col>
+                    <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
+
+                    <ion-item  *ngFor="let hobbies of hobbies; let i = index">
+                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
+                    </ion-item>
+            </ion-col>
+                  <ion-col>
                     <h4 class="titleForm">:זמנים נוחים למפגש</h4>
 
                     <ion-list radio-group >
@@ -85,15 +94,6 @@
                         </ion-item>
                     </ion-list>
             </ion-col>
-            <ion-col>
-                    <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
-
-                    <ion-item  *ngFor="let hobbies of hobbies; let i = index">
-                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
-                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
-                    </ion-item>
-            </ion-col>
-                  
         </ion-row>
     </ion-grid>
 

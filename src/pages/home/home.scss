@@ -1,4 +1,5 @@
 .homePage{
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/11-page-001.jpg?alt=media&token=a922c4f7-3ce0-4903-8f72-87451da1f56f");
 
   .HomePagetitle {
         color: rgb(23, 1, 124);
@@ -25,32 +26,34 @@
 
 #navbarHome {
     overflow: hidden;
-    background: #fdbb4b;
+    //background: #fdbb4b;
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    text-align: center;
+    //background:rgb(255, 88, 41);
 
- 
   
   }
 
-  .downHomePage {
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/11-page-001.jpg?alt=media&token=a922c4f7-3ce0-4903-8f72-87451da1f56f");
-    background-repeat: no-repeat;
+  // .downHomePage {
+  //   background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/11-page-001.jpg?alt=media&token=a922c4f7-3ce0-4903-8f72-87451da1f56f");
+  //   background-repeat: no-repeat;
 
-  }
+  // }
     
     button {
-      display: block;
+      display: inline-block;
       color: white;
       background:rgb(255, 88, 41);
       text-align: center;
       padding: 14px 18px;
       text-decoration: none;
-      float: right;
+     
       border: 3px solid #fdbb4b;
-
+      //border: 1px solid navajowhite;
+      border-radius: 15px;
     }
     
     button:hover {
