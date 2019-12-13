@@ -18,7 +18,6 @@ import {AlertProvider} from '../../providers/alert/alert'
 
 export class HomePage 
 {
- 
 
   user = {} as User;
 
@@ -105,32 +104,30 @@ export class HomePage
  get_data_for_admin()
  {
    let elderly = [] , volunteer = [] , messages = []
-   let k = 0 , l = 0 , j = 0 
+   var k = 0 , l = 0 , j = 0 
+
    const db = firebase.firestore();
-   const result = db.collection('ElderlyUsers').get().then(res =>
-   {  res.forEach(i => { elderly[k]= [
+   db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k]= [
      i.data().fullName,
      i.data().phone,
      i.data().address,
       i.id]
     k++})})
 
-   const result1 = db.collection('volunteerUsers').get().then(res =>
-    {res.forEach(i =>{ volunteer[j]= [
+   db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ volunteer[j]= [
       i.data().fullName,
       i.data().phone,
       i.data().address,
        i.id]
      j++})})
 
-    const result2 = db.collection('message').get().then(res =>
-      {res.forEach(i =>{ messages[l]={
+    db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
         data: i.data() ,
         id : i.id }
         l++})})
-
+      
     this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
-     'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin});
+     'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin });
  } 
 
 
@@ -138,12 +135,7 @@ export class HomePage
  
  gmail()
  {
-   if(this.platform.is('capacitor'))
-   {
-     alert("capacitor platform")
-   //  this.googleLogin();
-   }
-   else if(this.platform.is('android'))
+   if(this.platform.is('android'))
    {
      alert("android platform")
     // this.nativeGoogleLogin();
@@ -154,39 +146,6 @@ export class HomePage
      this.gmailLogin();
    }
  }
-
-
-//    nativeGoogleLogin() {
-//      alert("a")
-//     this.gplus.login({})
-//     .then(res => {alert(res)})
-//     .catch(err => {alert(err)});
-// }
-
- // googleLogin(): Promise<any> {
- //   alert("a")
- //   return new Promise((resolve, reject) => { 
- //     alert("b")
- //       this.gplus.login({
- //         'webClientId': '377941126479-70vb0jtmhuoksg2r0r3jhbi9975b4sla.apps.googleusercontent.com',  
- //         'offline': true
- //       }).then( res => {
- //               const googleCredential = firebase.auth.GoogleAuthProvider
- //                   .credential(res.idToken);
- //                   alert("c")
- //               firebase.auth().signInWithCredential(googleCredential)
- //             .then( response => {
- //               alert("d")
- //                 console.log("Firebase success: " + JSON.stringify(response));
- //                 resolve(response)
- //             });
- //       }, err => {
- //         alert("e")
- //           console.error("Error: ", err)
- //           reject(err);
- //       });
- //     });
- //     }
 
 
  gmailLogin()

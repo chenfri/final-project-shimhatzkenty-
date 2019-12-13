@@ -1,13 +1,12 @@
-import { AlertController ,NavController,NavParams} from 'ionic-angular';
+import {NavController,NavParams} from 'ionic-angular';
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
-import firebase, { firestore } from 'firebase';
+import firebase from 'firebase';
 import {AlertProvider} from '../../providers/alert/alert'
-import {Functions} from '../../providers/functions'
-//import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'
+import { Geolocation} from '@ionic-native/geolocation'
 import { Component  } from '@angular/core';
-
+import {Platform} from 'ionic-angular';
 
 @Component({
   selector: 'page-form',
@@ -20,12 +19,11 @@ export class Form
     public hobbies: any[] 
     public time: any[]
     public numOfMeeting: any[]
+   address : any
 
-    
-  constructor(public navCtrl: NavController , public func: Functions,
-     public params: NavParams, public alert: AlertProvider,
-      //private geolocation : Geolocation
-      ) 
+
+  constructor(public navCtrl: NavController ,public params: NavParams,private platform: Platform,
+     public alert: AlertProvider, private geolocation : Geolocation) 
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -105,7 +103,6 @@ export class Form
 
   async registry()
   {
-    //this.func.registry();
     if(this.user.email == "undefined" ||this.user.password == "undefined")
         this.alert.error_emptyEmailOrPassword();
     else
@@ -140,6 +137,7 @@ export class Form
   }
 
 
+  //if the user press on home page button
   click_home()
   {
     const db = firebase.firestore();
@@ -398,4 +396,34 @@ export class Form
     return 1;
   }
 
+
+   get_location_by_coordinates()
+    {
+      navigator.geolocation.getCurrentPosition(function (position)
+      {
+        console.log(position.coords.latitude)
+        console.log(position.coords.longitude)
+        getUserAddressBy(position.coords.latitude, position.coords.longitude)
+      },
+  
+      function (error) {
+          console.log("The Locator was denied :(")})
+  
+      function getUserAddressBy(lat, long)
+      {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+                var address = JSON.parse(this.responseText)
+                console.log(address.results[0].formatted_address)
+                alert(address.results[0].formatted_address)
+          }
+      };
+        xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," +
+        long + "&key=AIzaSyCZBHhiOHheytNnAa-8tfwek4rZNQtSTzs", true);
+        xhttp.send();
+        }
+    }
+  
 }
+

@@ -24,6 +24,7 @@ export class adminPage
   csvData: any[] = [];
   headerRow: any[] = [];
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
      private http: Http ,public alertCtrl: AlertController , public alert: AlertProvider) 
   {
@@ -44,7 +45,7 @@ export class adminPage
   }
 
   private readCsvData() {
-    this.http.get( 'assets/test.csv')
+    this.http.get('assets/test.csv')
       .subscribe(
       data => this.extractData(data),
       err => this.handleError(err)
@@ -62,7 +63,7 @@ export class adminPage
  
   downloadCSV() {
     let tmp= []
-    for(let i = 0 ; i < 2 ; i++)
+    for(let i = 0 ; i < 3 ; i++)
     {
       tmp[i] = this.userE[i]
     }

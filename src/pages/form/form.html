@@ -16,34 +16,28 @@
         
          <label style="float: right;">שם מלא</label>
          <input text-right type="text" name="title" [(ngModel)] = "user.fullName" >
-         
-    
         
         <label style="float: right;">כתובת מגורים</label>
         <input type="text" name="address" [(ngModel)] = "user.address">
        
         <input style="float: right;"  type="submit" (click)= "get_location_by_coordinates()" value="השתמש בשירותי מיקום">
-
         <br><br><br><br>
         
         <label style="float: right;">מספר פלאפון</label>
         <input text-right type="text" name="phone" [(ngModel)] = "user.phone" >
 
-        <!----------------------------------------------just for volunteer------------------------------------------------------------------------>
+<!------------------------------------- just for volunteer ----------------------------------------->
 
         <label class= "titleForm"  style="float: right;" *ngIf= "!user.elderly" >:מרחק נסיעה מקסימלי בק"מ </label>
         <label style="float: right; width: 100%;" *ngIf= "!user.elderly" >
 
         <br><br>
-
         <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange">
-
         המרחק שנבחר: {{user.range}}
-
         <br><br><br><br>
         </label>
 
-        <!----------------------------------------------just for elderly------------------------------------------------------------------------>
+<!-------------------------------- just for elderly ------------------------------------------->
         
         <ion-checkbox *ngIf="user.elderly" style="float: right;"  [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
         <label *ngIf="user.elderly" style="float:right ;"> אני ממלא את הטופס בשם מישהו אחר</label>
@@ -58,33 +52,32 @@
             </ion-item>  
             <br><br><br><br>
 
-
-    <ion-grid style="    background-color: #ffffff80;">
-        <ion-row>
-            <ion-col>
-    <!----------------------------just for volunteer-------------------------------------------------->
-
+        <ion-grid style="    background-color: #ffffff80;">
+            <ion-row>
+    
+<!-------------------------------- just for volunteer -------------------------------------------->
+                <ion-col>
                     <h5 class="titleForm" *ngIf="!user.elderly">:תדירות מפגשים</h5>
-        
+
                     <ion-list radio-group *ngIf="!user.elderly">
                         <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
                                 <ion-label style="text-align: right;"> {{ numOfMeeting.species }} </ion-label>
                                 <ion-checkbox item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
-    <!------------------------------------------------------------------------------------------------->
+                </ion-col>
+<!------------------------------------------------------------------------------------------------->
 
-            </ion-col>
-            
-            <ion-col>
+                <ion-col>
                     <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
 
                     <ion-item  *ngFor="let hobbies of hobbies; let i = index">
                         <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
                         <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
                     </ion-item>
-            </ion-col>
-                  <ion-col>
+                </ion-col>
+
+                <ion-col>
                     <h4 class="titleForm">:זמנים נוחים למפגש</h4>
 
                     <ion-list radio-group >
@@ -93,15 +86,12 @@
                                 <ion-checkbox item-right [checked]="time.currentValue" (click)="radioClicked1(time)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
-            </ion-col>
+                </ion-col>
         </ion-row>
-    </ion-grid>
+    </ion-grid> <br>
 
-      
-            
-            <br>
-            <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
-            <br><br><br><br>
-      </form>
+        <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
+        <br><br><br><br>
+    </form>
 </ion-content>
   

@@ -57,7 +57,8 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "534888552279-e4qr1ifkf0s2943t3q58i5viuau6m00v.apps.googleusercontent.com"
       },
-      "cordova-plugin-nativestorage": {}
+      "cordova-plugin-nativestorage": {},
+      "cordova-plugin-nativegeocoder": {}
     }
   }
 }
