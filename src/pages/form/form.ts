@@ -22,6 +22,7 @@ export class Form
   public hobbies: any[]
   public time: any[]
   public numOfMeeting: any[]
+  public place: any []
 
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
@@ -49,22 +50,25 @@ export class Form
         'species': 'מוסיקה',
         'currentValue': false
       }, {
-        'species': 'שחמט',
+        'species': 'תיאטרון',
         'currentValue': false
       }, {
-        'species': 'ששבש',
-        'currentValue': false
-      }, {
-        'species': 'דמקה',
-        'currentValue': false
-      }, {
-        'species': 'דיבור',
+        'species': 'קסמים',
         'currentValue': false
       }, {
         'species': 'ריקוד',
         'currentValue': false
       }, {
-        'species': 'קסמים',
+        'species': 'אומנות',
+        'currentValue': false
+      }, {
+        'species': 'משחקי קופסה',
+        'currentValue': false
+      }, {
+      'species': 'דיבור',
+      'currentValue': false
+      } ,{
+        'species': 'אחר',
         'currentValue': false
       }
     ];
@@ -95,6 +99,19 @@ export class Form
         'species': 'באופן אקראי',
         'currentValue': false
       }];
+
+
+      this.place = [
+        {
+          'species': 'בבית הקשיש',
+          'currentValue': false
+        }, {
+          'species': 'במועדון קשישים',
+          'currentValue': false
+        }, {
+          'species': 'בשניהם',
+          'currentValue': false
+        }];
 
 
     if (this.user.loggedIn)
@@ -169,7 +186,6 @@ export class Form
   check_field_value() {
     let flag = 0;
     console.log("range:")
-    console.log(this.user.range);
 
     if (typeof (this.user.fullName) === "undefined" || typeof (this.user.phone) === "undefined"
       || typeof (this.user.address) === "undefined") {
@@ -190,6 +206,15 @@ export class Form
     else if (!this.user.elderly) {
       if (this.check_array3() == 1) {
         this.alert.error_numOfMeeting();
+        flag = 1;
+      }
+      else if (this.check_array4() == 1) {
+        this.alert.error_place();
+        flag = 1;
+      }
+      else if(this.user.range == 0)
+      {
+        this.alert.showAlert_chooseRange()
         flag = 1;
       }
     }
@@ -261,7 +286,8 @@ export class Form
         hobbies: this.hobbies,
         range: this.user.range,
         meeting_time: this.time,
-        num_of_meetings: this.numOfMeeting
+        num_of_meetings: this.numOfMeeting,
+        placeOfMeeting: this.place
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -316,7 +342,7 @@ export class Form
           this.user.nameAssistant = result.data().nameAssistant
           this.user.relationship = result.data().relationship
           this.hobbies = result.data().hobbies,
-            this.time = result.data().meeting_time
+          this.time = result.data().meeting_time
         })
     }
     else if (this.user.volunteer) {
@@ -329,8 +355,10 @@ export class Form
           this.user.email = result.data().email
           this.hobbies = result.data().hobbies
           this.user.range = result.data().range,
-            this.time = result.data().meeting_time
+          this.time = result.data().meeting_time
           this.numOfMeeting = result.data().num_of_meetings
+          this.place = result.data().placeOfMeeting
+          
         })
     }
   }
@@ -370,22 +398,40 @@ export class Form
   }
 
   //check which radio was clicked and update the array
-  radioClicked2(item: any, $event) {
+  radioClicked3(item: any, $event) {
     console.log('radioClicked for ' + item.species);
-    for (let i = 0; i < this.numOfMeeting.length; i++) {
-      if (this.numOfMeeting[i].currentValue) //if this radio was pressed
-        this.numOfMeeting[i] = {
-          'species': this.numOfMeeting[i].species,
-          'currentValue': !this.numOfMeeting[i].currentValue
+    for (let i = 0; i < this.place.length; i++) {
+      if (this.place[i].currentValue) //if this radio was pressed
+        this.place[i] = {
+          'species': this.place[i].species,
+          'currentValue': !this.place[i].currentValue
         }
 
-      if (this.numOfMeeting[i] === item)
-        this.numOfMeeting[i] = {
+      if (this.place[i] === item)
+        this.place[i] = {
           'species': item.species,
           'currentValue': !item.currentValue
         };
     }
   }
+
+    //check which radio was clicked and update the array
+    radioClicked2(item: any, $event) {
+      console.log('radioClicked for ' + item.species);
+      for (let i = 0; i < this.numOfMeeting.length; i++) {
+        if (this.numOfMeeting[i].currentValue) //if this radio was pressed
+          this.numOfMeeting[i] = {
+            'species': this.numOfMeeting[i].species,
+            'currentValue': !this.numOfMeeting[i].currentValue
+          }
+  
+        if (this.numOfMeeting[i] === item)
+          this.numOfMeeting[i] = {
+            'species': item.species,
+            'currentValue': !item.currentValue
+          };
+      }
+    }
 
 
   //-------- methods that check if the array are have 'ture' value --------
@@ -414,5 +460,16 @@ export class Form
     return 1;
   }
 
+
+  check_array4() {
+    for (let i = 0; i < this.place.length; i++) {
+      if (this.place[i].currentValue) //if this radio was pressed
+        return 0;
+    }
+    return 1;
+  }
+
+
 }
+
 

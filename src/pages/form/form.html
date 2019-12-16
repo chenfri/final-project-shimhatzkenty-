@@ -4,6 +4,7 @@
         <br><br><br><br>
 
     <h2 class= "titleForm">פרטים אישיים</h2><br><br><br><br>
+    <h6> הפרטים ישארו חסויים במיזם</h6>
     <form class="form" style="float: right;"> <br><br>     
         <label style="float: right;">כתובת דוא"ל</label>
         <input style="float: right;" type="text" name="username" [(ngModel)] = "user.email">
@@ -63,6 +64,17 @@
                         <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
                                 <ion-label style="text-align: right;"> {{ numOfMeeting.species }} </ion-label>
                                 <ion-checkbox item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-checkbox>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+
+                <ion-col>
+                    <h5 class="titleForm" *ngIf="!user.elderly">:מוכן להתנדב</h5>
+
+                    <ion-list radio-group *ngIf="!user.elderly">
+                        <ion-item *ngFor="let place of place; let i = index">
+                                <ion-label style="text-align: right;"> {{ place.species }} </ion-label>
+                                <ion-checkbox item-right [checked]="place.currentValue" (click)="radioClicked3(place)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
                 </ion-col>

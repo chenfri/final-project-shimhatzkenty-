@@ -128,11 +128,34 @@ export class AlertProvider
   }
 
 
+  showAlert_chooseRange()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'יש לבחור מרחק מקסימלי',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
   error_hobbies()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה לבחור תחביב אחד לפחות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  
+  error_place()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור מקום התנדבות',
       buttons: ['OK']
     });
     alert.present();

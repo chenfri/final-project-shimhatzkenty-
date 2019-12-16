@@ -13,5 +13,6 @@ export interface User
     elderly: boolean,
     volunteer:boolean,
     Admin: boolean
+    gender: string
 }
 
