@@ -15,5 +15,11 @@
       "SplashScreen": "screen",
       "SplashScreenDelay": "3000"
     }
-  }
+  },
+    "plugins": {
+      "GoogleAuth": {
+        "scopes": ["profile", "email"],
+        "serverClientId": "377941126479-r372gg937ii28j6oengc09kg6jbmaql7.apps.googleusercontent.com"
+      }
+    }
 }

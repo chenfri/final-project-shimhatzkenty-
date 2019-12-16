@@ -5,4 +5,5 @@
     <string name="package_name">com.simhatzkenty.app</string>
     <string name="custom_url_scheme">com.simhatzkenty.app</string>
     <string name="facebook_app_id">990804424608487</string>
+    <string name="server_client_id">377941126479-r372gg937ii28j6oengc09kg6jbmaql7.apps.googleusercontent.com</string>
 </resources>

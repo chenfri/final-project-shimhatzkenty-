@@ -1,15 +1,17 @@
 import {Component} from '@angular/core';
 import {NavController ,NavParams} from 'ionic-angular';
+import {adminPage} from '../Admin/adminPage';
 import {Form} from '../form/form';
 import {contactPage} from '../contactPage/contactPage'
 import {LoginPage} from '../login/login'
 import {User} from '../../module/User'
+import {AlertProvider} from '../../providers/alert/alert'
 import firebase from 'firebase';
-import {AlertController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Platform} from 'ionic-angular';
-import { adminPage } from '../Admin/adminPage';
-import {AlertProvider} from '../../providers/alert/alert'
+import { GooglePlus } from '@ionic-native/google-plus';
+import {Observable} from 'rxjs/Observable'
+
 
 @Component({
   selector: 'page-home',
@@ -20,9 +22,10 @@ export class HomePage
 {
 
   user = {} as User;
+  useri: Observable<firebase.User>;
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
-        public alertCtrl: AlertController, public auth: AngularFireAuth, private platform: Platform)
+        public auth: AngularFireAuth, private platform: Platform, private gplus: GooglePlus)
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -105,30 +108,35 @@ export class HomePage
  {
    let elderly = [] , volunteer = [] , messages = []
    var k = 0 , l = 0 , j = 0 
-
+   
    const db = firebase.firestore();
-   db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k]= [
-     i.data().fullName,
-     i.data().phone,
-     i.data().address,
-      i.id]
-    k++})})
-
-   db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ volunteer[j]= [
-      i.data().fullName,
-      i.data().phone,
-      i.data().address,
+   db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
+     [ i.data().fullName,
+       i.data().phone,
+       i.data().address,
        i.id]
-     j++})})
+       k++})})
+
+   db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ volunteer[j] =
+     [ i.data().fullName,
+       i.data().phone,
+       i.data().address,
+       i.id]
+       j++})})
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
         data: i.data() ,
         id : i.id }
         l++})})
       
-    this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
-     'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin });
- } 
+
+    setTimeout(() =>
+    {
+      this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
+      'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin,
+       'elderNum': k , 'volunteerNum': j });
+        }, 1000);
+  } 
 
 
  //----------------------------------------------------------------
@@ -138,7 +146,7 @@ export class HomePage
    if(this.platform.is('android'))
    {
      alert("android platform")
-    // this.nativeGoogleLogin();
+     this.nativeGoogleLogin();
    }
    else
    {
@@ -148,11 +156,31 @@ export class HomePage
  }
 
 
+ async nativeGoogleLogin() : Promise <void>
+ {
+  this.gplus.login({})
+  .then(res => alert(res))
+  .catch(err => alert(err));
+
+  /*  alert("a")
+    this.gplus.login({
+      'webClientId' : '377941126479-263ts6tp63gv2vkp8946q5ui8ce6u6u3.apps.googleusercontent.com',
+      'offline': true
+    }).then(res => {
+      alert("b")
+      this.auth.auth.signInWithCredential(
+        firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(suc => {
+          alert("success login")
+        }).catch(error => {alert("not success")})
+    })*/
+ }
+ 
+
  gmailLogin()
  {
    this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
      console.log(res)
-     alert("success")
+     alert("login success")
    })
  }
 

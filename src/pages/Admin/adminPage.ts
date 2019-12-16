@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { User } from '../../module/User'
 import { NavController,NavParams, AlertController} from 'ionic-angular';
-import { contactMessage } from '../../module/contactMessage'
-import { HomePage } from '../home/home';
+import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import * as papa from 'papaparse';
-import { RegisterPage } from '../register/register';
 import firebase, { firestore } from 'firebase';
+import * as papa from 'papaparse';
 import {AlertProvider} from '../../providers/alert/alert'
+import { contactMessage } from '../../module/contactMessage'
+import { User } from '../../module/User'
+import { HomePage } from '../home/home';
+import { RegisterPage } from '../register/register';
 //import * as admin from 'firebase-admin';
 
 @Component({
@@ -20,6 +20,8 @@ export class adminPage
   user = {} as User
   userE = {} as User;
   userV = {} as User;
+  elderNum: any
+  volunteerNum: any
   messages = {} as contactMessage;
   csvData: any[] = [];
   headerRow: any[] = [];
@@ -29,22 +31,27 @@ export class adminPage
      private http: Http ,public alertCtrl: AlertController , public alert: AlertProvider) 
   {
     this.user.loggedIn = this.navParams.get('login');
-    this.userE = this.navParams.get('elderly');
     this.user.Admin = this.navParams.get('admin');
+    this.userE = this.navParams.get('elderly');
     this.userV = this.navParams.get('volunteer');
     this.messages = this.navParams.get('messages');
-
-    let temp = [["1","2"],["2","3"],["4","5"],["6","7"]]
-    this.extractData(temp)
+    this.elderNum = this.navParams.get('elderNum');
+    this.volunteerNum = this.navParams.get('volunteerNum');
 
     console.log(this.messages)
     console.log(this.userE )
-    console.log( this.userV)
+    console.log(this.userV)
+    console.log("volunteerNum: " +this.volunteerNum)
+    console.log("elderNum: " +this.elderNum)
+
+    this.extractData(this.userE)
     //this.setArray()
     // this.readCsvData();
   }
 
-  private readCsvData() {
+
+  private readCsvData()
+  {
     this.http.get('assets/test.csv')
       .subscribe(
       data => this.extractData(data),
@@ -52,7 +59,9 @@ export class adminPage
       );
   }
  
-  private extractData(res) {
+
+  private extractData(res)
+  {
     let csvData =  res['_body'] || '';
     let parsedData = papa.parse(csvData).data;
     this.headerRow = parsedData[0]
@@ -61,18 +70,20 @@ export class adminPage
     this.csvData = parsedData;
   }
  
-  downloadCSV() {
+
+  downloadCSV()
+  {
     let tmp= []
-    for(let i = 0 ; i < 3 ; i++)
+    for(let i = 0 ; i < this.elderNum ; i++)
     {
       tmp[i] = this.userE[i]
     }
 
     let csv = papa.unparse({
-      fields: this.headerRow,
-      data: tmp
-       });
- 
+    fields: this.headerRow,
+    data: tmp
+      });
+
     // Dummy implementation for Desktop download purpose
     var blob = new Blob([csv]);
     var a = window.document.createElement("a");
@@ -81,25 +92,6 @@ export class adminPage
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-  }
- 
-  
-  click_home()
-  {
-    this.navCtrl.push(HomePage , {'login': this.user.loggedIn,  'admin': this.user.Admin});
-  }
-
-  click_manageUser()
-  {
-    this.navCtrl.push(RegisterPage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
-  }
-
-  private handleError(err) {
-    console.log('something went wrong: ', err);
-  }
- 
-  trackByFn(index: any, item: any) {
-    return index;
   }
  
 
@@ -120,11 +112,13 @@ export class adminPage
     this.deleteUserFromFirebase(item, 'ElderlyUsers')
   }
 
+
   deleteVolunteerUser(item)
   {
     this.deleteUserFromFirebase(item, 'volunteerUsers')
   }
  
+
   deleteUserFromFirebase(item, str)
   {
     let alert = this.alertCtrl.create({
@@ -161,6 +155,25 @@ export class adminPage
       ]
     });
     alert.present();
+  }
+
+
+  click_home()
+  {
+    this.navCtrl.push(HomePage , {'login': this.user.loggedIn,  'admin': this.user.Admin});
+  }
+
+  click_manageUser()
+  {
+    this.navCtrl.push(RegisterPage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
+  }
+
+  private handleError(err) {
+    console.log('something went wrong: ', err);
+  }
+ 
+  trackByFn(index: any, item: any) {
+    return index;
   }
 
 }

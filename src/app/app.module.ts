@@ -4,19 +4,19 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { NgImageSliderModule } from 'ng-image-slider';
-
+import { MyApp } from './app.component';
 
 import { Form } from '../pages/form/form';
-import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {RegisterPage} from '../pages/register/register'
 import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
+
+import { GooglePlus } from '@ionic-native/google-plus';
 import { Geolocation } from '@ionic-native/geolocation';
 //import { NativeGeocoder, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
-//import * as admin from 'firebase-admin';
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
 import {AngularFireModule} from 'angularfire2'
@@ -36,10 +36,6 @@ export const firebaseConfig = {
   };
 
   firebase.initializeApp(firebaseConfig);
-  /*admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-    databaseURL: 'https://simhat-zkenty.firebaseio.com'
-  });*/
 @NgModule({
   declarations: [
     MyApp,
@@ -71,7 +67,7 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    // GooglePlus,
+    GooglePlus,
     // Facebook,
     AlertProvider,
     Functions,
