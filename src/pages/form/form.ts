@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation'
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
+import {Functions} from '../../providers/functions'
 
 @Component({
   selector: 'page-form',
@@ -26,7 +27,7 @@ export class Form
 
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
-              public alert: AlertProvider, private geolocation: Geolocation)
+              public alert: AlertProvider, private geolocation: Geolocation, public fun:Functions)
     {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -115,38 +116,28 @@ export class Form
 
 
     if (this.user.loggedIn)
-      this.get_data_from_firebase();
-
+    {
+      if(this.user.volunteer)
+        this.getData_fromFirebase('volunteerUsers');
+      else
+        this.getData_fromFirebase('ElderlyUsers');
+    }
+     
   }
 
 
   async registry() {
-    if (this.user.email == "undefined" || this.user.password == "undefined")
-      this.alert.error_emptyEmailOrPassword();
-    else {
-
-      try {
-        const res = await firebase.auth().createUserWithEmailAndPassword
-          (this.user.email, this.user.password);
-        if (res)
-          this.alert.showAlert();
-      }
-      catch (e) {
-        console.error(e);
-        if (e.message == "The email address is already in use by another account.")
-          this.alert.error_emailIsAllreadyExist();
-        else
-          this.alert.error_illegalEmailOrPassword();
-      }
-    }
+    this.fun.registry(this.user.email, this.user.password);
   }
 
 
   //if the user want to change his user to password 
-  update_email_or_password() {
+  update_email_or_password()
+  {
     firebase.auth().currentUser.updatePassword(this.user.password);
     firebase.auth().currentUser.updateEmail(this.user.email);
     this.alert.showAlert_changeEmailAndPassword();
+    
     this.navCtrl.push(HomePage, {
       'login': this.user.loggedIn, 'elderly': this.user.elderly
       , 'volunteer': this.user.volunteer
@@ -219,7 +210,8 @@ export class Form
       }
     }
 
-    if (flag == 0) {
+    if (flag == 0)
+    {
       if (this.user.elderly)
         this.add_data_to_firebase_Elderly();
       else
@@ -271,6 +263,18 @@ export class Form
       this.user.address = MyGlobal.address
       console.log(this.user.address)
     }, 5000);
+  }
+
+  click_gender1()
+  {
+    this.user.gender = 'male'
+    console.log('male')
+  }
+
+  click_gender2()
+  {
+    this.user.gender = 'female'
+    console.log('female')
   }
 
   // ------------------------------ firebase functions ---------------------------------
@@ -327,40 +331,26 @@ export class Form
   }
 
 
-  get_data_from_firebase() {
+  getData_fromFirebase(str)
+  {
     const db = firebase.firestore();
+    db.collection(str).doc(firebase.auth().currentUser.uid).get()
+    .then(result => {
+      if (!result.exists) return
+      this.user.fullName = result.data().fullName;
+      this.user.address = result.data().address;
+      this.user.phone = result.data().phone
+      this.user.email = result.data().email
+      this.hobbies = result.data().hobbies,
+      this.time = result.data().meeting_time
 
-    if (this.user.elderly) {
-      db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
-        .then(result => {
-          if (!result.exists) return
-          this.user.fullName = result.data().fullName;
-          this.user.address = result.data().address;
-          this.user.phone = result.data().phone
-          this.user.email = result.data().email
-          this.user.onBehalf = result.data().behalf
-          this.user.nameAssistant = result.data().nameAssistant
-          this.user.relationship = result.data().relationship
-          this.hobbies = result.data().hobbies,
-          this.time = result.data().meeting_time
-        })
-    }
-    else if (this.user.volunteer) {
-      db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
-        .then(result => {
-          if (!result.exists) return
-          this.user.fullName = result.data().fullName;
-          this.user.address = result.data().address;
-          this.user.phone = result.data().phone
-          this.user.email = result.data().email
-          this.hobbies = result.data().hobbies
-          this.user.range = result.data().range,
-          this.time = result.data().meeting_time
-          this.numOfMeeting = result.data().num_of_meetings
-          this.place = result.data().placeOfMeeting
-          
-        })
-    }
+      if(this.user.volunteer)
+      {
+        this.user.range = result.data().range,
+        this.numOfMeeting = result.data().num_of_meetings
+        this.place = result.data().placeOfMeeting
+      }
+    })
   }
 
   //---------------------- checkbox and radio functions ------------------------
