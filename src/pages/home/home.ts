@@ -9,7 +9,7 @@ import {AlertProvider} from '../../providers/alert/alert'
 import firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Platform} from 'ionic-angular';
-import { GooglePlus } from '@ionic-native/google-plus';
+//import { GooglePlus } from '@ionic-native/google-plus';
 import {Observable} from 'rxjs/Observable'
 
 
@@ -25,7 +25,8 @@ export class HomePage
   useri: Observable<firebase.User>;
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
-        public auth: AngularFireAuth, private platform: Platform, private gplus: GooglePlus)
+        public auth: AngularFireAuth, private platform: Platform//, private gplus: GooglePlus
+        )
   {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -146,7 +147,7 @@ export class HomePage
    if(this.platform.is('android'))
    {
      alert("android platform")
-     this.nativeGoogleLogin();
+    // this.nativeGoogleLogin();
    }
    else
    {
@@ -156,24 +157,24 @@ export class HomePage
  }
 
 
- async nativeGoogleLogin() : Promise <void>
- {
-  this.gplus.login({})
-  .then(res => alert(res))
-  .catch(err => alert(err));
+//  async nativeGoogleLogin() : Promise <void>
+//  {
+//   this.gplus.login({})
+//   .then(res => alert(res))
+//   .catch(err => alert(err));
 
-  /*  alert("a")
-    this.gplus.login({
-      'webClientId' : '377941126479-263ts6tp63gv2vkp8946q5ui8ce6u6u3.apps.googleusercontent.com',
-      'offline': true
-    }).then(res => {
-      alert("b")
-      this.auth.auth.signInWithCredential(
-        firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(suc => {
-          alert("success login")
-        }).catch(error => {alert("not success")})
-    })*/
- }
+//   /*  alert("a")
+//     this.gplus.login({
+//       'webClientId' : '377941126479-263ts6tp63gv2vkp8946q5ui8ce6u6u3.apps.googleusercontent.com',
+//       'offline': true
+//     }).then(res => {
+//       alert("b")
+//       this.auth.auth.signInWithCredential(
+//         firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(suc => {
+//           alert("success login")
+//         }).catch(error => {alert("not success")})
+//     })*/
+//  }
  
 
  gmailLogin()

@@ -13,8 +13,8 @@ import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
 
-import { GooglePlus } from '@ionic-native/google-plus';
-import { Geolocation } from '@ionic-native/geolocation';
+//import { GooglePlus } from '@ionic-native/google-plus';
+//import { Geolocation } from '@ionic-native/geolocation';
 //import { NativeGeocoder, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
 import * as firebase from 'firebase';
@@ -67,11 +67,11 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    GooglePlus,
+    //GooglePlus,
     // Facebook,
     AlertProvider,
     Functions,
-    Geolocation,
+   //Geolocation,
     //NativeGeocoder,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AlertProvider

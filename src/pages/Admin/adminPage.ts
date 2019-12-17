@@ -85,7 +85,7 @@ export class adminPage
       });
 
     // Dummy implementation for Desktop download purpose
-    var blob = new Blob([csv]);
+    var blob = new Blob([csv] , {type: 'text/csv;charset=windows-1252;'});
     var a = window.document.createElement("a");
     a.href = window.URL.createObjectURL(blob);
     a.download = "newdata.csv";

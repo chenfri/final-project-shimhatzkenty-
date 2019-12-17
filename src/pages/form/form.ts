@@ -4,7 +4,7 @@ import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase from 'firebase';
 import { AlertProvider } from '../../providers/alert/alert'
-import { Geolocation } from '@ionic-native/geolocation'
+//import { Geolocation } from '@ionic-native/geolocation'
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
@@ -27,7 +27,8 @@ export class Form
 
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
-              public alert: AlertProvider, private geolocation: Geolocation, public fun:Functions)
+              public alert: AlertProvider//, private geolocation: Geolocation
+              , public fun:Functions)
     {
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -255,21 +256,21 @@ export class Form
   }
 
   
-  get_UserLocation()
-  {
-    navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
-    setTimeout(() => {
-      console.log(MyGlobal.address)
-      this.user.address = MyGlobal.address
-      console.log(this.user.address)
-    }, 5000);
-  }
+  // get_UserLocation()
+  // {
+  //   navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
+  //   setTimeout(() => {
+  //     console.log(MyGlobal.address)
+  //     this.user.address = MyGlobal.address
+  //     console.log(this.user.address)
+  //   }, 5000);
+  // }
 
-  click_gender1()
-  {
-    this.user.gender = 'male'
-    console.log('male')
-  }
+  // click_gender1()
+  // {
+  //   this.user.gender = 'male'
+  //   console.log('male')
+  // }
 
   click_gender2()
   {
