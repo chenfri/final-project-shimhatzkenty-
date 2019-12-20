@@ -9,7 +9,8 @@ import {Functions} from '../../providers/functions'
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
-
+import {AngularFireAuth} from 'angularfire2/auth';
+import { Geolocation} from '@capacitor/core';
 
 @Component({
   selector: 'page-form',
@@ -19,7 +20,7 @@ import {MyGlobal} from '../../module/global'
 
 export class Form 
 {
-  
+
   user = {} as User;
   public hobbies: any[]
   public time: any[]
@@ -28,7 +29,7 @@ export class Form
 
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
-          public alert: AlertProvider, public fun:Functions , public array:Arrays)
+          public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth)
     {
 
     this.user.loggedIn = this.params.get('login');
@@ -60,6 +61,13 @@ export class Form
     let str = await this.fun.registry(this.user.email, this.user.password)
     if(str == "sucsses")
       this.alert.showAlert();
+
+    /*this.alert.showError_NotEmailVerfied();
+
+    setTimeout(() => {
+      if(str == "sucsses")
+      this.alert.showAlert();
+    }, 5000);*/
   }
 
 
@@ -184,8 +192,6 @@ export class Form
   {
     var lat = pos.coords.latitude
     var long = pos.coords.longitude
-    alert(lat)
-    alert(long)
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function ()
@@ -193,7 +199,7 @@ export class Form
       if (this.readyState == 4 && this.status == 200)
       {
         var address = JSON.parse(this.responseText)
-        console.log(address.results[0].formatted_address)
+        alert(address.results[0].formatted_address)
         MyGlobal.address = address.results[0].formatted_address
       }
     };
@@ -206,6 +212,9 @@ export class Form
   
   get_UserLocation()
   {
+    //if(this.platform.is('android'))
+    //  alert("please turn on GPS")
+
     navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
     setTimeout(() => {
       console.log(MyGlobal.address)
@@ -214,17 +223,6 @@ export class Form
     }, 5000);
   }
 
-  // click_gender1()
-  // {
-  //   this.user.gender = 'male'
-  //   console.log('male')
-  // }
-
-  click_gender2()
-  {
-    this.user.gender = 'female'
-    console.log('female')
-  }
 
   // ------------------------------ firebase functions ---------------------------------
 
@@ -356,6 +354,7 @@ export class Form
         };
     }
   }
+
 
 }
 
