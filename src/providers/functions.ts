@@ -13,27 +13,27 @@ export class Functions
   }
 
 
-   async registry(email, password)
+  async registry(email, password)
   {
     console.log(email)
     console.log(password)
     if (email == "undefined" || password == "undefined")
-    this.alert.error_emptyEmailOrPassword();
-  else {
-
-    try {
-      const res = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      if (res)
-        this.alert.showAlert();
+      this.alert.error_emptyEmailOrPassword();
+    else
+    {
+      try {
+        const res = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        if (res)
+          return "sucsses"
+      }
+      catch (e) {
+        console.error(e);
+        if (e.message == "The email address is already in use by another account.")
+          this.alert.error_emailIsAllreadyExist();
+        else
+          this.alert.error_illegalEmailOrPassword();
+      }
     }
-    catch (e) {
-      console.error(e);
-      if (e.message == "The email address is already in use by another account.")
-        this.alert.error_emailIsAllreadyExist();
-      else
-        this.alert.error_illegalEmailOrPassword();
-    }
-  }
 }
 
 }

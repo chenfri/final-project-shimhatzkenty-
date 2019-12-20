@@ -13,16 +13,13 @@ import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
 
-//import { GooglePlus } from '@ionic-native/google-plus';
-//import { Geolocation } from '@ionic-native/geolocation';
-//import { NativeGeocoder, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
-
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
 import {AngularFireModule} from 'angularfire2'
 import { HttpModule } from '@angular/http';
 import { AlertProvider } from '../providers/alert/alert';
 import {Functions} from '../providers/functions'
+import {Arrays} from '../providers/arrays'
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDYpEw_jy9bhMFXZ0hTMJRay8hu_OHq6Fw",
@@ -67,14 +64,10 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    //GooglePlus,
-    // Facebook,
     AlertProvider,
     Functions,
-   //Geolocation,
-    //NativeGeocoder,
+    Arrays,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AlertProvider
   ]
 })
 export class AppModule {}
