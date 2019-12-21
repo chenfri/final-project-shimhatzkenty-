@@ -9,6 +9,8 @@ import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 //import * as admin from 'firebase-admin';
+//import * as functions from 'firebase-functions';
+
 
 @Component({
   selector: 'adminPage',
@@ -37,55 +39,61 @@ export class adminPage
     this.messages = this.navParams.get('messages');
     this.elderNum = this.navParams.get('elderNum');
     this.volunteerNum = this.navParams.get('volunteerNum');
+    this.headerRow = ["שם", "פלאפון" , "כתובת"]
 
     console.log(this.messages)
     console.log(this.userE )
     console.log(this.userV)
     console.log("volunteerNum: " +this.volunteerNum)
     console.log("elderNum: " +this.elderNum)
-
-    this.extractData(this.userE)
-    //this.setArray()
-    // this.readCsvData();
   }
 
-
-  private readCsvData()
-  {
-    this.http.get('assets/test.csv')
-      .subscribe(
-      data => this.extractData(data),
-      err => this.handleError(err)
-      );
-  }
  
 
-  private extractData(res)
-  {
-    let csvData =  res['_body'] || '';
-    let parsedData = papa.parse(csvData).data;
-    this.headerRow = parsedData[0]
-    this.headerRow = ["name", "phone" , "adrress"]
-    parsedData.splice(0, 1);
-    this.csvData = parsedData;
-  }
- 
+  // private extractData(res)
+  // {
+  //   let csvData =  res['_body'] || '';
+  //   let parsedData = papa.parse(csvData).data;
+  //   this.headerRow = parsedData[0]
+  //   this.headerRow = ["שם", "פלאפון" , "כתובת"]
+  //   parsedData.splice(0, 1);
+  //   this.csvData = parsedData;
+  // }
 
-  downloadCSV()
-  {
+  csvFileElderly(){
+      let tmp= []
+          for(let i = 0 ; i < this.elderNum ; i++)
+          {
+            tmp[i] = this.userE[i]
+          }
+
+          let csv = papa.unparse({
+          fields: this.headerRow,
+          data: tmp
+          });
+
+          this.downloadCSV(csv)
+  }
+
+  csvFileVolunteer(){
     let tmp= []
-    for(let i = 0 ; i < this.elderNum ; i++)
-    {
-      tmp[i] = this.userE[i]
-    }
+        for(let i = 0 ; i < this.volunteerNum ; i++)
+        {
+          tmp[i] = this.userV[i]
+        }
 
-    let csv = papa.unparse({
-    fields: this.headerRow,
-    data: tmp
-      });
+        let csv = papa.unparse({
+        fields: this.headerRow,
+        data: tmp
+        });
 
-    // Dummy implementation for Desktop download purpose
-    var blob = new Blob([csv] , {type: 'text/csv;charset=windows-1252;'});
+        this.downloadCSV(csv)
+}
+
+  downloadCSV(csv)
+  { 
+    var blob = new Blob(["\ufeff", csv]);
+
     var a = window.document.createElement("a");
     a.href = window.URL.createObjectURL(blob);
     a.download = "newdata.csv";
@@ -138,13 +146,25 @@ export class adminPage
               .catch(function(error) {
                 console.log('Error deleting user:', error);
               });*/
+              // var user = firebase.auth().currentUser;
 
-            let deleteDoc = db.collection(str).doc(item).delete().then(function() {
-              console.log("Document successfully deleted!");
-          }).catch(function(error) {
-              console.error("Error removing document: ", error);
+              // user.delete().then(function() {
+              //   // User deleted.
+              // }, function(error) {
+              //   // An error happened.
+              // });
+          //   let deleteDoc = db.collection(str).doc(item).delete().then(function() {
+          //     console.log("Document successfully deleted!");
+          // }).catch(function(error) {
+          //     console.error("Error removing document: ", error);
+          // });
+          firebase.auth().signInWithEmailAndPassword("yarden@admin.com", "123456")
+          .then(function (info) {
+             var user = firebase.database().ref(item).remove;
+             
           });
-          }
+        }
+
         },
         {
           text: 'לא',

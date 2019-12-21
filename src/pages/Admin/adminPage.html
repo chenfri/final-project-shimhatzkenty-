@@ -1,68 +1,71 @@
 <ion-content class="adminPage">
 
-<ion-grid class="adminHeader">
-    
-    <ion-row>
-      <ion-col class="buttons">
-        <button type="submit" (click)="downloadCSV()">ייצוא לאקסל</button>
-        <button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
-        <button type="submit" (click)= "click_manageUser()">ניהול משתמשים</button>
-      </ion-col>
-      <ion-col>
-        <h2 class = "titleAdmin">דף ניהול</h2>
-      </ion-col>
-    </ion-row>
-</ion-grid>
-
-<div class="tables">
-  <h4 class = "tableTitle">:קשישים שהתחברו לאפליקציה</h4>
-    <table id="customers">
-        <tr >
-          <th>מחק משתמש</th>
-          <th>כתובת</th>
-          <th>טלפון</th>
-          <th>שם מלא</th>
-        </tr>
-      <tr *ngFor="let value of userE">
-          <td><button (click)="deleteElderlyUser(value[3])">[x]</button></td>
-        <td>{{value[0]}}</td>
-        <td>{{value[1]}}</td>
-        <td>{{value[2]}}</td>
-      </tr>
-    </table>
-
-    <h4 class = "tableTitle">:מתנדבים שהתחברו לאפליקציה</h4>
-    <table id="customers">
-        <tr>
-          <th>מחק משתמש</th>
-          <th>כתובת</th>
-          <th>טלפון</th>
-          <th>שם מלא</th>
-        </tr>
-        <tr *ngFor="let value of userV">
-          <td><button (click)="deleteVolunteerUser(value[3])">[x]</button></td>
+  <ion-grid class="adminHeader">
+      
+      <ion-row>
+        <ion-col class="buttons">
+          <button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
+          <button type="submit" (click)= "click_manageUser()">ניהול משתמשים</button>
+        </ion-col>
+        <ion-col>
+          <h2 class = "titleAdmin">דף ניהול</h2>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+  
+  <div class="tables">
+    <h4 class = "tableTitle">:קשישים שהתחברו לאפליקציה</h4>
+      <button type="submit" (click)="csvFileElderly()">ייצוא טבלת קשישים לאקסל</button><br><br>
+      <table id="customers">
+          <tr >
+            <th>מחק משתמש</th>
+            <th>כתובת</th>
+            <th>טלפון</th>
+            <th>שם מלא</th>
+          </tr>
+        <tr *ngFor="let value of userE">
+            <td><button (click)="deleteElderlyUser(value[3])">[x]</button></td>
           <td>{{value[0]}}</td>
           <td>{{value[1]}}</td>
           <td>{{value[2]}}</td>
         </tr>
-    </table>
-
-    <h4 class = "tableTitle">הודעות</h4>
-    <table id="customers">
-        <tr>
-          <th>מחק הודעה</th>
-        <th>טלפון</th>
-          <th>הודעה</th>
-          <th>שם מלא</th>
-        </tr>
-        
-
-        <tr *ngFor="let value of messages">
-          <td><button (click)="deleteMessage(value.id)">[x]</button></td>
-          <td>{{value.data.message}}</td>
-          <td>{{value.data.phoneNumber}}</td>
-          <td>{{value.data.fullName}}</td>
-        </tr>
       </table>
-</div>
-</ion-content>
+  
+      <h4 class = "tableTitle">:מתנדבים שהתחברו לאפליקציה</h4>
+      <button type="submit" (click)="csvFileVolunteer()">ייצוא טבלת מתנדבים לאקסל</button><br><br>
+  
+      <table id="customers">
+          <tr>
+            <th>מחק משתמש</th>
+            <th>כתובת</th>
+            <th>טלפון</th>
+            <th>שם מלא</th>
+          </tr>
+          <tr *ngFor="let value of userV">
+            <td><button (click)="deleteVolunteerUser(value[3])">[x]</button></td>
+            <td>{{value[0]}}</td>
+            <td>{{value[1]}}</td>
+            <td>{{value[2]}}</td>
+          </tr>
+      </table>
+  
+      <h4 class = "tableTitle">הודעות</h4>
+      <table id="customers">
+          <tr>
+            <th>מחק הודעה</th>
+          <th>טלפון</th>
+            <th>הודעה</th>
+            <th>שם מלא</th>
+          </tr>
+          
+  
+          <tr *ngFor="let value of messages">
+            <td><button (click)="deleteMessage(value.id)">[x]</button></td>
+            <td>{{value.data.message}}</td>
+            <td>{{value.data.phoneNumber}}</td>
+            <td>{{value.data.fullName}}</td>
+          </tr>
+        </table>
+  </div>
+  </ion-content>
+  
