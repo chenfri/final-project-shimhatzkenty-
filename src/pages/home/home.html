@@ -13,8 +13,8 @@
           <button *ngIf = "!user.elderly && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button>
           <button *ngIf = "!user.loggedIn" (click)="elderly_form()">רישום לאזרח הותיק</button>
           <button *ngIf = "!user.loggedIn" (click)="login()">כניסת משתמש רשום</button>
-          <button *ngIf = "!user.loggedIn" (click)="facebookLogin()">התחבר עם פייסבוק</button>
-          <button *ngIf = "!user.loggedIn" (click)="gmail()">התחבר עם גמייל</button>
+          <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button>
+          <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button>
           <button *ngIf = "user.Admin" (click)=" get_data_for_admin()">דף ניהול</button>
       </div>
 

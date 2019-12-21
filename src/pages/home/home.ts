@@ -9,7 +9,6 @@ import {AlertProvider} from '../../providers/alert/alert'
 import firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Platform} from 'ionic-angular';
-//import { GooglePlus } from '@ionic-native/google-plus';
 import {Observable} from 'rxjs/Observable'
 
 
@@ -23,6 +22,7 @@ export class HomePage
 
   user = {} as User;
   useri: Observable<firebase.User>;
+  platformA: boolean
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
         public auth: AngularFireAuth, private platform: Platform//, private gplus: GooglePlus
@@ -49,6 +49,21 @@ export class HomePage
 
   }
 
+
+  ionViewDidEnter()
+  {
+    if(this.platform.is('android'))
+    {
+      this.platformA = true;
+      console.log("android platform")
+    
+    }
+    else
+    {
+      this.platformA = false;
+      console.log("web platform")
+    }
+  }
 
   checkIfElderly()
   {
