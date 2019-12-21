@@ -40,6 +40,27 @@ export class AlertProvider
   }
 
 
+  showAlert_EmailVerfied()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה - לא ניתן להתחבר',
+      subTitle: 'יש לאמת תחילה את כתובת הדוא"ל שלך במייל שנשלח לכתובת שהזנת' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showError_NotEmailVerfied()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'לתשומת ליבך!',
+      subTitle: 'כעת נשלח מייל אימות לכתובת דוא"ל שהזנת, יש לאשר שהכתובת אכן נכונה' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   error_showAlert()
   {
     let alert = this.alertCtrl.create({

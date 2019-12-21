@@ -4,11 +4,13 @@ import { HomePage } from '../home/home';
 import 'firebase/firestore';
 import firebase from 'firebase';
 import { AlertProvider } from '../../providers/alert/alert'
-//import { Geolocation } from '@ionic-native/geolocation'
+import { Arrays } from '../../providers/arrays'
+import {Functions} from '../../providers/functions'
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
-import {Functions} from '../../providers/functions'
+import {AngularFireAuth} from 'angularfire2/auth';
+import { Geolocation} from '@capacitor/core';
 
 @Component({
   selector: 'page-form',
@@ -18,7 +20,7 @@ import {Functions} from '../../providers/functions'
 
 export class Form 
 {
-  
+
   user = {} as User;
   public hobbies: any[]
   public time: any[]
@@ -27,94 +29,22 @@ export class Form
 
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
-              public alert: AlertProvider//, private geolocation: Geolocation
-              , public fun:Functions)
+          public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth)
     {
-    console.log("if login:")
+
     this.user.loggedIn = this.params.get('login');
-    console.log(this.user.loggedIn)
-
-    console.log("if elderly:")
     this.user.elderly = this.params.get('elderly');
-    console.log(this.user.elderly)
-
-    console.log("if volunteer:")
     this.user.volunteer = this.params.get('volunteer');
-    console.log(this.user.volunteer)
-
+ 
+    //update variables
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;
     this.user.range = 0;
-
-    this.hobbies = [
-      {
-        'species': 'מוסיקה',
-        'currentValue': false
-      }, {
-        'species': 'תיאטרון',
-        'currentValue': false
-      }, {
-        'species': 'קסמים',
-        'currentValue': false
-      }, {
-        'species': 'ריקוד',
-        'currentValue': false
-      }, {
-        'species': 'אומנות',
-        'currentValue': false
-      }, {
-        'species': 'משחקי קופסה',
-        'currentValue': false
-      }, {
-      'species': 'דיבור',
-      'currentValue': false
-      } ,{
-        'species': 'אחר',
-        'currentValue': false
-      }
-    ];
-
-    this.time = [
-      {
-        'species': 'בוקר',
-        'currentValue': false
-      }, {
-        'species': 'אחה"צ',
-        'currentValue': false
-      }, {
-        'species': 'ערב',
-        'currentValue': false
-      }, {
-        'species': 'לא משנה',
-        'currentValue': false
-      }];
-
-    this.numOfMeeting = [
-      {
-        'species': 'פעם בשבוע/ שבועיים',
-        'currentValue': false
-      }, {
-        'species': 'פעם בחודש',
-        'currentValue': false
-      }, {
-        'species': 'באופן אקראי',
-        'currentValue': false
-      }];
-
-
-      this.place = [
-        {
-          'species': 'בבית הקשיש',
-          'currentValue': false
-        }, {
-          'species': 'במועדון קשישים',
-          'currentValue': false
-        }, {
-          'species': 'בשניהם',
-          'currentValue': false
-        }];
-
+    this.hobbies = this.array.hobbies
+    this.time = this.array.time
+    this.numOfMeeting = this.array.numOfMeeting
+    this.place = this.array.place
 
     if (this.user.loggedIn)
     {
@@ -128,7 +58,16 @@ export class Form
 
 
   async registry() {
-    this.fun.registry(this.user.email, this.user.password);
+    let str = await this.fun.registry(this.user.email, this.user.password)
+    if(str == "sucsses")
+      this.alert.showAlert();
+
+    /*this.alert.showError_NotEmailVerfied();
+
+    setTimeout(() => {
+      if(str == "sucsses")
+      this.alert.showAlert();
+    }, 5000);*/
   }
 
 
@@ -146,11 +85,13 @@ export class Form
   }
 
 
-  //if the user press on home page button
-  click_home() {
+  //if the user press on home page button and he didn't finish fill the form
+  click_home()
+  {
     const db = firebase.firestore();
 
-    if (typeof (this.user.email) != "undefined" && typeof (this.user.password) != "undefined") {
+    if (typeof (this.user.email) != "undefined" && typeof (this.user.password) != "undefined")
+    {
       if (this.user.elderly) {
         db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
           .then(result => {
@@ -174,8 +115,9 @@ export class Form
   }
 
 
-  //check all user inputs are legal
-  check_field_value() {
+  //check that all user inputs are legal
+  check_field_value()
+  {
     let flag = 0;
     console.log("range:")
 
@@ -185,22 +127,22 @@ export class Form
       flag = 1;
     }
 
-    else if (this.check_array1() == 1) {
+    else if (this.check_arrayVaule(this.hobbies) == 1) {
       this.alert.error_hobbies();
       flag = 1;
     }
 
-    else if (this.check_array2() == 1) {
+    else if (this.check_arrayVaule(this.time) == 1) {
       this.alert.error_timeOfMeeting();
       flag = 1;
     }
 
     else if (!this.user.elderly) {
-      if (this.check_array3() == 1) {
+      if (this.check_arrayVaule(this.numOfMeeting) == 1) {
         this.alert.error_numOfMeeting();
         flag = 1;
       }
-      else if (this.check_array4() == 1) {
+      else if (this.check_arrayVaule(this.place) == 1) {
         this.alert.error_place();
         flag = 1;
       }
@@ -222,10 +164,12 @@ export class Form
 
 
   //update the variables if someone fill the form behalf elderly
-  onbehalf() {
+  onbehalf()
+  {
     if (this.user.onBehalf === false)
       this.user.onBehalf = true;
-    else {
+    else
+    {
       this.user.onBehalf = false;
       this.user.nameAssistant = null;
       this.user.relationship = null;
@@ -233,7 +177,17 @@ export class Form
   }
 
 
+  //check if in the array there is 'ture' value
+  check_arrayVaule(arr)
+  {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].currentValue)
+        return 0;
+    }
+    return 1;
+  }
   
+
   getUserAddressByCoordinates(pos)
   {
     var lat = pos.coords.latitude
@@ -241,11 +195,11 @@ export class Form
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function ()
-  {
+    {
       if (this.readyState == 4 && this.status == 200)
       {
         var address = JSON.parse(this.responseText)
-        console.log(address.results[0].formatted_address)
+        alert(address.results[0].formatted_address)
         MyGlobal.address = address.results[0].formatted_address
       }
     };
@@ -256,31 +210,24 @@ export class Form
   }
 
   
-  // get_UserLocation()
-  // {
-  //   navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
-  //   setTimeout(() => {
-  //     console.log(MyGlobal.address)
-  //     this.user.address = MyGlobal.address
-  //     console.log(this.user.address)
-  //   }, 5000);
-  // }
-
-  // click_gender1()
-  // {
-  //   this.user.gender = 'male'
-  //   console.log('male')
-  // }
-
-  click_gender2()
+  get_UserLocation()
   {
-    this.user.gender = 'female'
-    console.log('female')
+    //if(this.platform.is('android'))
+    //  alert("please turn on GPS")
+
+    navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
+    setTimeout(() => {
+      console.log(MyGlobal.address)
+      this.user.address = MyGlobal.address
+      console.log(this.user.address)
+    }, 5000);
   }
+
 
   // ------------------------------ firebase functions ---------------------------------
 
-  add_data_to_firebase_Volunteer() {
+  add_data_to_firebase_Volunteer()
+  {
     const db = firebase.firestore();
     db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
       {
@@ -306,7 +253,8 @@ export class Form
   }
 
 
-  add_data_to_firebase_Elderly() {
+  add_data_to_firebase_Elderly()
+  {
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
       {
@@ -354,10 +302,12 @@ export class Form
     })
   }
 
+
   //---------------------- checkbox and radio functions ------------------------
 
   //check which checkbox was clicked and update the array
-  CheckboxClicked(item: any, $event) {
+  CheckboxClicked(item: any, $event)
+  {
     //console.log('CheckboxClicked for ' + item.species);
     for (let i = 0; i < this.hobbies.length; i++) {
 
@@ -370,94 +320,39 @@ export class Form
   }
 
 
-  //check which radio was clicked and update the array
   radioClicked1(item: any, $event) {
-    console.log('radioClicked for ' + item.species);
-    for (let i = 0; i < this.time.length; i++) {
-      if (this.time[i].currentValue) //if this radio was pressed
-        this.time[i] = {
-          'species': this.time[i].species,
-          'currentValue': !this.time[i].currentValue
-        }
-
-      if (this.time[i] === item)
-        this.time[i] = {
-          'species': item.species,
-          'currentValue': !item.currentValue
-        };
-    }
+    this.radioClicked(item, this.time)
   }
+
+
+  radioClicked3(item: any, $event) {
+    this.radioClicked(item, this.place)
+  }
+
+
+  radioClicked2(item: any, $event) {
+      this.radioClicked(item, this.numOfMeeting)
+  }
+
 
   //check which radio was clicked and update the array
-  radioClicked3(item: any, $event) {
+  radioClicked(item: any, arr)
+  {
     console.log('radioClicked for ' + item.species);
-    for (let i = 0; i < this.place.length; i++) {
-      if (this.place[i].currentValue) //if this radio was pressed
-        this.place[i] = {
-          'species': this.place[i].species,
-          'currentValue': !this.place[i].currentValue
+    for (let i = 0; i < arr.length; i++)
+    {
+      if (arr[i].currentValue) //if this radio was pressed
+        arr[i] = {
+          'species': arr[i].species,
+          'currentValue': !arr[i].currentValue
         }
 
-      if (this.place[i] === item)
-        this.place[i] = {
+      if (arr[i] === item)
+        arr[i] = {
           'species': item.species,
           'currentValue': !item.currentValue
         };
     }
-  }
-
-    //check which radio was clicked and update the array
-    radioClicked2(item: any, $event) {
-      console.log('radioClicked for ' + item.species);
-      for (let i = 0; i < this.numOfMeeting.length; i++) {
-        if (this.numOfMeeting[i].currentValue) //if this radio was pressed
-          this.numOfMeeting[i] = {
-            'species': this.numOfMeeting[i].species,
-            'currentValue': !this.numOfMeeting[i].currentValue
-          }
-  
-        if (this.numOfMeeting[i] === item)
-          this.numOfMeeting[i] = {
-            'species': item.species,
-            'currentValue': !item.currentValue
-          };
-      }
-    }
-
-
-  //-------- methods that check if the array are have 'ture' value --------
-
-  check_array1() {
-    for (let i = 0; i < this.hobbies.length; i++) {
-      if (this.hobbies[i].currentValue)
-        return 0;
-    }
-    return 1;
-  }
-
-  check_array2() {
-    for (let i = 0; i < this.time.length; i++) {
-      if (this.time[i].currentValue) //if this radio was pressed
-        return 0;
-    }
-    return 1;
-  }
-
-  check_array3() {
-    for (let i = 0; i < this.numOfMeeting.length; i++) {
-      if (this.numOfMeeting[i].currentValue) //if this radio was pressed
-        return 0;
-    }
-    return 1;
-  }
-
-
-  check_array4() {
-    for (let i = 0; i < this.place.length; i++) {
-      if (this.place[i].currentValue) //if this radio was pressed
-        return 0;
-    }
-    return 1;
   }
 
 

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController ,NavParams} from 'ionic-angular';
+import { IonicPage, NavController ,NavParams} from 'ionic-angular';
 import { User } from '../../module/user';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
-import {LoginPage} from '../login/login'
+import {Functions} from '../../providers/functions'
 import {AlertProvider} from '../../providers/alert/alert'
 
 @IonicPage()
@@ -15,7 +15,8 @@ export class RegisterPage
 {
   user= {} as User;
 
-  constructor(public alert: AlertProvider ,public navCtrl: NavController, public params: NavParams) {
+  constructor(public alert: AlertProvider ,public navCtrl: NavController,
+     public params: NavParams, public func: Functions) {
         
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
@@ -29,31 +30,15 @@ export class RegisterPage
 
   async registry()
   {
-    if(this.user.email == "" ||this.user.password == "")
-       this.alert.error_emptyEmailOrPassword();
+    let str =await this.func.registry(this.user.email, this.user.password)
+    if(str == "sucsses")
+      this.alert.showAlertSuccess();
+  }
 
-    else
-    {
-      try{
-        const res = await firebase.auth().createUserWithEmailAndPassword
-        (this.user.email, this.user.password);
-        if(res)
-          this.alert.showAlert();
-      }
-      catch(e)
-      {
-        console.error(e);
-        if(e.message == "The email address is already in use by another account.")
-          this.alert.error_emailIsAllreadyExist();
-        else
-          this.alert.error_illegalEmailOrPassword();
-      }
-    }
-}
 
-click_home()
-{
-  this.navCtrl.push(HomePage , {'login': this.user.loggedIn, 'admin': this.user.Admin});
-}
+  click_home()
+  {
+    this.navCtrl.push(HomePage , {'login': this.user.loggedIn, 'admin': this.user.Admin});
+  }
 
 }
