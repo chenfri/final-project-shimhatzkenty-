@@ -12,7 +12,8 @@ export interface User
     range: number,
     elderly: boolean,
     volunteer:boolean,
-    Admin: boolean
-    gender: string
+    Admin: boolean,
+    gender: string,
+    hideForm: boolean
 }
 

@@ -86,9 +86,9 @@ export class HomePage
               const db = firebase.firestore();
               db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
            }
-           })
+           }).catch(error => {console.log(error)})
         }
-      }) 
+      }).catch(error => {console.log(error)})
   }
 
 
@@ -131,19 +131,19 @@ export class HomePage
        i.data().phone,
        i.data().address,
        i.id]
-       k++})})
+       k++})}).catch(error => {console.log(error)})
 
    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ volunteer[j] =
      [ i.data().fullName,
        i.data().phone,
        i.data().address,
        i.id]
-       j++})})
+       j++})}).catch(error => {console.log(error)})
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
         data: i.data() ,
         id : i.id }
-        l++})})
+        l++})}).catch(error => {console.log(error)})
       
 
     setTimeout(() =>

@@ -37,6 +37,7 @@ export class Form
     this.user.volunteer = this.params.get('volunteer');
  
     //update variables
+    this.user.hideForm = false
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;
@@ -59,8 +60,10 @@ export class Form
 
   async registry() {
     let str = await this.fun.registry(this.user.email, this.user.password)
-    if(str == "sucsses")
+    if(str == "sucsses"){
       this.alert.showAlert();
+      this.user.hideForm = true;}
+
 
     /*this.alert.showError_NotEmailVerfied();
 
@@ -299,7 +302,7 @@ export class Form
         this.numOfMeeting = result.data().num_of_meetings
         this.place = result.data().placeOfMeeting
       }
-    })
+    }).catch(error => {console.log(error)})
   }
 
 
