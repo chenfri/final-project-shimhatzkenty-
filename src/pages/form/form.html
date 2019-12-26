@@ -4,7 +4,7 @@
         <br><br><br><br>
 
     <h2 class= "titleForm">פרטים אישיים</h2><br><br><br><br>
-    <h6> הפרטים ישארו חסויים במיזם</h6>
+    <h6 style="text-align: right;"> הפרטים ישארו חסויים במיזם</h6>   
     <form class="form" style="float: right;"> <br><br>     
         <label style="float: right;">כתובת דוא"ל</label>
         <input style="float: right;" type="text" name="username" [(ngModel)] = "user.email">
@@ -49,16 +49,20 @@
         
         <ion-checkbox *ngIf="user.elderly" style="float: right;"  [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
         <label *ngIf="user.elderly" style="float:right ;"> אני ממלא את הטופס בשם מישהו אחר</label>
+<br><br><br>
 
-        <ion-item *ngIf="user.onBehalf">
-            <ion-label floating >נא מלא את שמך המלא</ion-label>
-            <ion-input text-right type="text" name="title1" [(ngModel)] = "user.nameAssistant" ></ion-input>
-        </ion-item> 
-            <ion-item *ngIf="user.onBehalf">
-                <ion-label floating>קרבה לקשיש</ion-label>
-                <ion-input text-right type="text" name="title2" [(ngModel)] = "user.relationship" ></ion-input>
-            </ion-item>  
-            <br><br><br><br>
+        <div class="Assistant"  *ngIf="user.onBehalf" style="background-color: #ffffff00;" >
+            <label style="float: right;" >נא מלא את שמך המלא</label>
+            <input text-right type="text" name="nameAssistant" [(ngModel)] = "user.nameAssistant">
+     
+            <label style="float: right;" >קרבה לקשיש</label>
+            <input text-right type="text" name="relationship" [(ngModel)] = "user.relationship" >
+            
+        <!-- </ion-item> 
+            <ion-item *ngIf="user.onBehalf"> -->
+            
+            </div>  
+            <br><br>
 
         <ion-grid style="    background-color: #ffffff80;">
             <ion-row>
@@ -87,17 +91,10 @@
                 </ion-col>
 <!------------------------------------------------------------------------------------------------->
 
-                <ion-col>
-                    <h4 class="titleForm">:תחומי עיניין ותחביבים</h4>
-
-                    <ion-item  *ngFor="let hobbies of hobbies; let i = index">
-                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
-                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
-                    </ion-item>
-                </ion-col>
+               
 
                 <ion-col>
-                    <h4 class="titleForm">:זמנים נוחים למפגש</h4>
+                    <h5 class="titleForm">:זמנים נוחים למפגש</h5>
 
                     <ion-list radio-group >
                         <ion-item *ngFor="let time of time; let i = index">
@@ -105,6 +102,14 @@
                                 <ion-checkbox item-right [checked]="time.currentValue" (click)="radioClicked1(time)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
+                </ion-col> 
+                <ion-col >
+                    <h5 class="titleForm" >:תחומי עיניין ותחביבים</h5>
+
+                    <ion-item  *ngFor="let hobbies of hobbies; let i = index">
+                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked(hobbies, $event)"></ion-checkbox>
+                    </ion-item>
                 </ion-col>
         </ion-row>
     </ion-grid> <br>

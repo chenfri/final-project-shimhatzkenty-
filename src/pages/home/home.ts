@@ -28,6 +28,7 @@ export class HomePage
         public auth: AngularFireAuth, private platform: Platform//, private gplus: GooglePlus
         )
   {
+
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     console.log(this.user.loggedIn)
@@ -49,7 +50,7 @@ export class HomePage
 
   }
 
-
+  
   ionViewDidEnter()
   {
     if(this.platform.is('android'))

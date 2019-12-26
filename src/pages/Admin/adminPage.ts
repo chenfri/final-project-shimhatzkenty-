@@ -8,7 +8,7 @@ import { contactMessage } from '../../module/contactMessage'
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
-//import * as admin from 'firebase-admin';
+// import * as admin from 'firebase-admin';
 //import * as functions from 'firebase-functions';
 
 
@@ -139,32 +139,19 @@ export class adminPage
           handler: () => {
             console.log('yes clicked');
             const db = firebase.firestore();
-              /*admin.auth().deleteUser(item)
-              .then(function() {
-                console.log('Successfully deleted user');
-              })
-              .catch(function(error) {
-                console.log('Error deleting user:', error);
-              });*/
-              // var user = firebase.auth().currentUser;
-
-              // user.delete().then(function() {
-              //   // User deleted.
-              // }, function(error) {
-              //   // An error happened.
-              // });
-          //   let deleteDoc = db.collection(str).doc(item).delete().then(function() {
-          //     console.log("Document successfully deleted!");
-          // }).catch(function(error) {
-          //     console.error("Error removing document: ", error);
-          // });
-          firebase.auth().signInWithEmailAndPassword("yarden@admin.com", "123456")
-          .then(function (info) {
-             var user = firebase.database().ref(item).remove;
-             
+              
+            let deleteUser = db.collection(str).doc(item).delete().then(function() {
+              console.log("Document successfully deleted!");
+          }).catch(function(error) {
+              console.error("Error removing document: ", error);
           });
-        }
-
+          setTimeout(() =>
+    {
+      this.navCtrl.push(adminPage, {'elderly': this.userE, 'volunteer': this.userV,
+      'messages': this.messages , 'login': this.user.loggedIn, 'admin': this.user.Admin,
+       'elderNum': this.elderNum , 'volunteerNum': this.volunteerNum }); 
+        }, 2000);
+  }
         },
         {
           text: 'לא',
