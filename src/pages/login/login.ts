@@ -42,9 +42,6 @@ export class LoginPage
           console.log("verified")*/
           
           this.user.loggedIn = true;
-          this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin,
-          'elderly':this.user.elderly,'volunteer':this.user.volunteer});
-
           const db = firebase.firestore();
           db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
             .then(result =>

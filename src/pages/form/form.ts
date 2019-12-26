@@ -37,7 +37,6 @@ export class Form
     this.user.volunteer = this.params.get('volunteer');
  
     //update variables
-    this.user.hideForm = false
     this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;
@@ -49,11 +48,14 @@ export class Form
 
     if (this.user.loggedIn)
     {
+      this.user.hideForm = true
       if(this.user.volunteer)
         this.getData_fromFirebase('volunteerUsers');
       else
         this.getData_fromFirebase('ElderlyUsers');
     }
+    else
+      this.user.hideForm = false
      
   }
 
