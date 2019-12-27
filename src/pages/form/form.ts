@@ -11,6 +11,7 @@ import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Geolocation} from '@capacitor/core';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'page-form',
@@ -20,13 +21,18 @@ import { Geolocation} from '@capacitor/core';
 
 export class Form 
 {
-
   user = {} as User;
   public hobbies: any[]
   public time: any[]
   public numOfMeeting: any[]
-  public place: any []
-
+  public place: any[]
+  public gender: any[]
+  public musicStyle: any[]
+  public language: any[]
+  public meetingWith: any[]
+  public neighborhood: any[]
+  public musical_instrument: any[]
+  public dayOfMeeting: any[]
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth)
@@ -37,14 +43,28 @@ export class Form
     this.user.volunteer = this.params.get('volunteer');
  
     //update variables
-    this.user.onBehalf = false;
     this.user.nameAssistant = null;
     this.user.relationship = null;
+    this.user.college = null
+    this.user.id = null
     this.user.range = 0;
+    this.user.age = 0
+    this.user.hideMusic = false
+    this.user.student = false
+    this.user.onBehalf = false;
+
     this.hobbies = this.array.hobbies
     this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
     this.place = this.array.place
+    this.gender = this.array.gender
+    this.musicStyle = this.array.musicStyle
+    this.language = this.array.language
+    this.meetingWith = this.array.meetingWith
+    this.neighborhood = this.array.neighborhood
+    this.musical_instrument = this.array.musical_instrument
+    this.dayOfMeeting = this.array.dayOfMeeting
+    
 
     if (this.user.loggedIn)
     {
@@ -132,23 +152,11 @@ export class Form
       flag = 1;
     }
 
-    else if (this.check_arrayVaule(this.hobbies) == 1) {
-      this.alert.error_hobbies();
-      flag = 1;
-    }
-
-    else if (this.check_arrayVaule(this.time) == 1) {
-      this.alert.error_timeOfMeeting();
-      flag = 1;
-    }
-
-    else if (!this.user.elderly) {
-      if (this.check_arrayVaule(this.numOfMeeting) == 1) {
-        this.alert.error_numOfMeeting();
-        flag = 1;
-      }
-      else if (this.check_arrayVaule(this.place) == 1) {
-        this.alert.error_place();
+    else if (!this.user.elderly && (this.user.age == 0 || this.user.range == 0))
+    {
+      if(this.user.age == 0)
+      {
+        this.alert.showError_age()
         flag = 1;
       }
       else if(this.user.range == 0)
@@ -156,6 +164,59 @@ export class Form
         this.alert.showAlert_chooseRange()
         flag = 1;
       }
+    }
+    else if (this.check_arrayVaule(this.hobbies) == 1) {
+      this.alert.error_hobbies();
+      flag = 1;
+    }
+
+    else if (this.check_arrayVaule(this.language) == 1) {
+      this.alert.showError_language();
+      flag = 1;
+    }
+
+    else if (this.check_arrayVaule(this.neighborhood) == 1) {
+      this.alert.showError_neighborhood();
+      flag = 1;
+    }
+
+    else if (this.check_arrayVaule(this.meetingWith) == 1) {
+      this.alert.showError_meetingWith();
+      flag = 1;
+    }
+    else if(this.user.student || this.user.elderly)
+    { 
+      if (this.check_arrayVaule(this.dayOfMeeting) == 1) {
+      this.alert.showError_dayOfMeeting();
+      flag = 1;}
+    }
+
+    else if (!this.user.elderly)
+    {
+      if (this.check_arrayVaule(this.numOfMeeting) == 1 && !this.user.student) {
+        this.alert.error_numOfMeeting();
+        flag = 1;
+      }
+
+      else if (this.check_arrayVaule(this.place) == 1) {
+        this.alert.error_place();
+        flag = 1;
+      }  
+
+      /*else if (this.check_arrayVaule(this.musicStyle) == 1) {
+        this.alert.showError_musicStyle();
+        flag = 1;
+      }  */
+
+      /*else if (this.check_arrayVaule(this.musical_instrument) == 1) {
+        this.alert.showError_musical_instrument();
+        flag = 1;
+      }  */
+
+     /* if (this.check_arrayVaule(this.time) == 1) {
+        this.alert.error_timeOfMeeting();
+        flag = 1;
+      }*/
     }
 
     if (flag == 0)
@@ -181,6 +242,18 @@ export class Form
     }
   }
 
+  
+  ifStudent()
+  {
+    if (this.user.student === false)
+      this.user.student = true;
+    else
+    {
+      this.user.student = false;
+      this.user.id = null;
+      this.user.college = null;
+    }
+  }
 
   //check if in the array there is 'ture' value
   check_arrayVaule(arr)
@@ -244,7 +317,20 @@ export class Form
         range: this.user.range,
         meeting_time: this.time,
         num_of_meetings: this.numOfMeeting,
-        placeOfMeeting: this.place
+        placeOfMeeting: this.place,
+        gender: this.gender,
+        age: this.user.age,
+        language: this.language,
+        meetingWith: this.meetingWith,
+        neighborhood: this.neighborhood,
+        student: this.user.student,
+        college: this.user.college,
+        id: this.user.id,
+        hideMusic: this.user.hideMusic,
+        dayOfMeeting: this.dayOfMeeting,
+        musical_instrument: this.musical_instrument,
+        musicStyle: this.musicStyle
+        
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -271,7 +357,14 @@ export class Form
         nameAssistant: this.user.nameAssistant,
         relationship: this.user.relationship,
         hobbies: this.hobbies,
-        meeting_time: this.time
+        meeting_time: this.time,
+        gender: this.gender,
+        musicStyle: this.musicStyle,
+        language: this.language,
+        meetingWith: this.meetingWith,
+        neighborhood: this.neighborhood,
+        hideMusic: this.user.hideMusic,
+        dayOfMeeting: this.dayOfMeeting
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -297,48 +390,107 @@ export class Form
       this.user.email = result.data().email
       this.hobbies = result.data().hobbies,
       this.time = result.data().meeting_time
+      this.gender = result.data().gender,
+      this.language = result.data().language,
+      this.meetingWith = result.data().meetingWith,
+      this.neighborhood = result.data().neighborhood
+      this.user.hideMusic = result.data().hideMusic
+      this.dayOfMeeting = result.data().dayOfMeeting
+      this.musicStyle = result.data().musicStyle
 
       if(this.user.volunteer)
       {
         this.user.range = result.data().range,
         this.numOfMeeting = result.data().num_of_meetings
         this.place = result.data().placeOfMeeting
+        this.user.age = result.data().age
+        this.user.id = result.data().id
+        this.user.college = result.data().college
+        this.user.student = result.data().student
+        this.musical_instrument = result.data().musical_instrument
       }
+      else{
+        this.user.onBehalf = result.data().behalf
+        this.user.nameAssistant = result.data().nameAssistant
+        this.user.relationship = result.data().relationship
+      }
+
     }).catch(error => {console.log(error)})
   }
 
 
   //---------------------- checkbox and radio functions ------------------------
 
-  //check which checkbox was clicked and update the array
-  CheckboxClicked(item: any, $event)
+  CheckboxClicked1(item: any, $event)
   {
-    //console.log('CheckboxClicked for ' + item.species);
-    for (let i = 0; i < this.hobbies.length; i++) {
+    this.CheckboxClicked(item, this.hobbies)
+    if(this.hobbies[0].currentValue)
+      this.user.hideMusic = true;
+    else
+    this.user.hideMusic = false;
+  }
 
-      if (this.hobbies[i] === item)
-        this.hobbies[i] = {
+  CheckboxClicked2(item: any, $event)
+  {
+    this.CheckboxClicked(item, this.musicStyle)
+  }
+
+
+  CheckboxClicked3(item: any, $event)
+  {
+    this.CheckboxClicked(item, this.language)
+  }
+
+  
+  CheckboxClicked4(item: any, $event)
+  {
+    this.CheckboxClicked(item, this.neighborhood)
+  }
+
+  CheckboxClicked5(item: any, $event)
+  {
+    this.CheckboxClicked(item, this.musical_instrument)
+  }
+
+  CheckboxClicked6(item: any, $event)
+  {
+    this.CheckboxClicked(item, this.dayOfMeeting)
+  }
+
+  //check which checkbox was clicked and update the array
+  CheckboxClicked(item: any, arr)
+  {
+    console.log('CheckboxClicked for ' + item.species);
+    for (let i = 0; i < arr.length; i++) {
+
+      if (arr[i] === item)
+          arr[i] = {
           'species': item.species,
           'currentValue': !item.currentValue
         };
     }
   }
 
-
   radioClicked1(item: any, $event) {
     this.radioClicked(item, this.time)
   }
 
+  radioClicked2(item: any, $event) {
+    this.radioClicked(item, this.numOfMeeting)
+  }
 
   radioClicked3(item: any, $event) {
     this.radioClicked(item, this.place)
   }
 
-
-  radioClicked2(item: any, $event) {
-      this.radioClicked(item, this.numOfMeeting)
+  
+  radioClicked4(item: any, $event) {
+    this.radioClicked(item, this.gender)
   }
 
+  radioClicked5(item: any, $event) {
+    this.radioClicked(item, this.meetingWith)
+  }
 
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
@@ -359,7 +511,6 @@ export class Form
         };
     }
   }
-
 
 }
 

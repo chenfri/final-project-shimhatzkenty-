@@ -33,6 +33,15 @@ export const firebaseConfig = {
   };
 
   firebase.initializeApp(firebaseConfig);
+  /*const message = firebase.messaging();
+  message.requestPermission().then(()=>
+  {
+    console.log('have permmisson');
+    return message.getToken().then((token) => {
+      console.log(token)
+    })}
+    ).catch(error => {console.log(error)})*/
+
 @NgModule({
   declarations: [
     MyApp,

@@ -50,6 +50,80 @@ export class AlertProvider
     alert.present();
   }
 
+  showError_language()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור שפה' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showError_age()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא גיל' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
+  showError_neighborhood()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור איזור' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
+
+  showError_musical_instrument()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור כלי נגינה' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+
+  showError_dayOfMeeting()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור ימים מועדפים' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showError_musicStyle()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור סגנון מוזיקלי' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showError_meetingWith()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור עם מי המפגש יתקיים' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
 
   showError_NotEmailVerfied()
   {
