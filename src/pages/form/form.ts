@@ -33,6 +33,7 @@ export class Form
   public neighborhood: any[]
   public musical_instrument: any[]
   public dayOfMeeting: any[]
+  public organization: any[]
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth)
@@ -47,6 +48,7 @@ export class Form
     this.user.relationship = null;
     this.user.college = null
     this.user.id = null
+    this.user.contact = null
     this.user.range = 0;
     this.user.age = 0
     this.user.hideMusic = false
@@ -64,7 +66,8 @@ export class Form
     this.neighborhood = this.array.neighborhood
     this.musical_instrument = this.array.musical_instrument
     this.dayOfMeeting = this.array.dayOfMeeting
-    
+    this.organization = this.array.organization
+
 
     if (this.user.loggedIn)
     {
@@ -144,7 +147,6 @@ export class Form
   check_field_value()
   {
     let flag = 0;
-    console.log("range:")
 
     if (typeof (this.user.fullName) === "undefined" || typeof (this.user.phone) === "undefined"
       || typeof (this.user.address) === "undefined") {
@@ -165,6 +167,24 @@ export class Form
         flag = 1;
       }
     }
+
+    else if (this.user.student && (this.user.id == null || this.user.college == null))
+    {
+       this.alert.showError_studentDetails();
+       flag = 1;
+    }
+
+    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
+    {
+      this.alert.showError_behalf();
+       flag = 1;
+    }
+    
+    else if(this.user.onBehalf && (this.user.relationship == null && this.check_arrayVaule(this.organization) == 1))
+    {  this.alert.showError_relationship();
+       flag = 1;
+    }
+
     else if (this.check_arrayVaule(this.hobbies) == 1) {
       this.alert.error_hobbies();
       flag = 1;
@@ -198,10 +218,10 @@ export class Form
         flag = 1;
       }
 
-      else if (this.check_arrayVaule(this.place) == 1) {
+     /* else if (this.check_arrayVaule(this.place) == 1) {
         this.alert.error_place();
         flag = 1;
-      }  
+      }  */
 
       /*else if (this.check_arrayVaule(this.musicStyle) == 1) {
         this.alert.showError_musicStyle();
@@ -317,7 +337,7 @@ export class Form
         range: this.user.range,
         meeting_time: this.time,
         num_of_meetings: this.numOfMeeting,
-        placeOfMeeting: this.place,
+       // placeOfMeeting: this.place,
         gender: this.gender,
         age: this.user.age,
         language: this.language,
@@ -353,18 +373,20 @@ export class Form
         address: this.user.address,
         phone: this.user.phone,
         email: this.user.email,
+        gender: this.gender,
         behalf: this.user.onBehalf,
         nameAssistant: this.user.nameAssistant,
         relationship: this.user.relationship,
+        contact: this.user.contact,
+        organization: this.organization,
         hobbies: this.hobbies,
         meeting_time: this.time,
-        gender: this.gender,
         musicStyle: this.musicStyle,
         language: this.language,
         meetingWith: this.meetingWith,
         neighborhood: this.neighborhood,
         hideMusic: this.user.hideMusic,
-        dayOfMeeting: this.dayOfMeeting
+        dayOfMeeting: this.dayOfMeeting,
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -402,7 +424,7 @@ export class Form
       {
         this.user.range = result.data().range,
         this.numOfMeeting = result.data().num_of_meetings
-        this.place = result.data().placeOfMeeting
+       // this.place = result.data().placeOfMeeting
         this.user.age = result.data().age
         this.user.id = result.data().id
         this.user.college = result.data().college
@@ -413,6 +435,8 @@ export class Form
         this.user.onBehalf = result.data().behalf
         this.user.nameAssistant = result.data().nameAssistant
         this.user.relationship = result.data().relationship
+        this.organization = result.data().organization
+        this.user.contact = result.data().contact
       }
 
     }).catch(error => {console.log(error)})
@@ -510,6 +534,11 @@ export class Form
           'currentValue': !item.currentValue
         };
     }
+  }
+
+  select(item)
+  {
+    this.radioClicked(item, this.organization)
   }
 
 }

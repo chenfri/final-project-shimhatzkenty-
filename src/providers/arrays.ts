@@ -15,6 +15,7 @@ export class Arrays
     public neighborhood: any[]
     public musical_instrument: any[]
     public dayOfMeeting: any[]
+    public organization: any[]
 
   constructor(public alertCtrl: AlertController)
   {
@@ -243,6 +244,18 @@ export class Arrays
         'species': 'שבת',
         'currentValue': false
       }];
-    }
+  
+    this.organization = [
+      {
+        'species': 'יד שרה',
+        'currentValue': false
+      }, {
+        'species': 'מלבב',
+        'currentValue': false
+      }, {
+        'species': 'עזר מציון',
+        'currentValue': false
+      }];
 
+    }
 }

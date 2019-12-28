@@ -10,6 +10,7 @@ export interface User
     onBehalf: boolean,
     nameAssistant: string,
     relationship: string,
+    contact: string,
 
     student: boolean
     range: number,

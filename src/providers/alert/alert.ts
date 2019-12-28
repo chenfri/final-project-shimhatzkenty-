@@ -104,6 +104,36 @@ export class AlertProvider
   }
 
 
+  showError_studentDetails()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא ת"ז ומוסד אקדמי' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showError_behalf()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא פרטי איש קשר' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showError_relationship()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא קרבה לקשיש/ ארגון' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   showError_musicStyle()
   {
     let alert = this.alertCtrl.create({

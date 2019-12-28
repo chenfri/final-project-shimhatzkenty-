@@ -48,7 +48,7 @@
         <br><br><br>
 
         <div class="Assistant"  *ngIf="user.student" style="background-color: #ffffff00;" >
-            <label style="float: right;" >ת"ז</label>
+            <label style="float: right;" >(ת"ז (נדרש לצורך הביטוח</label>
             <input text-right type="text" name="idStudent" [(ngModel)] = "user.id">
 
             <label style="float: right;" >מוסד אקדמי</label>
@@ -71,12 +71,24 @@
         <label *ngIf="user.elderly" style="float:right ;"> אני ממלא את הטופס בשם מישהו אחר</label>
         <br><br><br>
 
-        <div class="Assistant"  *ngIf="user.onBehalf" style="background-color: #ffffff00;" >
-            <label style="float: right;" >נא מלא את שמך המלא</label>
+        <div class="Assistant"  *ngIf="user.onBehalf" style="background-color: #ffffff00;">
+            <label style="float: right;" >שמך המלא</label>
             <input text-right type="text" name="nameAssistant" [(ngModel)] = "user.nameAssistant">
-     
+              
+            <label style="float: right;">מספר פלאפון</label>
+            <input text-right type="text" name="phone" [(ngModel)] = "user.contact">
+
             <label style="float: right;" >קרבה לקשיש</label>
-            <input text-right type="text" name="relationship" [(ngModel)] = "user.relationship" >
+            <input text-right type="text" name="relationship" [(ngModel)] = "user.relationship">
+           
+            <label style="float: right;" >ארגון</label>
+            <ion-item>
+                <ion-select multiple="false" interface="popover" name="select" placeholder="בחר שם ארגון">
+                  <ion-option *ngFor="let organization of organization" [value] = "organization.species"
+                   [selected]="organization.currentValue" (ionSelect)="select(organization)">{{organization.species}}</ion-option>
+                </ion-select>
+              </ion-item>
+  
         </div><br><br>
 <!---------------------------------------------------------------------------------------------->
         <ion-grid style="background-color: #ffffff80;">
@@ -91,16 +103,6 @@
                         </ion-item>
                     </ion-list>
                 </ion-col> 
-
-                <ion-col>
-                    <h4 class="titleForm">שליטה בשפות</h4><br>
-                    <label style="float: right;">ניתן לבחור יותר משפה אחת</label>
-                    <ion-item *ngFor="let language of language">
-                        <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
-                        <ion-checkbox item-right [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
-                    </ion-item>
-                </ion-col>
-
                 
                 <ion-col>
                     <ion-list radio-group *ngIf="user.hideMusic && !user.elderly">
@@ -115,7 +117,8 @@
 
                 <ion-col>
                     <ion-list radio-group *ngIf="user.hideMusic">
-                        <h4 class="titleForm" >סגנון מוזיקלי מועדף</h4><br>
+                        <h4 *ngIf="!user.elderly" class="titleForm" >סגנון מוזיקלי מועדף*</h4>
+                        <h4 *ngIf="user.elderly" class="titleForm" >סגנון מוזיקלי מועדף</h4><br>
                         <label style="float: right;">למעוניינים במוסיקה / שירה יש למלא סעיף זה</label>
                         <ion-item *ngFor="let musicStyle of musicStyle">
                             <ion-label style="text-align: right;"> {{ musicStyle.species }} </ion-label>
@@ -142,7 +145,7 @@
     
 <!-------------------------------- just for volunteer -------------------------------------------->
                 
-                <ion-col>
+                <!-- <ion-col>
                         <h4 class="titleForm" *ngIf="!user.elderly">מוכן להתנדב</h4>
                         <ion-list radio-group *ngIf="!user.elderly">
                             <ion-item *ngFor="let place of place; let i = index">
@@ -150,7 +153,7 @@
                                     <ion-checkbox item-right [checked]="place.currentValue" (click)="radioClicked3(place)"></ion-checkbox>
                             </ion-item>
                         </ion-list>
-                </ion-col>
+                </ion-col> -->
 
                 <ion-col *ngIf="!user.elderly && !user.student">
                     <h4 class="titleForm" >תדירות מפגשים</h4>
@@ -193,10 +196,20 @@
                         </ion-item>
                     </ion-list>
                 </ion-col>
+
+                <ion-col>
+                    <h4 class="titleForm">שליטה בשפות</h4><br>
+                    <label style="float: right;">ניתן לבחור יותר משפה אחת</label>
+                    <ion-item *ngFor="let language of language">
+                        <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
+                    </ion-item>
+                </ion-col>
                 
             </ion-row>
             </ion-grid><br>
-
+            <label *ngIf="!user.elderly" style="float: right;">.לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב*
+                </label><br><br>
         <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
         <br><br><br><br>
     </div>
