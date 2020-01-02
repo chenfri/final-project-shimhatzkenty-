@@ -31,6 +31,8 @@ export class HomePage
 
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
+    if(this.user.loggedIn == undefined)
+    this.user.loggedIn = false;
     console.log(this.user.loggedIn)
 
     console.log("if admin:")
@@ -46,11 +48,76 @@ export class HomePage
     console.log(this.user.volunteer)
 
     if(this.user.loggedIn && this.user.Admin == false)
-      this.checkIfElderly();
+    {
+      setTimeout(() =>
+      {
+        this.checkIfElderly();
+      },2000)
+    }
+    console.log("if admin:" ,this.user.Admin)
+ 
 
+    let x
+   /* if(!this.user.Admin)
+    {
+    firebase.auth().onAuthStateChanged(function(user)
+    {
+      if (user) {
+        x = firebase.auth().currentUser.uid
+        console.log(x)
+      } else 
+        console.log("not logged in")
+      });
+    
+
+     const db = firebase.firestore();
+      setTimeout(() =>
+      {
+        console.log("X ",x)
+        if(x)
+        {
+          this.checkIfElderly();
+            db.collection('ElderlyUsers').doc(x).get()
+            .then(result =>{
+              if (result.exists)
+              {
+                console.log("doc1 exist")
+                this.user.loggedIn = result.data().loggedIn;  
+                this.user.email =  result.data().email
+                this.user.password = result.data().password
+              }
+              else
+              {
+                db.collection('volunteerUsers').doc(x).get()
+                .then(result =>{
+                  if (result.exists)
+                  {
+                    console.log("doc2 exist")
+                    this.user.loggedIn = result.data().loggedIn;  
+                    this.user.email =  result.data().email
+                    this.user.password = result.data().password
+                  }
+
+                  console.log(this.user.loggedIn)
+                  console.log(this.user.email)
+                  console.log(this.user.password)
+                  if(this.user.loggedIn)
+                    firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>console.log("success"))
+                })
+              }
+              console.log(this.user.loggedIn)
+              console.log(this.user.email)
+              console.log(this.user.password)
+              if(this.user.loggedIn)
+                firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>console.log("success"))
+            
+         }).catch(error => console.log(error))
+       } 
+      }, 2000);
+    }*/
   }
 
-  
+
   ionViewDidEnter()
   {
     if(this.platform.is('android'))
@@ -69,23 +136,24 @@ export class HomePage
   checkIfElderly()
   {
     const db = firebase.firestore();
-
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
       .then(result =>{
         if (result.exists){
+          console.log("elderly")
           this.user.elderly = true;
         }
         else
         {
           db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
           .then(result =>{
-            if (result.exists)
-              this.user.volunteer = true;     
+            if (result.exists){
+              console.log("volunteer")
+              this.user.volunteer = true;  }   
             else 
             {
               this.user.Admin = true;  
               const db = firebase.firestore();
-              db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
+              db.collection('Admin').doc(firebase.auth().currentUser.uid).set({}).then(()=> console.log("admin"))
            }
            }).catch(error => {console.log(error)})
         }
@@ -93,31 +161,39 @@ export class HomePage
   }
 
 
-  elderly_form() {
+  elderly_form()
+  {
     this.user.elderly = true;   
     this.user.volunteer = false;
     this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
      'volunteer': this.user.volunteer,});
   }
 
-  volunteer_form() {
+  
+  volunteer_form()
+  {
     this.user.elderly = false;
     this.user.volunteer = true;
     this.navCtrl.push(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
      'login':this.user.loggedIn});
   }
 
+
   contactPage() {
     this.navCtrl.push(contactPage, {'login':this.user.loggedIn});
   }
 
   login(){
+
     this.navCtrl.push(LoginPage, {'login':this.user.loggedIn});
   }
+
   
-   logout() {
+  logout()
+  {
     firebase.auth().signOut();
-    this.navCtrl.push(HomePage);
+    this.user.loggedIn = false;
+    this.navCtrl.push(HomePage, {'login':this.user.loggedIn});
  }
 
  

@@ -34,14 +34,18 @@ export class Form
   public musical_instrument: any[]
   public dayOfMeeting: any[]
   public organization: any[]
+  public ifRegister = false
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth)
     {
 
     this.user.loggedIn = this.params.get('login');
+    console.log("login :", this.user.loggedIn)
     this.user.elderly = this.params.get('elderly');
+    console.log("elderly :", this.user.elderly)
     this.user.volunteer = this.params.get('volunteer');
+    console.log("volunteer :", this.user.volunteer)
  
     //update variables
     this.user.nameAssistant = null;
@@ -68,7 +72,6 @@ export class Form
     this.dayOfMeeting = this.array.dayOfMeeting
     this.organization = this.array.organization
 
-
     if (this.user.loggedIn)
     {
       this.user.hideForm = true
@@ -83,9 +86,11 @@ export class Form
   }
 
 
-  async registry() {
+  async registry()
+  {
     let str = await this.fun.registry(this.user.email, this.user.password)
     if(str == "sucsses"){
+      this.ifRegister = true;
       this.alert.showAlert();
       this.user.hideForm = true;}
 
@@ -117,22 +122,23 @@ export class Form
   click_home()
   {
     const db = firebase.firestore();
-
-    if (typeof (this.user.email) != "undefined" && typeof (this.user.password) != "undefined")
+    if(this.ifRegister) //if the user is allready register check if there is his document in firebase
     {
-      if (this.user.elderly) {
+      if (this.user.elderly)
+      {
         db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
           .then(result => {
             if (!result.exists)
               this.alert.error_showAlert()
-          })
+          }).catch(error => console.log(error))
       }
-      else if (this.user.volunteer) {
+      else if (this.user.volunteer)
+      {
         db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
           .then(result => {
             if (!result.exists)
               this.alert.error_showAlert()
-          })
+          }).catch(error => console.log(error))
       }
     }
     else
@@ -349,11 +355,14 @@ export class Form
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
-        musicStyle: this.musicStyle
+        musicStyle: this.musicStyle,
+        loggedIn: this.user.loggedIn,
+        password: this.user.password
         
       })
       .then(() => {
         this.alert.showAlertSuccess();
+        this.init_arrays()
         this.navCtrl.push(HomePage, {
           'login': this.user.loggedIn, 'elderly': this.user.elderly,
           'volunteer': this.user.volunteer
@@ -387,9 +396,12 @@ export class Form
         neighborhood: this.neighborhood,
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
+        loggedIn: this.user.loggedIn,
+        password: this.user.password
       })
       .then(() => {
         this.alert.showAlertSuccess();
+        this.init_arrays()
         this.navCtrl.push(HomePage, {
           'login': this.user.loggedIn, 'elderly': this.user.elderly
           , 'volunteer': this.user.volunteer
@@ -400,25 +412,51 @@ export class Form
   }
 
 
+    //init all arrays for 'false' value
+    init_arrays()
+    {
+      this.init(this.hobbies)
+      this.init(this.numOfMeeting )
+      this.init(this.gender)
+      this.init(this.musicStyle)
+      this.init(this.language)
+      this.init(this.meetingWith)
+      this.init(this.neighborhood)
+      this.init(this.musical_instrument)
+      this.init(this.dayOfMeeting)
+      this.init(this.organization)
+    }
+  
+  
+    init(arr)
+    {
+      for(let i = 0 ; i < arr.length ; i++)
+        arr[i].currentValue = false
+    }
+  
+
   getData_fromFirebase(str)
   {
+    console.log("av")
+    console.log(firebase.auth().currentUser.uid)
     const db = firebase.firestore();
     db.collection(str).doc(firebase.auth().currentUser.uid).get()
     .then(result => {
       if (!result.exists) return
-      this.user.fullName = result.data().fullName;
-      this.user.address = result.data().address;
+      this.user.fullName = result.data().fullName
+      this.user.address = result.data().address
       this.user.phone = result.data().phone
       this.user.email = result.data().email
-      this.hobbies = result.data().hobbies,
+      this.hobbies = result.data().hobbies
       this.time = result.data().meeting_time
-      this.gender = result.data().gender,
-      this.language = result.data().language,
-      this.meetingWith = result.data().meetingWith,
+      this.gender = result.data().gender
+      this.language = result.data().language
+      this.meetingWith = result.data().meetingWith
       this.neighborhood = result.data().neighborhood
       this.user.hideMusic = result.data().hideMusic
       this.dayOfMeeting = result.data().dayOfMeeting
       this.musicStyle = result.data().musicStyle
+      this.user.password = result.data().password
 
       if(this.user.volunteer)
       {
@@ -440,6 +478,7 @@ export class Form
       }
 
     }).catch(error => {console.log(error)})
+    
   }
 
 
