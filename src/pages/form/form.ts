@@ -54,7 +54,7 @@ export class Form
     this.user.id = null
     this.user.contact = null
     this.user.range = 0;
-    this.user.age = 0
+    this.user.age = null;
     this.user.hideMusic = false
     this.user.student = false
     this.user.onBehalf = false;
@@ -160,9 +160,9 @@ export class Form
       flag = 1;
     }
 
-    else if (!this.user.elderly && (this.user.age == 0 || this.user.range == 0))
+    else if (!this.user.elderly && (this.user.age == null || this.user.range == 0))
     {
-      if(this.user.age == 0)
+      if(this.user.age ==  null)
       {
         this.alert.showError_age()
         flag = 1;
