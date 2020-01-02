@@ -34,6 +34,7 @@ export class contactPage
       
       })
       .then(() => {
+        console.log("uid: "+firebase.auth().currentUser.uid)
         this.alert.showAlert_sendMessage()
         this.navCtrl.push(HomePage);
       }).catch((error)=> {
