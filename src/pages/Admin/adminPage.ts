@@ -22,8 +22,13 @@ export class adminPage
   user = {} as User
   userE = {} as User;
   userV = {} as User;
+  userStudent = {} as User;
+  organizationEledry = {} as User;
+
+  organizationNum: any
   elderNum: any
   volunteerNum: any
+  studentNum: any;
   messages = {} as contactMessage;
   csvData: any[] = [];
   headerRow: any[] = [];
@@ -36,59 +41,54 @@ export class adminPage
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
     this.userV = this.navParams.get('volunteer');
+    this.userStudent = this.navParams.get('students');
+    this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
+
+    this.organizationNum = this.navParams.get('organizationNum')
     this.elderNum = this.navParams.get('elderNum');
     this.volunteerNum = this.navParams.get('volunteerNum');
-    this.headerRow = ["שם", "פלאפון" , "כתובת"]
+    this.studentNum = this.navParams.get('studentNum');
+    //this.headerRow = ["שם", "פלאפון" , "כתובת"]
 
-    console.log(this.messages)
-    console.log(this.userE )
-    console.log(this.userV)
+    // console.log(this.messages)
+    // console.log(this.userE )
+    // console.log(this.userV)
+    // console.log(this.userStudent)
+    console.log(this.organizationEledry)
+
+    console.log("organizationNum " + this.organizationNum)
+    console.log("studentNum" + this.studentNum)
     console.log("volunteerNum: " +this.volunteerNum)
     console.log("elderNum: " +this.elderNum)
   }
 
  
 
-  // private extractData(res)
-  // {
-  //   let csvData =  res['_body'] || '';
-  //   let parsedData = papa.parse(csvData).data;
-  //   this.headerRow = parsedData[0]
-  //   this.headerRow = ["שם", "פלאפון" , "כתובת"]
-  //   parsedData.splice(0, 1);
-  //   this.csvData = parsedData;
-  // }
-
-  csvFileElderly(){
+csvFile(array , lengthArray , type){
       let tmp= []
-          for(let i = 0 ; i < this.elderNum ; i++)
-          {
-            tmp[i] = this.userE[i]
-          }
+      for(let i = 0 ; i < lengthArray ; i++)
+      {
+        tmp[i] = array[i]
+      }
 
-          let csv = papa.unparse({
-          fields: this.headerRow,
-          data: tmp
-          });
+      if(type == "eledry" || type == "volunteer")
+        this.headerRow = ["שם", "פלאפון" , "כתובת"]
+      if(type == "student") 
+        this.headerRow = ["שם" , "פלאפון", "תעודת זהות"]
+      if(type == "organization")
+        this.headerRow = ["שם", "פלאפון הקשיש" ,"פלאפון איש הקשר" , "שם האירגון"]
 
-          this.downloadCSV(csv)
-  }
+      console.log("tmp: " + tmp)
 
-  csvFileVolunteer(){
-    let tmp= []
-        for(let i = 0 ; i < this.volunteerNum ; i++)
-        {
-          tmp[i] = this.userV[i]
-        }
-
-        let csv = papa.unparse({
+      let csv = papa.unparse({
         fields: this.headerRow,
         data: tmp
-        });
+      });
 
-        this.downloadCSV(csv)
+      this.downloadCSV(csv)
 }
+
 
   downloadCSV(csv)
   { 
@@ -119,6 +119,7 @@ export class adminPage
   {
     this.deleteUserFromFirebase(item, 'ElderlyUsers')
   }
+  
 
 
   deleteVolunteerUser(item)

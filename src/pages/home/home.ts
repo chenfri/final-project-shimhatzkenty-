@@ -10,6 +10,7 @@ import firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
+import { Arrays } from '../../providers/arrays'
 
 
 @Component({
@@ -23,6 +24,8 @@ export class HomePage
   user = {} as User;
   useri: Observable<firebase.User>;
   platformA: boolean
+  organization: any;
+  public organizations: any[]
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
         public auth: AngularFireAuth, private platform: Platform//, private gplus: GooglePlus
@@ -47,6 +50,7 @@ export class HomePage
 
     if(this.user.loggedIn && this.user.Admin == false)
       this.checkIfElderly();
+
 
   }
 
@@ -123,8 +127,8 @@ export class HomePage
  
  get_data_for_admin()
  {
-   let elderly = [] , volunteer = [] , messages = []
-   var k = 0 , l = 0 , j = 0 
+   let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
+   var k = 0 , l = 0 , j = 0 , t=0 , v=0
    
    const db = firebase.firestore();
    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
@@ -134,12 +138,57 @@ export class HomePage
        i.id]
        k++})}).catch(error => {console.log(error)})
 
-   db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ volunteer[j] =
+
+  db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
+    if(i.data().behalf == true ){
+
+      this.CheckWhichOrganization(i.id);
+      
+      setTimeout(() =>
+      {     
+         console.log("organization:  " + this.organization)
+        if(this.organization != null){
+                  organizationEledry[v] = 
+                  [
+                    i.data().fullName,
+                    i.data().phone,
+                    i.data().contact,
+                    this.organization,
+                    i.id,
+                  ]
+                  v++;
+                }
+
+      }, 500);
+    
+
+      
+     }
+    })}).catch(error => {console.log(error)})
+   
+   db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
+     volunteer[j] =
      [ i.data().fullName,
        i.data().phone,
        i.data().address,
-       i.id]
+       i.id
+     ]
        j++})}).catch(error => {console.log(error)})
+
+    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{
+      if(i.data().student == true){
+        students[t] =
+        [ i.data().fullName,
+          i.data().phone,
+          i.data().id,
+          i.id
+        ]
+        t++;
+      }
+    
+      
+      
+      })})  .catch(error => {console.log(error)})
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
         data: i.data() ,
@@ -150,13 +199,31 @@ export class HomePage
     setTimeout(() =>
     {
       this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
-      'messages': messages , 'login': this.user.loggedIn, 'admin': this.user.Admin,
-       'elderNum': k , 'volunteerNum': j });
+      'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
+      'organizationEledry': organizationEledry,
+       'elderNum': k , 'volunteerNum': j, 'studentNum': t, 'organizationNum': v});
         }, 1000);
   } 
 
+  CheckWhichOrganization(id){
+    const db = firebase.firestore();
+    db.collection('ElderlyUsers').doc(id).get()
+    .then(result => {
+      if (!result.exists) return
+      this.organizations = result.data().organization;
+        
+      for (let i = 0; i < this.organizations.length; i++) {
+          if(this.organizations[i].currentValue){
+            // console.log("organization.currentValue :  " + this.organizations[i].species)
+            // return this.organizations[i].species;
+            this.organization = this.organizations[i].species;
+            console.log("organization.func :  " + this.organization)
 
- //----------------------------------------------------------------
+          }
+      }    
+      })
+  }
+  //----------------------------------------------------------------
  
  gmail()
  {
@@ -172,26 +239,6 @@ export class HomePage
    }
  }
 
-
-//  async nativeGoogleLogin() : Promise <void>
-//  {
-//   this.gplus.login({})
-//   .then(res => alert(res))
-//   .catch(err => alert(err));
-
-//   /*  alert("a")
-//     this.gplus.login({
-//       'webClientId' : '377941126479-263ts6tp63gv2vkp8946q5ui8ce6u6u3.apps.googleusercontent.com',
-//       'offline': true
-//     }).then(res => {
-//       alert("b")
-//       this.auth.auth.signInWithCredential(
-//         firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(suc => {
-//           alert("success login")
-//         }).catch(error => {alert("not success")})
-//     })*/
-//  }
- 
 
  gmailLogin()
  {
@@ -229,16 +276,16 @@ facebooklogin()
 }
 
 
-imageObject: Array<object> = [{
-  image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8',
-  ///thumbImage: 'assets/img/slider/1_min.jpeg',
-  //alt: 'alt of image',
-  title: 'title of image'
-}, {
-  image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8', // Support base64 image
-  //thumbImage: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
-  title: 'Image title', //Optional: You can use this key if want to show image with title
-  //alt: 'Image alt' //Optional: You can use this key if want to show image with alt
-}
-];
+// imageObject: Array<object> = [{
+//   image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8',
+//   ///thumbImage: 'assets/img/slider/1_min.jpeg',
+//   //alt: 'alt of image',
+//   title: 'title of image'
+// }, {
+//   image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8', // Support base64 image
+//   //thumbImage: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+//   title: 'Image title', //Optional: You can use this key if want to show image with title
+//   //alt: 'Image alt' //Optional: You can use this key if want to show image with alt
+// }
+// ];
 }

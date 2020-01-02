@@ -418,7 +418,7 @@ export class Form
       this.neighborhood = result.data().neighborhood
       this.user.hideMusic = result.data().hideMusic
       this.dayOfMeeting = result.data().dayOfMeeting
-      this.musicStyle = result.data().musicStyle
+      this.user.fullName = result.data().fullName;
 
       if(this.user.volunteer)
       {
