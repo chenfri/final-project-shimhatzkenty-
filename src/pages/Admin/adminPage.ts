@@ -8,8 +8,6 @@ import { contactMessage } from '../../module/contactMessage'
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
-// import * as admin from 'firebase-admin';
-//import * as functions from 'firebase-functions';
 
 
 @Component({
@@ -18,7 +16,7 @@ import { RegisterPage } from '../register/register';
 })
 
 export class adminPage
- {
+{
   user = {} as User
   userE = {} as User;
   userV = {} as User;
@@ -49,29 +47,16 @@ export class adminPage
     this.elderNum = this.navParams.get('elderNum');
     this.volunteerNum = this.navParams.get('volunteerNum');
     this.studentNum = this.navParams.get('studentNum');
-    //this.headerRow = ["שם", "פלאפון" , "כתובת"]
 
-    // console.log(this.messages)
-    // console.log(this.userE )
-    // console.log(this.userV)
-    // console.log(this.userStudent)
-    console.log(this.organizationEledry)
-
-    console.log("organizationNum " + this.organizationNum)
-    console.log("studentNum" + this.studentNum)
-    console.log("volunteerNum: " +this.volunteerNum)
-    console.log("elderNum: " +this.elderNum)
   }
 
- 
 
-csvFile(array , lengthArray , type){
+  csvFile(array , lengthArray , type)
+  {
       let tmp= []
       for(let i = 0 ; i < lengthArray ; i++)
-      {
         tmp[i] = array[i]
-      }
-
+    
       if(type == "eledry" || type == "volunteer")
         this.headerRow = ["שם", "פלאפון" , "כתובת"]
       if(type == "student") 
@@ -87,14 +72,14 @@ csvFile(array , lengthArray , type){
       });
 
       this.downloadCSV(csv)
-}
+  }
 
 
   downloadCSV(csv)
   { 
     var blob = new Blob(["\ufeff", csv]);
-
     var a = window.document.createElement("a");
+
     a.href = window.URL.createObjectURL(blob);
     a.download = "newdata.csv";
     document.body.appendChild(a);
@@ -121,7 +106,6 @@ csvFile(array , lengthArray , type){
   }
   
 
-
   deleteVolunteerUser(item)
   {
     this.deleteUserFromFirebase(item, 'volunteerUsers')
@@ -143,16 +127,16 @@ csvFile(array , lengthArray , type){
               
             let deleteUser = db.collection(str).doc(item).delete().then(function() {
               console.log("Document successfully deleted!");
-          }).catch(function(error) {
+            }).catch(function(error) {
               console.error("Error removing document: ", error);
-          });
-          setTimeout(() =>
-    {
-      this.navCtrl.push(adminPage, {'elderly': this.userE, 'volunteer': this.userV,
-      'messages': this.messages , 'login': this.user.loggedIn, 'admin': this.user.Admin,
-       'elderNum': this.elderNum , 'volunteerNum': this.volunteerNum }); 
-        }, 2000);
-  }
+            });
+            setTimeout(() =>
+            {
+              this.navCtrl.push(adminPage, {'elderly': this.userE, 'volunteer': this.userV,
+              'messages': this.messages , 'login': this.user.loggedIn, 'admin': this.user.Admin,
+              'elderNum': this.elderNum , 'volunteerNum': this.volunteerNum }); 
+            }, 2000);
+          }
         },
         {
           text: 'לא',
@@ -171,17 +155,10 @@ csvFile(array , lengthArray , type){
     this.navCtrl.push(HomePage , {'login': this.user.loggedIn,  'admin': this.user.Admin});
   }
 
-  click_manageUser()
+  add_AdminUser()
   {
     this.navCtrl.push(RegisterPage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
   }
 
-  private handleError(err) {
-    console.log('something went wrong: ', err);
-  }
- 
-  trackByFn(index: any, item: any) {
-    return index;
-  }
 
 }

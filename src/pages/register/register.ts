@@ -33,6 +33,12 @@ export class RegisterPage
     let str =await this.func.registry(this.user.email, this.user.password)
     if(str == "sucsses")
       this.alert.showAlertSuccess();
+    
+      const db = firebase.firestore();
+      console.log(firebase.auth().currentUser.uid)
+      db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
+      .then(()=> console.log("added new admin"))
+
   }
 
 

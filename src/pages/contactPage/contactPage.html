@@ -3,7 +3,7 @@
     <div class="container">
       <div style="text-align:center">
         <h2>צור קשר</h2>
-        <p>השאר לנו הודעה :) </p>
+        <p>השאר לנו הודעה</p>
         <button ion-button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
       </div>
 
@@ -14,13 +14,13 @@
           </div>
 
           <div class="column">
-            <form action="/action_page.php">
+            <form>
               <label for="fullName">שם מלא</label>
               <input type="text" name="fullName" [(ngModel)] = "contactMessage.fullName" placeholder="..רשום כאן את השם המלא"  >
               <label for="phoneNumber">פלאפון</label>
-              <input type="text" id="phone" name="phoneNumber" [(ngModel)] = "contactMessage.phoneNumber" placeholder="..רשום כאן את מס' הפלאפון">
+              <input type="number" id="phone" name="phoneNumber" [(ngModel)] = "contactMessage.phoneNumber" placeholder="..רשום כאן את מס' הפלאפון">
               <label for="message">הודעה</label>
-              <textarea id="message" name="message" [(ngModel)] = "contactMessage.message"  style="height:170px"></textarea>
+              <textarea type="text" id="message" name="message" [(ngModel)] = "contactMessage.message"  style="height:170px"></textarea>
               <button ion-button type="submit" (click)= "add_data_to_firebase()">שלח</button>
             </form>
           </div>

@@ -5,7 +5,7 @@
       <ion-row>
         <ion-col class="buttons">
           <button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
-          <button type="submit" (click)= "click_manageUser()">הוספת מנהל חדש </button>
+          <button type="submit" (click)= "add_AdminUser()">הוספת מנהל חדש </button>
         </ion-col>
         <ion-col>
           <h2 class = "titleAdmin">דף ניהול</h2>
@@ -25,9 +25,9 @@
           </tr>
         <tr *ngFor="let value of userE">
             <td><button (click)="deleteElderlyUser(value[3])">[x]</button></td>
-          <td>{{value[0]}}</td>
-          <td>{{value[1]}}</td>
           <td>{{value[2]}}</td>
+          <td>{{value[1]}}</td>
+          <td>{{value[0]}}</td>
         </tr>
       </table>
   
@@ -43,9 +43,9 @@
           </tr>
           <tr *ngFor="let value of userV">
             <td><button (click)="deleteVolunteerUser(value[3])">[x]</button></td>
-            <td>{{value[0]}}</td>
-            <td>{{value[1]}}</td>
             <td>{{value[2]}}</td>
+            <td>{{value[1]}}</td>
+            <td>{{value[0]}}</td>
           </tr>
       </table>
 

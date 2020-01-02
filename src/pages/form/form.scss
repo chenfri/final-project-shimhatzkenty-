@@ -42,8 +42,14 @@ input[type=text],input[type=password],input[type=number], select, textarea {
   margin-top: 6px;
   margin-bottom: 16px;
   resize: vertical;
-
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+-webkit-appearance: none; 
+margin: 0; 
+}
+
 
 input[type=submit] {
   background-color: #af4c4c96; 

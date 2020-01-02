@@ -10,7 +10,6 @@ import firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
-import { Arrays } from '../../providers/arrays'
 
 
 @Component({
@@ -28,8 +27,7 @@ export class HomePage
   public organizations: any[]
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
-        public auth: AngularFireAuth, private platform: Platform//, private gplus: GooglePlus
-        )
+        public auth: AngularFireAuth, private platform: Platform)
   {
 
     console.log("if login:")
@@ -51,73 +49,71 @@ export class HomePage
     console.log(this.user.volunteer)
 
     if(this.user.loggedIn && this.user.Admin == false)
-    {
-      setTimeout(() =>
-      {
         this.checkIfElderly();
-      },2000)
-    }
-    console.log("if admin:" ,this.user.Admin)
- 
 
-    let x
-   /* if(!this.user.Admin)
+
+    // remember the last user was login and save it login
+    /*let uid
+    const db = firebase.firestore();
+
+    if(!this.user.Admin)
     {
-    firebase.auth().onAuthStateChanged(function(user)
-    {
-      if (user) {
-        x = firebase.auth().currentUser.uid
-        console.log(x)
-      } else 
-        console.log("not logged in")
+      firebase.auth().onAuthStateChanged(function(user)
+      {
+        if (user) 
+        uid = firebase.auth().currentUser.uid
+      else 
+          console.log("not logged in")
       });
-    
-
-     const db = firebase.firestore();
+      
+      
       setTimeout(() =>
       {
-        console.log("X ",x)
-        if(x)
+        if(uid != undefined)
         {
-          this.checkIfElderly();
-            db.collection('ElderlyUsers').doc(x).get()
-            .then(result =>{
-              if (result.exists)
-              {
-                console.log("doc1 exist")
-                this.user.loggedIn = result.data().loggedIn;  
-                this.user.email =  result.data().email
-                this.user.password = result.data().password
-              }
-              else
-              {
-                db.collection('volunteerUsers').doc(x).get()
-                .then(result =>{
-                  if (result.exists)
-                  {
-                    console.log("doc2 exist")
-                    this.user.loggedIn = result.data().loggedIn;  
-                    this.user.email =  result.data().email
-                    this.user.password = result.data().password
-                  }
+          console.log("uid: ",uid)
+          db.collection('ElderlyUsers').doc(uid).get()
+          .then(result =>{
+            if (result.exists)
+            {
+              console.log("doc1 exist")
+              this.user.loggedIn = result.data().loggedIn;  
+              this.user.email =  result.data().email
+              this.user.password = result.data().password
+            }
+            else
+            {
+              db.collection('volunteerUsers').doc(uid).get()
+              .then(result =>{
+                if (result.exists)
+                {
+                  console.log("doc2 exist")
+                  this.user.loggedIn = result.data().loggedIn;  
+                  this.user.email =  result.data().email
+                  this.user.password = result.data().password
+                }
+                else
+                 {
+                  db.collection('Admin').doc(uid).get()
+                  .then(result =>{if(result.exists) {
+                    this.user.Admin = true
+                    console.log("admin ", this.user.Admin)
+                  }})
+                 }
 
-                  console.log(this.user.loggedIn)
-                  console.log(this.user.email)
-                  console.log(this.user.password)
-                  if(this.user.loggedIn)
-                    firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>console.log("success"))
-                })
-              }
-              console.log(this.user.loggedIn)
-              console.log(this.user.email)
-              console.log(this.user.password)
-              if(this.user.loggedIn)
+                this.user.loggedIn = true
                 firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>console.log("success"))
-            
-         }).catch(error => console.log(error))
-       } 
-      }, 2000);
-    }*/
+              })
+            }
+           // if(!this.user.Admin){
+              this.user.loggedIn = true
+              firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>console.log("success"))
+          //  }
+
+      }).catch(error => console.log(error))
+    } 
+    }, 1500);
+  }*/
   }
 
 
@@ -152,12 +148,6 @@ export class HomePage
             if (result.exists){
               console.log("volunteer")
               this.user.volunteer = true;  }   
-            else 
-            {
-              this.user.Admin = true;  
-              const db = firebase.firestore();
-              db.collection('Admin').doc(firebase.auth().currentUser.uid).set({}).then(()=> console.log("admin"))
-           }
            }).catch(error => {console.log(error)})
         }
       }).catch(error => {console.log(error)})
@@ -215,14 +205,15 @@ export class HomePage
 
 
   db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
-    if(i.data().behalf == true ){
-
+    if(i.data().behalf == true )
+    {
       this.CheckWhichOrganization(i.id);
       
       setTimeout(() =>
       {     
-         console.log("organization:  " + this.organization)
-        if(this.organization != null){
+        console.log("organization:  " + this.organization)
+        if(this.organization != null)
+        {
                   organizationEledry[v] = 
                   [
                     i.data().fullName,
@@ -232,15 +223,12 @@ export class HomePage
                     i.id,
                   ]
                   v++;
-                }
-
-      }, 500);
-    
-
-      
+        }
+      }, 500); 
      }
     })}).catch(error => {console.log(error)})
    
+
    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
      volunteer[j] =
      [ i.data().fullName,
@@ -250,8 +238,10 @@ export class HomePage
      ]
        j++})}).catch(error => {console.log(error)})
 
+
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{
-      if(i.data().student == true){
+      if(i.data().student == true)
+      {
         students[t] =
         [ i.data().fullName,
           i.data().phone,
@@ -259,11 +249,9 @@ export class HomePage
           i.id
         ]
         t++;
-      }
-    
-      
-      
-      })})  .catch(error => {console.log(error)})
+      } 
+    })})  .catch(error => {console.log(error)})
+
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
         data: i.data() ,
@@ -280,7 +268,9 @@ export class HomePage
         }, 1000);
   } 
 
-  CheckWhichOrganization(id){
+
+  CheckWhichOrganization(id)
+  {
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc(id).get()
     .then(result => {

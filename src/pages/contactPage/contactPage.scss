@@ -9,7 +9,7 @@
   
   
   /* Style inputs */
-  input[type=text], select, textarea {
+  input[type=text],[type=number], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -17,9 +17,17 @@
     margin-bottom: 16px;
     resize: vertical;
     text-align: right;
+    -webkit-appearance: none; 
+    margin: 0; 
 
   }
   
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
   input[type=submit] {
     background-color: #4CAF50;
     color: white;

@@ -44,13 +44,6 @@ export class LoginPage
           this.user.loggedIn = true;
           const db = firebase.firestore();
     
-        
-         /* db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).update({
-            loggedIn : this.user.loggedIn
-          })
-          console.log("login: ",this.user.loggedIn)
-        */
-
           db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
             .then(result =>
             {
