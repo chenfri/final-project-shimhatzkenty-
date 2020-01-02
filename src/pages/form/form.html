@@ -25,7 +25,7 @@
         <input  type="submit" (click)= "get_UserLocation()" value="השתמש בשירותי מיקום"><br>
         
         <label >מספר פלאפון</label><br>
-        <input text-right type="text" name="phone" [(ngModel)] = "user.phone" ><br>
+        <input text-right type="number" name="phone" [(ngModel)] = "user.phone" ><br>
 
         <label >מגדר</label>
             <ion-item style="background-color:#ffffff00 ;" *ngFor="let gender of gender">
@@ -51,11 +51,11 @@
           <br><br><br>
 
         <div class="Assistant"  *ngIf="user.student" style="background-color: #ffffff00;" >
-            <label  >(ת"ז (נדרש לצורך הביטוח</label>
-            <input text-right type="text" name="idStudent" [(ngModel)] = "user.id">
+            <label  >(ת"ז (נדרש לצורך הביטוח</label><br>
+            <input text-right type="number" name="idStudent" [(ngModel)] = "user.id"><br>
 
-            <label  >מוסד אקדמי</label>
-            <input text-right type="text" name="college" [(ngModel)] = "user.college" >
+            <label  >מוסד אקדמי</label><br>
+            <input text-right style="  width: 80%;" type="text" name="college" [(ngModel)] = "user.college" >
             <br><br>
         </div>
 
@@ -79,10 +79,12 @@
         <div class="Assistant"  *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
             <label style="float: right;" >שמך המלא</label>
             <input text-right type="text" name="nameAssistant" [(ngModel)] = "user.nameAssistant">
-              
-            <label style="float: right;">מספר פלאפון</label>
-            <input text-right type="text" name="phone" [(ngModel)] = "user.contact">
+            <br>
+      
+            <label style="float: right;">מספר פלאפון</label><br>
 
+            <input text-right type="number" name="phone" [(ngModel)] = "user.contact">
+<br>
             <label style="float: right;" >קרבה לקשיש</label>
             <input text-right type="text" name="relationship" [(ngModel)] = "user.relationship">
            

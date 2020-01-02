@@ -12,9 +12,9 @@ export interface User
     relationship: string,
     contact: string,
 
-    student: boolean
+    student: boolean,
     range: number,
-    age: number,
+    age: string,
     id: string,
     college: string
 
