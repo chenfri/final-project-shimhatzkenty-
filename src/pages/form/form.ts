@@ -523,7 +523,7 @@ export class Form
   //check which checkbox was clicked and update the array
   CheckboxClicked(item: any, arr)
   {
-    console.log('CheckboxClicked for ' + item.species);
+    //console.log('CheckboxClicked for ' + item.species);
     for (let i = 0; i < arr.length; i++) {
 
       if (arr[i] === item)
@@ -558,7 +558,7 @@ export class Form
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
   {
-    console.log('radioClicked for ' + item.species);
+    //console.log('radioClicked for ' + item.species);
     for (let i = 0; i < arr.length; i++)
     {
       if (arr[i].currentValue) //if this radio was pressed

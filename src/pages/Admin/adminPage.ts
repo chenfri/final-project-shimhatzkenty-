@@ -9,7 +9,6 @@ import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 
-
 @Component({
   selector: 'adminPage',
   templateUrl: 'adminPage.html' ,
@@ -27,13 +26,13 @@ export class adminPage
   elderNum: any
   volunteerNum: any
   studentNum: any;
-  messages = {} as contactMessage;
+  messages : any[]
   csvData: any[] = [];
   headerRow: any[] = [];
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-     private http: Http ,public alertCtrl: AlertController , public alert: AlertProvider) 
+  public alertCtrl: AlertController , public alert: AlertProvider) 
   {
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
@@ -94,6 +93,18 @@ export class adminPage
       db.collection('message').doc(item).delete().then(() =>{
         this.alert.showAlert_deleteMessage()
         console.log("Document successfully deleted!");
+        
+      let message =[]
+        var l = 0 
+          
+    db.collection('message').get().then(res => {res.forEach(i =>{message[l]={
+      data: i.data() ,
+      id : i.id }
+      l++})}).catch(error => {console.log(error)})
+      this.messages = message
+      console.log(this.messages)
+    
+
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
@@ -114,6 +125,7 @@ export class adminPage
 
   deleteUserFromFirebase(item, str)
   {
+    
     let alert = this.alertCtrl.create({
       title: 'אזהרה',
       subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את המשתמש?' ,
@@ -127,15 +139,10 @@ export class adminPage
               
             let deleteUser = db.collection(str).doc(item).delete().then(function() {
               console.log("Document successfully deleted!");
+
             }).catch(function(error) {
               console.error("Error removing document: ", error);
             });
-            setTimeout(() =>
-            {
-              this.navCtrl.push(adminPage, {'elderly': this.userE, 'volunteer': this.userV,
-              'messages': this.messages , 'login': this.user.loggedIn, 'admin': this.user.Admin,
-              'elderNum': this.elderNum , 'volunteerNum': this.volunteerNum }); 
-            }, 2000);
           }
         },
         {
