@@ -49,75 +49,13 @@ export class HomePage
     console.log(this.user.volunteer)
 
     if(this.user.loggedIn && this.user.Admin == false)
-        this.checkIfElderly();
+        this.checkUserType(firebase.auth().currentUser.uid);
 
-
-    // remember the last user was login and save it login
-    /*let uid
-    const db = firebase.firestore();
-
-    if(!this.user.Admin)
-    {
-      firebase.auth().onAuthStateChanged(function(user)
-      {
-        if (user) 
-        uid = firebase.auth().currentUser.uid
-      else 
-          console.log("not logged in")
-      });
-      
-      
-      setTimeout(() =>
-      {
-        if(uid != undefined)
-        {
-          console.log("uid: ",uid)
-          db.collection('ElderlyUsers').doc(uid).get()
-          .then(result =>{
-            if (result.exists)
-            {
-              console.log("doc1 exist")
-              this.user.loggedIn = result.data().loggedIn;  
-              this.user.email =  result.data().email
-              this.user.password = result.data().password
-            }
-            else
-            {
-              db.collection('volunteerUsers').doc(uid).get()
-              .then(result =>{
-                if (result.exists)
-                {
-                  console.log("doc2 exist")
-                  this.user.loggedIn = result.data().loggedIn;  
-                  this.user.email =  result.data().email
-                  this.user.password = result.data().password
-                }
-                else
-                 {
-                  db.collection('Admin').doc(uid).get()
-                  .then(result =>{if(result.exists) {
-                    this.user.Admin = true
-                    console.log("admin ", this.user.Admin)
-                  }})
-                 }
-
-                this.user.loggedIn = true
-                firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>console.log("success"))
-              })
-            }
-           // if(!this.user.Admin){
-              this.user.loggedIn = true
-              firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>console.log("success"))
-          //  }
-
-      }).catch(error => console.log(error))
-    } 
-    }, 1500);
-  }*/
+    //this.autoLogin()
   }
 
 
-  ionViewDidEnter()
+   ionViewDidEnter()
   {
     if(this.platform.is('android'))
     {
@@ -132,22 +70,93 @@ export class HomePage
     }
   }
 
-  checkIfElderly()
+
+ // remember the last user who logged in and save it on login
+  autoLogin()
+  {
+    let uid
+    const db = firebase.firestore();
+    var adminLogin = false
+    if(!this.user.Admin)
+    {
+        firebase.auth().onAuthStateChanged(function(user)
+        {
+          if (user) {
+            uid = firebase.auth().currentUser.uid
+            console.log("uid: ",uid)
+          }
+        else 
+            console.log("not logged in")
+      });
+      
+
+      setTimeout(() =>
+      {
+        if(uid != undefined)
+        {
+          this.checkUserType(uid);
+           db.collection('Admin').doc(uid).get() //check if the  last user was logged in is admin
+           .then(result =>{if(result.exists) {
+            adminLogin = true
+             this.user.loggedIn = false
+             console.log("admin ", this.user.Admin)
+           }}).catch(error => console.log(error))
+             
+        setTimeout(() =>
+        {
+          if(!adminLogin)
+          {
+            //get elderly document for know email and password
+            db.collection('ElderlyUsers').doc(uid).get()
+            .then(result =>{
+            if (result.exists)
+            {
+              console.log("doc1 exist")
+              this.user.loggedIn = result.data().loggedIn;  
+              this.user.email =  result.data().email
+              this.user.password = result.data().password
+            }
+            else //get volunteer document for know email and password
+            {
+              db.collection('volunteerUsers').doc(uid).get()
+              .then(result =>{
+                if (result.exists)
+                {
+                  console.log("doc2 exist")
+                  this.user.loggedIn = result.data().loggedIn;  
+                  this.user.email =  result.data().email
+                  this.user.password = result.data().password
+                }
+                this.user.loggedIn = true
+                firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success vol login"))
+             
+              }).catch(error => console.log(error))
+            }
+              this.user.loggedIn = true
+              firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success elder login"))
+
+        }).catch(error => console.log(error))
+      } },1500)
+     }
+  
+    }, 1500);
+    }
+  }
+
+
+  checkUserType(uid)
   {
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
+    db.collection('ElderlyUsers').doc(uid).get()
       .then(result =>{
-        if (result.exists){
-          console.log("elderly")
+        if (result.exists)
           this.user.elderly = true;
-        }
         else
         {
-          db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
+          db.collection('volunteerUsers').doc(uid).get()
           .then(result =>{
-            if (result.exists){
-              console.log("volunteer")
-              this.user.volunteer = true;  }   
+            if (result.exists)
+              this.user.volunteer = true;  
            }).catch(error => {console.log(error)})
         }
       }).catch(error => {console.log(error)})

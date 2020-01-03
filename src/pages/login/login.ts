@@ -44,6 +44,7 @@ export class LoginPage
           this.user.loggedIn = true;
           const db = firebase.firestore();
     
+          //check if the user is sign in is admin
           db.collection('Admin').doc(firebase.auth().currentUser.uid).get()
             .then(result =>
             {
@@ -53,7 +54,7 @@ export class LoginPage
                 'elderly':this.user.elderly,'volunteer':this.user.volunteer});
             })
     //    }
-        }).catch(error => {
+        }).catch(error => { 
           if(error.code == "auth/user-not-found")
             this.alert.error_emailIsNotExist();
           else if (error.code == "auth/wrong-password")
@@ -61,7 +62,7 @@ export class LoginPage
           else
             this.alert.error_illegalEmailOrPassword();
         console.error(error); 
-    })
+      })
     }
   }
 
