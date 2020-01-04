@@ -233,6 +233,8 @@ export class adminPage
     alert.present();
   }
 
+
+
   CheckWhichOrganization(id)
   {
     const db = firebase.firestore();

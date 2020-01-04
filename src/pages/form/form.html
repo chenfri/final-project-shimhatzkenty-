@@ -109,14 +109,15 @@
                         </ion-item>
                 </ion-col> 
 
-                <ion-col>
-                    <h4 class="titleForm" *ngIf="!user.elderly">תחומי התנדבות</h4>
-                    <h4 class="titleForm" *ngIf="user.elderly">תחומי עיניין ותחביבים</h4><br><br>
-                    <label style="float: right;">ניתן לבחור יותר מתחום אחד</label>
-                    <ion-item *ngFor="let hobbies of hobbies">
-                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
-                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked1(hobbies, $event)"></ion-checkbox>
-                    </ion-item>
+                <ion-col *ngIf="!user.elderly && user.hideMusic ">
+                    <ion-list radio-group  *ngIf="!user.elderly && user.hideMusic ">
+                        <h4 class="titleForm" >כלי נגינה</h4><br>
+                        <label style="float: right;">ניתן לבחור יותר מכלי אחד</label>
+                        <ion-item *ngFor="let musical_instrument of musical_instrument">
+                            <ion-label style="text-align: right;"> {{ musical_instrument.species }} </ion-label>
+                            <ion-checkbox item-right [checked]="musical_instrument.currentValue" (click)="CheckboxClicked5(musical_instrument, $event)"></ion-checkbox>
+                        </ion-item>
+                    </ion-list>
                 </ion-col>
 
                 <ion-col *ngIf="user.hideMusic" >
@@ -131,15 +132,14 @@
                     </ion-list>
                 </ion-col>
 
-                <ion-col *ngIf="!user.elderly && user.hideMusic ">
-                    <ion-list radio-group  *ngIf="!user.elderly && user.hideMusic ">
-                        <h4 class="titleForm" >כלי נגינה</h4><br>
-                        <label style="float: right;">ניתן לבחור יותר מכלי אחד</label>
-                        <ion-item *ngFor="let musical_instrument of musical_instrument">
-                            <ion-label style="text-align: right;"> {{ musical_instrument.species }} </ion-label>
-                            <ion-checkbox item-right [checked]="musical_instrument.currentValue" (click)="CheckboxClicked5(musical_instrument, $event)"></ion-checkbox>
-                        </ion-item>
-                    </ion-list>
+                <ion-col>
+                    <h4 class="titleForm" *ngIf="!user.elderly">תחומי התנדבות</h4>
+                    <h4 class="titleForm" *ngIf="user.elderly">תחומי עיניין ותחביבים</h4><br><br>
+                    <label style="float: right;">ניתן לבחור יותר מתחום אחד</label>
+                    <ion-item *ngFor="let hobbies of hobbies">
+                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked1(hobbies, $event)"></ion-checkbox>
+                    </ion-item>
                 </ion-col>
 
             </ion-row>  

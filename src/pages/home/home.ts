@@ -23,7 +23,7 @@ export class HomePage
 
   user = {} as User;
   useri: Observable<firebase.User>;
-  platformA: boolean
+  devicePlatform: boolean
   organization: any;
   public organizations: any[]
 
@@ -52,27 +52,26 @@ export class HomePage
     if(this.user.loggedIn && this.user.Admin == false)
         this.checkUserType(firebase.auth().currentUser.uid);
 
-    //this.autoLogin()
-  }
 
-
-   ionViewDidEnter()
-  {
     if(this.platform.is('android'))
     {
-      this.platformA = true;
+      this.devicePlatform = true;
       console.log("android platform")
     
     }
     else
     {
-      this.platformA = false;
+      this.devicePlatform = false;
       console.log("web platform")
-    }
+    }    
+
+    if(!this.user.loggedIn && this.devicePlatform)
+      this.autoLogin()
   }
 
 
- // remember the last user who logged in and save it on login
+
+ // remember the last user who logged in and save it on login - only on android
   autoLogin()
   {
     let uid
@@ -84,7 +83,7 @@ export class HomePage
         {
           if (user) {
             uid = firebase.auth().currentUser.uid
-            console.log("uid: ",uid)
+            console.log("uid: "+uid)
           }
         else 
             console.log("not logged in")
@@ -140,7 +139,7 @@ export class HomePage
       } },1500)
      }
   
-    }, 1500);
+    }, 2500);
     }
   }
 
@@ -199,54 +198,54 @@ export class HomePage
     this.navCtrl.push(HomePage, {'login':this.user.loggedIn});
  }
 
- 
- get_data_for_admin()
- {
-   let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
-   var k = 0 , l = 0 , j = 0 , t=0 , v=0
+
+  get_data_for_admin()
+  {
+    let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
+    var k = 0 , l = 0 , j = 0 , t=0 , v=0
    
-   const db = firebase.firestore();
-   db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
-     [ i.data().fullName,
-       i.data().phone,
-       i.data().address,
-       i.id]
-       k++})}).catch(error => {console.log(error)})
+    const db = firebase.firestore();
+    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
+      [ i.data().fullName,
+        i.data().phone,
+        i.data().address,
+        i.id]
+        k++})}).catch(error => {console.log(error)})
 
 
-  db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
-    if(i.data().behalf == true )
-    {
-     
-      this.CheckWhichOrganization(i.id);
-      setTimeout(() =>
-     {     
-        console.log("organization:  " + this.organization)
-        if(this.organization != null)
-        {
-                  organizationEledry[v] = 
-                  [
-                    i.data().fullName,
-                    i.data().phone,
-                    i.data().contact,
-                    this.organization,
-                    i.id,
-                  ]
-                  v++;
-        }
-      }, 500); 
-     }
-    })}).catch(error => {console.log(error)})
+    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
+      if(i.data().behalf == true )
+      {
+      
+        this.CheckWhichOrganization(i.id);
+        setTimeout(() =>
+      {     
+          console.log("organization:  " + this.organization)
+          if(this.organization != null)
+          {
+                    organizationEledry[v] = 
+                    [
+                      i.data().fullName,
+                      i.data().phone,
+                      i.data().contact,
+                      this.organization,
+                      i.id,
+                    ]
+                    v++;
+          }
+        }, 500); 
+      }
+      })}).catch(error => {console.log(error)})
    
 
-   db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
-     volunteer[j] =
-     [ i.data().fullName,
-       i.data().phone,
-       i.data().address,
-       i.id
-     ]
-       j++})}).catch(error => {console.log(error)})
+    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
+      volunteer[j] =
+      [ i.data().fullName,
+        i.data().phone,
+        i.data().address,
+        i.id
+      ]
+        j++})}).catch(error => {console.log(error)})
 
 
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{
@@ -274,7 +273,7 @@ export class HomePage
       this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
       'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
       'organizationEledry': organizationEledry,
-       'elderNum': k , 'volunteerNum': j, 'studentNum': t, 'organizationNum': v});
+      'elderNum': k , 'volunteerNum': j, 'studentNum': t, 'organizationNum': v});
         }, 1000);
   } 
 
@@ -289,8 +288,6 @@ export class HomePage
         
       for (let i = 0; i < this.organizations.length; i++) {
           if(this.organizations[i].currentValue){
-            // console.log("organization.currentValue :  " + this.organizations[i].species)
-            // return this.organizations[i].species;
             this.organization = this.organizations[i].species;
             console.log("organization.func :  " + this.organization)
 
@@ -298,6 +295,7 @@ export class HomePage
       }    
       })
   }
+  
   //----------------------------------------------------------------
  
  gmail()

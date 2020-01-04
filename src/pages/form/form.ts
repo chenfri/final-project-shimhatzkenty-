@@ -322,15 +322,14 @@ export class Form
   
   get_UserLocation()
   {
-    //if(this.platform.is('android'))
-    //  alert("please turn on GPS")
 
     navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
     setTimeout(() => {
-      console.log(MyGlobal.address)
+      //if(MyGlobal.address == "")
+        //alert("יש להפעיל שירותי מיקום")
       this.user.address = MyGlobal.address
       console.log(this.user.address)
-    }, 5000);
+    }, 3000);
   }
 
 
@@ -362,7 +361,6 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
-        loggedIn: this.user.loggedIn,
         password: this.user.password
         
       })
@@ -402,7 +400,6 @@ export class Form
         neighborhood: this.neighborhood,
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
-        loggedIn: this.user.loggedIn,
         password: this.user.password
       })
       .then(() => {
@@ -475,7 +472,8 @@ export class Form
         this.user.student = result.data().student
         this.musical_instrument = result.data().musical_instrument
       }
-      else{
+      else
+      {
         this.user.onBehalf = result.data().behalf
         this.user.nameAssistant = result.data().nameAssistant
         this.user.relationship = result.data().relationship
@@ -496,7 +494,11 @@ export class Form
     if(this.hobbies[0].currentValue)
       this.user.hideMusic = true;
     else
-    this.user.hideMusic = false;
+    {
+      this.cancelCheckBox(this.musicStyle)
+      this.cancelCheckBox(this.musical_instrument)
+      this.user.hideMusic = false;
+    }
   }
 
   CheckboxClicked2(item: any, $event)
@@ -524,6 +526,21 @@ export class Form
   CheckboxClicked6(item: any, $event)
   {
     this.CheckboxClicked(item, this.dayOfMeeting)
+  }
+
+
+  //if user cancel music hobby so we cancel musicStyle and musical_instrument
+  cancelCheckBox(arr)
+  {
+      
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].currentValue)
+        {
+          console.log(arr[i].species)
+          arr[i].currentValue = false
+        }
+            
+      }
   }
 
   //check which checkbox was clicked and update the array
