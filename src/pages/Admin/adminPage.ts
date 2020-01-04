@@ -8,6 +8,7 @@ import { contactMessage } from '../../module/contactMessage'
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
+import {Functions} from '../../providers/functions'
 
 @Component({
   selector: 'adminPage',
@@ -17,27 +18,29 @@ import { RegisterPage } from '../register/register';
 export class adminPage
 {
   user = {} as User
-  userE = {} as User;
-  userV = {} as User;
-  userStudent = {} as User;
-  organizationEledry = {} as User;
-
   organizationNum: any
+  organizationName: any;
   elderNum: any
   volunteerNum: any
-  studentNum: any;
+  studentNum: any
+  userE : any[]
+  userV : any[]
+  userStudent : any[]
+  organizationEledry : any[]
   messages : any[]
-  csvData: any[] = [];
-  headerRow: any[] = [];
-
+  csvData: any[] = []
+  headerRow: any[] = []
+  public organizations: any[]
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public alertCtrl: AlertController , public alert: AlertProvider) 
+  public alertCtrl: AlertController , public alert: AlertProvider, public func: Functions) 
   {
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
+    console.log("userE ", this.userE)
     this.userV = this.navParams.get('volunteer');
+    console.log("volunteer ", this.userV)
     this.userStudent = this.navParams.get('students');
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
@@ -70,17 +73,25 @@ export class adminPage
         data: tmp
       });
 
-      this.downloadCSV(csv)
+      this.downloadCSV(csv , type)
   }
 
 
-  downloadCSV(csv)
+  downloadCSV(csv, type)
   { 
     var blob = new Blob(["\ufeff", csv]);
     var a = window.document.createElement("a");
 
     a.href = window.URL.createObjectURL(blob);
-    a.download = "newdata.csv";
+    if(type == "eledry")
+      a.download = "דוח קשישים.csv";
+    if(type == "student") 
+      a.download = "דוח סטודנטים.csv";
+    if(type == "organization")
+      a.download = "דוח ארגונים.csv";
+    if(type == "volunteer")
+      a.download = "דוח מתנדבים.csv";
+
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -90,21 +101,18 @@ export class adminPage
   deleteMessage(item)
   {
       const db = firebase.firestore();
+      let message =[] ,l = 0 
       db.collection('message').doc(item).delete().then(() =>{
         this.alert.showAlert_deleteMessage()
         console.log("Document successfully deleted!");
         
-      let message =[]
-        var l = 0 
-          
-    db.collection('message').get().then(res => {res.forEach(i =>{message[l]={
-      data: i.data() ,
-      id : i.id }
-      l++})}).catch(error => {console.log(error)})
-      this.messages = message
-      console.log(this.messages)
+      db.collection('message').get().then(res => {res.forEach(i =>{message[l]={
+        data: i.data() ,
+        id : i.id }
+        l++})}).catch(error => {console.log(error)})
+        this.messages = message
+        console.log(this.messages)
     
-
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
@@ -114,6 +122,7 @@ export class adminPage
   deleteElderlyUser(item)
   {
     this.deleteUserFromFirebase(item, 'ElderlyUsers')
+    
   }
   
 
@@ -123,13 +132,22 @@ export class adminPage
   }
  
 
-  deleteUserFromFirebase(item, str)
+  deleteUserFromFirebase(item, collectionName)
   {
+
+    let array = [] ,student = [], orgs = [], k = 0 , j = 0  , l = 0     
+    const db = firebase.firestore();
     
     let alert = this.alertCtrl.create({
       title: 'אזהרה',
       subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את המשתמש?' ,
       buttons: [
+        {
+          text: 'לא',
+          handler: () => {
+            console.log('no clicked');
+          }
+        },
         {
           text: 'כן',
           role: 'cancel',
@@ -137,18 +155,77 @@ export class adminPage
             console.log('yes clicked');
             const db = firebase.firestore();
               
-            let deleteUser = db.collection(str).doc(item).delete().then(function() {
+            db.collection(collectionName).doc(item).delete().then(function()
+            {
               console.log("Document successfully deleted!");
+      
+              db.collection(collectionName).get().then(res => { res.forEach(i => {
+                if(i.data().student == true) //if student
+                {
+                  console.log("a")
+                  student[j] =
+                  [ i.data().fullName,
+                    i.data().phone,
+                    i.data().id,
+                    i.id
+                  ]
+                  j++;
+                } 
+
+                else if(i.data().behalf == true ) //if organization
+                {
+                  console.log("b")
+                  this.CheckWhichOrganization(i.id);
+                  
+                  setTimeout(() =>
+                  {     
+                    console.log("organization:  " + this.organization)
+                    if(this.organization != null)
+                    {
+                      orgs[l] = 
+                      [
+                        i.data().fullName,
+                        i.data().phone,
+                        i.data().contact,
+                        this.organization,
+                        i.id,
+                      ]
+                      l++;
+                    }
+                  }, 500); 
+                }
+                 array[k] = // regular details
+                [ i.data().fullName,
+                  i.data().phone,
+                  i.data().address,
+                  i.id]
+                  k++})}).catch(error => {console.log(error)})
+
 
             }).catch(function(error) {
               console.error("Error removing document: ", error);
             });
-          }
-        },
-        {
-          text: 'לא',
-          handler: () => {
-            console.log('no clicked');
+            
+            console.log(array)
+
+            if(collectionName === 'ElderlyUsers')
+            {
+              this.userE = array
+              if(orgs != undefined || orgs != null)
+              {
+                console.log("orgs ",orgs)
+                this.organizationEledry = orgs
+              }
+            }
+            else
+            {
+              this.userV = array
+              if(student != undefined || student != null)
+              {
+                console.log("student " ,student)
+                this.userStudent = student
+              }
+            }    
           }
         }
       ]
@@ -156,6 +233,25 @@ export class adminPage
     alert.present();
   }
 
+  CheckWhichOrganization(id)
+  {
+    const db = firebase.firestore();
+    db.collection('ElderlyUsers').doc(id).get()
+    .then(result => {
+      if (!result.exists) return
+      this.organizations = result.data().organization;
+        
+      for (let i = 0; i < this.organizations.length; i++) {
+          if(this.organizations[i].currentValue){
+            // console.log("organization.currentValue :  " + this.organizations[i].species)
+            // return this.organizations[i].species;
+            this.organizationName = this.organizations[i].species;
+            console.log("organization.func :  " + this.organizationName)
+
+          }
+      }    
+      })
+  }
 
   click_home()
   {

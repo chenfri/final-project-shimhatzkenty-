@@ -9,7 +9,31 @@ export class Functions
 
 
     user = {} as User;
+    organization : any
+    public organizations: any[]
   constructor(public alertCtrl: AlertController, public alert: AlertProvider) {
+  }
+
+
+  CheckWhichOrganization(id)
+  {
+    const db = firebase.firestore();
+    db.collection('ElderlyUsers').doc(id).get()
+    .then(result => {
+      if (!result.exists) return
+      this.organizations = result.data().organization;
+        
+      for (let i = 0; i < this.organizations.length; i++) {
+          if(this.organizations[i].currentValue){
+            // console.log("organization.currentValue :  " + this.organizations[i].species)
+            // return this.organizations[i].species;
+            this.organization = this.organizations[i].species;
+            console.log("organization.func :  " + this.organization)
+
+          }
+      }    
+      })
+  
   }
 
 

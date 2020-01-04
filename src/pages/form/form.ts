@@ -179,6 +179,12 @@ export class Form
        this.alert.showError_studentDetails();
        flag = 1;
     }
+    
+    else if (this.user.student && String(this.user.id).length != 9 )
+    {
+      this.alert.showError_studentID()
+      flag = 1;
+    }
 
     else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
     {

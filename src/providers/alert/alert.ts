@@ -114,6 +114,17 @@ export class AlertProvider
     alert.present();
   }
 
+
+  showError_studentID()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא ת"ז תקין כולל סיפרת ביקורת' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   showError_behalf()
   {
     let alert = this.alertCtrl.create({

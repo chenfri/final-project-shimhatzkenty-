@@ -10,6 +10,7 @@ import firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
+import {Functions} from '../../providers/functions'
 
 
 @Component({
@@ -27,7 +28,7 @@ export class HomePage
   public organizations: any[]
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
-        public auth: AngularFireAuth, private platform: Platform)
+        public auth: AngularFireAuth, private platform: Platform, public func:Functions)
   {
 
     console.log("if login:")
@@ -216,10 +217,10 @@ export class HomePage
   db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
     if(i.data().behalf == true )
     {
+     
       this.CheckWhichOrganization(i.id);
-      
       setTimeout(() =>
-      {     
+     {     
         console.log("organization:  " + this.organization)
         if(this.organization != null)
         {
