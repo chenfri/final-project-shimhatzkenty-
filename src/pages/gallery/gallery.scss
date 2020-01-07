@@ -2,7 +2,11 @@ page-gallery {
  .swiper-pagination-bullet-active{
     background-color:  #ff5828;
 
-}   
+} 
+.pics{
+    width: 500px;
+    height: 500px;
+}  
 // .ion-slide {
       
 
@@ -24,6 +28,7 @@ input[type=submit] {
     background-color: #FF5722;
   }
   
+
   input[type=submit]:hover {
     background-color:#945151;
   }

@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 
+
 @Component({
   selector: 'page-gallery',
   templateUrl: 'gallery.html',
@@ -16,6 +17,8 @@ export class GalleryPage {
 
 
   constructor(private toast: ToastController  ,public navCtrl: NavController, public navParams: NavParams) {
+    
+  
   }
 
   ionViewDidLoad() {
