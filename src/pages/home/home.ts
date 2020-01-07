@@ -11,7 +11,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
 import {Functions} from '../../providers/functions'
-
+import {GalleryPage} from '../gallery/gallery'
 
 @Component({
   selector: 'page-home',
@@ -184,6 +184,10 @@ export class HomePage
   contactPage() {
     this.navCtrl.push(contactPage, {'login':this.user.loggedIn});
   }
+  
+  gallery() {
+    this.navCtrl.push(GalleryPage, {'login':this.user.loggedIn});
+  }
 
   login(){
 
@@ -349,16 +353,4 @@ facebooklogin()
 }
 
 
-// imageObject: Array<object> = [{
-//   image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8',
-//   ///thumbImage: 'assets/img/slider/1_min.jpeg',
-//   //alt: 'alt of image',
-//   title: 'title of image'
-// }, {
-//   image: 'https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/gallery1.jpg?alt=media&token=bee8fa7e-be21-490b-8692-97c425cbcfb8', // Support base64 image
-//   //thumbImage: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
-//   title: 'Image title', //Optional: You can use this key if want to show image with title
-//   //alt: 'Image alt' //Optional: You can use this key if want to show image with alt
-// }
-// ];
 }

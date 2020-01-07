@@ -12,6 +12,7 @@ import {RegisterPage} from '../pages/register/register'
 import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
+import {GalleryPage} from '../pages/gallery/gallery'
 
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
@@ -44,13 +45,15 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
+    
     MyApp,
     HomePage,
     Form,
     RegisterPage,
     LoginPage,
     contactPage,
-    adminPage
+    adminPage,
+    GalleryPage
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ export const firebaseConfig = {
     contactPage,
     RegisterPage,
     LoginPage,
-    adminPage
+    adminPage,
+    GalleryPage
   ],
   providers: [
     StatusBar,
