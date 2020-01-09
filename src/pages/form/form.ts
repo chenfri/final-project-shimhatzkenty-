@@ -95,12 +95,12 @@ export class Form
       this.user.hideForm = true;}
 
 
-    /*this.alert.showError_NotEmailVerfied();
+    this.alert.showError_NotEmailVerfied();
 
     setTimeout(() => {
       if(str == "sucsses")
       this.alert.showAlert();
-    }, 5000);*/
+    }, 5000);
   }
 
 
