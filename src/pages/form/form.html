@@ -116,7 +116,7 @@
                     <h4 class="titleForm">איזור מגורים</h4>
                         <ion-item *ngFor="let neighborhood of neighborhood">
                                 <ion-label style="text-align: right;" > {{ neighborhood.species }} </ion-label>
-                                <ion-checkbox item-right [checked]="neighborhood.currentValue" (click)="radioClicked6(neighborhood)"></ion-checkbox>
+                                <ion-radio item-right [checked]="neighborhood.currentValue" (click)="radioClicked6(neighborhood)"></ion-radio>
                         </ion-item>
                    </ion-list>
                 </ion-col> 
@@ -125,8 +125,9 @@
                     <h4 class="titleForm">שכונות מועדפות להתנדבות</h4>
                         <ion-item *ngFor="let neighborhood of neighborhood">
                                 <ion-label style="text-align: right;" > {{ neighborhood.species }} </ion-label>
-                                <ion-radio item-right [checked]="neighborhood.currentValue" (click)="CheckboxClicked4(neighborhood)"></ion-radio>
-                        </ion-item>
+                                <ion-checkbox item-right [checked]="neighborhood.currentValue" (click)="CheckboxClicked4(neighborhood)"></ion-checkbox>
+                                
+                            </ion-item>
                 </ion-col> 
 
                 <ion-col *ngIf="!user.elderly && user.hideMusic ">
@@ -185,7 +186,7 @@
                     <ion-list radio-group >
                         <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
                                 <ion-label style="text-align: right;"> {{ numOfMeeting.species }} </ion-label>
-                                <ion-checkbox item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-checkbox>
+                                <ion-radio item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -217,7 +218,7 @@
                     <ion-list radio-group>
                         <ion-item *ngFor="let meetingWith of meetingWith; let i = index">
                             <ion-label style="text-align: right;"> {{ meetingWith.species }} </ion-label>
-                            <ion-checkbox item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-checkbox>
+                            <ion-radio item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
                         </ion-item>
                     </ion-list>
                 </ion-col>

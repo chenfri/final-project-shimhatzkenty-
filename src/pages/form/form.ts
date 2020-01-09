@@ -91,16 +91,16 @@ export class Form
     let str = await this.fun.registry(this.user.email, this.user.password)
     if(str == "sucsses"){
       this.ifRegister = true;
-      this.alert.showAlert();
+      // this.alert.showAlert();
       this.user.hideForm = true;}
 
 
-    /*this.alert.showError_NotEmailVerfied();
+    this.alert.showError_NotEmailVerfied();
 
     setTimeout(() => {
       if(str == "sucsses")
       this.alert.showAlert();
-    }, 5000);*/
+    }, 5000);
   }
 
 

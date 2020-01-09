@@ -1,8 +1,19 @@
 page-gallery {
+
  .swiper-pagination-bullet-active{
     background-color:  #ff5828;
 
 } 
+.gallerySlide{
+  background-color: #fdbb4b;
+}
+.galleryTitle{
+  font-size: xx-large;
+    font-weight: bold;
+    font-family: calibri;
+    text-align: center;
+
+}
 .pics{
     width: 500px;
     height: 500px;
