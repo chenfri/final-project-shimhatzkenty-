@@ -22,7 +22,7 @@
 }
 .Assistant{
 input[type=text]{
-  width: 100%;
+  width: auto;
   padding: 12px;
   border: 1px solid #ccc;
   margin-top: 6px;
@@ -36,7 +36,7 @@ input[type=text]{
 
 /* Style inputs */
 input[type=text],input[type=password],input[type=number], select, textarea {
-  width: 80%;
+  width: max-content;
   padding: 12px;
   border: 1px solid #ccc;
   margin-top: 6px;
@@ -52,6 +52,7 @@ margin: 0;
 
 
 input[type=submit] {
+  width: fit-content;
   background-color: #af4c4c96; 
   color: white;
   padding: 12px 20px;
@@ -146,6 +147,13 @@ background: #FFFFFF;
  --border-color: #FFFFFF;
  --border-color-checked :#FFFFFF;
 }
+// .item-select  {
+//   max-width: 100%!important;
+//   width: 100%!important;
+//   right: auto!important;
+//   direction: ltr!important;
+//   padding-left: 0!important;
+// }
 
 
 }
