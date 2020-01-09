@@ -108,7 +108,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה למלא ת"ז ומוסד אקדמי' ,
+      subTitle: 'חובה למלא מוסד אקדמי' ,
       buttons: ['OK']
     });
     alert.present();

@@ -19,11 +19,13 @@
 
         <!-- <div *ngIf = "user.hideForm"> -->
         
-         <label >שם מלא</label><br>
-         <input text-right type="text" name="title" [(ngModel)] = "user.fullName" ><br>
+        <label >שם מלא</label><br>
+        <input text-right type="text" name="title" [(ngModel)] = "user.fullName" ><br>
         
-         <label  >(ת"ז (נדרש לצורך הביטוח</label><br>
-         <input text-right type="number" name="idStudent" [(ngModel)] = "user.id"><br>
+        <div *ngIf="!user.elderly">
+            <label>(ת"ז (נדרש לצורך הביטוח</label><br>
+            <input text-right type="number" name="idStudent" [(ngModel)] = "user.id"><br>
+        </div>
 
         <label >כתובת מגורים</label><br>
         <input text-right type="text" name="address" [(ngModel)] = "user.address"><br>
@@ -109,10 +111,18 @@
 <!---------------------------------------------------------------------------------------------->
         <ion-grid style="background-color: #ffffff80;">
             <ion-row>
-                <ion-col>
-                    <h4 class="titleForm" *ngIf="user.elderly">איזור מגורים<br><br></h4>
-                    <h4 class="titleForm" *ngIf="!user.elderly">שכונות מועדפות להתנדבות<br><br></h4>
-                    
+                <ion-col *ngIf="user.elderly">
+                    <ion-list radio-group >
+                    <h4 class="titleForm">איזור מגורים</h4>
+                        <ion-item *ngFor="let neighborhood of neighborhood">
+                                <ion-label style="text-align: right;" > {{ neighborhood.species }} </ion-label>
+                                <ion-checkbox item-right [checked]="neighborhood.currentValue" (click)="radioClicked6(neighborhood)"></ion-checkbox>
+                        </ion-item>
+                   </ion-list>
+                </ion-col> 
+
+                <ion-col *ngIf="!user.elderly">
+                    <h4 class="titleForm">שכונות מועדפות להתנדבות</h4>
                         <ion-item *ngFor="let neighborhood of neighborhood">
                                 <ion-label style="text-align: right;" > {{ neighborhood.species }} </ion-label>
                                 <ion-radio item-right [checked]="neighborhood.currentValue" (click)="CheckboxClicked4(neighborhood)"></ion-radio>

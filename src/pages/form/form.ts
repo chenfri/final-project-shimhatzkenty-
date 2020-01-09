@@ -152,6 +152,7 @@ export class Form
   //check that all user inputs are legal
   check_field_value()
   {
+    console.log("this.user.id ",this.user.id)
     let flag = 0;
 
     if (typeof (this.user.fullName) === "undefined" || typeof (this.user.phone) === "undefined"
@@ -174,18 +175,18 @@ export class Form
       }
     }
 
-    else if (this.user.student && (this.user.id == null || this.user.college == null))
+    else if (this.user.id == null ||String(this.user.id).length != 9)
+    {
+      this.alert.showError_studentID()
+       flag = 1;
+    }
+
+    else if (this.user.student && this.user.college == null)
     {
        this.alert.showError_studentDetails();
        flag = 1;
     }
     
-    else if (this.user.student && String(this.user.id).length != 9 )
-    {
-      this.alert.showError_studentID()
-      flag = 1;
-    }
-
     else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
     {
       this.alert.showError_behalf();
@@ -576,6 +577,10 @@ export class Form
 
   radioClicked5(item: any, $event) {
     this.radioClicked(item, this.meetingWith)
+  }
+
+  radioClicked6(item: any, $event) {
+    this.radioClicked(item, this.neighborhood)
   }
 
   //check which radio was clicked and update the array
