@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.simhatzkenty.app">
+    package="com.simhat_zkenty.app">
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,7 @@
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
-            android:name="com.simhatzkenty.app.MainActivity"
+            android:name="com.simhat_zkenty.app.MainActivity"
             android:label="שמחת זקנתי"
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask">

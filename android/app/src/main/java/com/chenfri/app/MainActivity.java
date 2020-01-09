@@ -1,4 +1,4 @@
-package com.simhatzkenty.app;
+package com.simhat_zkenty.app;
 
 import android.os.Bundle;
 
