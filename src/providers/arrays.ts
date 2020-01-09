@@ -71,13 +71,10 @@ export class Arrays
   
     this.numOfMeeting = [
       {
-        'species': 'פעם בשבוע/ שבועיים',
+        'species': 'פעם בשבוע',
         'currentValue': false
       }, {
-        'species': 'פעם בחודש',
-        'currentValue': false
-      }, {
-        'species': 'באופן אקראי',
+        'species': 'פעם בשבועיים',
         'currentValue': false
       }];
 
