@@ -100,7 +100,18 @@
 <!---------------------------------------------------------------------------------------------->
         <ion-grid style="background-color: #ffffff80;">
             <ion-row>
-                <ion-col>
+                <ion-col *ngIf="user.elderly">
+                    <ion-list radio-group >
+                    <h4 class="titleForm" *ngIf="user.elderly">איזור מגורים</h4>
+                    <h4 class="titleForm" *ngIf="!user.elderly">שכונות מועדפות להתנדבות</h4>
+                        <ion-item *ngFor="let neighborhood of neighborhood">
+                                <ion-label style="text-align: right;" > {{ neighborhood.species }} </ion-label>
+                                <ion-checkbox item-right [checked]="neighborhood.currentValue" (click)="radioClicked6(neighborhood)"></ion-checkbox>
+                        </ion-item>
+                   </ion-list>
+                </ion-col> 
+
+                <ion-col *ngIf="!user.elderly">
                     <h4 class="titleForm" *ngIf="user.elderly">איזור מגורים</h4>
                     <h4 class="titleForm" *ngIf="!user.elderly">שכונות מועדפות להתנדבות</h4>
                         <ion-item *ngFor="let neighborhood of neighborhood">

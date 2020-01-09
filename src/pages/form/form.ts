@@ -578,6 +578,10 @@ export class Form
     this.radioClicked(item, this.meetingWith)
   }
 
+  radioClicked6(item: any, $event) {
+    this.radioClicked(item, this.neighborhood)
+  }
+
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
   {
