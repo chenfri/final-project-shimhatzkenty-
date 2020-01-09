@@ -97,10 +97,10 @@ export class Form
 
     this.alert.showError_NotEmailVerfied();
 
-    setTimeout(() => {
-      if(str == "sucsses")
-      this.alert.showAlert();
-    }, 5000);
+    // setTimeout(() => {
+    //   if(str == "sucsses")
+    //   this.alert.showAlert();
+    // }, 5000);
   }
 
 
@@ -156,7 +156,8 @@ export class Form
     let flag = 0;
 
     if (typeof (this.user.fullName) === "undefined" || typeof (this.user.phone) === "undefined"
-      || typeof (this.user.address) === "undefined") {
+      || typeof (this.user.address) === "undefined" || typeof (this.user.email) === "undefined"
+      || typeof (this.user.password) === "undefined") {
       this.alert.error_emptyFields();
       flag = 1;
     }
