@@ -1,5 +1,5 @@
 .homePage{
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/11-page-001.jpg?alt=media&token=a922c4f7-3ce0-4903-8f72-87451da1f56f");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/1%D7%A8%D7%A7%D7%A2.jpg?alt=media&token=9e359088-7770-420e-8b38-d0b609c38e5e");
 
   .HomePagetitle {
         color: rgb(23, 1, 124);
@@ -10,6 +10,10 @@
     }
     .navbarHome {
       background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%9B%D7%95%D7%9B%D7%91%D7%99%D7%9D.jpeg?alt=media&token=ca72e5f7-89f6-4d37-a062-42a5ca808c26");
+      place-content: center;
+      direction: rtl;
+
+
     }
 
     .homePageText{
@@ -42,25 +46,41 @@
     width: 100%;
 
   }
-    
+    ion-buttons{
+      direction: rtl;
+    }
+
     button {
       display: inline-block;
       color: white;
       background:rgb(255, 88, 40);
       text-align: center;
       padding: 14px 18px;
-      text-decoration: none;
-     
-      border: 3px solid #fdbb4b;
+      text-decoration: none; 
+      border: 3px solid #fdbb4b00;
       //border: 1px solid navajowhite;
       border-radius: 15px;
     }
-    
+    .button-md:hover:not(.disable-hover) {
+      color: black;
+      background-color: #fffbd8;
+  }
     button:hover {
       background-color: rgb(253, 249, 212);
       color: black;
     }
-  .pics{
-    align-items: center;
-  }
+    .homedetails{
+      align-items: center;
+      place-content: center;
+      direction: rtl;
+    
+
+    } 
+     .homePageText{
+       background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5); 
+       width:auto; height:auto;
+       min-width:440px; min-height:345px;     place-content: center;
+
+        
+      }
   }

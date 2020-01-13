@@ -17,7 +17,7 @@
         <input *ngIf = "!user.loggedIn" type="submit" (click)= "registry()" value="יצירת חשבון"><br>
         <input *ngIf = "user.loggedIn" type="submit" (click)= "update_email_or_password()" value="עדכון פרטים">   <br> 
 
-        <div *ngIf = "user.hideForm">
+        <ion-grid *ngIf = "user.hideForm">
         
         <label >שם מלא</label><br>
         <input text-right type="text" name="title" [(ngModel)] = "user.fullName" ><br>
@@ -238,7 +238,7 @@
 
         <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
         <br><br><br><br>
-    </div>
+            </ion-grid>
     </form>
 </ion-content>
   

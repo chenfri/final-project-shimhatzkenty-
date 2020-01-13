@@ -15,8 +15,11 @@ page-gallery {
 
 }
 .pics{
-    width: 500px;
-    height: 500px;
+
+    width: auto;
+    height: auto;   
+    // max-width: 500px;
+    // max-height: 500px;
 }  
 // .ion-slide {
       
@@ -44,13 +47,17 @@ input[type=submit] {
     background-color:#945151;
   }
 .swiper-slide{
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/11-page-001.jpg?alt=media&token=a922c4f7-3ce0-4903-8f72-87451da1f56f);
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/1%D7%A8%D7%A7%D7%A2.jpg?alt=media&token=9e359088-7770-420e-8b38-d0b609c38e5e);
+  // background-color: #fdbb4b;
+//   background-repeat: no-repeat;
+//   background-attachment: fixed;
+//  background-position: center;
 
 }
-// .swiper-slide img {
-//     width: auto;
-//     // max-width: 70%;
-//     height: auto;
-//     // max-height: 70%;
-// }
+.swiper-slide img {
+    // width: auto;
+    max-width: 70%;
+    // height: auto;
+    max-height: 70%;
+}
 } 
