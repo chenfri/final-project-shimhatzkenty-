@@ -6,11 +6,13 @@ export interface User
     phone: string,
     address: string,
     loggedIn: boolean,
+    dateTime: string,
 
     onBehalf: boolean,
     nameAssistant: string,
     relationship: string,
     contact: string,
+    description:string,
 
     student: boolean,
     range: number,

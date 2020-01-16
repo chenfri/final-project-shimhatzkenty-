@@ -44,6 +44,7 @@ export class adminPage
     this.userStudent = this.navParams.get('students');
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
+    // this.user.dateTime = this.navParams.get('dateTime');
 
     this.organizationNum = this.navParams.get('organizationNum')
     this.elderNum = this.navParams.get('elderNum');
@@ -60,9 +61,9 @@ export class adminPage
         tmp[i] = array[i]
     
       if(type == "eledry" || type == "volunteer")
-        this.headerRow = ["שם", "פלאפון" , "כתובת"]
+        this.headerRow = ["שם", "פלאפון" , "כתובת","תאריך הרשמה"]
       if(type == "student") 
-        this.headerRow = ["שם" , "פלאפון", "תעודת זהות"]
+        this.headerRow = ["שם" , "פלאפון", "תעודת זהות","תאריך הרשמה"]
       if(type == "organization")
         this.headerRow = ["שם", "פלאפון הקשיש" ,"פלאפון איש הקשר" , "שם האירגון"]
 

@@ -12,6 +12,7 @@ import {MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Geolocation} from '@capacitor/core';
 import { ThrowStmt } from '@angular/compiler';
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-form',
@@ -37,7 +38,8 @@ export class Form
   public ifRegister = false
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
-          public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth)
+          public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth,
+          public events: Events)
     {
 
     this.user.loggedIn = this.params.get('login');
@@ -53,8 +55,11 @@ export class Form
     this.user.college = null
     this.user.id = null
     this.user.contact = null
+    this.user.description = null;
     this.user.range = 0;
     this.user.age = null;
+    this.user.dateTime = null;
+
     this.user.hideMusic = false
     this.user.student = false
     this.user.onBehalf = false;
@@ -82,8 +87,12 @@ export class Form
     }
     else
       this.user.hideForm = false
-     
+
   }
+  // createUser(user) {
+  //   console.log('User created! , ' + Date.now())
+  //   this.events.publish('user:created', user, Date.now());
+  // }
 
 
   async registry()
@@ -92,7 +101,11 @@ export class Form
     if(str == "sucsses"){
       this.ifRegister = true;
       // this.alert.showAlert();
-      this.user.hideForm = true;}
+      this.user.hideForm = true;
+
+      // console.log('User created! , ' + this.user.dateTime)
+
+    }
 
 
     this.alert.showError_NotEmailVerfied();
@@ -176,7 +189,7 @@ export class Form
       }
     }
 
-    else if (this.user.id == null ||String(this.user.id).length != 9)
+    else if (!this.user.elderly && (this.user.id == null ||String(this.user.id).length != 9))
     {
       this.alert.showError_studentID()
        flag = 1;
@@ -339,6 +352,8 @@ export class Form
 
   add_data_to_firebase_Volunteer()
   {
+    this.user.dateTime = new Date().toISOString().substring(0, 10);
+
     const db = firebase.firestore();
     db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
       {
@@ -363,8 +378,8 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
-        password: this.user.password
-        
+        password: this.user.password,
+        dateTime : this.user.dateTime 
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -381,6 +396,8 @@ export class Form
 
   add_data_to_firebase_Elderly()
   {
+    this.user.dateTime = new Date().toISOString().substring(0, 10);
+
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
       {
@@ -393,6 +410,7 @@ export class Form
         nameAssistant: this.user.nameAssistant,
         relationship: this.user.relationship,
         contact: this.user.contact,
+        description: this.user.description,
         organization: this.organization,
         hobbies: this.hobbies,
         meeting_time: this.time,
@@ -402,7 +420,9 @@ export class Form
         neighborhood: this.neighborhood,
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
-        password: this.user.password
+        password: this.user.password,
+        dateTime : this.user.dateTime 
+
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -473,6 +493,7 @@ export class Form
         this.user.college = result.data().college
         this.user.student = result.data().student
         this.musical_instrument = result.data().musical_instrument
+        this.user.dateTime = result.data().dateTime 
       }
       else
       {
@@ -481,6 +502,7 @@ export class Form
         this.user.relationship = result.data().relationship
         this.organization = result.data().organization
         this.user.contact = result.data().contact
+        this.user.description = result.data().description
       }
 
     }).catch(error => {console.log(error)})

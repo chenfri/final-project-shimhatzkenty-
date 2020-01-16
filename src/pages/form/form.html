@@ -1,4 +1,4 @@
-<ion-content padding class= "formCSS" >
+<ion-content pedding class= "formCSS" >
     <input style="float: left;" type="submit" (click)= "click_home()" value="חזרה לדף הבית">
 
     <br><br><br><br>
@@ -17,7 +17,7 @@
         <input *ngIf = "!user.loggedIn" type="submit" (click)= "registry()" value="יצירת חשבון"><br>
         <input *ngIf = "user.loggedIn" type="submit" (click)= "update_email_or_password()" value="עדכון פרטים">   <br> 
 
-        <ion-grid *ngIf = "user.hideForm">
+        <!-- <ion-grid *ngIf = "user.hideForm"> -->
         
         <label >שם מלא</label><br>
         <input text-right type="text" name="title" [(ngModel)] = "user.fullName" ><br>
@@ -230,15 +230,23 @@
                 
             </ion-row>
             </ion-grid><br>
-            <label *ngIf="!user.elderly" style="float: right;">.לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב*
-                </label><br><br><br><br>
+            <ion-item *ngIf="!user.elderly" style=" background: #ffffff80;">
+                <label style="float: right;">.לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב*
+                </label><br><br> 
                
                 <label *ngIf="!user.elderly" style="float: right;"> .ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב
-                </label><br><br>
+                </label>
+            </ion-item>
 
-        <input style="float: right;"  type="submit" (click)= "check_field_value()" value="שמירה">
-        <br><br><br><br>
-            </ion-grid>
+                <ion-grid style="width: fit-content; height: auto; float:right;background: #ffffff80;" *ngIf="user.elderly">
+                    <label>:) ספר לנו קצת על עצמך </label><br>
+                    <ion-textarea style="background-color: #ffffffed;" cols="40" rows="10" class="description"  text-right type="text" name="description" [(ngModel)] = "user.description"></ion-textarea>
+                </ion-grid >
+                <br><br><br><br>
+        <ion-grid style="text-align: -webkit-right;" >
+        <input  type="submit" (click)= "check_field_value()" value="שמירה">
+        <br><br><br><br></ion-grid>
+            <!-- </ion-grid> -->
     </form>
 </ion-content>
   

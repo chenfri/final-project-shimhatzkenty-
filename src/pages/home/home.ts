@@ -213,6 +213,7 @@ export class HomePage
       [ i.data().fullName,
         i.data().phone,
         i.data().address,
+        i.data().dateTime,
         i.id]
         k++})}).catch(error => {console.log(error)})
 
@@ -247,6 +248,7 @@ export class HomePage
       [ i.data().fullName,
         i.data().phone,
         i.data().address,
+        i.data().dateTime,
         i.id
       ]
         j++})}).catch(error => {console.log(error)})
@@ -259,6 +261,7 @@ export class HomePage
         [ i.data().fullName,
           i.data().phone,
           i.data().id,
+          i.data().dateTime,
           i.id
         ]
         t++;

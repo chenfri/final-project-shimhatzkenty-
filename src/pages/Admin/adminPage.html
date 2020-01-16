@@ -19,15 +19,17 @@
       <table id="customers">
           <tr >
             <th>מחק משתמש</th>
+            <th>תאריך הרשמה</th>
             <th>כתובת</th>
             <th>טלפון</th>
             <th>שם מלא</th>
           </tr>
         <tr *ngFor="let value of userE">
-            <td><button (click)="deleteElderlyUser(value[3])">[x]</button></td>
-          <td>{{value[2]}}</td>
-          <td>{{value[1]}}</td>
-          <td>{{value[0]}}</td>
+            <td><button (click)="deleteElderlyUser(value[4])">[x]</button></td>
+            <td>{{value[3]}}</td>
+            <td>{{value[2]}}</td>
+            <td>{{value[1]}}</td>
+            <td>{{value[0]}}</td>
         </tr>
       </table><br><br>
   
@@ -37,12 +39,14 @@
       <table id="customers">
           <tr>
             <th>מחק משתמש</th>
+            <th>תאריך הרשמה</th>
             <th>כתובת</th>
             <th>טלפון</th>
             <th>שם מלא</th>
           </tr>
           <tr *ngFor="let value of userV">
-            <td><button (click)="deleteVolunteerUser(value[3])">[x]</button></td>
+            <td><button (click)="deleteVolunteerUser(value[4])">[x]</button></td>
+            <td>{{value[3]}}</td>
             <td>{{value[2]}}</td>
             <td>{{value[1]}}</td>
             <td>{{value[0]}}</td>

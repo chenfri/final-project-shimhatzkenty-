@@ -2,8 +2,8 @@
 
 
 .formCSS{
-    
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/4k-wallpaper-background-blur-blurred-background-1242348.jpg?alt=media&token=86486b62-a59b-4f74-a73e-a83116d15e32") ;
+  background-color: #d5afa6;    
+  // background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/4k-wallpaper-background-blur-blurred-background-1242348.jpg?alt=media&token=86486b62-a59b-4f74-a73e-a83116d15e32") ;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -32,6 +32,10 @@ input[type=text]{
 
 
 }
+}
+.personalInfo{
+  background-color: #ffffff80;
+  margin-bottom: auto;
 }
 
 /* Style inputs */
@@ -147,13 +151,16 @@ background: #FFFFFF;
  --border-color: #FFFFFF;
  --border-color-checked :#FFFFFF;
 }
-// .item-select  {
-//   max-width: 100%!important;
-//   width: 100%!important;
-//   right: auto!important;
-//   direction: ltr!important;
-//   padding-left: 0!important;
-// }
+
+.text-input text-input-md {
+  // width: auto;
+  // min-width: 30px;
+  // height: auto;
+  // min-height: 30px;
+  float: right;
+  background-color: #ffffff54;
+  
+}
 
 
 }
