@@ -23,6 +23,7 @@ import { Events } from 'ionic-angular';
 export class Form 
 {
   user = {} as User;
+  public assistants: any[][];
   public hobbies: any[]
   public time: any[]
   public numOfMeeting: any[]
@@ -63,6 +64,9 @@ export class Form
     this.user.hideMusic = false
     this.user.student = false
     this.user.onBehalf = false;
+    this.user.numOfAssistant = 0;
+
+    // this.assistants = [];
 
     this.hobbies = this.array.hobbies
     this.time = this.array.time
@@ -274,18 +278,28 @@ export class Form
         this.add_data_to_firebase_Volunteer();
     }
   }
+  Assistant(){
+      this.user.numOfAssistant+=1;
+      // this.assistants[this.user.numOfAssistant-1][0] = nameAssistant;
+      // this.assistants[this.user.numOfAssistant-1][1] = phone;
+      // console.log(assistants);
 
+  }
 
   //update the variables if someone fill the form behalf elderly
   onbehalf()
   {
-    if (this.user.onBehalf === false)
+    if (this.user.onBehalf === false){
       this.user.onBehalf = true;
+      console.log("numOfAssistant ", this.user.numOfAssistant)
+    }
     else
     {
       this.user.onBehalf = false;
       this.user.nameAssistant = null;
       this.user.relationship = null;
+    
+      
     }
   }
 

@@ -10,6 +10,8 @@ export interface User
 
     onBehalf: boolean,
     nameAssistant: string,
+    // assistants: string[],
+    numOfAssistant: number,
     relationship: string,
     contact: string,
     description:string,

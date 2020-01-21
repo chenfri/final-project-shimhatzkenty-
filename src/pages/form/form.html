@@ -17,97 +17,121 @@
         <input *ngIf = "!user.loggedIn" type="submit" (click)= "registry()" value="יצירת חשבון"><br>
         <input *ngIf = "user.loggedIn" type="submit" (click)= "update_email_or_password()" value="עדכון פרטים">   <br> 
 
-        <!-- <ion-grid *ngIf = "user.hideForm"> -->
-        
-        <label >שם מלא</label><br>
-        <input text-right type="text" name="title" [(ngModel)] = "user.fullName" ><br>
-        
-        <div *ngIf="!user.elderly">
-            <label>(ת"ז (נדרש לצורך הביטוח</label><br>
-            <input text-right type="number" name="idStudent" [(ngModel)] = "user.id"><br>
-        </div>
+        <ion-grid *ngIf = "user.hideForm">
+        <ion-row style="direction: rtl;">
+            <ion-col>
+                <label >שם מלא</label>
+            </ion-col>
+            <ion-col *ngIf="!user.elderly">
+                <label>(ת"ז (נדרש לצורך הביטוח</label>
+            </ion-col>
+            <ion-col>
+                <label >כתובת מגורים</label>
+            </ion-col>
+            <ion-col>
+                <label >מספר פלאפון</label>
+            </ion-col>
+         </ion-row>
+         <ion-row style="direction: rtl;">
+            <ion-col>
+                <input text-right type="text" name="title" [(ngModel)] = "user.fullName" >
+            </ion-col>
+            <ion-col *ngIf="!user.elderly">
+                <input text-right type="number" name="idStudent" [(ngModel)] = "user.id">  
+            </ion-col>
+            <ion-col>
+                <input text-right type="text" name="address" [(ngModel)] = "user.address">
+                <input  type="submit" (click)= "get_UserLocation()" value="השתמש בשירותי מיקום">
+            </ion-col>
+            <ion-col>
+                <input text-right type="number" name="phone" [(ngModel)] = "user.phone" >
+            </ion-col>
+         </ion-row>
+         <br><br><br><br>
+         <ion-row style="direction: rtl;">
+            <ion-col>
+                <label >מגדר</label>
+                    <ion-item style="background-color:#ffffff00 ;" *ngFor="let gender of gender">
+                            <ion-label style="text-align: right;" > {{ gender.species }} </ion-label>
+                            <ion-checkbox  item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-checkbox>
+                    </ion-item>
 
-        <label >כתובת מגורים</label><br>
-        <input text-right type="text" name="address" [(ngModel)] = "user.address"><br>
-       
-        <input  type="submit" (click)= "get_UserLocation()" value="השתמש בשירותי מיקום"><br>
-        
-        <label >מספר פלאפון</label><br>
-        <input text-right type="number" name="phone" [(ngModel)] = "user.phone" ><br>
+            </ion-col>  
+            <ion-col style="background-color:#ffffff00 ;" *ngIf ="!user.elderly">
+                    <ion-label style="text-align: right; " > גיל</ion-label>
+                    <input style="float: right;width: auto;" text-right type="number" name="age" [(ngModel)] = "user.age" >
+            </ion-col>
+            <ion-col *ngIf="!user.elderly">
 
-        <label >מגדר</label>
-            <ion-item style="background-color:#ffffff00 ;" *ngFor="let gender of gender">
-                    <ion-label style="text-align: right;" > {{ gender.species }} </ion-label>
-                    <ion-checkbox  item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-checkbox>
-            </ion-item>
+        <!------------------------------------- just for volunteer ----------------------------------------->
+                <ion-item style="background-color:#ffffff00 ;">
+                    <ion-label style="text-align: right;font-weight:bold;"  >סטודנט </ion-label>
 
+                    <ion-checkbox item-right *ngIf="!user.elderly"   [checked]="user.student" (click) = "ifStudent()"></ion-checkbox>
+                </ion-item>
             
-        <div style="background-color:#ffffff00 ;" *ngIf ="!user.elderly" >
+               
 
-            <ion-label style="text-align: right; " > גיל</ion-label>
-            <input style="float: right;width: auto;" text-right type="number" name="age" [(ngModel)] = "user.age" >
-        </div >
+                <div class="Assistant"  *ngIf="user.student" style="background-color: #ffffff00;" >
+                    <label  >מוסד אקדמי</label><br>
+                    <input text-right style="  width: 80%;" type="text" name="college" [(ngModel)] = "user.college" >
+                  
+                </div>
+            </ion-col>
+            <ion-col *ngIf= "!user.elderly">
+                <label class= "titleForm"  style="float: right;"  >:מרחק נסיעה מקסימלי בק"מ </label>
+                <label style="float: right; width: 100%;" *ngIf= "!user.elderly" >
 
-
-<!------------------------------------- just for volunteer ----------------------------------------->
-    <ion-item *ngIf="!user.elderly" style="background-color:#ffffff00 ;">
-        <ion-label style="text-align: right;font-weight:bold;"  >סטודנט </ion-label>
-
-        <ion-checkbox item-right *ngIf="!user.elderly"   [checked]="user.student" (click) = "ifStudent()"></ion-checkbox>
-    </ion-item>
-
-          <br><br><br>
-
-        <div class="Assistant"  *ngIf="user.student" style="background-color: #ffffff00;" >
-            <label  >מוסד אקדמי</label><br>
-            <input text-right style="  width: 80%;" type="text" name="college" [(ngModel)] = "user.college" >
-            <br><br>
-        </div>
-
-        <label class= "titleForm"  style="float: right;" *ngIf= "!user.elderly" >:מרחק נסיעה מקסימלי בק"מ </label>
-        <label style="float: right; width: 100%;" *ngIf= "!user.elderly" >
-
-        <br><br>
-        <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange">
-        המרחק שנבחר: {{user.range}}
-        <br><br><br><br>
-        </label>
+                <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange">
+                המרחק שנבחר: {{user.range}}
+                </label>
+            </ion-col>
 
 <!-------------------------------- just for elderly ------------------------------------------->
+        <ion-col *ngIf="user.elderly">
+            <ion-item style="background-color:#ffffff00">
+                <ion-label style="text-align: right; font-weight:bold;"> אני ממלא את הטופס בשם מישהו אחר</ion-label>
+                <ion-checkbox item-right  [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
+            </ion-item>
 
-    <ion-item style="background-color:#ffffff00" *ngIf="user.elderly">
-        <ion-label style="text-align: right; font-weight:bold;"> אני ממלא את הטופס בשם מישהו אחר</ion-label>
-        <ion-checkbox item-right  [checked]="user.onBehalf" (click) = "onbehalf()"></ion-checkbox>
-    </ion-item>
 
+            <div class="Assistant"  *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
+                <label style="float: right;" >שמך המלא</label><br>
+                <input text-right type="text" name="nameAssistant" [(ngModel)] = "user.nameAssistant">
+                <br><br>
 
-        <div class="Assistant"  *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
-            <label style="float: right;" >שמך המלא</label><br>
-            <input text-right type="text" name="nameAssistant" [(ngModel)] = "user.nameAssistant">
-            <br><br>
+                <label style="float: right;">מספר פלאפון</label><br>
+                <input text-right type="number" name="phone" [(ngModel)] = "user.contact">
+                <br><br>
+        
+                <label style="float: right;" >קרבה לקשיש</label><br>
+                <input text-right type="text" name="relationship" [(ngModel)] = "user.relationship">
+                <br><br>
 
-            <label style="float: right;">מספר פלאפון</label><br>
-            <input text-right type="number" name="phone" [(ngModel)] = "user.contact">
-            <br><br>
-      
-            <label style="float: right;" >קרבה לקשיש</label><br>
-            <input text-right type="text" name="relationship" [(ngModel)] = "user.relationship">
-            <br><br>
+                <label style="float: right;" >ארגון</label><br><br>
+                <ion-item style="float: right; width: fit-content; ">
+                    <ion-select style="  max-width: 100%!important;
+                    width: 100%!important;
+                    right: auto!important;
+                    direction: ltr!important;
+                    padding-left: 0!important;"
+                    multiple="false" interface="popover" name="select" placeholder="בחר שם ארגון">
+                    <ion-option  *ngFor="let organization of organization" [value] = "organization.species"
+                    [selected]="organization.currentValue" (ionSelect)="select(organization)">{{organization.species}}</ion-option>
+                    </ion-select>
+                </ion-item>
+           
+              <button item-right style="background: #ffffff00;" (click)="Assistant()">
+                <label class ="addPerson" >הוסף בן משפחה נוסף</label>
 
-            <label style="float: right;" >ארגון</label><br><br>
-            <ion-item style="float: right; width: fit-content; ">
-                <ion-select style="  max-width: 100%!important;
-                width: 100%!important;
-                right: auto!important;
-                direction: ltr!important;
-                padding-left: 0!important;"
-                 multiple="false" interface="popover" name="select" placeholder="בחר שם ארגון">
-                  <ion-option  *ngFor="let organization of organization" [value] = "organization.species"
-                   [selected]="organization.currentValue" (ionSelect)="select(organization)">{{organization.species}}</ion-option>
-                </ion-select>
-              </ion-item>
-  <br><br><br><br><br><br>
-        </div>
+                <ion-icon style="size: large;"  name="add-circle"></ion-icon>
+              </button>
+                <br><br>
+       
+
+                </div>   
+            </ion-col>
+        </ion-row>
 <!---------------------------------------------------------------------------------------------->
         <ion-grid style="background-color: #ffffff80;">
             <ion-row>
@@ -246,7 +270,7 @@
         <ion-grid style="text-align: -webkit-right;" >
         <input  type="submit" (click)= "check_field_value()" value="שמירה">
         <br><br><br><br></ion-grid>
-            <!-- </ion-grid> -->
+            </ion-grid>
     </form>
 </ion-content>
   
