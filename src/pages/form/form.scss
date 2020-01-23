@@ -63,8 +63,19 @@ input[type=submit] {
   border: none;
   cursor: pointer;
 }
+.button {
+  width: fit-content;
+  background-color: #af4c4c96; 
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+}
 
 input[type=submit]:hover {
+  background-color:#945151;
+}
+.button:hover {
   background-color:#945151;
 }
 
