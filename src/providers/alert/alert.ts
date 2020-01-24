@@ -279,7 +279,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה לבחור תחביב אחד לפחות',
+      subTitle: 'חובה לבחור תחום עניין אחד לפחות',
       buttons: ['OK']
     });
     alert.present();
