@@ -18,6 +18,7 @@ import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
 import {AngularFireModule} from 'angularfire2'
 import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http'
 import { AlertProvider } from '../providers/alert/alert';
 import {Functions} from '../providers/functions'
 import {Arrays} from '../providers/arrays'
@@ -61,6 +62,7 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
     HttpModule,
+    HttpClientModule,
     NgImageSliderModule
   ],
   bootstrap: [IonicApp],

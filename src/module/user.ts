@@ -4,13 +4,15 @@ export interface User
     password: string,
     fullName: string,
     phone: string,
-    address: string,
+    street: string,
+    homeNumber: string,
+    city: string,
+
     loggedIn: boolean,
     dateTime: string,
 
     onBehalf: boolean,
     nameAssistant: string,
-    // assistants: string[],
     numOfAssistant: number,
     relationship: string,
     contact: string,

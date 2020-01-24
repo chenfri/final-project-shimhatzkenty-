@@ -1,4 +1,6 @@
 export var MyGlobal = {
-    address: '',
+    street: '',
+    homeNumber: '',
+    city: '',
     index: 0
   };

@@ -10,9 +10,8 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
-import { Geolocation} from '@capacitor/core';
-import { ThrowStmt } from '@angular/compiler';
 import { Events } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'page-form',
@@ -32,17 +31,19 @@ export class Form
   public musicStyle: any[]
   public language: any[]
   public meetingWith: any[]
-  public neighborhood: any[]
+  public zone: any[]
   public musical_instrument: any[]
   public dayOfMeeting: any[]
   public organization: any[]
   public ifRegister = false
+  public neighborhoods: any[57]
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
-          public alert: AlertProvider, public fun:Functions , public array:Arrays, public auth:AngularFireAuth,
-          public events: Events)
+          public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
+          public events: Events, private http: HttpClient)
     {
 
+    this.readCsvData()
     this.user.loggedIn = this.params.get('login');
     console.log("login :", this.user.loggedIn)
     this.user.elderly = this.params.get('elderly');
@@ -51,6 +52,8 @@ export class Form
     console.log("volunteer :", this.user.volunteer)
  
     //update variables
+    this.user.homeNumber = null
+    this.user.city = null
     this.user.nameAssistant = null;
     this.user.relationship = null;
     this.user.college = null
@@ -76,7 +79,7 @@ export class Form
     this.musicStyle = this.array.musicStyle
     this.language = this.array.language
     this.meetingWith = this.array.meetingWith
-    this.neighborhood = this.array.neighborhood
+    this.zone = this.array.zone
     this.musical_instrument = this.array.musical_instrument
     this.dayOfMeeting = this.array.dayOfMeeting
     this.organization = this.array.organization
@@ -99,25 +102,52 @@ export class Form
   // }
 
 
+  //read list of neighborhoods from csv file
+  readCsvData()
+  {
+    let array = []
+    let data = '' , index = 0;
+
+    this.http.get('./assets/neighborhoods.csv', {responseType: 'text'}).subscribe(res => {
+      data = res
+    }, err => console.error(err))
+
+
+    setTimeout(() => 
+    {
+      for(let i = 0 ;i < 57; i ++)
+      {
+        let x = '';
+        for (let k = index ; k < data.length ; k++)
+        {
+          if(data[k] == '\n')
+          {
+            index = k+1
+            break
+          }
+          x += data[k]
+        }
+   
+        array[i] = {'species': x,
+        'currentValue': false}
+      }
+      this.neighborhoods = array
+      console.log(this.neighborhoods)
+    }, 5000);
+    
+  }
+
+
   async registry()
   {
-    let str = await this.fun.registry(this.user.email, this.user.password)
+    let str = await this.func.registry(this.user.email, this.user.password)
     if(str == "sucsses"){
       this.ifRegister = true;
-      // this.alert.showAlert();
       this.user.hideForm = true;
-
       // console.log('User created! , ' + this.user.dateTime)
-
     }
 
-
-    this.alert.showError_NotEmailVerfied();
-
-    // setTimeout(() => {
-    //   if(str == "sucsses")
-    //   this.alert.showAlert();
-    // }, 5000);
+    //this.alert.showError_NotEmailVerfied();
   }
 
 
@@ -169,16 +199,20 @@ export class Form
   //check that all user inputs are legal
   check_field_value()
   {
-    console.log("this.user.id ",this.user.id)
+    console.log("this.user.id ", this.user.id)
     let flag = 0;
 
     if (typeof (this.user.fullName) === "undefined" || typeof (this.user.phone) === "undefined"
-      || typeof (this.user.address) === "undefined" || typeof (this.user.email) === "undefined"
-      || typeof (this.user.password) === "undefined") {
+      || typeof (this.user.email) === "undefined" || typeof (this.user.password) === "undefined") {
       this.alert.error_emptyFields();
       flag = 1;
     }
 
+    else if ((this.check_arrayVaule(this.neighborhoods) == 1) || this.user.street === "undefined")
+    {
+      this.alert.showError_address();
+      flag = 1;
+    }
     else if (!this.user.elderly && (this.user.age == null || this.user.range == 0))
     {
       if(this.user.age ==  null)
@@ -226,8 +260,8 @@ export class Form
       flag = 1;
     }
 
-    else if (this.check_arrayVaule(this.neighborhood) == 1) {
-      this.alert.showError_neighborhood();
+    else if (this.check_arrayVaule(this.zone) == 1) {
+      this.alert.showError_zone();
       flag = 1;
     }
 
@@ -339,8 +373,9 @@ export class Form
       if (this.readyState == 4 && this.status == 200)
       {
         var address = JSON.parse(this.responseText)
-        alert(address.results[0].formatted_address)
-        MyGlobal.address = address.results[0].formatted_address
+        MyGlobal.street = address.results[0].address_components[1].long_name
+        MyGlobal.homeNumber = address.results[0].address_components[0].long_name
+        MyGlobal.city = address.results[0].address_components[2].long_name
       }
     };
 
@@ -355,10 +390,9 @@ export class Form
 
     navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
     setTimeout(() => {
-      //if(MyGlobal.address == "")
-        //alert("יש להפעיל שירותי מיקום")
-      this.user.address = MyGlobal.address
-      console.log(this.user.address)
+      this.user.street = MyGlobal.street
+      this.user.homeNumber = MyGlobal.homeNumber
+      this.user.city = MyGlobal.city
     }, 3000);
   }
 
@@ -373,19 +407,19 @@ export class Form
     db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
-        address: this.user.address,
+        address: [this.user.street, this.user.homeNumber, this.user.city],
         phone: this.user.phone,
         email: this.user.email,
         hobbies: this.hobbies,
         range: this.user.range,
         meeting_time: this.time,
         num_of_meetings: this.numOfMeeting,
-       // placeOfMeeting: this.place,
         gender: this.gender,
         age: this.user.age,
         language: this.language,
         meetingWith: this.meetingWith,
-        neighborhood: this.neighborhood,
+        neighborhoods: this.neighborhoods,
+        zone: this.zone,
         student: this.user.student,
         college: this.user.college,
         id: this.user.id,
@@ -417,7 +451,7 @@ export class Form
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
-        address: this.user.address,
+        address: [this.user.street, this.user.homeNumber, this.user.city],
         phone: this.user.phone,
         email: this.user.email,
         gender: this.gender,
@@ -427,12 +461,13 @@ export class Form
         contact: this.user.contact,
         description: this.user.description,
         organization: this.organization,
+        neighborhoods: this.neighborhoods,
         hobbies: this.hobbies,
         meeting_time: this.time,
         musicStyle: this.musicStyle,
         language: this.language,
         meetingWith: this.meetingWith,
-        neighborhood: this.neighborhood,
+        zone: this.zone,
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
         password: this.user.password,
@@ -461,10 +496,11 @@ export class Form
       this.init(this.musicStyle)
       this.init(this.language)
       this.init(this.meetingWith)
-      this.init(this.neighborhood)
+      this.init(this.zone)
       this.init(this.musical_instrument)
       this.init(this.dayOfMeeting)
       this.init(this.organization)
+      this.init(this.neighborhoods)
     }
   
   
@@ -484,15 +520,18 @@ export class Form
     .then(result => {
       if (!result.exists) return
       this.user.fullName = result.data().fullName
-      this.user.address = result.data().address
+      this.user.street = result.data().address[0]
+      this.user.homeNumber = result.data().address[1]
+      this.user.city = result.data().address[2]
       this.user.phone = result.data().phone
+      this.neighborhoods = result.data().neighborhoods
       this.user.email = result.data().email
       this.hobbies = result.data().hobbies
       this.time = result.data().meeting_time
       this.gender = result.data().gender
       this.language = result.data().language
       this.meetingWith = result.data().meetingWith
-      this.neighborhood = result.data().neighborhood
+      this.zone = result.data().zone
       this.user.hideMusic = result.data().hideMusic
       this.dayOfMeeting = result.data().dayOfMeeting
       this.musicStyle = result.data().musicStyle
@@ -502,7 +541,6 @@ export class Form
       {
         this.user.range = result.data().range,
         this.numOfMeeting = result.data().num_of_meetings
-       // this.place = result.data().placeOfMeeting
         this.user.age = result.data().age
         this.user.id = result.data().id
         this.user.college = result.data().college
@@ -554,7 +592,7 @@ export class Form
   
   CheckboxClicked4(item: any, $event)
   {
-    this.CheckboxClicked(item, this.neighborhood)
+    this.CheckboxClicked(item, this.zone)
   }
 
   CheckboxClicked5(item: any, $event)
@@ -618,8 +656,9 @@ export class Form
   }
 
   radioClicked6(item: any, $event) {
-    this.radioClicked(item, this.neighborhood)
+    this.radioClicked(item, this.zone)
   }
+
 
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
@@ -641,11 +680,17 @@ export class Form
     }
   }
 
-  select(item)
+  selectOrg(item)
   {
     this.radioClicked(item, this.organization)
   }
 
+
+  
+  selectNH(item)
+  {
+    this.radioClicked(item, this.neighborhoods)
+  }
 }
 
 

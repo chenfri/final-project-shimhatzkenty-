@@ -35,12 +35,11 @@ export class LoginPage
     {
       firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(user =>
       {
-        if(!user.user.emailVerified)
+        /*if(!user.user.emailVerified)
           this.alert.showAlert_EmailVerfied();
         else
-        {
+        {*/
           console.log("verified")
-          
           this.user.loggedIn = true;
           const db = firebase.firestore();
     
@@ -53,7 +52,7 @@ export class LoginPage
                 this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin,
                 'elderly':this.user.elderly,'volunteer':this.user.volunteer});
             })
-        }
+        //}
         }).catch(error => { 
           if(error.code == "auth/user-not-found")
             this.alert.error_emailIsNotExist();

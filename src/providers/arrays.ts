@@ -4,6 +4,7 @@ import { AlertController} from 'ionic-angular';
 
 export class Arrays
 {
+
     public hobbies: any[]
     public time: any[]
     public numOfMeeting: any[]
@@ -12,14 +13,14 @@ export class Arrays
     public musicStyle: any[]
     public language: any[]
     public meetingWith: any[]
-    public neighborhood: any[]
+    public zone: any[]
     public musical_instrument: any[]
     public dayOfMeeting: any[]
     public organization: any[]
 
   constructor(public alertCtrl: AlertController)
   {
-  
+
     this.hobbies = [
         {
           'species': 'מוסיקה / שירה',
@@ -178,7 +179,7 @@ export class Arrays
       }];
 
 
-    this.neighborhood = [
+    this.zone = [
       {
         'species': 'אזור פסגת זאב, נווה יעקב, רמות',
         'currentValue': false

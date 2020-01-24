@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AlertController ,NavController,NavParams} from 'ionic-angular';
+import { AlertController} from 'ionic-angular';
 import { User } from '../module/user'
 import {AlertProvider} from './alert/alert'
-import firebase, { firestore } from 'firebase';
+import firebase from 'firebase';
 @Injectable()
 export class Functions
 {
@@ -24,8 +24,10 @@ export class Functions
       try {
         const res = await firebase.auth().createUserWithEmailAndPassword(email, password);
         if (res)
-          { firebase.auth().currentUser.sendEmailVerification()
-          return "sucsses"}
+        { 
+          //firebase.auth().currentUser.sendEmailVerification()
+          return "sucsses"
+        }
           
       }
       catch (e) {
