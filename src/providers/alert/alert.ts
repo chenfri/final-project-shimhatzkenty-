@@ -70,7 +70,7 @@ export class AlertProvider
     alert.present();
   }
   
-  showError_neighborhood()
+  showError_zone()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
@@ -140,6 +140,17 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא קרבה לקשיש/ ארגון' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showError_address()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא שכונה ורחוב מגורים' ,
       buttons: ['OK']
     });
     alert.present();
@@ -279,7 +290,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה לבחור תחביב אחד לפחות',
+      subTitle: 'חובה לבחור תחום עניין אחד לפחות',
       buttons: ['OK']
     });
     alert.present();

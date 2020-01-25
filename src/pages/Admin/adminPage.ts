@@ -1,10 +1,8 @@
 import { NavController,NavParams, AlertController} from 'ionic-angular';
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
-import firebase, { firestore } from 'firebase';
+import firebase from 'firebase';
 import * as papa from 'papaparse';
 import {AlertProvider} from '../../providers/alert/alert'
-import { contactMessage } from '../../module/contactMessage'
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
@@ -245,15 +243,12 @@ export class adminPage
       this.organizations = result.data().organization;
         
       for (let i = 0; i < this.organizations.length; i++) {
-          if(this.organizations[i].currentValue){
-            // console.log("organization.currentValue :  " + this.organizations[i].species)
-            // return this.organizations[i].species;
             this.organizationName = this.organizations[i].species;
             console.log("organization.func :  " + this.organizationName)
 
           }
       }    
-      })
+      )
   }
 
   click_home()
