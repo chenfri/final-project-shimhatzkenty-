@@ -34,7 +34,7 @@ export class HomePage
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     if(this.user.loggedIn == undefined)
-      this.user.loggedIn = false;
+    this.user.loggedIn = false;
     console.log(this.user.loggedIn)
 
     console.log("if admin:")
@@ -48,9 +48,6 @@ export class HomePage
     console.log("if volunteer:")
     this.user.volunteer = this.params.get('volunteer');
     console.log(this.user.volunteer)
-
-    /*if(this.user.loggedIn && this.user.Admin == false)
-        this.checkUserType(firebase.auth().currentUser.uid);*/
 
 
     if(this.platform.is('android'))
@@ -94,7 +91,6 @@ export class HomePage
       {
         if(uid != undefined)
         {
-         // this.checkUserType(uid);
            db.collection('Admin').doc(uid).get() //check if the  last user was logged in is admin
            .then(result =>{if(result.exists) {
             adminLogin = true
@@ -115,6 +111,8 @@ export class HomePage
               this.user.loggedIn = result.data().loggedIn;  
               this.user.email =  result.data().email
               this.user.password = result.data().password
+              this.user.elderly = true
+              this.user.loggedIn = true
             }
             else //get volunteer document for know email and password
             {
@@ -126,13 +124,15 @@ export class HomePage
                   this.user.loggedIn = result.data().loggedIn;  
                   this.user.email =  result.data().email
                   this.user.password = result.data().password
+                  this.user.volunteer = true
+                  this.user.loggedIn = true
+                  console.log("email ", this.user.email)
                 }
-                this.user.loggedIn = true
                 firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success vol login"))
              
               }).catch(error => console.log(error))
             }
-              this.user.loggedIn = true
+              
               firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success elder login"))
 
         }).catch(error => console.log(error))
@@ -143,24 +143,6 @@ export class HomePage
     }
   }
 
-
-  checkUserType(uid)
-  {
-    const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(uid).get()
-      .then(result =>{
-        if (result.exists)
-          this.user.elderly = true;
-        else
-        {
-          db.collection('volunteerUsers').doc(uid).get()
-          .then(result =>{
-            if (result.exists)
-              this.user.volunteer = true;  
-           }).catch(error => {console.log(error)})
-        }
-      }).catch(error => {console.log(error)})
-  }
 
 
   elderly_form()
@@ -185,10 +167,12 @@ export class HomePage
     this.navCtrl.push(contactPage, {'login':this.user.loggedIn});
   }
   
+
   gallery() {
     this.navCtrl.push(GalleryPage, {'login':this.user.loggedIn});
   }
 
+  
   login(){
 
     this.navCtrl.push(LoginPage, {'login':this.user.loggedIn});
