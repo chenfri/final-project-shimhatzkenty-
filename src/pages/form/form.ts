@@ -22,7 +22,7 @@ import { HttpClient } from '@angular/common/http';
 export class Form 
 {
   user = {} as User;
-  public assistants: any[][];
+  public assistants: any[];
   public hobbies: any[]
   public time: any[]
   public numOfMeeting: any[]
@@ -36,6 +36,8 @@ export class Form
   public dayOfMeeting: any[]
   public organization: any[]
   public ifRegister = false
+  public anotherName = "";
+  public phoneNum = "";
   public neighborhoods: any[57]
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
@@ -69,7 +71,8 @@ export class Form
     this.user.onBehalf = false;
     this.user.numOfAssistant = 0;
 
-    // this.assistants = [];
+    this.assistants = [];
+    
 
     this.hobbies = this.array.hobbies
     this.time = this.array.time
@@ -314,11 +317,15 @@ export class Form
   }
   
   Assistant(){
-      this.user.numOfAssistant+=1;
-      // this.assistants[this.user.numOfAssistant-1][0] = nameAssistant;
-      // this.assistants[this.user.numOfAssistant-1][1] = phone;
-      // console.log(assistants);
+     
+      this.assistants[this.user.numOfAssistant] = this.anotherName;
+      this.assistants[this.user.numOfAssistant+1] = this.phoneNum;
+      console.log("ass: "+ this.assistants);
 
+      this.anotherName = null;
+      this.phoneNum;
+
+      this.user.numOfAssistant+=2;
   }
 
   //update the variables if someone fill the form behalf elderly
