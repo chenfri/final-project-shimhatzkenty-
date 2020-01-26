@@ -34,7 +34,7 @@ export class HomePage
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     if(this.user.loggedIn == undefined)
-    this.user.loggedIn = false;
+      this.user.loggedIn = false;
     console.log(this.user.loggedIn)
 
     console.log("if admin:")
@@ -49,8 +49,8 @@ export class HomePage
     this.user.volunteer = this.params.get('volunteer');
     console.log(this.user.volunteer)
 
-    if(this.user.loggedIn && this.user.Admin == false)
-        this.checkUserType(firebase.auth().currentUser.uid);
+    /*if(this.user.loggedIn && this.user.Admin == false)
+        this.checkUserType(firebase.auth().currentUser.uid);*/
 
 
     if(this.platform.is('android'))
@@ -94,7 +94,7 @@ export class HomePage
       {
         if(uid != undefined)
         {
-          this.checkUserType(uid);
+         // this.checkUserType(uid);
            db.collection('Admin').doc(uid).get() //check if the  last user was logged in is admin
            .then(result =>{if(result.exists) {
             adminLogin = true
