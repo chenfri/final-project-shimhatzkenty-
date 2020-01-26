@@ -22,6 +22,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { AlertProvider } from '../providers/alert/alert';
 import {Functions} from '../providers/functions'
 import {Arrays} from '../providers/arrays'
+import {SelectSearchableModule} from 'ionic-select-searchable'
 
 export const firebaseConfig = {
     apiKey: "AIzaSyDYpEw_jy9bhMFXZ0hTMJRay8hu_OHq6Fw",
@@ -58,6 +59,7 @@ export const firebaseConfig = {
   ],
   imports: [
     BrowserModule,
+    SelectSearchableModule,
     IonicModule.forRoot(MyApp),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),

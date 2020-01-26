@@ -6,12 +6,13 @@ import firebase from 'firebase';
 import { AlertProvider } from '../../providers/alert/alert'
 import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
-import { Component } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import {SelectSearchableComponent} from 'ionic-select-searchable'
 
 @Component({
   selector: 'page-form',
@@ -21,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class Form 
 {
+  @ViewChild('mySelect') selectComponent:SelectSearchableComponent
   user = {} as User;
   public assistants: any[];
   public hobbies: any[]
@@ -39,6 +41,7 @@ export class Form
   public anotherName = "";
   public phoneNum = "";
   public neighborhoods: any[57]
+  public selectedNH : any
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
@@ -54,6 +57,7 @@ export class Form
     console.log("volunteer :", this.user.volunteer)
  
     //update variables
+    this.selectedNH = null
     this.user.homeNumber = null
     this.user.city = null
     this.user.nameAssistant = null;
@@ -99,6 +103,8 @@ export class Form
       this.user.hideForm = false
 
   }
+
+
   // createUser(user) {
   //   console.log('User created! , ' + Date.now())
   //   this.events.publish('user:created', user, Date.now());
@@ -116,6 +122,7 @@ export class Form
     }, err => console.error(err))
 
 
+    //convert the string to array of object
     setTimeout(() => 
     {
       for(let i = 0 ;i < 57; i ++)
@@ -285,26 +292,6 @@ export class Form
         this.alert.error_numOfMeeting();
         flag = 1;
       }
-
-     /* else if (this.check_arrayVaule(this.place) == 1) {
-        this.alert.error_place();
-        flag = 1;
-      }  */
-
-      /*else if (this.check_arrayVaule(this.musicStyle) == 1) {
-        this.alert.showError_musicStyle();
-        flag = 1;
-      }  */
-
-      /*else if (this.check_arrayVaule(this.musical_instrument) == 1) {
-        this.alert.showError_musical_instrument();
-        flag = 1;
-      }  */
-
-     /* if (this.check_arrayVaule(this.time) == 1) {
-        this.alert.error_timeOfMeeting();
-        flag = 1;
-      }*/
     }
 
     if (flag == 0)
@@ -414,7 +401,7 @@ export class Form
     db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
-        address: [this.user.street, this.user.homeNumber, this.user.city],
+        address: [this.user.street, this.user.homeNumber,this.selectedNH.species, this.user.city],
         phone: this.user.phone,
         email: this.user.email,
         hobbies: this.hobbies,
@@ -425,7 +412,6 @@ export class Form
         age: this.user.age,
         language: this.language,
         meetingWith: this.meetingWith,
-        neighborhoods: this.neighborhoods,
         zone: this.zone,
         student: this.user.student,
         college: this.user.college,
@@ -458,7 +444,7 @@ export class Form
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
-        address: [this.user.street, this.user.homeNumber, this.user.city],
+        address: [this.user.street, this.user.homeNumber, this.selectedNH.species, this.user.city],
         phone: this.user.phone,
         email: this.user.email,
         gender: this.gender,
@@ -468,7 +454,6 @@ export class Form
         contact: this.user.contact,
         description: this.user.description,
         organization: this.organization,
-        neighborhoods: this.neighborhoods,
         hobbies: this.hobbies,
         meeting_time: this.time,
         musicStyle: this.musicStyle,
@@ -520,18 +505,20 @@ export class Form
 
   getData_fromFirebase(str)
   {
-    console.log("av")
-    console.log(firebase.auth().currentUser.uid)
     const db = firebase.firestore();
+
     db.collection(str).doc(firebase.auth().currentUser.uid).get()
     .then(result => {
       if (!result.exists) return
       this.user.fullName = result.data().fullName
       this.user.street = result.data().address[0]
       this.user.homeNumber = result.data().address[1]
-      this.user.city = result.data().address[2]
+      this.selectedNH =  {
+        'species': result.data().address[2],
+        'currentValue': false
+      };
+      this.user.city = result.data().address[3]
       this.user.phone = result.data().phone
-      this.neighborhoods = result.data().neighborhoods
       this.user.email = result.data().email
       this.hobbies = result.data().hobbies
       this.time = result.data().meeting_time
@@ -566,7 +553,7 @@ export class Form
       }
 
     }).catch(error => {console.log(error)})
-    
+
   }
 
 
@@ -687,16 +674,16 @@ export class Form
     }
   }
 
+
   selectOrg(item)
   {
     this.radioClicked(item, this.organization)
   }
 
-
   
-  selectNH(item)
+  select_neighborhood(event:{component: SelectSearchableComponent, value:any})
   {
-    this.radioClicked(item, this.neighborhoods)
+    this.radioClicked(event.value, this.neighborhoods)
   }
 }
 
