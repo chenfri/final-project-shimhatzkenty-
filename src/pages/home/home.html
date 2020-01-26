@@ -10,9 +10,9 @@
         <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button> -->
         <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button> -->
         <button ion-button item-start *ngIf="!user.loggedIn" (click)="login()">כניסת משתמש רשום</button>
-        <button ion-button *ngIf="!user.volunteer && !user.elderly && !user.Admin" (click)="elderly_form()">רישום לאזרח הותיק</button>
+        <button ion-button *ngIf="(!user.volunteer && !user.elderly && !user.Admin) || !user.loggedIn" (click)="elderly_form()">רישום לאזרח הותיק</button>
         <button ion-button *ngIf="user.volunteer && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button>
-        <button ion-button *ngIf="!user.volunteer && !user.elderly && !user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
+        <button ion-button *ngIf="(!user.volunteer && !user.elderly && !user.Admin) || !user.loggedIn" (click)="volunteer_form()">הרשם כמתנדב</button>
         <button ion-button *ngIf="user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button>
         <button ion-button item-end *ngIf="user.Admin" (click)=" get_data_for_admin()">דף ניהול</button>
         <button ion-button (click)="gallery()">גלריה</button>

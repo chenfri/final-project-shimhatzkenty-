@@ -42,6 +42,8 @@ export class Form
   public phoneNum = "";
   public neighborhoods: any[57]
   public selectedNH : any
+  public durationVol: any[]
+
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
@@ -77,7 +79,7 @@ export class Form
 
     this.assistants = [];
     
-
+    this.durationVol = this.array.durationVol
     this.hobbies = this.array.hobbies
     this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
@@ -101,7 +103,7 @@ export class Form
     }
     else
       this.user.hideForm = false
-
+    
   }
 
 
@@ -114,6 +116,7 @@ export class Form
   //read list of neighborhoods from csv file
   readCsvData()
   {
+    console.log("aa")
     let array = []
     let data = '' , index = 0;
 
@@ -143,7 +146,7 @@ export class Form
       }
       this.neighborhoods = array
       console.log(this.neighborhoods)
-    }, 5000);
+    }, 3000);
     
   }
 
@@ -168,6 +171,12 @@ export class Form
     firebase.auth().currentUser.updateEmail(this.user.email);
     this.alert.showAlert_changeEmailAndPassword();
     
+    if(!this.user.loggedIn)
+    {
+      this.user.elderly = false
+      this.user.volunteer = false
+    }
+
     this.navCtrl.push(HomePage, {
       'login': this.user.loggedIn, 'elderly': this.user.elderly
       , 'volunteer': this.user.volunteer
@@ -209,20 +218,32 @@ export class Form
   //check that all user inputs are legal
   check_field_value()
   {
-    console.log("this.user.id ", this.user.id)
+    console.log("aa")
     let flag = 0;
 
-    if (typeof (this.user.fullName) === "undefined" || typeof (this.user.phone) === "undefined"
-      || typeof (this.user.email) === "undefined" || typeof (this.user.password) === "undefined") {
+    if (typeof (this.user.phone) === "undefined"|| typeof (this.user.email) === "undefined" || typeof (this.user.password) === "undefined") {
       this.alert.error_emptyFields();
       flag = 1;
     }
 
-    else if ((this.check_arrayVaule(this.neighborhoods) == 1) || this.user.street === "undefined")
+    else if (this.selectedNH == null || this.user.street === "undefined")
     {
       this.alert.showError_address();
       flag = 1;
     }
+
+    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
+    {
+      this.alert.showError_behalf();
+       flag = 1;
+    }
+
+    else if (typeof (this.user.fullName) === "undefined" && !this.user.onBehalf)
+    {
+        this.alert.error_emptyFields();
+        flag = 1;
+    }
+
     else if (!this.user.elderly && (this.user.age == null || this.user.range == 0))
     {
       if(this.user.age ==  null)
@@ -246,12 +267,6 @@ export class Form
     else if (this.user.student && this.user.college == null)
     {
        this.alert.showError_studentDetails();
-       flag = 1;
-    }
-    
-    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
-    {
-      this.alert.showError_behalf();
        flag = 1;
     }
     
@@ -292,6 +307,10 @@ export class Form
         this.alert.error_numOfMeeting();
         flag = 1;
       }
+      if (this.check_arrayVaule(this.durationVol) == 1 && !this.user.student) {
+        this.alert.error_VolunteerDuration();
+        flag = 1;
+      }
     }
 
     if (flag == 0)
@@ -301,6 +320,11 @@ export class Form
       else
         this.add_data_to_firebase_Volunteer();
     }
+
+
+    if (typeof (this.user.fullName) === "undefined" && this.user.onBehalf)
+      this.user.fullName = 'חסוי'
+
   }
   
   Assistant(){
@@ -421,7 +445,8 @@ export class Form
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
         password: this.user.password,
-        dateTime : this.user.dateTime 
+        dateTime : this.user.dateTime ,
+        durationVol: this.durationVol,
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -492,7 +517,7 @@ export class Form
       this.init(this.musical_instrument)
       this.init(this.dayOfMeeting)
       this.init(this.organization)
-      this.init(this.neighborhoods)
+      this.init(this.durationVol)
     }
   
   
@@ -513,10 +538,11 @@ export class Form
       this.user.fullName = result.data().fullName
       this.user.street = result.data().address[0]
       this.user.homeNumber = result.data().address[1]
-      this.selectedNH =  {
+      this.selectedNH = {
         'species': result.data().address[2],
-        'currentValue': false
-      };
+        'currentValue': true
+      }
+
       this.user.city = result.data().address[3]
       this.user.phone = result.data().phone
       this.user.email = result.data().email
@@ -534,13 +560,14 @@ export class Form
       if(this.user.volunteer)
       {
         this.user.range = result.data().range,
-        this.numOfMeeting = result.data().num_of_meetings
         this.user.age = result.data().age
         this.user.id = result.data().id
-        this.user.college = result.data().college
         this.user.student = result.data().student
         this.musical_instrument = result.data().musical_instrument
         this.user.dateTime = result.data().dateTime 
+        this.durationVol = result.data().durationVol
+        this.numOfMeeting = result.data().num_of_meetings
+        this.user.college = result.data().college
       }
       else
       {
@@ -553,7 +580,6 @@ export class Form
       }
 
     }).catch(error => {console.log(error)})
-
   }
 
 
@@ -653,6 +679,10 @@ export class Form
     this.radioClicked(item, this.zone)
   }
 
+
+  radioClicked7(item: any, $event) {
+    this.radioClicked(item, this.durationVol)
+  }
 
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)

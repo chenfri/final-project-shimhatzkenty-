@@ -330,6 +330,16 @@ export class AlertProvider
   }
 
 
+  error_VolunteerDuration()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור משך התנדבות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   error_numOfMeeting()
   {
     let alert = this.alertCtrl.create({
