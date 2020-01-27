@@ -7,7 +7,7 @@ export interface User
     street: string,
     homeNumber: string,
     city: string,
-
+    
     loggedIn: boolean,
     dateTime: string,
 

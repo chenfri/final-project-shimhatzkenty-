@@ -6,12 +6,13 @@ import firebase from 'firebase';
 import { AlertProvider } from '../../providers/alert/alert'
 import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
-import { Component } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
+import {SelectSearchableComponent} from 'ionic-select-searchable'
 
 @Component({
   selector: 'page-form',
@@ -21,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class Form 
 {
+  @ViewChild('mySelect') selectComponent:SelectSearchableComponent
   user = {} as User;
   public assistants: any[];
   public hobbies: any[]
@@ -39,6 +41,9 @@ export class Form
   public anotherName = "";
   public phoneNum = "";
   public neighborhoods: any[57]
+  public selectedNH : any
+  public durationVol: any[]
+
 
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
@@ -54,6 +59,7 @@ export class Form
     console.log("volunteer :", this.user.volunteer)
  
     //update variables
+    this.selectedNH = null
     this.user.homeNumber = null
     this.user.city = null
     this.user.nameAssistant = null;
@@ -73,7 +79,7 @@ export class Form
 
     this.assistants = [];
     
-
+    this.durationVol = this.array.durationVol
     this.hobbies = this.array.hobbies
     this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
@@ -97,8 +103,10 @@ export class Form
     }
     else
       this.user.hideForm = false
-
+    
   }
+
+
   // createUser(user) {
   //   console.log('User created! , ' + Date.now())
   //   this.events.publish('user:created', user, Date.now());
@@ -108,6 +116,7 @@ export class Form
   //read list of neighborhoods from csv file
   readCsvData()
   {
+    console.log("aa")
     let array = []
     let data = '' , index = 0;
 
@@ -116,6 +125,7 @@ export class Form
     }, err => console.error(err))
 
 
+    //convert the string to array of object
     setTimeout(() => 
     {
       for(let i = 0 ;i < 57; i ++)
@@ -136,7 +146,7 @@ export class Form
       }
       this.neighborhoods = array
       console.log(this.neighborhoods)
-    }, 5000);
+    }, 3000);
     
   }
 
@@ -150,7 +160,7 @@ export class Form
       // console.log('User created! , ' + this.user.dateTime)
     }
 
-    //this.alert.showError_NotEmailVerfied();
+    // this.alert.showError_NotEmailVerfied();
   }
 
 
@@ -161,6 +171,12 @@ export class Form
     firebase.auth().currentUser.updateEmail(this.user.email);
     this.alert.showAlert_changeEmailAndPassword();
     
+    if(!this.user.loggedIn)
+    {
+      this.user.elderly = false
+      this.user.volunteer = false
+    }
+
     this.navCtrl.push(HomePage, {
       'login': this.user.loggedIn, 'elderly': this.user.elderly
       , 'volunteer': this.user.volunteer
@@ -202,20 +218,32 @@ export class Form
   //check that all user inputs are legal
   check_field_value()
   {
-    console.log("this.user.id ", this.user.id)
+    console.log("aa")
     let flag = 0;
 
-    if (typeof (this.user.fullName) === "undefined" || typeof (this.user.phone) === "undefined"
-      || typeof (this.user.email) === "undefined" || typeof (this.user.password) === "undefined") {
+    if (typeof (this.user.phone) === "undefined"|| typeof (this.user.email) === "undefined" || typeof (this.user.password) === "undefined") {
       this.alert.error_emptyFields();
       flag = 1;
     }
 
-    else if ((this.check_arrayVaule(this.neighborhoods) == 1) || this.user.street === "undefined")
+    else if (this.selectedNH == null || this.user.street === "undefined")
     {
       this.alert.showError_address();
       flag = 1;
     }
+
+    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
+    {
+      this.alert.showError_behalf();
+       flag = 1;
+    }
+
+    else if (typeof (this.user.fullName) === "undefined" && !this.user.onBehalf)
+    {
+        this.alert.error_emptyFields();
+        flag = 1;
+    }
+
     else if (!this.user.elderly && (this.user.age == null || this.user.range == 0))
     {
       if(this.user.age ==  null)
@@ -239,12 +267,6 @@ export class Form
     else if (this.user.student && this.user.college == null)
     {
        this.alert.showError_studentDetails();
-       flag = 1;
-    }
-    
-    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
-    {
-      this.alert.showError_behalf();
        flag = 1;
     }
     
@@ -285,26 +307,10 @@ export class Form
         this.alert.error_numOfMeeting();
         flag = 1;
       }
-
-     /* else if (this.check_arrayVaule(this.place) == 1) {
-        this.alert.error_place();
+      if (this.check_arrayVaule(this.durationVol) == 1 && !this.user.student) {
+        this.alert.error_VolunteerDuration();
         flag = 1;
-      }  */
-
-      /*else if (this.check_arrayVaule(this.musicStyle) == 1) {
-        this.alert.showError_musicStyle();
-        flag = 1;
-      }  */
-
-      /*else if (this.check_arrayVaule(this.musical_instrument) == 1) {
-        this.alert.showError_musical_instrument();
-        flag = 1;
-      }  */
-
-     /* if (this.check_arrayVaule(this.time) == 1) {
-        this.alert.error_timeOfMeeting();
-        flag = 1;
-      }*/
+      }
     }
 
     if (flag == 0)
@@ -314,6 +320,11 @@ export class Form
       else
         this.add_data_to_firebase_Volunteer();
     }
+
+
+    if (typeof (this.user.fullName) === "undefined" && this.user.onBehalf)
+      this.user.fullName = 'חסוי'
+
   }
   
   Assistant(){
@@ -414,7 +425,7 @@ export class Form
     db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
-        address: [this.user.street, this.user.homeNumber, this.user.city],
+        address: [this.user.street, this.user.homeNumber,this.selectedNH.species, this.user.city],
         phone: this.user.phone,
         email: this.user.email,
         hobbies: this.hobbies,
@@ -425,7 +436,6 @@ export class Form
         age: this.user.age,
         language: this.language,
         meetingWith: this.meetingWith,
-        neighborhoods: this.neighborhoods,
         zone: this.zone,
         student: this.user.student,
         college: this.user.college,
@@ -435,7 +445,8 @@ export class Form
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
         password: this.user.password,
-        dateTime : this.user.dateTime 
+        dateTime : this.user.dateTime ,
+        durationVol: this.durationVol,
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -458,7 +469,7 @@ export class Form
     db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
-        address: [this.user.street, this.user.homeNumber, this.user.city],
+        address: [this.user.street, this.user.homeNumber, this.selectedNH.species, this.user.city],
         phone: this.user.phone,
         email: this.user.email,
         gender: this.gender,
@@ -468,7 +479,6 @@ export class Form
         contact: this.user.contact,
         description: this.user.description,
         organization: this.organization,
-        neighborhoods: this.neighborhoods,
         hobbies: this.hobbies,
         meeting_time: this.time,
         musicStyle: this.musicStyle,
@@ -507,7 +517,7 @@ export class Form
       this.init(this.musical_instrument)
       this.init(this.dayOfMeeting)
       this.init(this.organization)
-      this.init(this.neighborhoods)
+      this.init(this.durationVol)
     }
   
   
@@ -520,18 +530,21 @@ export class Form
 
   getData_fromFirebase(str)
   {
-    console.log("av")
-    console.log(firebase.auth().currentUser.uid)
     const db = firebase.firestore();
+
     db.collection(str).doc(firebase.auth().currentUser.uid).get()
     .then(result => {
       if (!result.exists) return
       this.user.fullName = result.data().fullName
       this.user.street = result.data().address[0]
       this.user.homeNumber = result.data().address[1]
-      this.user.city = result.data().address[2]
+      this.selectedNH = {
+        'species': result.data().address[2],
+        'currentValue': true
+      }
+
+      this.user.city = result.data().address[3]
       this.user.phone = result.data().phone
-      this.neighborhoods = result.data().neighborhoods
       this.user.email = result.data().email
       this.hobbies = result.data().hobbies
       this.time = result.data().meeting_time
@@ -547,13 +560,14 @@ export class Form
       if(this.user.volunteer)
       {
         this.user.range = result.data().range,
-        this.numOfMeeting = result.data().num_of_meetings
         this.user.age = result.data().age
         this.user.id = result.data().id
-        this.user.college = result.data().college
         this.user.student = result.data().student
         this.musical_instrument = result.data().musical_instrument
         this.user.dateTime = result.data().dateTime 
+        this.durationVol = result.data().durationVol
+        this.numOfMeeting = result.data().num_of_meetings
+        this.user.college = result.data().college
       }
       else
       {
@@ -566,7 +580,6 @@ export class Form
       }
 
     }).catch(error => {console.log(error)})
-    
   }
 
 
@@ -667,6 +680,10 @@ export class Form
   }
 
 
+  radioClicked7(item: any, $event) {
+    this.radioClicked(item, this.durationVol)
+  }
+
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
   {
@@ -687,16 +704,16 @@ export class Form
     }
   }
 
+
   selectOrg(item)
   {
     this.radioClicked(item, this.organization)
   }
 
-
   
-  selectNH(item)
+  select_neighborhood(event:{component: SelectSearchableComponent, value:any})
   {
-    this.radioClicked(item, this.neighborhoods)
+    this.radioClicked(event.value, this.neighborhoods)
   }
 }
 

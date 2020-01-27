@@ -17,6 +17,7 @@ export class Arrays
     public musical_instrument: any[]
     public dayOfMeeting: any[]
     public organization: any[]
+    public durationVol: any[]
 
   constructor(public alertCtrl: AlertController)
   {
@@ -219,6 +220,7 @@ export class Arrays
         'currentValue': false
       }];
 
+
     this.dayOfMeeting = [
       {
         'species': 'ראשון',
@@ -242,6 +244,7 @@ export class Arrays
         'species': 'שבת',
         'currentValue': false
       }];
+
   
     this.organization = [
       {
@@ -255,5 +258,15 @@ export class Arrays
         'currentValue': false
       }];
 
+
+      this.durationVol = [
+        {
+          'species': 'שישה חודשים',
+          'currentValue': false
+        }, {
+          'species': 'תשעה חודשים',
+          'currentValue': false
+        }
+      ]
     }
 }

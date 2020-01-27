@@ -1,29 +1,28 @@
- <ion-content class = "homePage">
-   
-      <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic2.png?alt=media&token=ecca364b-4e25-402a-a848-d69e409c9f70"
-          style="width: auto;
+<ion-content class="homePage">
+
+    <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic2.png?alt=media&token=ecca364b-4e25-402a-a848-d69e409c9f70" style="width: auto;
           height: auto;
           min-height: 160px;" />
 
     <!-- <div class ="downHomePage"> -->
 
-      <ion-row  class = "navbarHome">
-          <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button> -->
-          <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button> -->
-          <button ion-button item-start *ngIf = "!user.loggedIn" (click)="login()">כניסת משתמש רשום</button>
-          <button ion-button  *ngIf = "!user.loggedIn" (click)="elderly_form()">רישום לאזרח הותיק</button>
-          <button ion-button   *ngIf = "!user.elderly && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button>
-          <button ion-button  *ngIf = "!user.loggedIn && !user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
-          <button ion-button  *ngIf = "user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button>
-          <button ion-button item-end *ngIf = "user.Admin" (click)=" get_data_for_admin()">דף ניהול</button>
-          <button ion-button (click)="gallery()">גלריה</button>
-          <button ion-button  *ngIf = "!user.Admin"  (click)="contactPage()">צור קשר</button>
-          <button ion-button item-end *ngIf = "user.loggedIn" (click)="logout()">התנתק</button>
-        </ion-row >
+    <ion-row class="navbarHome">
+        <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button> -->
+        <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button> -->
+        <button ion-button item-start *ngIf="!user.loggedIn" (click)="login()">כניסת משתמש רשום</button>
+        <button ion-button *ngIf="(!user.volunteer && !user.elderly && !user.Admin) || !user.loggedIn" (click)="elderly_form()">רישום לאזרח הותיק</button>
+        <button ion-button *ngIf="user.volunteer && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button>
+        <button ion-button *ngIf="(!user.volunteer && !user.elderly && !user.Admin) || !user.loggedIn" (click)="volunteer_form()">הרשם כמתנדב</button>
+        <button ion-button *ngIf="user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button>
+        <button ion-button item-end *ngIf="user.Admin" (click)=" get_data_for_admin()">דף ניהול</button>
+        <button ion-button (click)="gallery()">גלריה</button>
+        <button ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</button>
+        <button ion-button item-end *ngIf="user.loggedIn" (click)="logout()">התנתק</button>
+    </ion-row>
 
-     <ion-row class="homedetails">
-                 
-        <ion-col class="homePageText" >
+    <ion-row class="homedetails">
+
+        <ion-col class="homePageText">
             <!-- <p ion-text style="text-align: center;" >
           
             ׳שמחת זקנתי׳ הוא מיזם חברתי השואף לרומם את רוחם ולהפיג את בדידותם של קשישים בבתיהם הפרטיים או במרכזים ציבוריים.
@@ -32,19 +31,14 @@
 <br>
 לא תאמינו כמה שמחה תוכלו להכניס לחייהם של אותם אנשים שבעקבות גילם או מצבם הרפואי מעבירים את הזמן לבד.
             </p>  -->
-           <img style="width:auto; height:auto;
-                        min-width:420px; min-height:335px;     place-content: center;"
-                src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=56429aa1-b06a-41f2-aa65-87da84cbf3a5">
-        </ion-col>    
-        <ion-col >
-            <iframe style="width:auto; height:auto; min-width:440px; min-height:345px; place-content: center;" 
-                    src="https://www.youtube.com/embed/lbGyb5EfzPY"></iframe>
+            <img style="width:auto; height:auto;
+                        min-width:420px; min-height:335px;     place-content: center;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=56429aa1-b06a-41f2-aa65-87da84cbf3a5">
         </ion-col>
-                   
-        </ion-row>
-  <!-- </div>  -->
+        <ion-col>
+            <iframe style="width:auto; height:auto; min-width:440px; min-height:345px; place-content: center;" src="https://www.youtube.com/embed/lbGyb5EfzPY"></iframe>
+        </ion-col>
+
+    </ion-row>
+    <!-- </div>  -->
 
 </ion-content>
-  
-  
-  

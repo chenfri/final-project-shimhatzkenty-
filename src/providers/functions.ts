@@ -25,7 +25,7 @@ export class Functions
         const res = await firebase.auth().createUserWithEmailAndPassword(email, password);
         if (res)
         { 
-          //firebase.auth().currentUser.sendEmailVerification()
+         // firebase.auth().currentUser.sendEmailVerification()
           return "sucsses"
         }
           

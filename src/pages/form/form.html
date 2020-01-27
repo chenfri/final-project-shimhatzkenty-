@@ -14,7 +14,7 @@
 
     <form class="form" style="float: right; width: 100%;"> <br><br>
         <ion-grid>
-            <ion-row style="direction: rtl;    ">
+            <ion-row style="direction: rtl;">
                 <ion-col>
                     <label>כתובת דוא"ל</label><br>
                     <input type="text" name="username" [(ngModel)]="user.email"><br>
@@ -40,23 +40,23 @@
         <!-- <ion-grid *ngIf="user.hideForm"> -->
             <ion-row style="direction: rtl; justify-content: center;">
 
-                <ion-col col>
-                    <ion-row>
-                        <label>שם מלא</label>
-                    </ion-row>
-                    <ion-row>
-                        <input text-right type="text" name="title" [(ngModel)]="user.fullName">
-                    </ion-row>
-                </ion-col>
+            <ion-col col>
+                <ion-row>
+                    <label>שם מלא</label>
+                </ion-row>
+                <ion-row>
+                    <input text-right type="text" name="title" [(ngModel)]="user.fullName">
+                </ion-row>
+            </ion-col>
 
-                <ion-col>
-                    <ion-row>
-                        <label>מספר פלאפון</label>
-                    </ion-row>
-                    <ion-row>
-                        <input text-right type="number" name="phone" [(ngModel)]="user.phone">
-                    </ion-row>
-                </ion-col>
+            <ion-col>
+                <ion-row>
+                    <label>מספר פלאפון</label>
+                </ion-row>
+                <ion-row>
+                    <input text-right type="number" name="phone" [(ngModel)]="user.phone">
+                </ion-row>
+            </ion-col>
 
                 <ion-col >
                     <ion-row *ngIf="!user.elderly">
@@ -76,219 +76,238 @@
                     </ion-row>
                 </ion-col>
 
-            </ion-row>
+        </ion-row>
 
 
-            <ion-row style="direction: rtl; justify-content: center;">
+        <ion-row style="direction: rtl; justify-content: center;">
 
-                <ion-col>
-                    <ion-row>
-                        <label style="float: right;">שכונה</label><br><br>
-                    </ion-row>
-                    <ion-item style="float: right; width: fit-content; ">
-                        <ion-select ultiple="false" interface="popover" m name="select" placeholder="בחר שם שכונה" style=" max-width: 100%!important; width: 100%!important; right: auto!important; direction: ltr!important;
+            <!-- <ion-col>
+                <ion-row>
+                    <label style="float: right;">שכונה</label><br><br>
+                </ion-row>
+                <ion-item style="float: right; width: fit-content; ">
+                    <ion-select ultiple="false" interface="popover" m name="select" placeholder="בחר שם שכונה" style=" max-width: 100%!important; width: 100%!important; right: auto!important; direction: ltr!important;
                             padding-left: 0!important;">
-                            <ion-option *ngFor="let neighborhoods of neighborhoods" [value]="neighborhoods.species" [selected]="neighborhoods.currentValue" (ionSelect)="selectNH(neighborhoods)">{{neighborhoods.species}}</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </ion-col>
+                        <ion-option *ngFor="let neighborhoods of neighborhoods" [value]="neighborhoods.species" [selected]="neighborhoods.currentValue" (ionSelect)="selectNH(neighborhoods)">{{neighborhoods.species}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col> -->
 
-                <ion-col>
-                    <ion-row>
-                        <label>רחוב</label>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col>
-                            <ion-row>
-                                <input text-right type="text" name="street" [(ngModel)]="user.street">
-                            </ion-row>
-                            <ion-row>
-                                <button ion-button (click)="get_UserLocation()">השתמש בשירותי מיקום</button>
-                            </ion-row>
+            <ion-col>
+                <ion-row>
+                    <label style="float: right;">שכונה</label><br><br>
+                </ion-row>
+                <ion-item>
+                    <ion-label>בחר שם שכונה</ion-label>
+                    <select-searchable item-content [(ngModel)]="selectedNH" name="name" [items]="neighborhoods" itemValueField="species" itemTextField="species" [canSearch]="true" (onChange)="select_neighborhood($event)">
+                    </select-searchable>
+                </ion-item>
+            </ion-col>
 
-                        </ion-col>
+            <ion-col>
+                <ion-row>
+                    <label>רחוב</label>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-row>
+                            <input text-right type="text" name="street" [(ngModel)]="user.street">
+                        </ion-row>
+                        <ion-row>
+                            <button ion-button (click)="get_UserLocation()">השתמש בשירותי מיקום</button>
+                        </ion-row>
 
-                    </ion-row>
-                </ion-col>
+                    </ion-col>
 
-                <ion-col>
-                    <ion-row>
-                        <label>מספר בית</label>
-                    </ion-row>
-                    <ion-row>
-                        <input text-right type="text" name="homeNumber" [(ngModel)]="user.homeNumber">
-                    </ion-row>
-                </ion-col>
+                </ion-row>
+            </ion-col>
 
-                <ion-col>
-                    <ion-row>
-                        <label>עיר</label>
-                    </ion-row>
-                    <ion-row>
-                        <input text-right type="text" name="city" [(ngModel)]="user.city">
-                    </ion-row>
-                </ion-col>
+            <ion-col>
+                <ion-row>
+                    <label>מספר בית</label>
+                </ion-row>
+                <ion-row>
+                    <input text-right type="text" name="homeNumber" [(ngModel)]="user.homeNumber">
+                </ion-row>
+            </ion-col>
 
-            </ion-row>
+            <ion-col>
+                <ion-row>
+                    <label>עיר</label>
+                </ion-row>
+                <ion-row>
+                    <input text-right type="text" name="city" [(ngModel)]="user.city">
+                </ion-row>
+            </ion-col>
+
+        </ion-row>
 
 
-            <br><br><br><br>
-            <ion-row style="direction: rtl; justify-content: center;">
+        <br><br><br><br>
+        <ion-row style="direction: rtl; justify-content: center;">
 
-                <ion-col>
-                    <label>מגדר</label>
-                    <ion-item item-right style="background-color:#ffffff00 ;" *ngFor="let gender of gender">
-                        <ion-label style="text-align: right;"> {{ gender.species }} </ion-label>
-                        <ion-checkbox item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-checkbox>
-                    </ion-item>
+            <ion-col>
+                <label>מגדר</label>
+                <ion-item item-right style="background-color:#ffffff00 ;" *ngFor="let gender of gender">
+                    <ion-label style="text-align: right;"> {{ gender.species }} </ion-label>
+                    <ion-checkbox item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-checkbox>
+                </ion-item>
 
-                </ion-col>
+            </ion-col>
 
-                <ion-col *ngIf="!user.elderly">
+            <ion-col *ngIf="!user.elderly">
 
-                    <!------------------------------------- just for volunteer ----------------------------------------->
-                    <ion-item style="background-color:#ffffff00 ;">
-                        <ion-label style="text-align: right;font-weight:bold;">סטודנט </ion-label>
+                <!------------------------------------- just for volunteer ----------------------------------------->
+                <ion-item style="background-color:#ffffff00 ;">
+                    <ion-label style="text-align: right;font-weight:bold;">סטודנט </ion-label>
 
-                        <ion-checkbox item-right *ngIf="!user.elderly" [checked]="user.student" (click)="ifStudent()"></ion-checkbox>
-                    </ion-item>
+                    <ion-checkbox item-right *ngIf="!user.elderly" [checked]="user.student" (click)="ifStudent()"></ion-checkbox>
+                </ion-item>
 
-                    <div class="Assistant" *ngIf="user.student" style="background-color: #ffffff00;">
-                        <label>מוסד אקדמי</label><br>
-                        <input text-right style="  width: 80%;" type="text" name="college" [(ngModel)]="user.college">
+                <div class="Assistant" *ngIf="user.student" style="background-color: #ffffff00;">
+                    <label>מוסד אקדמי</label><br>
+                    <input text-right style="  width: 80%;" type="text" name="college" [(ngModel)]="user.college">
 
-                    </div>
-                </ion-col>
+                </div>
+            </ion-col>
 
-                <ion-col *ngIf="!user.elderly">
-                    <label class="titleForm" style="float: right;">מרחק נסיעה מקסימלי בק"מ: </label><br>
-                    <label style="float: right; width: 100%;" *ngIf="!user.elderly">
+            <ion-col *ngIf="!user.elderly">
+                <label class="titleForm" style="float: right;">מרחק נסיעה מקסימלי בק"מ: </label><br>
+                <label style="float: right; width: 100%;" *ngIf="!user.elderly">
                 <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
                 המרחק שנבחר: {{user.range}}
                 </label>
-                </ion-col>
+            </ion-col>
 
-                <!-------------------------------- just for elderly ------------------------------------------->
-                <ion-col *ngIf="user.elderly">
-                    <ion-item style="background-color:#ffffff00">
-                        <ion-label style="text-align: right; font-weight:bold;"> אני ממלא את הטופס בשם מישהו אחר</ion-label>
-                        <ion-checkbox item-right [checked]="user.onBehalf" (click)="onbehalf()"></ion-checkbox>
+            <!-------------------------------- just for elderly ------------------------------------------->
+            <ion-col *ngIf="user.elderly">
+                <ion-item style="background-color:#ffffff00">
+                    <ion-label style="text-align: right; font-weight:bold;"> אני ממלא את הטופס בשם מישהו אחר</ion-label>
+                    <ion-checkbox item-right [checked]="user.onBehalf" (click)="onbehalf()"></ion-checkbox>
+                </ion-item>
+
+
+                <div class="Assistant" *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
+                    <label style="float: right;">שמך המלא</label><br>
+                    <input text-right type="text" name="nameAssistant" [(ngModel)]="user.nameAssistant">
+                    <br><br>
+
+                    <label style="float: right;">מספר פלאפון</label><br>
+                    <input text-right type="number" name="phone" [(ngModel)]="user.contact">
+                    <br><br>
+
+                    <label style="float: right;">קרבה לקשיש</label><br>
+                    <input text-right type="text" name="relationship" [(ngModel)]="user.relationship">
+                    <br><br>
+
+                    <label style="float: right;">ארגון</label><br><br>
+                    <ion-item style="float: right; width: fit-content; ">
+                        <ion-select ultiple="false" interface="popover" m name="select" placeholder="בחר שם ארגון" style=" max-width: 100%!important; width: 100%!important; right: auto!important; direction: ltr!important;
+                                padding-left: 0!important;">
+                            <ion-option *ngFor="let organization of organization" [value]="organization.species" [selected]="organization.currentValue" (ionSelect)="selectOrg(organization)">{{organization.species}}</ion-option>
+                        </ion-select>
                     </ion-item>
 
-
-                    <div class="Assistant" *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
-                        <label style="float: right;">שמך המלא</label><br>
-                        <input text-right type="text" name="nameAssistant" [(ngModel)]="user.nameAssistant">
-                        <br><br>
-
-                        <label style="float: right;">מספר פלאפון</label><br>
-                        <input text-right type="number" name="phone" [(ngModel)]="user.contact">
-                        <br><br>
-
-                        <label style="float: right;">קרבה לקשיש</label><br>
-                        <input text-right type="text" name="relationship" [(ngModel)]="user.relationship">
-                        <br><br>
-
-                        <label style="float: right;">ארגון</label><br><br>
-                        <ion-item style="float: right; width: fit-content; ">
-                            <ion-select ultiple="false" interface="popover" m name="select" placeholder="בחר שם ארגון" style=" max-width: 100%!important; width: 100%!important; right: auto!important; direction: ltr!important;
-                                padding-left: 0!important;">
-                                <ion-option *ngFor="let organization of organization" [value]="organization.species" [selected]="organization.currentValue" (ionSelect)="selectOrg(organization)">{{organization.species}}</ion-option>
-                            </ion-select>
-                        </ion-item>
-
-                        <button item-right style="background: #ffffff00;" (click)="Assistant()">
+                    <button item-right style="background: #ffffff00;" (click)="Assistant()">
                 <label class ="addPerson" >הוסף בן משפחה נוסף</label>
 
                 <ion-icon style="size: large;"  name="add-circle"></ion-icon>
               </button>
-                        <br><br>
+                    <br><br>
 
 
-                    </div>
-                </ion-col>
-            </ion-row>
-            <!---------------------------------------------------------------------------------------------->
-            <ion-grid style="background-color: #ffffff80;">
-                <ion-row>
-                    <ion-col *ngIf="user.elderly">
-                        <ion-list radio-group>
-                            <h4 class="titleForm">איזור מגורים</h4>
-                            <br><br><br><br>
-                            <ion-item *ngFor="let zone of zone">
-                                <ion-label style="text-align: right;"> {{ zone.species }} </ion-label>
-                                <ion-radio item-right [checked]="zone.currentValue" (click)="radioClicked6(zone)"></ion-radio>
-                            </ion-item>
-                        </ion-list>
-                    </ion-col>
-
-                    <ion-col *ngIf="!user.elderly">
-                        <h4 class="titleForm">שכונות מועדפות להתנדבות</h4>
+                </div>
+            </ion-col>
+        </ion-row>
+        <!---------------------------------------------------------------------------------------------->
+        <ion-grid style="background-color: #ffffff80;">
+            <ion-row>
+                <ion-col *ngIf="user.elderly">
+                    <ion-list radio-group>
+                        <h4 class="titleForm">איזור מגורים</h4>
                         <br><br><br><br>
                         <ion-item *ngFor="let zone of zone">
                             <ion-label style="text-align: right;"> {{ zone.species }} </ion-label>
-                            <ion-checkbox item-right [checked]="zone.currentValue" (click)="CheckboxClicked4(zone)"></ion-checkbox>
-
+                            <ion-radio item-right [checked]="zone.currentValue" (click)="radioClicked6(zone)"></ion-radio>
                         </ion-item>
-                    </ion-col>
+                    </ion-list>
+                </ion-col>
 
-                    <ion-col *ngIf="!user.elderly && user.hideMusic ">
-                        <ion-list radio-group *ngIf="!user.elderly && user.hideMusic ">
-                            <h4 class="titleForm">כלי נגינה</h4><br><br>
-                            <label style="float: right;">ניתן לבחור יותר מכלי אחד</label><br><br>
-                            <ion-item *ngFor="let musical_instrument of musical_instrument">
-                                <ion-label style="text-align: right;"> {{ musical_instrument.species }} </ion-label>
-                                <ion-checkbox item-right [checked]="musical_instrument.currentValue" (click)="CheckboxClicked5(musical_instrument, $event)"></ion-checkbox>
-                            </ion-item>
-                        </ion-list>
-                    </ion-col>
+                <ion-col *ngIf="!user.elderly">
+                    <h4 class="titleForm">שכונות מועדפות להתנדבות</h4>
+                    <br><br><br><br>
+                    <ion-item *ngFor="let zone of zone">
+                        <ion-label style="text-align: right;"> {{ zone.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="zone.currentValue" (click)="CheckboxClicked4(zone)"></ion-checkbox>
 
-                    <ion-col *ngIf="user.hideMusic">
-                        <ion-list radio-group *ngIf="user.hideMusic">
-                            <h4 *ngIf="!user.elderly" class="titleForm">סגנון מוזיקלי מועדף*</h4>
-                            <h4 *ngIf="user.elderly" class="titleForm">סגנון מוזיקלי מועדף<br><br></h4>
-                            <label style="float: right;">למעוניינים במוסיקה / שירה יש למלא סעיף זה</label>
-                            <ion-item *ngFor="let musicStyle of musicStyle">
-                                <ion-label style="text-align: right;"> {{ musicStyle.species }} </ion-label>
-                                <ion-checkbox item-right [checked]="musicStyle.currentValue" (click)="CheckboxClicked2(musicStyle, $event)"></ion-checkbox>
-                            </ion-item>
-                        </ion-list>
-                    </ion-col>
+                    </ion-item>
+                </ion-col>
 
-                    <ion-col>
-                        <h4 class="titleForm" *ngIf="!user.elderly">תחומי התנדבות</h4>
-                        <h4 class="titleForm" *ngIf="user.elderly">תחומי עיניין ותחביבים</h4>
-                        <br><br>
-                        <label style="float: right;">ריבוי תחומים יאפשר התאמות רבות יותר</label>
-                        <br><br>
-                        <ion-item *ngFor="let hobbies of hobbies">
-                            <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
-                            <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked1(hobbies, $event)"></ion-checkbox>
+                <ion-col *ngIf="!user.elderly && user.hideMusic ">
+                    <ion-list radio-group *ngIf="!user.elderly && user.hideMusic ">
+                        <h4 class="titleForm">כלי נגינה</h4><br><br>
+                        <label style="float: right;">ניתן לבחור יותר מכלי אחד</label><br><br>
+                        <ion-item *ngFor="let musical_instrument of musical_instrument">
+                            <ion-label style="text-align: right;"> {{ musical_instrument.species }} </ion-label>
+                            <ion-checkbox item-right [checked]="musical_instrument.currentValue" (click)="CheckboxClicked5(musical_instrument, $event)"></ion-checkbox>
                         </ion-item>
-                    </ion-col>
+                    </ion-list>
+                </ion-col>
 
-                </ion-row>
-            </ion-grid><br>
+                <ion-col *ngIf="user.hideMusic">
+                    <ion-list radio-group *ngIf="user.hideMusic">
+                        <h4 *ngIf="!user.elderly" class="titleForm">סגנון מוזיקלי מועדף*</h4>
+                        <h4 *ngIf="user.elderly" class="titleForm">סגנון מוזיקלי מועדף<br><br></h4>
+                        <label style="float: right;">למעוניינים במוסיקה / שירה יש למלא סעיף זה</label>
+                        <ion-item *ngFor="let musicStyle of musicStyle">
+                            <ion-label style="text-align: right;"> {{ musicStyle.species }} </ion-label>
+                            <ion-checkbox item-right [checked]="musicStyle.currentValue" (click)="CheckboxClicked2(musicStyle, $event)"></ion-checkbox>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
 
-            <ion-grid style="background-color: #ffffff80;">
-                <ion-row>
+                <ion-col>
+                    <h4 class="titleForm" *ngIf="!user.elderly">תחומי התנדבות</h4>
+                    <h4 class="titleForm" *ngIf="user.elderly">תחומי עיניין ותחביבים</h4>
+                    <br><br>
+                    <label style="float: right;">ריבוי תחומים יאפשר התאמות רבות יותר</label>
+                    <br><br>
+                    <ion-item *ngFor="let hobbies of hobbies">
+                        <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="hobbies.currentValue" (click)="CheckboxClicked1(hobbies, $event)"></ion-checkbox>
+                    </ion-item>
+                </ion-col>
 
-                    <!-------------------------------- just for volunteer -------------------------------------------->
+            </ion-row>
+        </ion-grid><br>
 
+        <ion-grid style="background-color: #ffffff80;">
+            <ion-row>
 
+                <!-------------------------------- just for volunteer -------------------------------------------->
 
-                    <ion-col *ngIf="!user.elderly && !user.student">
-                        <h4 class="titleForm">תדירות מפגשים<br><br></h4><br>
-                        <ion-list radio-group>
-                            <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
-                                <ion-label style="text-align: right;"> {{ numOfMeeting.species }} </ion-label>
-                                <ion-radio item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
-                            </ion-item>
-                        </ion-list>
-                    </ion-col>
+                <ion-col *ngIf="!user.elderly && !user.student">
+                    <h4 class="titleForm">משך התנדבות</h4><br><br><br>
+                    <ion-list radio-group>
+                        <ion-item *ngFor="let durationVol of durationVol; let i = index">
+                            <ion-label style="text-align: right;"> {{ durationVol.species }} </ion-label>
+                            <ion-radio item-right [checked]="durationVol.currentValue" (click)="radioClicked7(durationVol, $event)"></ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
 
-                    <!------------------------------------------------------------------------------------------------->
-                    <!-- <ion-col>
+                <ion-col *ngIf="!user.elderly && !user.student">
+                    <h4 class="titleForm">תדירות מפגשים<br><br></h4><br>
+                    <ion-list radio-group>
+                        <ion-item *ngFor="let numOfMeeting of numOfMeeting; let i = index">
+                            <ion-label style="text-align: right;"> {{ numOfMeeting.species }} </ion-label>
+                            <ion-radio item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+
+                <!------------------------------------------------------------------------------------------------->
+                <!-- <ion-col>
                     <h4 class="titleForm">זמנים נוחים למפגש</h4>
                     <ion-list radio-group >
                         <ion-item *ngFor="let time of time">
@@ -298,57 +317,57 @@
                     </ion-list>
                 </ion-col>  -->
 
-                    <ion-col *ngIf="user.elderly || user.student">
-                        <h4 class="titleForm">ימים מועדפים למפגש</h4><br>
-                        <label style="float: right;">מומלץ לציין מספר רב של מועדים זה יגדיל את הסיכוי להתאמה טובה ונוחה</label>
-                        <ion-list radio-group>
-                            <ion-item *ngFor="let time of dayOfMeeting">
-                                <ion-label style="text-align: right;"> {{ time.species }} </ion-label>
-                                <ion-checkbox item-right [checked]="time.currentValue" (click)="CheckboxClicked6(time)"></ion-checkbox>
-                            </ion-item>
-                        </ion-list>
-                    </ion-col>
-
-                    <ion-col>
-                        <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
-                        <ion-list radio-group>
-                            <ion-item *ngFor="let meetingWith of meetingWith; let i = index">
-                                <ion-label style="text-align: right;"> {{ meetingWith.species }} </ion-label>
-                                <ion-radio item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
-                            </ion-item>
-                        </ion-list>
-                    </ion-col>
-
-                    <ion-col>
-                        <h4 class="titleForm">שליטה בשפות</h4><br><br>
-                        <label style="float: right;">ניתן לבחור יותר משפה אחת</label><br>
-                        <ion-item *ngFor="let language of language">
-                            <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
-                            <ion-checkbox item-right [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
+                <ion-col *ngIf="user.elderly || user.student">
+                    <h4 class="titleForm">ימים מועדפים למפגש</h4><br>
+                    <label style="float: right;">מומלץ לציין מספר רב של מועדים זה יגדיל את הסיכוי להתאמה טובה ונוחה</label>
+                    <ion-list radio-group>
+                        <ion-item *ngFor="let time of dayOfMeeting">
+                            <ion-label style="text-align: right;"> {{ time.species }} </ion-label>
+                            <ion-checkbox item-right [checked]="time.currentValue" (click)="CheckboxClicked6(time)"></ion-checkbox>
                         </ion-item>
-                    </ion-col>
+                    </ion-list>
+                </ion-col>
 
-                </ion-row>
-            </ion-grid><br>
+                <ion-col>
+                    <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
+                    <ion-list radio-group>
+                        <ion-item *ngFor="let meetingWith of meetingWith; let i = index">
+                            <ion-label style="text-align: right;"> {{ meetingWith.species }} </ion-label>
+                            <ion-radio item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
 
-            <ion-row *ngIf="!user.elderly" style=" background: #ffffff80;direction: rtl;">
-                <label style="float: right;">*לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב.
+                <ion-col>
+                    <h4 class="titleForm">שליטה בשפות</h4><br><br>
+                    <label style="float: right;">ניתן לבחור יותר משפה אחת</label><br>
+                    <ion-item *ngFor="let language of language">
+                        <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
+                        <ion-checkbox item-right [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
+                    </ion-item>
+                </ion-col>
+
+            </ion-row>
+        </ion-grid><br>
+
+        <ion-row *ngIf="!user.elderly" style=" background: #ffffff80;direction: rtl;">
+            <label style="float: right;">*לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב.
                 </label><br><br>
-            </ion-row>
-            <ion-row *ngIf="!user.elderly" style=" background: #ffffff80;direction: rtl;">
-                <label *ngIf="!user.elderly" style="float: right;"> ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב.
+        </ion-row>
+        <ion-row *ngIf="!user.elderly" style=" background: #ffffff80;direction: rtl;">
+            <label *ngIf="!user.elderly" style="float: right;"> ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב.
                 </label>
-            </ion-row>
+        </ion-row>
 
-            <ion-grid style="width: fit-content; height: auto; float:right;background: #ffffff80;" *ngIf="user.elderly">
-                <label>:) ספר לנו קצת על עצמך </label><br>
-                <ion-textarea style="background-color: #ffffffed;" cols="40" rows="10" class="description" text-right type="text" name="description" [(ngModel)]="user.description"></ion-textarea>
-            </ion-grid>
-            <br><br><br><br>
+        <ion-grid style="width: fit-content; height: auto; float:right;background: #ffffff80;" *ngIf="user.elderly">
+            <label>:) ספר לנו קצת על עצמך </label><br>
+            <ion-textarea style="background-color: #ffffffed;" cols="40" rows="10" class="description" text-right type="text" name="description" [(ngModel)]="user.description"></ion-textarea>
+        </ion-grid>
+        <br><br><br><br>
 
-            <ion-grid style="text-align: -webkit-right;">
-                <button ion-button (click)="check_field_value()">שמירה</button>
-                <br><br><br><br></ion-grid>
+        <ion-grid style="text-align: -webkit-right;">
+            <button ion-button (click)="check_field_value()">שמירה</button>
+            <br><br><br><br></ion-grid>
 
         <!-- </ion-grid> -->
     </form>

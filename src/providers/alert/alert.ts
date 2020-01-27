@@ -253,6 +253,16 @@ export class AlertProvider
   }
 
 
+  showAlert_forgetPassword()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שים לב',
+      subTitle: 'כעת נשלח לכתובת המייל שלך מייל לאחזור סיסמה' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   showAlert_sendMessage()
   {
     let alert = this.alertCtrl.create({
@@ -319,6 +329,16 @@ export class AlertProvider
     alert.present();
   }
 
+
+  error_VolunteerDuration()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור משך התנדבות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
   error_numOfMeeting()
   {

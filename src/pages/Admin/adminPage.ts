@@ -49,6 +49,8 @@ export class adminPage
     this.volunteerNum = this.navParams.get('volunteerNum');
     this.studentNum = this.navParams.get('studentNum');
 
+    
+
   }
 
 
