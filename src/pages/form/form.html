@@ -37,7 +37,7 @@
         </ion-row>
         <br><br><br>
 
-        <ion-grid *ngIf="user.hideForm">
+        <!-- <ion-grid *ngIf="user.hideForm"> -->
             <ion-row style="direction: rtl; justify-content: center;">
 
                 <ion-col col>
@@ -58,20 +58,20 @@
                     </ion-row>
                 </ion-col>
 
-                <ion-col col *ngIf="!user.elderly">
-                    <ion-row>
+                <ion-col >
+                    <ion-row *ngIf="!user.elderly">
                         <label>ת"ז (נדרש לצורך ביטוח)</label>
                     </ion-row>
-                    <ion-row>
+                    <ion-row *ngIf="!user.elderly">
                         <input text-right type="number" name="idStudent" [(ngModel)]="user.id">
                     </ion-row>
                 </ion-col>
 
-                <ion-col style="background-color:#ffffff00 ;" *ngIf="!user.elderly">
-                    <ion-row>
+                <ion-col style="background-color:#ffffff00 ;" >
+                    <ion-row *ngIf="!user.elderly">
                         <ion-label style="text-align: right; "> גיל</ion-label>
                     </ion-row>
-                    <ion-row>
+                    <ion-row *ngIf="!user.elderly">
                         <input style="float: right;width: auto;" text-right type="number" name="age" [(ngModel)]="user.age">
                     </ion-row>
                 </ion-col>
@@ -350,6 +350,6 @@
                 <button ion-button (click)="check_field_value()">שמירה</button>
                 <br><br><br><br></ion-grid>
 
-        </ion-grid>
+        <!-- </ion-grid> -->
     </form>
 </ion-content>
