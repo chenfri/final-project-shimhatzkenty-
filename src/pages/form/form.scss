@@ -2,7 +2,8 @@
 
 
 .formCSS{
-  background-color: #d5afa6;    
+  color:#FCBE47;
+  background-color: #035445;    
   // background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/4k-wallpaper-background-blur-blurred-background-1242348.jpg?alt=media&token=86486b62-a59b-4f74-a73e-a83116d15e32") ;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -15,6 +16,9 @@
   .titleForm{
       float: right;
       text-align: right;
+      color: #fffbd8;
+      font-weight: bold;
+      font: calibri;
   }
 
 * {
@@ -33,19 +37,20 @@ input[type=text]{
 
 }
 }
-.personalInfo{
-  background-color: #ffffff80;
-  margin-bottom: auto;
-}
+// .personalInfo{
+//   background-color: #ffffff80;
+//   margin-bottom: auto;
+// }
 
 /* Style inputs */
 input[type=text],input[type=password],input[type=number], select, textarea {
   width: max-content;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
-  margin-bottom: 16px;
+ padding: 12px;
+  border: 1px solid #259262 ;
+  //margin-top: 6px;
+  //margin-bottom: 16px;
   resize: vertical;
+  background-color: #259262;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -64,19 +69,32 @@ input[type=submit] {
   cursor: pointer;
 }
 .button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
-  background-color: #af4c4c96; 
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  cursor: pointer;
+  background-color: #eca8a9;
+  border: solid black 0px;
+  cursor: pointer !important;
+  border-radius: 50px;
+  /* position: absolute; */
+  /* top: 0; */
+  /* right: 0; */
+  /* bottom: 0; */
+  /* left: 0; */
+  -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+  transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+  -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+  box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+  color: #035445;
 }
 
-input[type=submit]:hover {
-  background-color:#945151;
-}
+// input[type=submit]:hover {
+//   background-color:#945151;
+// }
 .button:hover {
-  background-color:#945151;
+  background-color:#FCBE47;
+
+  color: white;
 }
 
 /* Style the container/contact section */
@@ -144,23 +162,24 @@ input[type=submit]:hover {
   background: #945151;
   cursor: pointer;
 }
-.ion-grid{
-  width: 80%;
-  background-color: #ffffff80;
-}
+// .ion-grid{
+//   width: 80%;
+//   background-color: #ffffff80;
+// }
 
 ion-checkbox{
-background: #FFFFFF;
-  border-width: 2px !important;
-//  border-style: solid !important;
- border-radius: 5px;
-//  border-color : blue !important;
- --height : 30px;
- --width: 30px;
- --checkmark-color:blue;
- --background-checked: #FFFFFF;
- --border-color: #FFFFFF;
- --border-color-checked :#FFFFFF;
+    background: #FFFFFF;
+      border-width: 2px !important;
+    //  border-style: solid !important;
+    border-radius: 5px;
+    //  border-color : blue !important;
+    --background:#035445;
+    --height : 30px;
+    --width: 30px;
+    // --checkmark-color:blue;
+    --background-checked: #FFFFFF;
+    --border-color: #FFFFFF;
+    --border-color-checked :#FFFFFF;
 }
 
 .text-input text-input-md {
