@@ -158,7 +158,7 @@
                 <label>מגדר</label>
                 <ion-item no-lines *ngFor="let gender of gender" style="background-color:#ffffff00 ;color:#FCBE47;">
                     <ion-label item-right style="text-align: right; ">  {{ gender.species }} </ion-label>
-                    <ion-checkbox item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-checkbox>
+                    <ion-radio item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-radio>
                 </ion-item>
                 
           
@@ -377,7 +377,7 @@
         <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="user.elderly">
 
             <label>:) ספר לנו קצת על עצמך </label><br>
-            <ion-textarea style="" cols="40" rows="10" class="description" text-right type="text" name="description" [(ngModel)]="user.description"></ion-textarea>
+            <ion-textarea cols="40" rows="10" class="description" text-right type="text" name="description" [(ngModel)]="user.description"></ion-textarea>
         </ion-grid>
         <br><br><br><br>
 
