@@ -1,20 +1,20 @@
 <ion-content  class="contactPage">
+  
+  <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>  
+  <br><br><br><br>
 
-    <div class="container">
       <div style="text-align:center">
         <h2>צור קשר</h2>
         <p>השאר לנו הודעה</p>
-        <button ion-button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
       </div>
 
-      <div class="row">
-          <div class="column">
-            <img src=" https://scontent.fhfa2-2.fna.fbcdn.net/v/t1.0-9/68835633_2390706401009325_1345018826068066304_o.jpg?_nc_cat=102&_nc_oc=AQlIn0YpZI5jIhaQMPOSeht265--nvl8SvTOmRZ7Kuu8Bt-oS8nJhI02r8sZJjCSbr4&_nc_ht=scontent.fhfa2-2.fna&oh=5b90a0d7a66f6bdde2f30a8640a3132b&oe=5E54C928" 
-                style="width:100%; ">     
-          </div>
+      <ion-row >
+          <ion-col >
+            <img src=" https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%9E%D7%97%D7%AA%20%D7%96%D7%A7%D7%A0%D7%AA%D7%99%20%D7%9E%D7%95%D7%A4%D7%A2%D7%99%20%D7%A1%D7%9C%D7%95%D7%9F.png?alt=media&token=0ba84cff-a14e-4e62-b321-a71907156484" 
+                style="width:80%; ">     
+          </ion-col>
 
-          <div class="column">
-            <form>
+          <ion-col style= "direction: rtl;">
               <label for="fullName">שם מלא</label>
               <input type="text" name="fullName" [(ngModel)] = "contactMessage.fullName" placeholder="..רשום כאן את השם המלא"  >
               <label for="phoneNumber">פלאפון</label>
@@ -22,9 +22,16 @@
               <label for="message">הודעה</label>
               <textarea type="text" id="message" name="message" [(ngModel)] = "contactMessage.message"  style="height:170px"></textarea>
               <button ion-button type="submit" (click)= "add_data_to_firebase()">שלח</button>
-            </form>
-          </div>
-      </div>
+          </ion-col>
+        </ion-row>
   
-</div>
+      <ion-row style="background-color: #2f7cc2;color:#2f7cc2">a</ion-row>
+
+      <ion-row class="contact">
+ 
+        <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A6%D7%95%D7%A8%20%D7%A7%D7%A9%D7%A8%20.png?alt=media&token=0f10738c-7461-48c2-908e-049609632476" >  
+        <!-- <ion-icon name="logo-facebook"></ion-icon> -->
+      </ion-row>
+     
+
 </ion-content>

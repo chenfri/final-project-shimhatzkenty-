@@ -1,13 +1,28 @@
 .contactPage{
 
-
-* {
-    box-sizing: border-box;
-   
-  }
+  background-color: #fffbd6;
 
   
-  
+.button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: #eca8a9;
+  border: solid black 0px;
+  cursor: pointer !important;
+  border-radius: 50px;
+  -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+  transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+  -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+  box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+  color: #035445;
+}
+
+.button:hover {
+  background-color:#FCBE47;
+  color: white;
+}
+
   /* Style inputs */
   input[type=text],[type=number], select, textarea {
     width: 100%;
@@ -47,31 +62,34 @@
     padding: 10px;
   }
   
-  .row{
+  // .row{
 
-    text-align: right;
+  //   text-align: right;
 
-  }
-  /* Create two columns that float next to eachother */
-  .column {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-    padding: 20px;
-  }
+  // }
+  // /* Create two columns that float next to eachother */
+  // .column {
+  //   float: left;
+  //   width: 50%;
+  //   margin-top: 6px;
+  //   padding: 20px;
+  // }
   
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+  // /* Clear floats after the columns */
+  // .row:after {
+  //   content: "";
+  //   display: table;
+  //   clear: both;
+  // }
   
-  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    .column, input[type=submit] {
-      width: 100%;
-      margin-top: 0;
-    }
-  }
+  // /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  // @media screen and (max-width: 600px) {
+  //   .column, input[type=submit] {
+  //     width: 100%;
+  //     margin-top: 0;
+  //   }
+  // }
+  // .contact{
+  //   background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A6%D7%95%D7%A8%20%D7%A7%D7%A9%D7%A8%20.png?alt=media&token=0f10738c-7461-48c2-908e-049609632476");
+  // }
 }
