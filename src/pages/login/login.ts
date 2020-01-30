@@ -49,11 +49,13 @@ export class LoginPage
             if(result.exists)
                 this.user.Admin = true;
 
-            this.checkUserType(firebase.auth().currentUser.uid)    
-            setTimeout(() => {
-              this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin,
-              'elderly':this.user.elderly,'volunteer':this.user.volunteer});
-            }, 1000);
+            this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin});
+
+            // this.checkUserType(firebase.auth().currentUser.uid)    
+            // setTimeout(() => {
+            //   this.navCtrl.push(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin,
+            //   'elderly':this.user.elderly,'volunteer':this.user.volunteer});
+            // }, 1000);
       
             })
       //  }
@@ -68,26 +70,6 @@ export class LoginPage
       })
     }
 
-  }
-
-
-  
-  checkUserType(uid)
-  {
-    const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(uid).get()
-      .then(result =>{
-        if (result.exists)
-          this.user.elderly = true;
-        else
-        {
-          db.collection('volunteerUsers').doc(uid).get()
-          .then(result =>{
-            if (result.exists)
-              this.user.volunteer = true;  
-           }).catch(error => {console.log(error)})
-        }
-      }).catch(error => {console.log(error)})
   }
 
 
@@ -109,5 +91,26 @@ export class LoginPage
   {
     this.navCtrl.push(HomePage, {'login': this.user.loggedIn ,'elderly':  this.user.elderly,
     'volunteer': this.user.volunteer})
+  }
+
+
+  // -------------------------------- functionnot in used ----------------------------
+  
+  checkUserType(uid)
+  {
+    const db = firebase.firestore();
+    db.collection('ElderlyUsers').doc(uid).get()
+      .then(result =>{
+        if (result.exists)
+          this.user.elderly = true;
+        else
+        {
+          db.collection('volunteerUsers').doc(uid).get()
+          .then(result =>{
+            if (result.exists)
+              this.user.volunteer = true;  
+           }).catch(error => {console.log(error)})
+        }
+      }).catch(error => {console.log(error)})
   }
 }

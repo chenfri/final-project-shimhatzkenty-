@@ -120,6 +120,36 @@ export class adminPage
   }
 
 
+  CheckWhichOrganization(id)
+  {
+    const db = firebase.firestore();
+    db.collection('ElderlyUsers').doc(id).get()
+    .then(result => {
+      if (!result.exists) return
+      this.organizations = result.data().organization;
+        
+      for (let i = 0; i < this.organizations.length; i++) {
+            this.organizationName = this.organizations[i].species;
+            console.log("organization.func :  " + this.organizationName)
+
+          }
+      }    
+      )
+  }
+
+  click_home()
+  {
+    this.navCtrl.push(HomePage , {'login': this.user.loggedIn,  'admin': this.user.Admin});
+  }
+
+  add_AdminUser()
+  {
+    this.navCtrl.push(RegisterPage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
+  }
+
+
+  // ------------------------------- function not in used --------------------------------------
+
   deleteElderlyUser(item)
   {
     this.deleteUserFromFirebase(item, 'ElderlyUsers')
@@ -233,35 +263,5 @@ export class adminPage
     });
     alert.present();
   }
-
-
-
-  CheckWhichOrganization(id)
-  {
-    const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(id).get()
-    .then(result => {
-      if (!result.exists) return
-      this.organizations = result.data().organization;
-        
-      for (let i = 0; i < this.organizations.length; i++) {
-            this.organizationName = this.organizations[i].species;
-            console.log("organization.func :  " + this.organizationName)
-
-          }
-      }    
-      )
-  }
-
-  click_home()
-  {
-    this.navCtrl.push(HomePage , {'login': this.user.loggedIn,  'admin': this.user.Admin});
-  }
-
-  add_AdminUser()
-  {
-    this.navCtrl.push(RegisterPage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
-  }
-
 
 }

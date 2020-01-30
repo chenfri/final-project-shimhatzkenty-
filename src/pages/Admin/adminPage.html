@@ -1,107 +1,106 @@
 <ion-content class="adminPage">
 
-  <ion-grid class="adminHeader">
-      
-      <ion-row>
-        <ion-col class="buttons">
-          <button type="submit" (click)= "click_home()">חזרה לדף הבית</button>
-          <button type="submit" (click)= "add_AdminUser()">הוספת מנהל חדש </button>
-        </ion-col>
-        <ion-col>
-          <h2 class = "titleAdmin">דף ניהול</h2>
-        </ion-col>
-      </ion-row>
-  </ion-grid> <br><br>
-  
-  <div class="tables">
-    <h4 class = "tableTitle">:קשישים שהתחברו לאפליקציה</h4>
-      <button type="submit" (click)="csvFile(userE,elderNum , 'eledry' )">ייצוא טבלת קשישים לאקסל</button><br><br>
-      <table id="customers">
-          <tr >
-            <th>מחק משתמש</th>
-            <th>תאריך הרשמה</th>
-            <th>כתובת</th>
-            <th>טלפון</th>
-            <th>שם מלא</th>
-          </tr>
-        <tr *ngFor="let value of userE">
-            <td><button (click)="deleteElderlyUser(value[4])">[x]</button></td>
-            <td>{{value[3]}}</td>
-            <td>{{value[2]}}</td>
-            <td>{{value[1]}}</td>
-            <td>{{value[0]}}</td>
-        </tr>
-      </table><br><br>
-  
-      <h4 class = "tableTitle">:מתנדבים שהתחברו לאפליקציה</h4>
-      <button type="submit" (click)="csvFile(userV, volunteerNum, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
-  
-      <table id="customers">
-          <tr>
-            <th>מחק משתמש</th>
-            <th>תאריך הרשמה</th>
-            <th>כתובת</th>
-            <th>טלפון</th>
-            <th>שם מלא</th>
-          </tr>
-          <tr *ngFor="let value of userV">
-            <td><button (click)="deleteVolunteerUser(value[4])">[x]</button></td>
-            <td>{{value[3]}}</td>
-            <td>{{value[2]}}</td>
-            <td>{{value[1]}}</td>
-            <td>{{value[0]}}</td>
-          </tr>
-      </table><br><br>
+    <ion-grid class="adminHeader">
 
-      <h4 class = "tableTitle">:סטודנטים שהתחברו לאפליקציה</h4>
-      <button type="submit" (click)="csvFile(userStudent , studentNum , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
-      <table id="customers">
-          <tr >
-            <th>תעודת זהות</th>
-            <th>טלפון</th>
-            <th>שם מלא</th>
-          </tr>
-        <tr *ngFor="let value of userStudent">
-          <td>{{value[2]}}</td>
-          <td>{{value[1]}}</td>
-          <td>{{value[0]}}</td>
-        </tr>
-      </table> <br><br>
-  
-      <h4 class = "tableTitle">:קשישים שהתחברו לאפליקציה דרך אירגונים</h4>
-      <button type="submit" (click)="csvFile(organizationEledry , organizationNum, 'organization')">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
-      <table id="customers">
-          <tr >
-            <th>שם הארגון</th>
-            <th>פלאפון איש הקשר</th>
-            <th>פלאפון הקשיש</th>
-            <th>שם מלא</th>
-          </tr>
-        <tr *ngFor="let value of organizationEledry">
-          <td>{{value[3]}}</td>
-          <td>{{value[2]}}</td>
-          <td>{{value[1]}}</td>
-          <td>{{value[0]}}</td>
-        </tr>
-      </table><br><br>
-  
-      <h4 class = "tableTitle">הודעות</h4>
-      <table id="customers">
-          <tr>
-            <th>מחק הודעה</th>
-          <th>טלפון</th>
-            <th>הודעה</th>
-            <th>שם מלא</th>
-          </tr>
-          
-  
-          <tr *ngFor="let value of messages">
-            <td><button (click)="deleteMessage(value.id)">[x]</button></td>
-            <td>{{value.data.message}}</td>
-            <td>{{value.data.phoneNumber}}</td>
-            <td>{{value.data.fullName}}</td>
-          </tr>
+        <ion-row>
+            <ion-col class="buttons">
+                <button type="submit" (click)="click_home()">חזרה לדף הבית</button>
+                <button type="submit" (click)="add_AdminUser()">הוספת מנהל חדש </button>
+            </ion-col>
+            <ion-col>
+                <h2 class="titleAdmin">דף ניהול</h2>
+            </ion-col>
+        </ion-row>
+    </ion-grid> <br><br>
+
+    <div class="tables">
+        <h4 class="tableTitle">:קשישים שהתחברו לאפליקציה</h4>
+        <button type="submit" (click)="csvFile(userE,elderNum , 'eledry' )">ייצוא טבלת קשישים לאקסל</button><br><br>
+        <table id="customers">
+            <tr>
+                <!-- <th>מחק משתמש</th> -->
+                <th>תאריך הרשמה</th>
+                <th>כתובת</th>
+                <th>טלפון</th>
+                <th>שם מלא</th>
+            </tr>
+            <tr *ngFor="let value of userE">
+                <!-- <td><button (click)="deleteElderlyUser(value[4])">[x]</button></td> -->
+                <td>{{value[3]}}</td>
+                <td>{{value[2]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+        </table><br><br>
+
+        <h4 class="tableTitle">:מתנדבים שהתחברו לאפליקציה</h4>
+        <button type="submit" (click)="csvFile(userV, volunteerNum, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
+
+        <table id="customers">
+            <tr>
+                <!-- <th>מחק משתמש</th> -->
+                <th>תאריך הרשמה</th>
+                <th>כתובת</th>
+                <th>טלפון</th>
+                <th>שם מלא</th>
+            </tr>
+            <tr *ngFor="let value of userV">
+                <!-- <td><button (click)="deleteVolunteerUser(value[4])">[x]</button></td> -->
+                <td>{{value[3]}}</td>
+                <td>{{value[2]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+        </table><br><br>
+
+        <h4 class="tableTitle">:סטודנטים שהתחברו לאפליקציה</h4>
+        <button type="submit" (click)="csvFile(userStudent , studentNum , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
+        <table id="customers">
+            <tr>
+                <th>תעודת זהות</th>
+                <th>טלפון</th>
+                <th>שם מלא</th>
+            </tr>
+            <tr *ngFor="let value of userStudent">
+                <td>{{value[2]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+        </table> <br><br>
+
+        <h4 class="tableTitle">:קשישים שהתחברו לאפליקציה דרך אירגונים</h4>
+        <button type="submit" (click)="csvFile(organizationEledry , organizationNum, 'organization')">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
+        <table id="customers">
+            <tr>
+                <th>שם הארגון</th>
+                <th>פלאפון איש הקשר</th>
+                <th>פלאפון הקשיש</th>
+                <th>שם מלא</th>
+            </tr>
+            <tr *ngFor="let value of organizationEledry">
+                <td>{{value[3]}}</td>
+                <td>{{value[2]}}</td>
+                <td>{{value[1]}}</td>
+                <td>{{value[0]}}</td>
+            </tr>
+        </table><br><br>
+
+        <h4 class="tableTitle">הודעות</h4>
+        <table id="customers">
+            <tr>
+                <th>מחק הודעה</th>
+                <th>טלפון</th>
+                <th>הודעה</th>
+                <th>שם מלא</th>
+            </tr>
+
+
+            <tr *ngFor="let value of messages">
+                <td><button (click)="deleteMessage(value.id)">[x]</button></td>
+                <td>{{value.data.message}}</td>
+                <td>{{value.data.phoneNumber}}</td>
+                <td>{{value.data.fullName}}</td>
+            </tr>
         </table>
-  </div>
-  </ion-content>
-  
+    </div>
+</ion-content>

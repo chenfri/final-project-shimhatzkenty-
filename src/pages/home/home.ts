@@ -34,14 +34,14 @@ export class HomePage
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     if(this.user.loggedIn == undefined)
-    this.user.loggedIn = false;
+      this.user.loggedIn = false;
     console.log(this.user.loggedIn)
 
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
 
-    console.log("if elderly:")
+    /*console.log("if elderly:")
     this.user.elderly = this.params.get('elderly');
     console.log(this.user.elderly)
 
@@ -63,86 +63,8 @@ export class HomePage
     }    
 
     if(!this.user.loggedIn && this.devicePlatform)
-      this.autoLogin()
+      this.autoLogin()*/
   }
-
-
-
- // remember the last user who logged in and save it on login - only on android
-  autoLogin()
-  {
-    let uid
-    const db = firebase.firestore();
-    var adminLogin = false
-    if(!this.user.Admin)
-    {
-        firebase.auth().onAuthStateChanged(function(user)
-        {
-          if (user) {
-            uid = firebase.auth().currentUser.uid
-            console.log("uid: "+uid)
-          }
-        else 
-            console.log("not logged in")
-      });
-      
-
-      setTimeout(() =>
-      {
-        if(uid != undefined)
-        {
-           db.collection('Admin').doc(uid).get() //check if the  last user was logged in is admin
-           .then(result =>{if(result.exists) {
-            adminLogin = true
-             this.user.loggedIn = false
-             console.log("admin ", this.user.Admin)
-           }}).catch(error => console.log(error))
-             
-        setTimeout(() =>
-        {
-          if(!adminLogin)
-          {
-            //get elderly document for know email and password
-            db.collection('ElderlyUsers').doc(uid).get()
-            .then(result =>{
-            if (result.exists)
-            {
-              console.log("doc1 exist")
-              this.user.loggedIn = result.data().loggedIn;  
-              this.user.email =  result.data().email
-              this.user.password = result.data().password
-              this.user.elderly = true
-              this.user.loggedIn = true
-            }
-            else //get volunteer document for know email and password
-            {
-              db.collection('volunteerUsers').doc(uid).get()
-              .then(result =>{
-                if (result.exists)
-                {
-                  console.log("doc2 exist")
-                  this.user.loggedIn = result.data().loggedIn;  
-                  this.user.email =  result.data().email
-                  this.user.password = result.data().password
-                  this.user.volunteer = true
-                  this.user.loggedIn = true
-                  console.log("email ", this.user.email)
-                }
-                firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success vol login"))
-             
-              }).catch(error => console.log(error))
-            }
-              
-              firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success elder login"))
-
-        }).catch(error => console.log(error))
-      } },1500)
-     }
-  
-    }, 2500);
-    }
-  }
-
 
 
   elderly_form()
@@ -287,8 +209,84 @@ export class HomePage
       })
   }
   
-  //----------------------------------------------------------------
+  //------------------------ function not in used ----------------------------------------
  
+ // remember the last user who logged in and save it on login - only on android
+ autoLogin()
+ {
+   let uid
+   const db = firebase.firestore();
+   var adminLogin = false
+   if(!this.user.Admin)
+   {
+       firebase.auth().onAuthStateChanged(function(user)
+       {
+         if (user) {
+           uid = firebase.auth().currentUser.uid
+           console.log("uid: "+uid)
+         }
+       else 
+           console.log("not logged in")
+     });
+     
+
+     setTimeout(() =>
+     {
+       if(uid != undefined)
+       {
+          db.collection('Admin').doc(uid).get() //check if the  last user was logged in is admin
+          .then(result =>{if(result.exists) {
+           adminLogin = true
+            this.user.loggedIn = false
+            console.log("admin ", this.user.Admin)
+          }}).catch(error => console.log(error))
+            
+       setTimeout(() =>
+       {
+         if(!adminLogin)
+         {
+           //get elderly document for know email and password
+           db.collection('ElderlyUsers').doc(uid).get()
+           .then(result =>{
+           if (result.exists)
+           {
+             console.log("doc1 exist")
+             this.user.loggedIn = result.data().loggedIn;  
+             this.user.email =  result.data().email
+             this.user.password = result.data().password
+             this.user.elderly = true
+             this.user.loggedIn = true
+           }
+           else //get volunteer document for know email and password
+           {
+             db.collection('volunteerUsers').doc(uid).get()
+             .then(result =>{
+               if (result.exists)
+               {
+                 console.log("doc2 exist")
+                 this.user.loggedIn = result.data().loggedIn;  
+                 this.user.email =  result.data().email
+                 this.user.password = result.data().password
+                 this.user.volunteer = true
+                 this.user.loggedIn = true
+                 console.log("email ", this.user.email)
+               }
+               firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success vol login"))
+            
+             }).catch(error => console.log(error))
+           }
+             
+             firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success elder login"))
+
+       }).catch(error => console.log(error))
+     } },1500)
+    }
+ 
+   }, 2500);
+   }
+ }
+
+
  gmail()
  {
    if(this.platform.is('android'))

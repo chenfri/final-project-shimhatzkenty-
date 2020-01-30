@@ -40,7 +40,7 @@ export class Form
   public ifRegister = false
   public anotherName = "";
   public phoneNum = "";
-  public neighborhoods: any[57]
+  public neighborhoods: any[]
   public selectedNH : any
   public durationVol: any[]
 
@@ -50,7 +50,7 @@ export class Form
           public events: Events, private http: HttpClient)
     {
 
-    this.readCsvData()
+   // this.readCsvData()
     this.user.loggedIn = this.params.get('login');
     console.log("login :", this.user.loggedIn)
     this.user.elderly = this.params.get('elderly');
@@ -79,7 +79,7 @@ export class Form
 
     this.assistants = [];
     
-    this.durationVol = this.array.durationVol
+    //this.durationVol = this.array.durationVol
     this.hobbies = this.array.hobbies
     this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
@@ -92,6 +92,7 @@ export class Form
     this.musical_instrument = this.array.musical_instrument
     this.dayOfMeeting = this.array.dayOfMeeting
     this.organization = this.array.organization
+    this.neighborhoods = this.array.neighborhoods
 
     if (this.user.loggedIn)
     {
@@ -113,81 +114,13 @@ export class Form
   // }
 
 
-  //read list of neighborhoods from csv file
-  readCsvData()
-  {
-    console.log("aa")
-    let array = []
-    let data = '' , index = 0;
-
-    this.http.get('./assets/neighborhoods.csv', {responseType: 'text'}).subscribe(res => {
-      data = res
-    }, err => console.error(err))
-
-
-    //convert the string to array of object
-    setTimeout(() => 
-    {
-      for(let i = 0 ;i < 57; i ++)
-      {
-        let x = '';
-        for (let k = index ; k < data.length ; k++)
-        {
-          if(data[k] == '\n')
-          {
-            index = k+1
-            break
-          }
-          x += data[k]
-        }
-   
-        array[i] = {'species': x,
-        'currentValue': false}
-      }
-      this.neighborhoods = array
-      console.log(this.neighborhoods)
-    }, 3000);
-    
-  }
-
-
-  async registry()
-  {
-    let str = await this.func.registry(this.user.email, this.user.password)
-    if(str == "sucsses"){
-      this.ifRegister = true;
-      this.user.hideForm = true;
-      // console.log('User created! , ' + this.user.dateTime)
-    }
-
-    // this.alert.showError_NotEmailVerfied();
-  }
-
-
-  //if the user want to change his user to password 
-  update_email_or_password()
-  {
-    firebase.auth().currentUser.updatePassword(this.user.password);
-    firebase.auth().currentUser.updateEmail(this.user.email);
-    this.alert.showAlert_changeEmailAndPassword();
-    
-    if(!this.user.loggedIn)
-    {
-      this.user.elderly = false
-      this.user.volunteer = false
-    }
-
-    this.navCtrl.push(HomePage, {
-      'login': this.user.loggedIn, 'elderly': this.user.elderly
-      , 'volunteer': this.user.volunteer
-    });
-  }
-
 
   //if the user press on home page button and he didn't finish fill the form
   click_home()
   {
-    const db = firebase.firestore();
+    this.navCtrl.push(HomePage)
+
+    /*const db = firebase.firestore();
     if(this.ifRegister) //if the user is allready register check if there is his document in firebase
     {
       if (this.user.elderly)
@@ -211,17 +144,16 @@ export class Form
       this.navCtrl.push(HomePage, {
         'login': this.user.loggedIn, 'elderly': this.user.elderly,
         'volunteer': this.user.volunteer
-      })
+      })*/
   }
 
 
   //check that all user inputs are legal
   check_field_value()
   {
-    console.log("aa")
     let flag = 0;
 
-    if (typeof (this.user.phone) === "undefined"|| typeof (this.user.email) === "undefined" || typeof (this.user.password) === "undefined") {
+    if (typeof (this.user.phone) === "undefined"|| typeof (this.user.email) === "undefined") {
       this.alert.error_emptyFields();
       flag = 1;
     }
@@ -307,10 +239,10 @@ export class Form
         this.alert.error_numOfMeeting();
         flag = 1;
       }
-      if (this.check_arrayVaule(this.durationVol) == 1 && !this.user.student) {
+      /*if (this.check_arrayVaule(this.durationVol) == 1 && !this.user.student) {
         this.alert.error_VolunteerDuration();
         flag = 1;
-      }
+      }*/
     }
 
     if (flag == 0)
@@ -422,7 +354,7 @@ export class Form
     this.user.dateTime = new Date().toISOString().substring(0, 10);
 
     const db = firebase.firestore();
-    db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
+    db.collection('volunteerUsers').doc(/*firebase.auth().currentUser.uid*/).set(
       {
         fullName: this.user.fullName,
         address: [this.user.street, this.user.homeNumber,this.selectedNH.species, this.user.city],
@@ -444,17 +376,17 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
-        password: this.user.password,
+       // password: this.user.password,
         dateTime : this.user.dateTime ,
-        durationVol: this.durationVol,
+       // durationVol: this.durationVol,
       })
       .then(() => {
         this.alert.showAlertSuccess();
         this.init_arrays()
-        this.navCtrl.push(HomePage, {
+        this.navCtrl.push(HomePage/*, {
           'login': this.user.loggedIn, 'elderly': this.user.elderly,
           'volunteer': this.user.volunteer
-        })
+        }*/)
       }).catch((error) => {
         console.log
       })
@@ -466,7 +398,7 @@ export class Form
     this.user.dateTime = new Date().toISOString().substring(0, 10);
 
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).set(
+    db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).set(
       {
         fullName: this.user.fullName,
         address: [this.user.street, this.user.homeNumber, this.selectedNH.species, this.user.city],
@@ -487,17 +419,17 @@ export class Form
         zone: this.zone,
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
-        password: this.user.password,
+       // password: this.user.password,
         dateTime : this.user.dateTime 
 
       })
       .then(() => {
         this.alert.showAlertSuccess();
         this.init_arrays()
-        this.navCtrl.push(HomePage, {
+        this.navCtrl.push(HomePage/*, {
           'login': this.user.loggedIn, 'elderly': this.user.elderly
           , 'volunteer': this.user.volunteer
-        });
+        }*/);
       }).catch((error) => {
         console.log
       })
@@ -517,7 +449,8 @@ export class Form
       this.init(this.musical_instrument)
       this.init(this.dayOfMeeting)
       this.init(this.organization)
-      this.init(this.durationVol)
+     // this.init(this.durationVol)
+      this.init(this.neighborhoods)
     }
   
   
@@ -715,6 +648,79 @@ export class Form
   {
     this.radioClicked(event.value, this.neighborhoods)
   }
+
+  //------------------------- function not in used ------------------------
+  
+  //read list of neighborhoods from csv file
+  readCsvData()
+  {
+    console.log("aa")
+    let array = []
+    let data = '' , index = 0;
+
+    this.http.get('./assets/neighborhoods.csv', {responseType: 'text'}).subscribe(res => {
+      data = res
+    }, err => console.error(err))
+
+
+    //convert the string to array of object
+    setTimeout(() => 
+    {
+      for(let i = 0 ;i < 57; i ++)
+      {
+        let x = '';
+        for (let k = index ; k < data.length ; k++)
+        {
+          if(data[k] == '\n')
+          {
+            index = k+1
+            break
+          }
+          x += data[k]
+        }
+   
+        array[i] = {'species': x,
+        'currentValue': false}
+      }
+      this.neighborhoods = array
+      console.log(this.neighborhoods)
+    }, 3000);
+    
+  }
+
+
+  async registry()
+  {
+    let str = await this.func.registry(this.user.email, this.user.password)
+    if(str == "sucsses"){
+      this.ifRegister = true;
+      this.user.hideForm = true;
+      // console.log('User created! , ' + this.user.dateTime)
+    }
+
+    // this.alert.showError_NotEmailVerfied();
+  }
+
+
+  //if the user want to change his user to password 
+  update_email_or_password()
+  {
+    firebase.auth().currentUser.updatePassword(this.user.password);
+    firebase.auth().currentUser.updateEmail(this.user.email);
+    this.alert.showAlert_changeEmailAndPassword();
+    
+    if(!this.user.loggedIn)
+    {
+      this.user.elderly = false
+      this.user.volunteer = false
+    }
+
+    this.navCtrl.push(HomePage, {
+      'login': this.user.loggedIn, 'elderly': this.user.elderly
+      , 'volunteer': this.user.volunteer
+    });
+  }
+
 }
 
 
