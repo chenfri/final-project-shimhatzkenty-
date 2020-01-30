@@ -1,6 +1,6 @@
 <ion-content padding class="login-page" >
-  <input style="float: left;" type="submit" (click)= "click_home()" value="חזרה לדף הבית">
-  <br><br><br><br>
+   <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>  
+   <br><br><br><br>
 
   <div class="login-bar" style="  text-align: -webkit-center;">  
 
@@ -8,8 +8,7 @@
 
       <br><br>
 
-      <label style="font-weight: bold;
-                    font-size: initial;">כתובת דוא"ל</label><br>
+      <label style="font-weight: bold;font-size: initial;">כתובת דוא"ל</label><br>
       <input type="text" name="email" [(ngModel)] = "user.email"><br><br>
 
       <label  style=" font-weight: bold;
@@ -17,9 +16,12 @@
                   
       <input type="password" name="password" [(ngModel)] = "user.password"><br><br><br>
 
-      <input type="submit"  (click)= "resetPassword(user)" value="שכחתי סיסמא">
-  
-      <input type="submit"  (click)= "signIn_function(user)" value="התחבר">
+   
+      <button ion-button (click)="resetPassword(user)">שכחתי סיסמא</button>
+
+      <button ion-button (click)="signIn_function(user)">התחבר</button>
+
+     
 
              
    </div>

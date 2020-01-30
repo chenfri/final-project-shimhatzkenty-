@@ -4,13 +4,13 @@
 .formCSS{
   color:#FCBE47;
   background-color: #035445;    
-  // background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/4k-wallpaper-background-blur-blurred-background-1242348.jpg?alt=media&token=86486b62-a59b-4f74-a73e-a83116d15e32") ;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b") ;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center;
+  background-size: 40%;
   font-weight: bold;
   text-align: right;
-  float: right;
+
 
 
   .titleForm{
@@ -37,10 +37,6 @@ input[type=text]{
 
 }
 }
-// .personalInfo{
-//   background-color: #ffffff80;
-//   margin-bottom: auto;
-// }
 
 /* Style inputs */
 input[type=text],input[type=password],input[type=number], select, textarea {
@@ -175,7 +171,7 @@ input[type=submit] {
   //  border-color : rgb(255, 81, 0) !important;
    --height : 25px;
    --width: 25px;
-   --checkmark-color:blue;
+  //  --checkmark-color:blue;
  }
 // .checkbox-icon-checked {
 //   background:black;
@@ -204,10 +200,6 @@ input[type=submit] {
   // --border-color: #e0de69;
   // --border-color-checked: #e0de69;
 }
-// .radio-checked{
-//   background:#68836d;
-
-// }
 
 // .checkbox-inner {
 //   background-color: black; 

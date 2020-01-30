@@ -1,11 +1,14 @@
 .login-page{
-    
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/4k-wallpaper-background-blur-blurred-background-1242348.jpg?alt=media&token=86486b62-a59b-4f74-a73e-a83116d15e32") ;
+
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b") ;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center;
-  align-items: center;
-  text-align: -webkit-center;
+  // background-position: center;
+  background-size: 40%;
+
+
+    background-color: #08144a;
+    color:#FCBE47;
 
   .titleLogin{
       font-size: xx-large;
@@ -16,15 +19,14 @@
   box-sizing: border-box;
 }
 
-/* Style inputs */
-input[type=text],input[type=password], select, textarea  {
-  width:auto;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
-  margin-bottom: 16px;
+input[type=text],input[type=password],input[type=number], select, textarea {
+  width: max-content;
+ padding: 12px;
+  border: 1px solid rgba(48, 124, 193, 1);
+  //margin-top: 6px;
+  //margin-bottom: 16px;
   resize: vertical;
-
+  background-color: rgba(48, 124, 193, 1);;
 }
 
 input[type=submit] {
@@ -41,22 +43,25 @@ input[type=submit]:hover {
   background-color:#945151;
 }
 
-// /* Style the container/contact section */
-// .container {
-//   border-radius: 5px;
-//   background-color: #f2f2f2;
-//   padding: 10px;
-// }
+.button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: #eca8a9;
+  border: solid black 0px;
+  cursor: pointer !important;
+  border-radius: 50px;
+  -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+  transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+  -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+  box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+  color: #035445;
+}
 
+.button:hover {
+  background-color:#FCBE47;
 
-
-// /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-// @media screen and (max-width: 600px) {
-//   .column, input[type=submit] {
-//     width: 100%;
-//     margin-top: 0;
-//   }
-// }
-
+  color: white;
+}
 
 }
