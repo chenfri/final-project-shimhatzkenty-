@@ -15,7 +15,7 @@
     <h6 *ngIf="user.elderly" style="text-align: center;">.חשוב שאדם נוסף שיהיה נוכח בפגישה הראשונה</h6>
 
     <form class="form" style="float: right; width: 100%;"> <br><br>
-        <ion-grid>
+        <!-- <ion-grid>
             <ion-row style="direction: rtl;">
                 <ion-col>
                     <label>כתובת דוא"ל</label><br>
@@ -31,25 +31,35 @@
 
             </ion-row>
         </ion-grid>
+
         <ion-row style="direction: rtl;">
             <ion-col>
                 <button ion-button *ngIf="!user.loggedIn" (click)="registry()">יצירת חשבון</button>
                 <button ion-button *ngIf="user.loggedIn" (click)="update_email_or_password()">עדכון פרטים</button>
             </ion-col>
         </ion-row>
-        <br><br><br>
+        <br><br><br> -->
 
-      
+
 
         <!-- <ion-grid *ngIf="user.hideForm"> -->
-            <ion-row style="direction: rtl; ">
+        <ion-row style="direction: rtl; ">
 
-            <ion-col >
+            <ion-col>
                 <ion-row>
                     <label>שם מלא</label>
                 </ion-row>
                 <ion-row>
                     <input text-right type="text" name="title" [(ngModel)]="user.fullName">
+                </ion-row>
+            </ion-col>
+
+            <ion-col>
+                <ion-row>
+                    <label>כתובת דוא"ל</label><br>
+                </ion-row>
+                <ion-row>
+                    <input type="text" name="username" [(ngModel)]="user.email">
                 </ion-row>
             </ion-col>
             <!-- <ion-col>
@@ -68,40 +78,28 @@
                 </ion-row>
             </ion-col>
 
-                <ion-col >
-                    <ion-row *ngIf="!user.elderly">
-                        <label>ת"ז (נדרש לצורך ביטוח)</label>
-                    </ion-row>
-                    <ion-row *ngIf="!user.elderly">
-                        <input text-right type="number" name="idStudent" [(ngModel)]="user.id">
-                    </ion-row>
-                </ion-col>
+            <ion-col>
+                <ion-row *ngIf="!user.elderly">
+                    <label>ת"ז (נדרש לצורך ביטוח)</label>
+                </ion-row>
+                <ion-row *ngIf="!user.elderly">
+                    <input text-right type="number" name="idStudent" [(ngModel)]="user.id">
+                </ion-row>
+            </ion-col>
 
-                <ion-col style="background-color:#ffffff00 ;color:#FCBE47;" >
-                    <ion-row *ngIf="!user.elderly">
-                        <ion-label style="text-align: right; "> גיל</ion-label>
-                    </ion-row>
-                    <ion-row *ngIf="!user.elderly">
-                        <input style="float: right;width: auto;" text-right type="number" name="age" [(ngModel)]="user.age">
-                    </ion-row>
-                </ion-col>
+            <ion-col style="background-color:#ffffff00 ;color:#FCBE47;">
+                <ion-row *ngIf="!user.elderly">
+                    <ion-label style="text-align: right; "> גיל</ion-label>
+                </ion-row>
+                <ion-row *ngIf="!user.elderly">
+                    <input style="float: right;width: auto;" text-right type="number" name="age" [(ngModel)]="user.age">
+                </ion-row>
+            </ion-col>
 
         </ion-row>
 
 
         <ion-row style="direction: rtl; justify-content: center;">
-
-            <!-- <ion-col>
-                <ion-row>
-                    <label style="float: right;">שכונה</label><br><br>
-                </ion-row>
-                <ion-item style="float: right; width: fit-content; ">
-                    <ion-select ultiple="false" interface="popover" m name="select" placeholder="בחר שם שכונה" style=" max-width: 100%!important; width: 100%!important; right: auto!important; direction: ltr!important;
-                            padding-left: 0!important;">
-                        <ion-option *ngFor="let neighborhoods of neighborhoods" [value]="neighborhoods.species" [selected]="neighborhoods.currentValue" (ionSelect)="selectNH(neighborhoods)">{{neighborhoods.species}}</ion-option>
-                    </ion-select>
-                </ion-item>
-            </ion-col> -->
 
             <ion-col>
                 <ion-row>
@@ -154,16 +152,16 @@
 
 
         <br><br><br><br>
-        <ion-row >
+        <ion-row>
 
             <ion-col>
                 <label>מגדר</label>
                 <ion-item class="radio" no-lines *ngFor="let gender of gender" style="background-color:#ffffff00 ;color:#FCBE47;">
-                    <ion-label  item-right style="text-align: right; ">  {{ gender.species }} </ion-label>
+                    <ion-label item-right style="text-align: right; "> {{ gender.species }} </ion-label>
                     <ion-radio item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-radio>
                 </ion-item>
-                
-          
+
+
             </ion-col>
 
             <ion-col *ngIf="!user.elderly">
@@ -225,7 +223,7 @@
                 <ion-icon style="size: large;"  name="add-circle"></ion-icon>
               </button>
                     <br><br>
-                
+
 
                 </div>
             </ion-col>
@@ -240,7 +238,7 @@
                         <br><br><br><br>
                         <ion-item no-lines *ngFor="let zone of zone" style="background-color:#ffffff00; color:#FCBE47;">
                             <ion-label style="text-align: right;"> {{ zone.species }} </ion-label>
-                            <ion-radio  item-right [checked]="zone.currentValue" (click)="radioClicked6(zone)"></ion-radio>
+                            <ion-radio item-right [checked]="zone.currentValue" (click)="radioClicked6(zone)"></ion-radio>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -299,7 +297,7 @@
 
                 <!-------------------------------- just for volunteer -------------------------------------------->
 
-                <ion-col *ngIf="!user.elderly && !user.student">
+                <!-- <ion-col *ngIf="!user.elderly && !user.student">
                     <h4 class="titleForm">משך התנדבות</h4><br><br><br>
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let durationVol of durationVol; let i = index" style="background-color:#ffffff00 ;color:#FCBE47;">
@@ -307,7 +305,7 @@
                             <ion-radio item-right [checked]="durationVol.currentValue" (click)="radioClicked7(durationVol, $event)"></ion-radio>
                         </ion-item>
                     </ion-list>
-                </ion-col>
+                </ion-col> -->
 
                 <ion-col *ngIf="!user.elderly && !user.student">
                     <h4 class="titleForm">תדירות מפגשים<br><br></h4><br>
@@ -364,7 +362,7 @@
         </ion-grid><br>
 
         <!-- <ion-row *ngIf="!user.elderly" style=" background: #ffffff80;direction: rtl;"> -->
-        <ion-row *ngIf="!user.elderly" style=" direction: rtl;">    
+        <ion-row *ngIf="!user.elderly" style=" direction: rtl;">
             <label style="float: right;">*לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב.
                 </label><br><br>
         </ion-row>
@@ -383,7 +381,7 @@
         </ion-grid>
         <br><br><br><br>
 
-        <ion-grid >
+        <ion-grid>
             <button ion-button style="    align-self: center;" (click)="check_field_value()">שמירה</button>
             <br><br><br><br></ion-grid>
 

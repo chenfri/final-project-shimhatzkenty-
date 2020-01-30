@@ -1,30 +1,29 @@
- <ion-content class = "homePage">
- 
-      <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic2.png?alt=media&token=ecca364b-4e25-402a-a848-d69e409c9f70"
-          style="width: auto;
+<ion-content class="homePage">
+
+    <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic2.png?alt=media&token=ecca364b-4e25-402a-a848-d69e409c9f70" style="width: auto;
           height: auto;
           min-height: 160px;" />
 
     <!-- <div class ="downHomePage"> -->
-   <ion-grid>
-      <ion-row  class = "navbarHome">
-          <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button> -->
-          <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button> -->
-          <button ion-button item-start *ngIf = "!user.loggedIn" (click)="login()">כניסת מנהל </button>
-          <button ion-button  *ngIf = "!user.loggedIn" (click)="elderly_form()">רישום לאזרח הותיק</button>
-          <button ion-button   *ngIf = "!user.elderly && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button>
-          <button ion-button  *ngIf = "!user.loggedIn && !user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
-          <button ion-button  *ngIf = "user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button>
-          <button ion-button item-end *ngIf = "user.Admin" (click)=" get_data_for_admin()">דף ניהול</button>
-          <button ion-button (click)="gallery()">גלריה</button>
-          <button ion-button  *ngIf = "!user.Admin"  (click)="contactPage()">צור קשר</button>
-          <button ion-button item-end *ngIf = "user.loggedIn" (click)="logout()">התנתק</button>
-        </ion-row >
+    <ion-grid>
+        <ion-row class="navbarHome">
+            <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button> -->
+            <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button> -->
+            <button ion-button item-start *ngIf="!user.loggedIn" (click)="login()">כניסת מנהל</button>
+            <button ion-button *ngIf="!user.Admin" (click)="elderly_form()">רישום לאזרח הותיק</button>
+            <!-- <button ion-button *ngIf="user.volunteer && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button> -->
+            <button ion-button *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
+            <!-- <button ion-button *ngIf="user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button> -->
+            <button ion-button item-end *ngIf="user.Admin" (click)=" get_data_for_admin()">מאגר נרשמים</button>
+            <button ion-button *ngIf="!user.Admin" (click)="gallery()">גלריה</button>
+            <button ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</button>
+            <button ion-button item-end *ngIf="user.loggedIn" (click)="logout()">התנתק</button>
+        </ion-row>
 
-     <ion-row class="homedetails">
-                 
-        <ion-col class="homePageText" >
-            <!-- <p ion-text style="text-align: center;" >
+        <ion-row class="homedetails">
+
+            <ion-col class="homePageText">
+                <!-- <p ion-text style="text-align: center;" >
           
             ׳שמחת זקנתי׳ הוא מיזם חברתי השואף לרומם את רוחם ולהפיג את בדידותם של קשישים בבתיהם הפרטיים או במרכזים ציבוריים.
 <br>
@@ -32,40 +31,38 @@
 <br>
 לא תאמינו כמה שמחה תוכלו להכניס לחייהם של אותם אנשים שבעקבות גילם או מצבם הרפואי מעבירים את הזמן לבד.
             </p>  -->
-           <img style="width:auto; height:auto;
-                        min-width:420px; min-height:335px;     place-content: center;"
-                src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=56429aa1-b06a-41f2-aa65-87da84cbf3a5">
-        </ion-col>    
-        <ion-col >
-            <iframe style="width:auto; height:auto; min-width:440px; min-height:345px; place-content: center;" 
-                    src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1"></iframe>
-        </ion-col>
-                   
-        </ion-row>
-  <!-- </div>  -->
-        <ion-row style="width: 100%;background-color: #ff562b; color:#ff562b">a</ion-row>
+                <img style="width:auto; height:auto;
+                        min-width:420px; min-height:335px;     place-content: center;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=56429aa1-b06a-41f2-aa65-87da84cbf3a5">
+            </ion-col>
+            <ion-col>
+                <iframe style="width:auto; height:auto; min-width:440px; min-height:345px; place-content: center;" src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1"></iframe>
+            </ion-col>
 
-        <ion-row class="slides" >
-            <ion-slides pager= "true"  autoplay="3000" loop="true" speed="500" class="slides" >
-              <ion-slide>
-                <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery1.jpg?alt=media&token=40dee681-89ea-40f2-947f-11a26d34ab60" alt="">
-              </ion-slide>
-              <ion-slide centeredSlides="true">
-                <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery2.jpg?alt=media&token=b6ca0173-535a-454e-9d0a-2fcef34cb304" alt="">
-              </ion-slide>
-              <ion-slide>
-                  <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery3.jpeg?alt=media&token=9f0c2668-a08a-4558-ab95-3f542813fd55">
-              </ion-slide>
-              <ion-slide>
-                <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery4.jpg?alt=media&token=003525f9-9486-4ffc-bbbe-f82a0ab51349">
-            </ion-slide>
-            <ion-slide>
-              <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery5.jpeg?alt=media&token=c4140bd6-301b-421a-b1cd-f9c20cc6779b">
-            </ion-slide>
-            <ion-slide>
-              <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery6.jpeg?alt=media&token=b77e5bb9-2923-4191-a956-4eb465aea2fe">
-            </ion-slide>
-          </ion-slides>
+        </ion-row>
+        <!-- </div>  -->
+        <ion-row style="background-color: #ff562b; color:#ff562b">a</ion-row>
+
+        <ion-row class="slides">
+            <ion-slides pager="true" autoplay="3000" loop="true" speed="500" class="slides">
+                <ion-slide>
+                    <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery1.jpg?alt=media&token=40dee681-89ea-40f2-947f-11a26d34ab60" alt="">
+                </ion-slide>
+                <ion-slide centeredSlides="true">
+                    <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery2.jpg?alt=media&token=b6ca0173-535a-454e-9d0a-2fcef34cb304" alt="">
+                </ion-slide>
+                <ion-slide>
+                    <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery3.jpeg?alt=media&token=9f0c2668-a08a-4558-ab95-3f542813fd55">
+                </ion-slide>
+                <ion-slide>
+                    <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery4.jpg?alt=media&token=003525f9-9486-4ffc-bbbe-f82a0ab51349">
+                </ion-slide>
+                <ion-slide>
+                    <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery5.jpeg?alt=media&token=c4140bd6-301b-421a-b1cd-f9c20cc6779b">
+                </ion-slide>
+                <ion-slide>
+                    <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery6.jpeg?alt=media&token=b77e5bb9-2923-4191-a956-4eb465aea2fe">
+                </ion-slide>
+            </ion-slides>
 
         </ion-row>
 
@@ -80,8 +77,5 @@
         </ion-row> -->
 
 
-    </ion-grid> 
+    </ion-grid>
 </ion-content>
-  
-  
-  
