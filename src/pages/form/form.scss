@@ -167,28 +167,53 @@ input[type=submit] {
 //   background-color: #ffffff80;
 // }
 
-ion-checkbox {
-  background:#035445;
-  border-width: 1px !important;
-  border-style: solid !important;
-  border-radius: 4px;
-  border-color: grey !important;
-  --height: 35px;
-  --width: 35px;
-  --checkmark-color: #ffffff;
-  --background-checked: #ffffff;
-  --border-color: #ffffff;
-  --border-color-checked: #ffffff;
+.checkbox-icon{
+   background:#68836d;
+  //  border-width: 1px !important;
+  //  border-style: solid !important;
+   border-radius: 4px;
+  //  border-color : rgb(255, 81, 0) !important;
+   --height : 25px;
+   --width: 25px;
+   --checkmark-color:blue;
+ }
+// .checkbox-icon-checked {
+//   background:black;
+//   background-color:black;
+// }
+ .checkbox-checked {
+    background-color: rgb(143, 135, 129);
+    border-color: rgb(143, 135, 129);
+    // color: black;
+    // .checkmark-color{color: black;}
+    // --checkmark-color:blue;
+
 }
-ion-radio{
-  background:#035445 !important;
-  border-color: grey ;
+.label-checked{
+  color: black;
+}
+.radio-icon{
+  background:#68836d;
+  // background:#035445 !important;
+  // border-color: grey ;
+  --color:#035445 !important;
   --height: 35px;
   --width: 35px;
-  --checkmark-color: #ffffff;
-  --background-checked: #ffffff;
-  --border-color: #ffffff;
-  --border-color-checked: #ffffff;
+  // --checkmark-color: #e0de69;
+  // background-checked: #e0de69;
+  // --border-color: #e0de69;
+  // --border-color-checked: #e0de69;
+}
+// .radio-checked{
+//   background:#68836d;
+
+// }
+
+// .checkbox-inner {
+//   background-color: black; 
+// }
+.radio-inner {
+  background-color: #FCBE47; 
 }
 
 .text-input text-input-md {

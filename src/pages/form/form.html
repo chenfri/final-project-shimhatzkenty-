@@ -156,8 +156,8 @@
 
             <ion-col>
                 <label>מגדר</label>
-                <ion-item no-lines *ngFor="let gender of gender" style="background-color:#ffffff00 ;color:#FCBE47;">
-                    <ion-label item-right style="text-align: right; ">  {{ gender.species }} </ion-label>
+                <ion-item class="radio" no-lines *ngFor="let gender of gender" style="background-color:#ffffff00 ;color:#FCBE47;">
+                    <ion-label  item-right style="text-align: right; ">  {{ gender.species }} </ion-label>
                     <ion-radio item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-radio>
                 </ion-item>
                 
@@ -191,7 +191,7 @@
             <!-------------------------------- just for elderly ------------------------------------------->
             <ion-col *ngIf="user.elderly">
                 <ion-item no-lines style="background-color:#ffffff00">
-                    <ion-label style="text-align: right; font-weight:bold;"> אני ממלא את הטופס בשם מישהו אחר</ion-label>
+                    <ion-label style="color:#FCBE47;font-style: calibri;text-align: right; font-weight:bold;"> אני ממלא את הטופס בשם מישהו אחר</ion-label>
                     <ion-checkbox item-right [checked]="user.onBehalf" (click)="onbehalf()"></ion-checkbox>
                 </ion-item>
 
@@ -238,7 +238,7 @@
                         <br><br><br><br>
                         <ion-item no-lines *ngFor="let zone of zone" style="background-color:#ffffff00; color:#FCBE47;">
                             <ion-label style="text-align: right;"> {{ zone.species }} </ion-label>
-                            <ion-radio item-right [checked]="zone.currentValue" (click)="radioClicked6(zone)"></ion-radio>
+                            <ion-radio  item-right [checked]="zone.currentValue" (click)="radioClicked6(zone)"></ion-radio>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -248,7 +248,7 @@
                     <br><br><br><br>
                     <ion-item no-lines *ngFor="let zone of zone" style="background-color:#ffffff00;color:#FCBE47;">
                         <ion-label style="text-align: right;"> {{ zone.species }} </ion-label>
-                        <ion-checkbox item-right [checked]="zone.currentValue" (click)="CheckboxClicked4(zone)"></ion-checkbox>
+                        <ion-checkbox color="primary" item-right [checked]="zone.currentValue" (click)="CheckboxClicked4(zone)"></ion-checkbox>
 
                     </ion-item>
                 </ion-col>
@@ -301,7 +301,7 @@
                     <h4 class="titleForm">משך התנדבות</h4><br><br><br>
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let durationVol of durationVol; let i = index" style="background-color:#ffffff00 ;color:#FCBE47;">
-                            <ion-label style="text-align: right;"> {{ durationVol.species }} </ion-label>
+                            <ion-label  style="text-align: right;"> {{ durationVol.species }} </ion-label>
                             <ion-radio item-right [checked]="durationVol.currentValue" (click)="radioClicked7(durationVol, $event)"></ion-radio>
                         </ion-item>
                     </ion-list>
