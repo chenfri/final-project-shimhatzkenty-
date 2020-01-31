@@ -17,38 +17,6 @@ export class AlertProvider
     alert.present();
   }
 
-  
-  showAlert_changeEmailAndPassword()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'בוצע',
-      subTitle: 'כתובת הדוא"ל והסיסמה שונו בהצלחה',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-  
-
-  showAlert()
-  {
-    let alert = this.alertCtrl.create({
-      title: '!הפרטים נשמרו בהצלחה',
-      subTitle: 'שים לב, יש למלא את כל הטופס' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  showAlert_EmailVerfied()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה - לא ניתן להתחבר',
-      subTitle: 'יש לאמת תחילה את כתובת הדוא"ל שלך במייל שנשלח לכתובת שהזנת' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
 
   showError_language()
   {
@@ -166,70 +134,60 @@ export class AlertProvider
     alert.present();
   }
 
-  showError_meetingWith()
+
+  error_emptyPhone()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה לבחור עם מי המפגש יתקיים' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-  
-
-  showError_NotEmailVerfied()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'לתשומת ליבך!',
-      subTitle: 'כעת נשלח מייל אימות לכתובת דוא"ל שהזנת, יש לאשר שהכתובת אכן נכונה' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  error_showAlert()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'שים לב, יש למלא את כל הטופס' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_emptyFields()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: '!חובה למלא את כל השדות',
+      subTitle: 'חובה למלא מספר פלאפון תקין, ללא מקף',
       buttons: ['OK']
     });
     alert.present();
   }
 
   
-  error_emptyEmailOrPassword()
+  error_emptyFullName()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: '!חובה למלא כתובת דוא"ל וסיסמא',
+      subTitle: '!חובה למלא שם מלא',
       buttons: ['OK']
     });
     alert.present();
   }
 
+
+  error_illegalEmail()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
   error_illegalEmailOrPassword()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמא באורך של 6 תווים לפחות',
+      subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמה באורך 6 תווים לפחות',
       buttons: ['OK']
     });
     alert.present();
   }
 
+  error_emptyEmailOrPassword()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה למלא כתובת דוא"ל וסיסמה',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  
   
   error_emailIsNotExist()
   {
@@ -307,7 +265,91 @@ export class AlertProvider
   }
 
 
+  error_numOfMeeting()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle:'חובה לבחור תדירות מפגשים',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  error_emailIsAllreadyExist()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle:'כתובת הדוא"ל כבר קיימת המערכת',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  // ---------------------------- function not in used ------------------------------
+
+  showError_meetingWith()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'חובה לבחור עם מי המפגש יתקיים' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
   
+  showAlert()
+  {
+    let alert = this.alertCtrl.create({
+      title: '!הפרטים נשמרו בהצלחה',
+      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
+
+  showAlert_changeEmailAndPassword()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'כתובת הדוא"ל והסיסמה שונו בהצלחה',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  showAlert_EmailVerfied()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה - לא ניתן להתחבר',
+      subTitle: 'יש לאמת תחילה את כתובת הדוא"ל שלך במייל שנשלח לכתובת שהזנת' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  showError_NotEmailVerfied()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'לתשומת ליבך!',
+      subTitle: 'כעת נשלח מייל אימות לכתובת דוא"ל שהזנת, יש לאשר שהכתובת אכן נכונה' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  error_showAlert()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   error_place()
   {
     let alert = this.alertCtrl.create({
@@ -335,27 +377,6 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה לבחור משך התנדבות',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  error_numOfMeeting()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle:'חובה לבחור תדירות מפגשים',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_emailIsAllreadyExist()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle:'כתובת הדוא"ל כבר קיימת המערכת',
       buttons: ['OK']
     });
     alert.present();

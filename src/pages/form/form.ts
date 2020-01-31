@@ -2,7 +2,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import { AlertProvider } from '../../providers/alert/alert'
 import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
@@ -44,15 +44,16 @@ export class Form
   public selectedNH : any
   public durationVol: any[]
 
-
+  
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
           public events: Events, private http: HttpClient)
+          
     {
 
    // this.readCsvData()
-    this.user.loggedIn = this.params.get('login');
-    console.log("login :", this.user.loggedIn)
+    /*this.user.loggedIn = this.params.get('login');
+    console.log("login :", this.user.loggedIn)*/
     this.user.elderly = this.params.get('elderly');
     console.log("elderly :", this.user.elderly)
     this.user.volunteer = this.params.get('volunteer');
@@ -94,7 +95,7 @@ export class Form
     this.organization = this.array.organization
     this.neighborhoods = this.array.neighborhoods
 
-    if (this.user.loggedIn)
+   /* if (this.user.loggedIn)
     {
       this.user.hideForm = true
       if(this.user.volunteer)
@@ -103,21 +104,16 @@ export class Form
         this.getData_fromFirebase('ElderlyUsers');
     }
     else
-      this.user.hideForm = false
+      this.user.hideForm = false*/
     
+
   }
-
-
-  // createUser(user) {
-  //   console.log('User created! , ' + Date.now())
-  //   this.events.publish('user:created', user, Date.now());
-  // }
-
 
 
   //if the user press on home page button and he didn't finish fill the form
   click_home()
   {
+    this.init_arrays()
     this.navCtrl.push(HomePage)
 
     /*const db = firebase.firestore();
@@ -148,46 +144,31 @@ export class Form
   }
 
 
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+
   //check that all user inputs are legal
   check_field_value()
   {
     let flag = 0;
 
-    if (typeof (this.user.phone) === "undefined"|| typeof (this.user.email) === "undefined") {
-      this.alert.error_emptyFields();
+    if (typeof (this.user.fullName) === "undefined" && !this.user.onBehalf)
+    {
+        this.alert.error_emptyFullName();
+        flag = 1;
+    }
+
+    else if (typeof (this.user.email ) === "undefined" || !this.validateEmail(this.user.email)) {
+      this.alert.error_illegalEmail()
       flag = 1;
     }
 
-    else if (this.selectedNH == null || this.user.street === "undefined")
-    {
-      this.alert.showError_address();
+    else if (typeof (this.user.phone) === "undefined" || String(this.user.phone).length != 9) {
+      this.alert.error_emptyPhone()
       flag = 1;
-    }
-
-    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null))
-    {
-      this.alert.showError_behalf();
-       flag = 1;
-    }
-
-    else if (typeof (this.user.fullName) === "undefined" && !this.user.onBehalf)
-    {
-        this.alert.error_emptyFields();
-        flag = 1;
-    }
-
-    else if (!this.user.elderly && (this.user.age == null || this.user.range == 0))
-    {
-      if(this.user.age ==  null)
-      {
-        this.alert.showError_age()
-        flag = 1;
-      }
-      else if(this.user.range == 0)
-      {
-        this.alert.showAlert_chooseRange()
-        flag = 1;
-      }
     }
 
     else if (!this.user.elderly && (this.user.id == null ||String(this.user.id).length != 9))
@@ -196,24 +177,46 @@ export class Form
        flag = 1;
     }
 
+    else if (!this.user.elderly && this.user.age == null)
+    {
+        this.alert.showError_age()
+        flag = 1;
+    }
+
+    else if (this.selectedNH == null || this.user.street === "undefined")
+    {
+      this.alert.showError_address();
+      flag = 1;
+    }
+
+
+    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null || String(this.user.contact).length != 9))
+    {
+      this.alert.showError_behalf();
+       flag = 1;
+    }
+
+    else if(this.user.onBehalf && (this.user.relationship == null && this.check_arrayVaule(this.organization) == 1))
+    {  this.alert.showError_relationship();
+       flag = 1;
+    }
+
+    else if (!this.user.elderly && this.user.range == 0)
+    {
+      this.alert.showAlert_chooseRange()
+      flag = 1;
+    }
+
+
     else if (this.user.student && this.user.college == null)
     {
        this.alert.showError_studentDetails();
        flag = 1;
     }
     
-    else if(this.user.onBehalf && (this.user.relationship == null && this.check_arrayVaule(this.organization) == 1))
-    {  this.alert.showError_relationship();
-       flag = 1;
-    }
 
     else if (this.check_arrayVaule(this.hobbies) == 1) {
       this.alert.error_hobbies();
-      flag = 1;
-    }
-
-    else if (this.check_arrayVaule(this.language) == 1) {
-      this.alert.showError_language();
       flag = 1;
     }
 
@@ -222,10 +225,12 @@ export class Form
       flag = 1;
     }
 
-    else if (this.check_arrayVaule(this.meetingWith) == 1) {
-      this.alert.showError_meetingWith();
+    else if (this.check_arrayVaule(this.language) == 1) {
+      this.alert.showError_language();
       flag = 1;
     }
+
+
     else if(this.user.student || this.user.elderly)
     { 
       if (this.check_arrayVaule(this.dayOfMeeting) == 1) {
@@ -233,16 +238,12 @@ export class Form
       flag = 1;}
     }
 
-    else if (!this.user.elderly)
+    else if (!this.user.elderly && !this.user.student)
     {
-      if (this.check_arrayVaule(this.numOfMeeting) == 1 && !this.user.student) {
+      if (this.check_arrayVaule(this.numOfMeeting) == 1) {
         this.alert.error_numOfMeeting();
         flag = 1;
       }
-      /*if (this.check_arrayVaule(this.durationVol) == 1 && !this.user.student) {
-        this.alert.error_VolunteerDuration();
-        flag = 1;
-      }*/
     }
 
     if (flag == 0)
@@ -354,7 +355,7 @@ export class Form
     this.user.dateTime = new Date().toISOString().substring(0, 10);
 
     const db = firebase.firestore();
-    db.collection('volunteerUsers').doc(/*firebase.auth().currentUser.uid*/).set(
+    db.collection('volunteerUsers').doc().set(
       {
         fullName: this.user.fullName,
         address: [this.user.street, this.user.homeNumber,this.selectedNH.species, this.user.city],
@@ -398,6 +399,7 @@ export class Form
     this.user.dateTime = new Date().toISOString().substring(0, 10);
 
     const db = firebase.firestore();
+    console.log(db)
     db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).set(
       {
         fullName: this.user.fullName,
@@ -635,6 +637,7 @@ export class Form
           'currentValue': !item.currentValue
         };
     }
+    console.log(arr)
   }
 
 
@@ -720,6 +723,11 @@ export class Form
       , 'volunteer': this.user.volunteer
     });
   }
+
+   // createUser(user) {
+  //   console.log('User created! , ' + Date.now())
+  //   this.events.publish('user:created', user, Date.now());
+  // }
 
 }
 

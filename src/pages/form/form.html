@@ -1,8 +1,8 @@
-<ion-content  class="formCSS">
+<ion-content class="formCSS">
 
     <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>
 
-  
+
     <br><br><br>
 
     <ion-row style="justify-content: center; ">
@@ -12,7 +12,7 @@
     <h6 *ngIf="!user.elderly" style="text-align: center;">אם הנכם מעוניינים לארח בביתכם מתנדב שישמח אתכם במופע מוסיקה ביתי או מופע ליצנות או אפילו שעה של שיחה קלה, קריאה, משחקי חשיבה או יצירה משתפת</h6>
     <h6 *ngIf="!user.elderly" style="text-align: center;font-weight: bold;">.בואו והירשמו לשמחת זקנתי</h6>
 
-    <h6 *ngIf="user.elderly" style="text-align: center;">.חשוב שאדם נוסף שיהיה נוכח בפגישה הראשונה</h6>
+    <h6 *ngIf="user.elderly" style="text-align: center;">.חשוב שאדם נוסף יהיה נוכח בפגישה הראשונה</h6>
 
     <form class="form" style="float: right; width: 100%;"> <br><br>
         <!-- <ion-grid>
@@ -157,7 +157,7 @@
             <ion-col>
                 <label>מגדר</label>
                 <ion-item class="radio" no-lines *ngFor="let gender of gender" style="background-color:#ffffff00 ;color:#FCBE47;">
-                    <ion-label item-right style="text-align: right; "> {{ gender.species }} </ion-label>
+                    <ion-label item-right style="text-align: right; color: #FCBE47;"> {{ gender.species }} </ion-label>
                     <ion-radio item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-radio>
                 </ion-item>
 
@@ -237,7 +237,7 @@
                         <h4 class="titleForm">איזור מגורים</h4>
                         <br><br><br><br>
                         <ion-item no-lines *ngFor="let zone of zone" style="background-color:#ffffff00; color:#FCBE47;">
-                            <ion-label style="text-align: right;"> {{ zone.species }} </ion-label>
+                            <ion-label style="text-align: right; color: #FCBE47;"> {{ zone.species }} </ion-label>
                             <ion-radio item-right [checked]="zone.currentValue" (click)="radioClicked6(zone)"></ion-radio>
                         </ion-item>
                     </ion-list>
@@ -311,7 +311,7 @@
                     <h4 class="titleForm">תדירות מפגשים<br><br></h4><br>
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let numOfMeeting of numOfMeeting; let i = index" style="background-color:#ffffff00;color:#FCBE47;">
-                            <ion-label style="text-align: right;"> {{ numOfMeeting.species }} </ion-label>
+                            <ion-label style="text-align: right; color: #FCBE47;"> {{ numOfMeeting.species }} </ion-label>
                             <ion-radio item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
                         </ion-item>
                     </ion-list>
@@ -343,7 +343,7 @@
                     <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let meetingWith of meetingWith; let i = index" style="background-color:#ffffff00;color:#FCBE47;">
-                            <ion-label style="text-align: right;"> {{ meetingWith.species }} </ion-label>
+                            <ion-label style="text-align: right; color: #FCBE47;"> {{ meetingWith.species }} </ion-label>
                             <ion-radio item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
                         </ion-item>
                     </ion-list>
