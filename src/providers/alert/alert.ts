@@ -139,7 +139,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה למלא מספר פלאפון תקין, ללא מקף',
+      subTitle: 'חובה למלא מספר פלאפון/טלפון תקין, ללא מקף',
       buttons: ['OK']
     });
     alert.present();
@@ -172,6 +172,17 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמה באורך 6 תווים לפחות',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  error_phoneIsAllreadyExist()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'מספר הטלפון כבר קיים במערכת, יש להקיש מספר אחר',
       buttons: ['OK']
     });
     alert.present();

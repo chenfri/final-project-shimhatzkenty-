@@ -4,3 +4,8 @@ export var MyGlobal = {
     city: '',
     index: 0
   };
+
+
+  export var returnValue = {
+   phoneExist: 0
+  };

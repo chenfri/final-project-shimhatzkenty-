@@ -9,6 +9,7 @@ import {Functions} from '../../providers/functions'
 import { Component ,ViewChild} from '@angular/core';
 import { Platform } from 'ionic-angular';
 import {MyGlobal} from '../../module/global'
+import {returnValue} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
@@ -43,6 +44,7 @@ export class Form
   public neighborhoods: any[]
   public selectedNH : any
   public durationVol: any[]
+  //public returnValue : any
 
   
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
@@ -144,120 +146,172 @@ export class Form
   }
 
 
+checkIfPhoneExist()
+{
+  const db = firebase.firestore();
+  if (this.user.elderly)
+  {
+    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
+      if(i.data().phone == this.user.phone)
+        returnValue.phoneExist = 1    
+        })}).catch(error => {console.log(error)}) 
+  }
+
+  else if (this.user.volunteer)
+  {
+      db.collection('volunteerUsers').get().then(res => { res.forEach(i => {
+        if(i.data().phone == this.user.phone)
+        returnValue.phoneExist = 1
+          })}).catch(error => {console.log(error)}) 
+  }
+
+  returnValue.phoneExist = 0
+}
+
+
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
 
 
+validateCellPhoneNumber(phone)
+{
+    var phoneRe =  /^\(?(05[0-9]{1})\)?([0-9]{3})?([0-9]{4})$/;
+    var digits = phone.replace(/[-.]/g, "");
+    return phoneRe.test(digits);
+  }
+
+  validatePhoneNumber(phone) {
+  var phoneRe =  /^\(?(0[1-9]{1})\)?([0-9]{7})$/;
+  var digits = phone.replace(/[-.]/g, "");
+  return phoneRe.test(digits);
+}
+
   //check that all user inputs are legal
   check_field_value()
   {
-    let flag = 0;
-
-    if (typeof(this.user.fullName) === "undefined" && !this.user.onBehalf)
-    {
-        this.alert.error_emptyFullName();
-        flag = 1;
-    }
-
-    else if (typeof (this.user.email ) === "undefined" || !this.validateEmail(this.user.email)) {
-      this.alert.error_illegalEmail()
-      flag = 1;
-    }
-
-    else if (typeof (this.user.phone) === "undefined" || String(this.user.phone).length != 9) {
-      this.alert.error_emptyPhone()
-      flag = 1;
-    }
-
-    else if (!this.user.elderly && (this.user.id == null ||String(this.user.id).length != 9))
-    {
-      this.alert.showError_studentID()
-       flag = 1;
-    }
-
-    else if (!this.user.elderly && this.user.age == null)
-    {
-        this.alert.showError_age()
-        flag = 1;
-    }
-
-    else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
-    {
-      this.alert.showError_address();
-      flag = 1;
-    }
-
-
-    else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null || String(this.user.contact).length != 9))
-    {
-      this.alert.showError_behalf();
-       flag = 1;
-    }
-
-    else if(this.user.onBehalf && (this.user.relationship == null && this.check_arrayVaule(this.organization) == 1))
-    {  this.alert.showError_relationship();
-       flag = 1;
-    }
-
-    else if (!this.user.elderly && this.user.range == 0)
-    {
-      this.alert.showAlert_chooseRange()
-      flag = 1;
-    }
-
-
-    else if (this.user.student && this.user.college == null)
-    {
-       this.alert.showError_studentDetails();
-       flag = 1;
-    }
     
+    let flag = 0;
+    let phone =  String(this.user.phone);
+    let temp = "0"
+    phone = temp.concat("",phone);
 
-    else if (this.check_arrayVaule(this.hobbies) == 1) {
-      this.alert.error_hobbies();
-      flag = 1;
-    }
+    this.checkIfPhoneExist() 
 
-    else if (this.check_arrayVaule(this.zone) == 1) {
-      this.alert.showError_zone();
-      flag = 1;
-    }
-
-    else if (this.check_arrayVaule(this.language) == 1) {
-      this.alert.showError_language();
-      flag = 1;
-    }
-
-
-    else if(this.user.student || this.user.elderly)
-    { 
-      if (this.check_arrayVaule(this.dayOfMeeting) == 1) {
-      this.alert.showError_dayOfMeeting();
-      flag = 1;}
-    }
-
-    else if (!this.user.elderly && !this.user.student)
+    setTimeout(() => 
     {
-      if (this.check_arrayVaule(this.numOfMeeting) == 1) {
-        this.alert.error_numOfMeeting();
+
+      if (typeof(this.user.fullName) === "undefined" && !this.user.onBehalf)
+      {
+          this.alert.error_emptyFullName();
+          flag = 1;
+      }
+  
+      else if (typeof (this.user.email ) === "undefined" || !this.validateEmail(this.user.email)) {
+        this.alert.error_illegalEmail()
         flag = 1;
       }
-    }
+  
+      else if (typeof (this.user.phone) === "undefined" || (!this.validatePhoneNumber(phone) && !this.validateCellPhoneNumber(phone))) {
+        this.alert.error_emptyPhone()
+        flag = 1;
+      }
 
-    if (flag == 0)
-    {
-      if (this.user.elderly)
-        this.add_data_to_firebase_Elderly();
-      else
-        this.add_data_to_firebase_Volunteer();
-    }
+      else if (returnValue.phoneExist == 1) {
+        this.alert.error_phoneIsAllreadyExist()
+        flag = 1;
+      }
+  
+      else if (!this.user.elderly && (this.user.id == null ||String(this.user.id).length != 9))
+      {
+        this.alert.showError_studentID()
+         flag = 1;
+      }
+  
+      else if (!this.user.elderly && this.user.age == null)
+      {
+          this.alert.showError_age()
+          flag = 1;
+      }
+  
+      else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
+      {
+        this.alert.showError_address();
+        flag = 1;
+      }
+  
+  
+      else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null || String(this.user.contact).length != 9))
+      {
+        this.alert.showError_behalf();
+         flag = 1;
+      }
+  
+      else if(this.user.onBehalf && (this.user.relationship == null && this.check_arrayVaule(this.organization) == 1))
+      {  this.alert.showError_relationship();
+         flag = 1;
+      }
+  
+      else if (!this.user.elderly && this.user.range == 0)
+      {
+        this.alert.showAlert_chooseRange()
+        flag = 1;
+      }
+  
+  
+      else if (this.user.student && this.user.college == null)
+      {
+         this.alert.showError_studentDetails();
+         flag = 1;
+      }
+      
+  
+      else if (this.check_arrayVaule(this.hobbies) == 1) {
+        this.alert.error_hobbies();
+        flag = 1;
+      }
+  
+      else if (this.check_arrayVaule(this.zone) == 1) {
+        this.alert.showError_zone();
+        flag = 1;
+      }
+  
+      else if (this.check_arrayVaule(this.language) == 1) {
+        this.alert.showError_language();
+        flag = 1;
+      }
+  
+  
+      else if(this.user.student || this.user.elderly)
+      { 
+        if (this.check_arrayVaule(this.dayOfMeeting) == 1) {
+        this.alert.showError_dayOfMeeting();
+        flag = 1;}
+      }
+  
+      else if (!this.user.elderly && !this.user.student)
+      {
+        if (this.check_arrayVaule(this.numOfMeeting) == 1) {
+          this.alert.error_numOfMeeting();
+          flag = 1;
+        }
+      }
+  
+      if (flag == 0)
+      {
+        if (this.user.elderly)
+          this.add_data_to_firebase_Elderly();
+        else
+          this.add_data_to_firebase_Volunteer();
+      }
+  
+  
+      if (typeof (this.user.fullName) === "undefined" && this.user.onBehalf)
+        this.user.fullName = 'חסוי'
 
 
-    if (typeof (this.user.fullName) === "undefined" && this.user.onBehalf)
-      this.user.fullName = 'חסוי'
-
+    }, 500);
   }
   
   Assistant(){
