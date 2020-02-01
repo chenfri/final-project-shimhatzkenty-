@@ -97,7 +97,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה למלא פרטי איש קשר' ,
+      subTitle: 'חובה למלא שם ופלאפון תקין של איש קשר' ,
       buttons: ['OK']
     });
     alert.present();

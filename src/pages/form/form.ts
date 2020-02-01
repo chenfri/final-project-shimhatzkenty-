@@ -44,8 +44,6 @@ export class Form
   public neighborhoods: any[]
   public selectedNH : any
   public durationVol: any[]
-  //public returnValue : any
-
   
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
@@ -172,21 +170,22 @@ checkIfPhoneExist()
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
-}
+  }
 
 
-validateCellPhoneNumber(phone)
-{
+  validateCellPhoneNumber(phone)
+  {
     var phoneRe =  /^\(?(05[0-9]{1})\)?([0-9]{3})?([0-9]{4})$/;
     var digits = phone.replace(/[-.]/g, "");
     return phoneRe.test(digits);
   }
 
-  validatePhoneNumber(phone) {
-  var phoneRe =  /^\(?(0[1-9]{1})\)?([0-9]{7})$/;
-  var digits = phone.replace(/[-.]/g, "");
-  return phoneRe.test(digits);
-}
+  validatePhoneNumber(phone)
+  {
+    var phoneRe =  /^\(?(0[1-9]{1})\)?([0-9]{7})$/;
+    var digits = phone.replace(/[-.]/g, "");
+    return phoneRe.test(digits);
+  }
 
   //check that all user inputs are legal
   check_field_value()
@@ -194,8 +193,10 @@ validateCellPhoneNumber(phone)
     
     let flag = 0;
     let phone =  String(this.user.phone);
+    let contact = String(this.user.contact)
     let temp = "0"
     phone = temp.concat("",phone);
+    contact = temp.concat("",contact);
 
     this.checkIfPhoneExist() 
 
@@ -242,7 +243,8 @@ validateCellPhoneNumber(phone)
       }
   
   
-      else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null || String(this.user.contact).length != 9))
+      else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null
+         ||(!this.validateCellPhoneNumber(contact) && !this.validatePhoneNumber(contact))))
       {
         this.alert.showError_behalf();
          flag = 1;
@@ -412,7 +414,7 @@ validateCellPhoneNumber(phone)
     db.collection('volunteerUsers').doc().set(
       {
         fullName: this.user.fullName,
-        address: [this.user.street, this.user.homeNumber,this.selectedNH.species, this.user.city],
+        address: this.selectedNH.species + ", "+ this.user.street +" "+ this.user.homeNumber +" " + this.user.city,
         phone: this.user.phone,
         email: this.user.email,
         hobbies: this.hobbies,
@@ -457,7 +459,7 @@ validateCellPhoneNumber(phone)
     db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).set(
       {
         fullName: this.user.fullName,
-        address: [this.user.street, this.user.homeNumber, this.selectedNH.species, this.user.city],
+        address: this.selectedNH.species + ", "+ this.user.street +" "+ this.user.homeNumber +" " + this.user.city,
         phone: this.user.phone,
         email: this.user.email,
         gender: this.gender,

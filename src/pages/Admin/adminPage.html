@@ -29,7 +29,7 @@
             <tr *ngFor="let value of userE">
                 <!-- <td><button (click)="deleteElderlyUser(value[4])">[x]</button></td> -->
                 <td>{{value[5]}}</td>
-                <td>{{value[4]}}</td>
+                <td>0{{value[4]}}</td>
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
                 <td>{{value[1]}}</td>
@@ -52,7 +52,7 @@
                 <!-- <td><button (click)="deleteVolunteerUser(value[4])">[x]</button></td> -->
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
-                <td>{{value[1]}}</td>
+                <td>0{{value[1]}}</td>
                 <td>{{value[0]}}</td>
             </tr>
         </table><br><br>
@@ -69,7 +69,7 @@
             <tr *ngFor="let value of userStudent">
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
-                <td>{{value[1]}}</td>
+                <td>0{{value[1]}}</td>
                 <td>{{value[0]}}</td>
             </tr>
         </table> <br><br>
@@ -81,14 +81,14 @@
                 <th>שם הארגון</th>
                 <th>פלאפון איש קשר</th>
                 <th>שם איש קשר</th>
-                <th>פלאפון הקשיש</th>
+                <th>טלפון קשיש</th>
                 <th>שם מלא</th>
             </tr>
             <tr *ngFor="let value of organizationEledry">
                 <td>{{value[4]}}</td>
-                <td>{{value[3]}}</td>
+                <td>0{{value[3]}}</td>
                 <td>{{value[2]}}</td>
-                <td>{{value[1]}}</td>
+                <td>0{{value[1]}}</td>
                 <td>{{value[0]}}</td>
             </tr>
         </table><br><br>

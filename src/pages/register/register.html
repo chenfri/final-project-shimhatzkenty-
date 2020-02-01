@@ -1,23 +1,22 @@
+<ion-content padding class="login-page">
+    <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>
+    <br><br><br><br>
 
-<ion-content padding class="registerPage">
-    
-    <input style="float: left;" type="submit" (click)= "click_home()" value="חזרה לדף הבית">
+    <div class="login-bar" style="  text-align: -webkit-center;">
 
-    <br><br><br>
+        <h2 class="titleLogin">יצירת מנהל חדש</h2>
 
-    <div class="login-bar">
-            <h2 class="titleRegisterPage">יצירת מנהל חדש</h2>
-            <br><br><br>
-            <label style="float: right;
-                            font-weight: bold;
-                            font-size: initial;">כתובת דוא"ל</label>
-            <input  style="float: right;" type="text" name="email" [(ngModel)] = "user.email">
+        <br><br>
 
-            <label  style="float: right;
-                            font-weight: bold;
-                            font-size: initial;">סיסמא</label>
-            <input  style="float: right;" type="password" name="password" [(ngModel)] = "user.password">
-            <br><br>
-            <input type="submit"  (click)= "registry(user)" value="שמור">
- </div>
+        <label style="font-weight: bold;font-size: initial;">כתובת דוא"ל</label><br>
+        <input type="text" name="email" [(ngModel)]="user.email"><br><br>
+
+        <label style=" font-weight: bold;
+                          font-size: initial;">סיסמא</label><br>
+
+        <input type="password" name="password" [(ngModel)]="user.password"><br><br><br>
+        <button ion-button (click)="registry(user)">שמור</button>
+
+
+    </div>
 </ion-content>

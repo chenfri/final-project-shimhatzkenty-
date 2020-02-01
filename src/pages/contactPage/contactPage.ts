@@ -20,7 +20,7 @@ export class contactPage
 
   constructor(public alert: AlertProvider ,public navCtrl: NavController , public params: NavParams)
   {
-    this.user.loggedIn = this.params.get('login');
+   // this.user.loggedIn = this.params.get('login');
   }
 
   add_data_to_firebase()
@@ -34,7 +34,6 @@ export class contactPage
       
       })
       .then(() => {
-        console.log("uid: "+firebase.auth().currentUser.uid)
         this.alert.showAlert_sendMessage()
         this.navCtrl.push(HomePage);
       }).catch((error)=> {
@@ -44,7 +43,7 @@ export class contactPage
 
   click_home()
   {
-    this.navCtrl.push(HomePage , {'login': this.user.loggedIn});
+    this.navCtrl.push(HomePage /*, {'login': this.user.loggedIn}*/);
   }
   
 }

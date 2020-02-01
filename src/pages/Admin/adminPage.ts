@@ -41,12 +41,12 @@ export class adminPage
     console.log("volunteer ", this.userV)
     this.userStudent = this.navParams.get('students');
     this.organizationEledry = this.navParams.get('organizationEledry');
-    console.log(this.organizationEledry)
+    //console.log(this.organizationEledry)
     this.messages = this.navParams.get('messages');
     // this.user.dateTime = this.navParams.get('dateTime');
 
     this.organizationNum = this.navParams.get('organizationNum')
-    console.log(this.organizationNum)
+    //console.log(this.organizationNum)
     this.elderNum = this.navParams.get('elderNum');
     this.volunteerNum = this.navParams.get('volunteerNum');
     this.studentNum = this.navParams.get('studentNum');
