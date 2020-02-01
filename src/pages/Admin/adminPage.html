@@ -20,12 +20,16 @@
             <tr>
                 <!-- <th>מחק משתמש</th> -->
                 <th>תאריך הרשמה</th>
+                <th>פלאפון איש קשר</th>
+                <th>שם איש קשר</th>
                 <th>כתובת</th>
                 <th>טלפון</th>
                 <th>שם מלא</th>
             </tr>
             <tr *ngFor="let value of userE">
                 <!-- <td><button (click)="deleteElderlyUser(value[4])">[x]</button></td> -->
+                <td>{{value[5]}}</td>
+                <td>{{value[4]}}</td>
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
                 <td>{{value[1]}}</td>
@@ -57,11 +61,13 @@
         <button type="submit" (click)="csvFile(userStudent , studentNum , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
         <table id="customers">
             <tr>
+                <th>מוסד אקדמי</th>
                 <th>תעודת זהות</th>
                 <th>טלפון</th>
                 <th>שם מלא</th>
             </tr>
             <tr *ngFor="let value of userStudent">
+                <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
                 <td>{{value[1]}}</td>
                 <td>{{value[0]}}</td>
@@ -73,11 +79,13 @@
         <table id="customers">
             <tr>
                 <th>שם הארגון</th>
-                <th>פלאפון איש הקשר</th>
+                <th>פלאפון איש קשר</th>
+                <th>שם איש קשר</th>
                 <th>פלאפון הקשיש</th>
                 <th>שם מלא</th>
             </tr>
             <tr *ngFor="let value of organizationEledry">
+                <td>{{value[4]}}</td>
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
                 <td>{{value[1]}}</td>

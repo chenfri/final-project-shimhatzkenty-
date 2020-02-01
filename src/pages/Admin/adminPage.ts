@@ -41,10 +41,12 @@ export class adminPage
     console.log("volunteer ", this.userV)
     this.userStudent = this.navParams.get('students');
     this.organizationEledry = this.navParams.get('organizationEledry');
+    console.log(this.organizationEledry)
     this.messages = this.navParams.get('messages');
     // this.user.dateTime = this.navParams.get('dateTime');
 
     this.organizationNum = this.navParams.get('organizationNum')
+    console.log(this.organizationNum)
     this.elderNum = this.navParams.get('elderNum');
     this.volunteerNum = this.navParams.get('volunteerNum');
     this.studentNum = this.navParams.get('studentNum');
@@ -60,12 +62,14 @@ export class adminPage
       for(let i = 0 ; i < lengthArray ; i++)
         tmp[i] = array[i]
     
-      if(type == "eledry" || type == "volunteer")
-        this.headerRow = ["שם", "פלאפון" , "כתובת","תאריך הרשמה"]
+      if(type == "eledry")
+        this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
+      if(type == "volunteer")
+        this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
       if(type == "student") 
-        this.headerRow = ["שם" , "פלאפון", "תעודת זהות","תאריך הרשמה"]
+        this.headerRow = ["שם" , "פלאפון", "תעודת זהות","מוסד אקדמי"]
       if(type == "organization")
-        this.headerRow = ["שם", "פלאפון הקשיש" ,"פלאפון איש הקשר" , "שם האירגון"]
+        this.headerRow = ["שם", "פלאפון הקשיש" ,"שם איש קשר","פלאפון איש קשר" , "שם האירגון"]
 
       console.log("tmp: " + tmp)
 

@@ -155,7 +155,7 @@ export class Form
   {
     let flag = 0;
 
-    if (typeof (this.user.fullName) === "undefined" && !this.user.onBehalf)
+    if (typeof(this.user.fullName) === "undefined" && !this.user.onBehalf)
     {
         this.alert.error_emptyFullName();
         flag = 1;
@@ -183,7 +183,7 @@ export class Form
         flag = 1;
     }
 
-    else if (this.selectedNH == null || this.user.street === "undefined")
+    else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
     {
       this.alert.showError_address();
       flag = 1;
@@ -363,7 +363,7 @@ export class Form
         email: this.user.email,
         hobbies: this.hobbies,
         range: this.user.range,
-        meeting_time: this.time,
+       // meeting_time: this.time,
         num_of_meetings: this.numOfMeeting,
         gender: this.gender,
         age: this.user.age,
@@ -414,7 +414,7 @@ export class Form
         description: this.user.description,
         organization: this.organization,
         hobbies: this.hobbies,
-        meeting_time: this.time,
+        //meeting_time: this.time,
         musicStyle: this.musicStyle,
         language: this.language,
         meetingWith: this.meetingWith,
@@ -482,7 +482,7 @@ export class Form
       this.user.phone = result.data().phone
       this.user.email = result.data().email
       this.hobbies = result.data().hobbies
-      this.time = result.data().meeting_time
+      //this.time = result.data().meeting_time
       this.gender = result.data().gender
       this.language = result.data().language
       this.meetingWith = result.data().meetingWith
@@ -563,29 +563,25 @@ export class Form
 
   //if user cancel music hobby so we cancel musicStyle and musical_instrument
   cancelCheckBox(arr)
-  {
-      
-      for (let i = 0; i < arr.length; i++) {
+  {  
+      for (let i = 0; i < arr.length; i++)
+      {
         if (arr[i].currentValue)
         {
           console.log(arr[i].species)
           arr[i].currentValue = false
-        }
-            
+        }    
       }
   }
+  
 
   //check which checkbox was clicked and update the array
   CheckboxClicked(item: any, arr)
   {
-    //console.log('CheckboxClicked for ' + item.species);
-    for (let i = 0; i < arr.length; i++) {
-
+    for (let i = 0; i < arr.length; i++)
+    {
       if (arr[i] === item)
-          arr[i] = {
-          'species': item.species,
-          'currentValue': !item.currentValue
-        };
+          arr[i].currentValue = !item.currentValue
     }
   }
 
@@ -619,37 +615,43 @@ export class Form
     this.radioClicked(item, this.durationVol)
   }
 
+
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
   {
-    //console.log('radioClicked for ' + item.species);
     for (let i = 0; i < arr.length; i++)
     {
-      if (arr[i].currentValue) //if this radio was pressed
-        arr[i] = {
-          'species': arr[i].species,
-          'currentValue': !arr[i].currentValue
-        }
+      if (arr[i].currentValue) //cancel other radio if it pressed
+        arr[i].currentValue = !arr[i].currentValue
 
       if (arr[i] === item)
-        arr[i] = {
-          'species': item.species,
-          'currentValue': !item.currentValue
-        };
+        arr[i].currentValue =  !item.currentValue
     }
-    console.log(arr)
   }
 
 
   selectOrg(item)
   {
-    this.radioClicked(item, this.organization)
+    this.selectTagClicked(item, this.organization)
   }
 
   
   select_neighborhood(event:{component: SelectSearchableComponent, value:any})
   {
-    this.radioClicked(event.value, this.neighborhoods)
+    this.selectTagClicked(event.value, this.neighborhoods)
+  }
+
+
+  selectTagClicked(item , arr)
+  {
+    for (let i = 0; i < arr.length; i++)
+    {
+      if (arr[i] != item && arr[i].currentValue) 
+        arr[i].currentValue = !arr[i].currentValue
+        
+      if (arr[i] === item && !arr[i].currentValue)
+        arr[i].currentValue = !item.currentValue
+    }
   }
 
   //------------------------- function not in used ------------------------
@@ -657,7 +659,6 @@ export class Form
   //read list of neighborhoods from csv file
   readCsvData()
   {
-    console.log("aa")
     let array = []
     let data = '' , index = 0;
 

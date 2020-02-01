@@ -112,13 +112,15 @@ export class HomePage
   get_data_for_admin()
   {
     let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
-    var k = 0 , l = 0 , j = 0 , t=0 , v=0
+    let k = 0 , l = 0 , j = 0 , t=0 , v=0
    
     const db = firebase.firestore();
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
       [ i.data().fullName,
         i.data().phone,
         i.data().address,
+        i.data().nameAssistant,
+        i.data().contact,
         i.data().dateTime,
         i.id]
         k++})}).catch(error => {console.log(error)})
@@ -128,23 +130,32 @@ export class HomePage
       if(i.data().behalf == true )
       {
       
-        this.CheckWhichOrganization(i.id);
-        setTimeout(() =>
-      {     
-          console.log("organization:  " + this.organization)
+        //this.CheckWhichOrganization(i.id);
+
+        // find name of organization
+        this.organizations = i.data().organization;
+        for (let i = 0; i < this.organizations.length; i++)
+        {
+            if(this.organizations[i].currentValue){
+              this.organization = this.organizations[i].species;
+              console.log("organization.func :  " + this.organization)
+              break;}
+        }
+  
+          console.log("org ",this.organization)
           if(this.organization != null)
           {
-                    organizationEledry[v] = 
-                    [
-                      i.data().fullName,
-                      i.data().phone,
-                      i.data().contact,
-                      this.organization,
-                      i.id,
-                    ]
-                    v++;
+              organizationEledry[v] = 
+              [
+                i.data().fullName,
+                i.data().phone,
+                i.data().nameAssistant,
+                i.data().contact,
+                this.organization,
+                i.id,
+              ]
+              v++;
           }
-        }, 500); 
       }
       })}).catch(error => {console.log(error)})
    
@@ -167,6 +178,7 @@ export class HomePage
         [ i.data().fullName,
           i.data().phone,
           i.data().id,
+          i.data().college,
           i.data().dateTime,
           i.id
         ]
@@ -190,24 +202,6 @@ export class HomePage
         }, 1000);
   } 
 
-
-  CheckWhichOrganization(id)
-  {
-    const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(id).get()
-    .then(result => {
-      if (!result.exists) return
-      this.organizations = result.data().organization;
-        
-      for (let i = 0; i < this.organizations.length; i++) {
-          if(this.organizations[i].currentValue){
-            this.organization = this.organizations[i].species;
-            console.log("organization.func :  " + this.organization)
-
-          }
-      }    
-      })
-  }
   
   //------------------------ function not in used ----------------------------------------
  
@@ -337,5 +331,26 @@ facebooklogin()
  })
 }
 
+
+CheckWhichOrganization(id)
+{
+  const db = firebase.firestore();
+  db.collection('ElderlyUsers').doc(id).get()
+  .then(result => {
+    if (!result.exists) return
+    this.organizations = result.data().organization;
+      
+    for (let i = 0; i < this.organizations.length; i++) {
+        if(this.organizations[i].currentValue){
+          this.organization = this.organizations[i].species;
+          console.log("organization.func :  " + this.organization)
+          break;
+
+        }
+    }    
+    console.log("organizations ",this.organizations)
+  
+    })
+}
 
 }
