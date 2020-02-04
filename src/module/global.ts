@@ -9,3 +9,8 @@ export var MyGlobal = {
   export var returnValue = {
    phoneExist: 0
   };
+
+
+  export var indexFamilyMember={
+    index: 0
+  }

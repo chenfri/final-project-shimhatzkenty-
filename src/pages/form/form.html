@@ -217,11 +217,25 @@
                         </ion-select>
                     </ion-item>
 
-                    <button item-right style="background: #ffffff00;" (click)="Assistant()">
+                    <button item-right style="background: #ffffff00;" (click)="moreContact()">
                 <label class ="addPerson" >הוסף בן משפחה נוסף</label>
+                <ion-icon style="size: large;"  name="add-circle"></ion-icon><br>
+                <div *ngIf="hideMoreContact">
+                    <label style="float: right;">שמך המלא</label><br>
+                    <input text-right type="text" name="nameAssistant" [(ngModel)]="name">
+                    <br><br>
 
-                <ion-icon style="size: large;"  name="add-circle"></ion-icon>
-              </button>
+                    <label style="float: right;">מספר פלאפון</label><br>
+                    <input text-right type="number" name="phone" [(ngModel)]="phone">
+                    <br><br>
+
+                    <label style="float: right;">קרבה לקשיש</label><br>
+                    <input text-right type="text" name="relationship" [(ngModel)]="rel">
+                </div> <br><br>
+                        
+                <!-- <button ion-button style="align-self: center;" (click)="add_familyMembers()">שמירה</button> -->
+
+                    </button>
                     <br><br>
 
 
