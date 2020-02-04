@@ -92,4 +92,19 @@
   // .contact{
   //   background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A6%D7%95%D7%A8%20%D7%A7%D7%A9%D7%A8%20.png?alt=media&token=0f10738c-7461-48c2-908e-049609632476");
   // }
+  
+  .demo {
+    overflow: auto;
+    resize: both;
+    border:1px black solid;
+    width: 230px;
+    height: 130px
+  }
+  
+  .svgtext {
+    font-size: 28rem;
+    height:100%;
+    width:100%
+  }
+  
 }
