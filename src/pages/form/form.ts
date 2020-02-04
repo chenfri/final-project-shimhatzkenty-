@@ -38,8 +38,6 @@ export class Form
   public dayOfMeeting: any[]
   public organization: any[]
   public ifRegister = false
-  public anotherName = "";
-  public phoneNum = "";
   public neighborhoods: any[]
   public selectedNH : any
   //public durationVol: any[]
@@ -82,9 +80,6 @@ export class Form
     this.user.onBehalf = false;
     this.user.numOfAssistant = 0;
 
-
-
-   // this.familyMember = []
     
     //this.durationVol = this.array.durationVol
     this.hobbies = this.array.hobbies
@@ -151,8 +146,12 @@ export class Form
 
   moreContact()
   {
-    this.hideMoreContact = true
+    if(!this.hideMoreContact)
+      this.hideMoreContact = true
+    else
+      this.hideMoreContact = false
   }
+
 
 checkIfPhoneExist()
 {
@@ -190,12 +189,14 @@ checkIfPhoneExist()
     return phoneRe.test(digits);
   }
 
+
   validatePhoneNumber(phone)
   {
     var phoneRe =  /^\(?(0[1-9]{1})\)?([0-9]{7})$/;
     var digits = phone.replace(/[-.]/g, "");
     return phoneRe.test(digits);
   }
+
 
   //check that all user inputs are legal
   check_field_value()
@@ -240,12 +241,6 @@ checkIfPhoneExist()
          flag = 1;
       }
   
-      else if (!this.user.elderly && this.user.age == null)
-      {
-          this.alert.showError_age()
-          flag = 1;
-      }
-  
       else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
       {
         this.alert.showError_address();
@@ -272,6 +267,12 @@ checkIfPhoneExist()
       }
   
   
+      else if (!this.user.elderly && this.user.age == null)
+      {
+          this.alert.showError_age()
+          flag = 1;
+      }
+
       else if (this.user.student && this.user.college == null)
       {
          this.alert.showError_studentDetails();
@@ -322,21 +323,18 @@ checkIfPhoneExist()
       if (typeof (this.user.fullName) === "undefined" && this.user.onBehalf)
         this.user.fullName = 'חסוי'
 
-
     }, 500);
   }
   
+
   add_familyMembers(){
     
     let arr=[];
     arr[indexFamilyMember.index]={'name':this.name, 'phone':this.phone,'rel': this.rel};
-    console.log("assis: "+ arr);
     this.familyMember = arr
-    console.log("assis: "+ this.familyMember);
     this.name = null;
     this.phone = null;
     this.rel = null
-   // this.user.numOfAssistant++;
     indexFamilyMember.index++;
   }
 
@@ -472,7 +470,7 @@ checkIfPhoneExist()
 
     if(this.hideMoreContact)
       this.add_familyMembers();
-      
+
     this.user.dateTime = new Date().toISOString().substring(0, 10);
 
     const db = firebase.firestore();
@@ -583,6 +581,7 @@ checkIfPhoneExist()
       }
       else
       {
+        this.familyMember = result.data().familyMember
         this.user.onBehalf = result.data().behalf
         this.user.nameAssistant = result.data().nameAssistant
         this.user.relationship = result.data().relationship
