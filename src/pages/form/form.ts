@@ -8,8 +8,7 @@ import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
 import { Component ,ViewChild} from '@angular/core';
 import { Platform } from 'ionic-angular';
-import {MyGlobal} from '../../module/global'
-import {returnValue} from '../../module/global'
+import {returnValue, indexFamilyMember ,MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +24,7 @@ export class Form
 {
   @ViewChild('mySelect') selectComponent:SelectSearchableComponent
   user = {} as User;
-  public assistants: any[];
+  public familyMember: any[];
   public hobbies: any[]
   public time: any[]
   public numOfMeeting: any[]
@@ -39,11 +38,14 @@ export class Form
   public dayOfMeeting: any[]
   public organization: any[]
   public ifRegister = false
-  public anotherName = "";
-  public phoneNum = "";
   public neighborhoods: any[]
   public selectedNH : any
-  public durationVol: any[]
+  //public durationVol: any[]
+  public name: ""
+  public phone: number
+  public rel: ""
+  public index: 0
+  public hideMoreContact = false;
   
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
@@ -78,7 +80,6 @@ export class Form
     this.user.onBehalf = false;
     this.user.numOfAssistant = 0;
 
-    this.assistants = [];
     
     //this.durationVol = this.array.durationVol
     this.hobbies = this.array.hobbies
@@ -143,6 +144,14 @@ export class Form
       })*/
   }
 
+  moreContact()
+  {
+    if(!this.hideMoreContact)
+      this.hideMoreContact = true
+    else
+      this.hideMoreContact = false
+  }
+
 
 checkIfPhoneExist()
 {
@@ -180,12 +189,14 @@ checkIfPhoneExist()
     return phoneRe.test(digits);
   }
 
+
   validatePhoneNumber(phone)
   {
     var phoneRe =  /^\(?(0[1-9]{1})\)?([0-9]{7})$/;
     var digits = phone.replace(/[-.]/g, "");
     return phoneRe.test(digits);
   }
+
 
   //check that all user inputs are legal
   check_field_value()
@@ -230,12 +241,6 @@ checkIfPhoneExist()
          flag = 1;
       }
   
-      else if (!this.user.elderly && this.user.age == null)
-      {
-          this.alert.showError_age()
-          flag = 1;
-      }
-  
       else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
       {
         this.alert.showError_address();
@@ -262,6 +267,12 @@ checkIfPhoneExist()
       }
   
   
+      else if (!this.user.elderly && this.user.age == null)
+      {
+          this.alert.showError_age()
+          flag = 1;
+      }
+
       else if (this.user.student && this.user.college == null)
       {
          this.alert.showError_studentDetails();
@@ -312,20 +323,19 @@ checkIfPhoneExist()
       if (typeof (this.user.fullName) === "undefined" && this.user.onBehalf)
         this.user.fullName = 'חסוי'
 
-
     }, 500);
   }
   
-  Assistant(){
-     
-      this.assistants[this.user.numOfAssistant] = this.anotherName;
-      this.assistants[this.user.numOfAssistant+1] = this.phoneNum;
-      console.log("ass: "+ this.assistants);
 
-      this.anotherName = null;
-      this.phoneNum;
-
-      this.user.numOfAssistant+=2;
+  add_familyMembers(){
+    
+    let arr=[];
+    arr[indexFamilyMember.index]={'name':this.name, 'phone':this.phone,'rel': this.rel};
+    this.familyMember = arr
+    this.name = null;
+    this.phone = null;
+    this.rel = null
+    indexFamilyMember.index++;
   }
 
   //update the variables if someone fill the form behalf elderly
@@ -457,6 +467,15 @@ checkIfPhoneExist()
 
   add_data_to_firebase_Elderly()
   {
+    let temp = this.selectedNH.species + ", "+ this.user.street
+    if (this.user.homeNumber != null)
+      temp += " "+ this.user.homeNumber
+    if (this.user.city != null)
+      temp += " " + this.user.city
+
+    if(this.hideMoreContact)
+      this.add_familyMembers();
+
     this.user.dateTime = new Date().toISOString().substring(0, 10);
 
     let temp="";
@@ -468,11 +487,10 @@ checkIfPhoneExist()
     console.log("temp =" +temp)
     console.log(this.user.dateTime)
     const db = firebase.firestore();
-    console.log(db)
     db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).set(
       {
         fullName: this.user.fullName,
-        address: this.selectedNH.species + ", "+ this.user.street +" "+ this.user.homeNumber +" " + this.user.city,
+        address: temp,
         phone: this.user.phone,
         email: this.user.email,
         gender: this.gender,
@@ -491,7 +509,8 @@ checkIfPhoneExist()
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
        // password: this.user.password,
-        dateTime : this.user.dateTime 
+        dateTime : this.user.dateTime ,
+        familyMember: this.familyMember
 
       })
       .then(() => {
@@ -569,12 +588,13 @@ checkIfPhoneExist()
         this.user.student = result.data().student
         this.musical_instrument = result.data().musical_instrument
         this.user.dateTime = result.data().dateTime 
-        this.durationVol = result.data().durationVol
+        //this.durationVol = result.data().durationVol
         this.numOfMeeting = result.data().num_of_meetings
         this.user.college = result.data().college
       }
       else
       {
+        this.familyMember = result.data().familyMember
         this.user.onBehalf = result.data().behalf
         this.user.nameAssistant = result.data().nameAssistant
         this.user.relationship = result.data().relationship
@@ -680,9 +700,9 @@ checkIfPhoneExist()
   }
 
 
-  radioClicked7(item: any, $event) {
+  /*radioClicked7(item: any, $event) {
     this.radioClicked(item, this.durationVol)
-  }
+  }*/
 
 
   //check which radio was clicked and update the array

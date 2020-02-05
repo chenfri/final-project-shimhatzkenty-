@@ -210,7 +210,7 @@
                     <br><br>
                     <ion-item no-lines *ngFor="let hobbies of hobbies" style="background-color:#ffffff00 ;color:#FCBE47;">
                         <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
-                        <ion-checkbox  [checked]="hobbies.currentValue" (click)="CheckboxClicked1(hobbies, $event)"></ion-checkbox>
+                        <ion-checkbox [checked]="hobbies.currentValue" (click)="CheckboxClicked1(hobbies, $event)"></ion-checkbox>
                     </ion-item>
                 </ion-col>
 
@@ -221,7 +221,7 @@
                         <label style="float: right;">למעוניינים במוסיקה / שירה יש למלא סעיף זה</label>
                         <ion-item no-lines *ngFor="let musicStyle of musicStyle" style="background-color:#ffffff00;color:#FCBE47;">
                             <ion-label style="text-align: right;"> {{ musicStyle.species }} </ion-label>
-                            <ion-checkbox  [checked]="musicStyle.currentValue" (click)="CheckboxClicked2(musicStyle, $event)"></ion-checkbox>
+                            <ion-checkbox [checked]="musicStyle.currentValue" (click)="CheckboxClicked2(musicStyle, $event)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -232,7 +232,7 @@
                         <label style="float: right;">ניתן לבחור יותר מכלי אחד</label><br><br>
                         <ion-item no-lines *ngFor="let musical_instrument of musical_instrument" style="background-color:#ffffff00 ;color:#FCBE47;">
                             <ion-label style="text-align: right;"> {{ musical_instrument.species }} </ion-label>
-                            <ion-checkbox  [checked]="musical_instrument.currentValue" (click)="CheckboxClicked5(musical_instrument, $event)"></ion-checkbox>
+                            <ion-checkbox [checked]="musical_instrument.currentValue" (click)="CheckboxClicked5(musical_instrument, $event)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -258,10 +258,10 @@
                     </ion-item>
                 </ion-col>
 
-                                
-             
 
-                
+
+
+
 
             </ion-row>
         </ion-grid><br>
