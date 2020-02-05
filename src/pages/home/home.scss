@@ -9,7 +9,6 @@
         text-align: center;
     }
     .navbarHome {
-      background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%9B%D7%95%D7%9B%D7%91%D7%99%D7%9D.jpeg?alt=media&token=ca72e5f7-89f6-4d37-a062-42a5ca808c26");
       place-content: center;
       direction: rtl;
 
@@ -20,7 +19,7 @@
       //  font-size: large; 
       //  font-family: Calibri ;
       //  text-align: center;
-       background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=e4b52660-e414-4d05-b6c4-1a9a449dc217");
+      //  background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=e4b52660-e414-4d05-b6c4-1a9a449dc217");
        background-repeat: no-repeat;
        background-size: contain;
        background-position: center;
@@ -78,10 +77,25 @@
     } 
      .homePageText{
        background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5); 
-       width:auto; height:auto;
-       min-width:440px; min-height:345px;     place-content: center;
-
-        
+      //  width:auto; height:auto;
+      //  min-width:440px; min-height:345px;     place-content: center;
+      text-align: center;
+      width: auto;
+      height: auto;
+      min-width: 440px;
+      min-height: 345px;
+     
+       font-family: calibri;
+      }
+      .text{
+        text-align: center;
+        width: auto;
+        height: auto;
+        max-width: 440px;
+        max-height: 340px;
+        // font-size: medium;
+       
+         font-family: calibri;
       }
       .pics{
         width: auto;

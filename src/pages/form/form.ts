@@ -408,7 +408,12 @@ checkIfPhoneExist()
 
   add_data_to_firebase_Volunteer()
   {
-    this.user.dateTime = new Date().toISOString().substring(0, 10);
+     this.user.dateTime = new Date().toISOString().substring(0, 10);
+    
+    let temp="";
+    temp= this.user.dateTime[8] +this.user.dateTime[9] + "-" +this.user.dateTime[5] +this.user.dateTime[6]
+          +"-"+ this.user.dateTime[0] +this.user.dateTime[1]+this.user.dateTime[2] +this.user.dateTime[3];
+    
 
     const db = firebase.firestore();
     db.collection('volunteerUsers').doc().set(
@@ -454,6 +459,14 @@ checkIfPhoneExist()
   {
     this.user.dateTime = new Date().toISOString().substring(0, 10);
 
+    let temp="";
+    temp= this.user.dateTime[8] +this.user.dateTime[9] + "-" +this.user.dateTime[5] +this.user.dateTime[6]
+          +"-"+ this.user.dateTime[0] +this.user.dateTime[1]+this.user.dateTime[2] +this.user.dateTime[3];
+    
+
+    this.user.dateTime=temp;
+    console.log("temp =" +temp)
+    console.log(this.user.dateTime)
     const db = firebase.firestore();
     console.log(db)
     db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).set(

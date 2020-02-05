@@ -159,37 +159,37 @@
 
 
                 <div class="Assistant" *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
-                    <label style="float: right;">שמך המלא</label><br>
-                    <input text-right type="text" name="nameAssistant" [(ngModel)]="user.nameAssistant">
-                    <br><br>
+                    <ion-row>
+                        <ion-col>
+                            <label style="float: right;">שמך המלא</label><br>
+                            <input text-right type="text" name="nameAssistant" [(ngModel)]="user.nameAssistant">
+                        </ion-col>
 
-                    <label style="float: right;">מספר פלאפון</label><br>
-                    <input text-right type="number" name="phone" [(ngModel)]="user.contact">
-                    <br><br>
+                        <ion-col>  
+                            <label style="float: right;">מספר פלאפון</label><br>
+                            <input text-right type="number" name="phone" [(ngModel)]="user.contact">
+                        </ion-col>      
+                    </ion-row>
 
-                    <label style="float: right;">קרבה לקשיש</label><br>
-                    <input text-right type="text" name="relationship" [(ngModel)]="user.relationship">
-                    <br><br>
-
-                    <label >ארגון</label><br><br>
-                    <!-- <ion-item no-lines style="float: right; width: fit-content;  background-color: #259262;  ">
-                        <ion-select ultiple="false" interface="popover" m  name="select" placeholder="בחר שם ארגון" style=" max-width: 100%!important; width: 100%!important; right: auto!important; direction: ltr!important;
-                                padding-left: 0!important;">
-                            <ion-option  style="direction: rtl;" *ngFor="let organization of organization" [value]="organization.species" [selected]="organization.currentValue" (ionSelect)="selectOrg(organization)">{{organization.species}}</ion-option>
-                        </ion-select>
-                    </ion-item> -->
-
-                    <ion-item no-lines style="direction: rtl; background-color:#259262;">
-                        <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם ארגון</ion-label>
-                        <ion-select ultiple="false" interface="popover" >
-                            <ion-option *ngFor="let organization of organization" [value]="organization.species" [selected]="organization.currentValue" (ionSelect)="selectOrg(organization)">{{organization.species}}</ion-option>
-                        </ion-select>
-                    </ion-item>
-
+                    <ion-row>
+                        <ion-col>
+                            <label style="float: right;">קרבה לקשיש</label><br>
+                            <input text-right type="text" name="relationship" [(ngModel)]="user.relationship">
+                        </ion-col>
+                        <ion-col>
+                            <label >ארגון</label>
+                                <ion-item no-lines style="direction: rtl; background-color:#259262;">
+                                <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם ארגון</ion-label>
+                                <ion-select ultiple="false" interface="popover" >
+                                    <ion-option *ngFor="let organization of organization" [value]="organization.species" [selected]="organization.currentValue" (ionSelect)="selectOrg(organization)">{{organization.species}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
                     <button item-right style="background: #ffffff00;" (click)="Assistant()">
-                <label class ="addPerson" >הוסף בן משפחה נוסף</label>
-
-                <ion-icon style="size: large;"  name="add-circle"></ion-icon>
+                <label class ="addPerson" style="color: #FCBE47;" >הוסף בן משפחה נוסף</label>
+                <ion-icon name="add" ></ion-icon>
+                
               </button>
                     <br><br>
 
