@@ -165,10 +165,10 @@
                             <input text-right type="text" name="nameAssistant" [(ngModel)]="user.nameAssistant">
                         </ion-col>
 
-                        <ion-col>  
+                        <ion-col>
                             <label style="float: right;">מספר פלאפון</label><br>
                             <input text-right type="number" name="phone" [(ngModel)]="user.contact">
-                        </ion-col>      
+                        </ion-col>
                     </ion-row>
 
                     <ion-row>
@@ -177,20 +177,44 @@
                             <input text-right type="text" name="relationship" [(ngModel)]="user.relationship">
                         </ion-col>
                         <ion-col>
-                            <label >ארגון</label>
-                                <ion-item no-lines style="direction: rtl; background-color:#259262;">
+                            <label>ארגון</label>
+                            <ion-item no-lines style="direction: rtl; background-color:#259262;">
                                 <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם ארגון</ion-label>
-                                <ion-select ultiple="false" interface="popover" >
+                                <ion-select ultiple="false" interface="popover">
                                     <ion-option *ngFor="let organization of organization" [value]="organization.species" [selected]="organization.currentValue" (ionSelect)="selectOrg(organization)">{{organization.species}}</ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>
                     </ion-row>
-                    <button item-right style="background: #ffffff00;" (click)="Assistant()">
-                <label class ="addPerson" style="color: #FCBE47;" >הוסף בן משפחה נוסף</label>
-                <ion-icon name="add" ></ion-icon>
-                
-              </button>
+                    <br><br>
+
+                    <button item-right style="background: #ffffff00;">
+                        <div class="styleMoreContact">
+                            <label class ="addPerson" >הוסף בן משפחה נוסף</label>
+                            <ion-icon style=" size: large;"  name="add-circle" (click)="moreContact()"></ion-icon><br>
+                            <div *ngIf="hideMoreContact" ><br>
+                                <ion-row>
+                                    <div *ngFor="let temp of temp_familyMember;let i = index">
+                                    <ion-col>
+                                        <label>איש קשר </label>{{i+1}}<br>
+                                        <label style="float: right;">שמך המלא</label><br>
+                                        <input text-right type="text" name="name" [(ngModel)]="name_familyMember[i]">
+                                        <br><br>
+                    
+                                        <label style="float: right;">מספר פלאפון</label><br>
+                                        <input text-right type="number" name="phone" [(ngModel)]="phone_familyMember[i]">
+                                        <br><br>
+                    
+                                        <label style="float: right;">קרבה לקשיש</label><br>
+                                        <input text-right type="text" name="relationship" [(ngModel)]="relationship_familyMember[i]">
+                                        <br><br>
+                                     </ion-col>
+                                    </div>
+                                </ion-row>
+                            </div> <br>
+                    </div>
+                    <!-- <button (click)="add_familyMembers()">שמור</button> -->
+                    </button>
                     <br><br>
 
 
@@ -362,4 +386,4 @@
 
         <!-- </ion-grid> -->
     </form>
-</ion-content>
+</ion-content>s

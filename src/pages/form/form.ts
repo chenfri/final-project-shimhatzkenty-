@@ -41,10 +41,10 @@ export class Form
   public neighborhoods: any[]
   public selectedNH : any
   //public durationVol: any[]
-  public name: ""
-  public phone: number
-  public rel: ""
-  public index: 0
+  temp_familyMember = new Array(3)
+  name_familyMember = new Array(3)
+  phone_familyMember = new Array(3)
+  relationship_familyMember = new Array(3)
   public hideMoreContact = false;
   
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
@@ -328,15 +328,18 @@ checkIfPhoneExist()
   
 
   add_familyMembers(){
-    
+    let size = this.name_familyMember.length
+    console.log("size ",size)
     let arr=[];
-    arr[indexFamilyMember.index]={'name':this.name, 'phone':this.phone,'rel': this.rel};
+
+    for(let index = 0 ; index< size ; index++)
+        arr[index]={'name':this.name_familyMember[index],
+       'phone':this.phone_familyMember[index],'rel': this.relationship_familyMember[index]};
+    
     this.familyMember = arr
-    this.name = null;
-    this.phone = null;
-    this.rel = null
-    indexFamilyMember.index++;
+    console.log(this.familyMember)
   }
+
 
   //update the variables if someone fill the form behalf elderly
   onbehalf()
