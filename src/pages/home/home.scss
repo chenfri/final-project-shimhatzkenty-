@@ -1,181 +1,155 @@
-.homePage{
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/background-homepage.jpg?alt=media&token=efc1c1e0-ee3f-47df-a763-331f4aad97e9");
-
-  .HomePagetitle {
+.homePage {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/background-homepage.jpg?alt=media&token=efc1c1e0-ee3f-47df-a763-331f4aad97e9");
+    .HomePagetitle {
         color: rgb(23, 1, 124);
-        font-size:40px;
+        font-size: 40px;
         font-weight: bold;
         font-family: Calibri;
         text-align: center;
     }
     .navbarHome {
-
         direction: rtl;
         background-color: #ff5824;
         width: calc(100% - 0px);
-      
         white-space: nowrap;
         display: inline-block;
         overflow: visible;
         text-align: -webkit-center;
-
     }
-
-    .homePageText{
-      //  font-size: large; 
-      //  font-family: Calibri ;
-      //  text-align: center;
-      //  background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=e4b52660-e414-4d05-b6c4-1a9a449dc217");
-       background-repeat: no-repeat;
-       background-size: contain;
-       background-position: center;
-
-
+    .homePageText {
+        //  font-size: large; 
+        //  font-family: Calibri ;
+        //  text-align: center;
+        //  background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=e4b52660-e414-4d05-b6c4-1a9a449dc217");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
     }
-
-#navbarHome {
-    overflow: hidden;
-    //background: #fdbb4b;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    text-align: center;
-    //background:rgb(255, 88, 41);
-
-  
-  }
-
-  .downHomePage {
-    text-align: center;
-    width: 100%;
-
-  }
-    ion-buttons{
-      direction: rtl;
+    #navbarHome {
+        overflow: hidden;
+        //background: #fdbb4b;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        text-align: center;
+        //background:rgb(255, 88, 41);
     }
-
+    .downHomePage {
+        text-align: center;
+        width: 100%;
+    }
+    ion-buttons {
+        direction: rtl;
+    }
     .navbarButton {
-      display: inline-block;
-      // color: white;
-      background:rgb(255, 88, 40);
-      text-align: center;
-      // padding: 14px 18px;
-      text-decoration: none; 
-      border: 3px solid #fdbb4b00;
-      //border: 1px solid navajowhite;
-      border-radius: 15px;
-      display: inline-block;
-      padding: 0 10px;
-      color: #FFFBD8;
-      transition: color 0.4s ease 0s;
-      font-family: calibri;
-      font-size: 22px;
-      -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0px rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
+        display: inline-block;
+        // color: white;
+        background: rgb(255, 88, 40);
+        text-align: center;
+        // padding: 14px 18px;
+        text-decoration: none;
+        border: 3px solid #fdbb4b00;
+        //border: 1px solid navajowhite;
+        border-radius: 15px;
+        display: inline-block;
+        padding: 0 10px;
+        color: #FFFBD8;
+        transition: color 0.4s ease 0s;
+        font-family: calibri;
+        font-size: 22px !important;
+        -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0px rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
     }
     .button-md:hover:not(.disable-hover) {
-      color: #08144a;
-      background-color: rgb(255, 88, 40);
-  }
+        color: #08144a;
+        background-color: rgb(255, 88, 40);
+    }
     button:hover {
-      background-color: rgb(253, 249, 212);
-      color: black;
+        //  background-color: rgb(253, 249, 212);
+        color: black;
     }
-    .downButton{
-      background-color: rgba(255, 88, 52, 1);
-      border: solid rgba(0, 0, 0, 1) 0px;
-      cursor: pointer !important;
-
-      text-align: initial;
-      display: flex;
-      align-items: center;
-      border-radius: 50px;
-      top: 0;
-      // right: 0;
-      bottom: 0;
-      // left: 0;
-      font-size: 28px;
-      transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
-      box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
-      font: normal normal normal 28px/1.4em alef-regular,sans-serif;
-      display: inline-block;
+    // .downButton {
+    //     background-color: rgba(255, 88, 52, 1);
+    //     border: solid rgba(0, 0, 0, 1) 0px;
+    //     cursor: pointer !important;
+    //     text-align: initial;
+    //     display: flex;
+    //     align-items: center;
+    //     border-radius: 50px;
+    //     //  padding: 0 1.2rem !important;
+    //     top: 0;
+    //     // right: 0;
+    //     bottom: 0;
+    //     // left: 0;
+    //     //   font-size: 2rem !important;
+    //     transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    //     box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    //     font: normal normal normal 28px/1.4em alef-regular, sans-serif;
+    //     display: inline-block;
+    // }
+    .button {
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        background-color: #ff5824;
+        border: solid black 0px;
+        cursor: pointer !important;
+        border-radius: 50px;
+        //font-size: 16px;
+        font-family: Calibri;
+        -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s !important;
+        transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+        color: white;
     }
-    .downButton2{
-      background-color: #259262;
-      border: solid black 0px;
-      cursor: pointer !important;
-      text-align: initial;
-      display: flex;
-      align-items: center;
-      border-radius: 50px;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      font-size: 28px;
-      transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
-      box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
-      font: normal normal normal 28px/1.4em alef-regular,sans-serif;
-      display: inline-block;
-
+    .button-inner {
+        font-size: 20px !important;
+        margin: 0px 0px 0px 0px;
     }
-    .homedetails{
-      align-items: center;
-      place-content: center;
-      direction: rtl;
-    
-
-    } 
-     .homePageText{
-       background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5); 
-       background-repeat: no-repeat;
-       background-size: contain;
-     
-      //  background-size:388px 501px ;
-       background-position: center;
-      
-
-       
-       text-align: initial;
-       width: auto;
-       height: auto;
-       width: 501px;
-       height: 388px;
-       font-family: calibri;
-      }
-      .text{
+    .homedetails {
+        align-items: center;
+        place-content: center;
+        direction: rtl;
+    }
+    .homePageText {
+        background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5);
+        background-repeat: no-repeat;
+        background-size: contain;
+        //  background-size:388px 501px ;
+        background-position: center;
+        text-align: initial;
+        width: auto;
+        height: auto;
+        width: 501px;
+        height: 388px;
+        font-family: calibri;
+    }
+    .text {
         text-align: center;
         width: auto;
         height: auto;
         // width:340px ;
         // height:440px ;
         // font-size: medium;
-    
-        font: normal normal normal 18px/1.75em avenir-lt-w01_35-light1475496,sans-serif;
-    
-    // background: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5); 
-   
+        font: normal normal normal 18px/1.75em avenir-lt-w01_35-light1475496, sans-serif;
+        // background: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5); 
         font-family: calibri;
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
- 
-      }
-      .pics{
+    }
+    .pics {
         width: auto;
         height: 500px;
-      }
-      .slides{
+    }
+    .slides {
         height: 15%;
-      }
-      .swiper-pagination-bullet-active{
-        background-color:  #ff5828;
+    }
+    .swiper-pagination-bullet-active {
+        background-color: #ff5828;
         padding: inherit;
-    
-    } 
-    .swiper-pagination-bullet{
-      background-color:  #ff5828;
-      padding: inherit;
-  
-  } 
-  }
+    }
+    .swiper-pagination-bullet {
+        background-color: #ff5828;
+        padding: inherit;
+    }
+}
