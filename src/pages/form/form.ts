@@ -328,12 +328,12 @@ checkIfPhoneExist()
   }
   
 
-  add_familyMembers(){
+  add_familyMembers()
+  {
     let size = this.phone_familyMember.length
-    console.log("size ",size)
     let arr=[];
 
-    for(let index = 0 ; index< size ; index++)
+    for(let index = 0 ; index < size ; index++)
         arr[index]={'name':this.name_familyMember[index],
        'phone':this.phone_familyMember[index],'rel': this.relationship_familyMember[index]};
     
