@@ -193,7 +193,8 @@
                             <label class ="addPerson" >הוסף בן משפחה נוסף</label>
                             <ion-icon style=" size: large;"  name="add-circle" (click)="moreContact()"></ion-icon><br>
                             <div *ngIf="hideMoreContact" ><br>
-                                <ion-row>
+                                <label>חובה למלא את כל הפרטים עבור איש קשר*</label><br>
+                                <ion-row style="direction: rtl;">
                                     <div *ngFor="let temp of temp_familyMember;let i = index">
                                     <ion-col>
                                         <label>איש קשר </label>{{i+1}}<br>

@@ -203,6 +203,7 @@ checkIfPhoneExist()
   {
     
     let flag = 0;
+    //conbert the phone to string for do more checks
     let phone =  String(this.user.phone);
     let contact = String(this.user.contact)
     let temp = "0"
@@ -328,7 +329,7 @@ checkIfPhoneExist()
   
 
   add_familyMembers(){
-    let size = this.name_familyMember.length
+    let size = this.phone_familyMember.length
     console.log("size ",size)
     let arr=[];
 
