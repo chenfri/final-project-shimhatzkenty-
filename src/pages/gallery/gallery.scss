@@ -1,63 +1,54 @@
 page-gallery {
-
- .swiper-pagination-bullet-active{
-    background-color:  #ff5828;
-
-} 
-.gallerySlide{
-  background-color: #fdbb4b;
+    .swiper-pagination-bullet-active {
+        background-color: #ff5828;
+    }
+    .gallerySlide {
+        background-color: #fdbb4b;
+    }
+    .galleryTitle {
+        font-size: xx-large;
+        font-weight: bold;
+        font-family: calibri;
+        text-align: center;
+    }
+    .pics {
+        width: auto;
+        height: auto;
+        border: 5px solid white;
+        // max-width: 500px;
+        // max-height: 500px;
+    }
+    // .ion-slide {
+    // }
+    .header {
+        background-color: #ff5828;
+    }
+    input[type=submit] {
+        // background-color: #af4c4c96; 
+        color: white;
+        padding: 12px 20px;
+        cursor: pointer;
+        float: left;
+        border-bottom: ridge;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        background-color: #FF5722;
+    }
+    input[type=submit]:hover {
+        background-color: #945151;
+    }
+    .swiper-slide {
+        background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/1%D7%A8%D7%A7%D7%A2.jpg?alt=media&token=9e359088-7770-420e-8b38-d0b609c38e5e);
+        // background-color: #fdbb4b;
+        //   background-repeat: no-repeat;
+        //   background-attachment: fixed;
+        //  background-position: center;
+    }
+    // .swiper-slide img {
+    //     // width: auto;
+    //     max-width: 70%;
+    //     // height: auto;
+    //     max-height: 70%;
+    // }
 }
-.galleryTitle{
-  font-size: xx-large;
-    font-weight: bold;
-    font-family: calibri;
-    text-align: center;
-
-}
-.pics{
-
-    width: auto;
-    height: auto;   
-    // max-width: 500px;
-    // max-height: 500px;
-}  
-// .ion-slide {
-      
-
-// }
-.header{
-    background-color: #ff5828;
-}
-
-input[type=submit] {
-   // background-color: #af4c4c96; 
-    color: white;
-    padding: 12px 20px;
-    cursor: pointer;
-    float: left;
-    border-bottom: ridge;
-    border-top: none;
-    border-left: none;
-    border-right: none ;
-    background-color: #FF5722;
-  }
-  
-
-  input[type=submit]:hover {
-    background-color:#945151;
-  }
-.swiper-slide{
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/1%D7%A8%D7%A7%D7%A2.jpg?alt=media&token=9e359088-7770-420e-8b38-d0b609c38e5e);
-  // background-color: #fdbb4b;
-//   background-repeat: no-repeat;
-//   background-attachment: fixed;
-//  background-position: center;
-
-}
-.swiper-slide img {
-    // width: auto;
-    max-width: 70%;
-    // height: auto;
-    max-height: 70%;
-}
-} 

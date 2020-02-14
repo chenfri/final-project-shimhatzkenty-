@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {NavController ,NavParams} from 'ionic-angular';
 import {adminPage} from '../Admin/adminPage';
 import {Form} from '../form/form';
@@ -12,6 +12,7 @@ import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
 import {Functions} from '../../providers/functions'
 import {GalleryPage} from '../gallery/gallery'
+import { Slides } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -20,6 +21,7 @@ import {GalleryPage} from '../gallery/gallery'
 
 export class HomePage 
 {
+  @ViewChild(Slides) slides: Slides;
 
   user = {} as User;
   useri: Observable<firebase.User>;
@@ -65,6 +67,11 @@ export class HomePage
     if(!this.user.loggedIn && this.devicePlatform)
       this.autoLogin()*/
   }
+
+  //to do not touch on the slides
+  ngAfterViewInit() {
+    this.slides.onlyExternal = true;
+}
 
 
   elderly_form()
@@ -352,5 +359,7 @@ CheckWhichOrganization(id)
   
     })
 }
+
+
 
 }

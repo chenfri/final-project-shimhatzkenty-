@@ -140,10 +140,11 @@
     }
     .pics {
         width: auto;
-        height: 500px;
+        height: auto;
+        border: 5px solid white;
     }
     .slides {
-        height: 15%;
+        height: 100%;
     }
     .swiper-pagination-bullet-active {
         background-color: #ff5828;

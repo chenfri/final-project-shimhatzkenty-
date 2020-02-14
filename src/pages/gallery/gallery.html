@@ -1,31 +1,42 @@
-
 <ion-header class="header">
-  <input style="float: left;" type="submit" (click)= "click_home()" value="חזרה לדף הבית">
+    <input style="float: left;" type="submit" (click)="click_home()" value="חזרה לדף הבית">
 </ion-header>
 
-<ion-content class="gallerySlide" >
+<ion-content class="gallerySlide">
 
-  <h6 class="galleryTitle">גלריית תמונות</h6>
+    <h6 class="galleryTitle">גלריית תמונות</h6>
 
-  <ion-slides   pager= "true"  autoplay="3000" loop="true" speed="500" class="slides" >
-        <ion-slide>
-          <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery1.jpg?alt=media&token=40dee681-89ea-40f2-947f-11a26d34ab60" alt="">
-        </ion-slide>
-        <ion-slide centeredSlides="true">
-          <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery2.jpg?alt=media&token=b6ca0173-535a-454e-9d0a-2fcef34cb304" alt="">
-        </ion-slide>
-        <ion-slide>
-            <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery3.jpeg?alt=media&token=9f0c2668-a08a-4558-ab95-3f542813fd55">
-        </ion-slide>
-        <ion-slide>
-          <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery4.jpg?alt=media&token=003525f9-9486-4ffc-bbbe-f82a0ab51349">
-      </ion-slide>
-      <ion-slide>
-        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery5.jpeg?alt=media&token=c4140bd6-301b-421a-b1cd-f9c20cc6779b">
-      </ion-slide>
-      <ion-slide>
-        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery6.jpeg?alt=media&token=b77e5bb9-2923-4191-a956-4eb465aea2fe">
-      </ion-slide>
-  </ion-slides>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="1"></ion-col>
+            <ion-col size="10">
+
+                <ion-slides pager="true" autoplay="2000" loop="true" speed="400" class="slides">
+                    <ion-slide>
+                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimgae7.jpg?alt=media&token=df3f2194-93b0-4a9a-9667-b109a46ef707">
+                    </ion-slide>
+                    <ion-slide>
+                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery1.jpg?alt=media&token=6b05cdc4-dfe9-48aa-bc90-dbf57f09d13d" alt="">
+                    </ion-slide>
+                    <ion-slide>
+                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery2.jpg?alt=media&token=001127f4-351b-46e4-8a7a-9066f2f49e0b" alt="">
+                    </ion-slide>
+                    <ion-slide>
+                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery6.jpeg?alt=media&token=393426b0-b911-449c-ab9a-a3f90ffc827e">
+                    </ion-slide>
+                    <ion-slide>
+                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery3.jpeg?alt=media&token=535a5ebe-d50f-4ed8-83f8-8c1a180c48ad">
+                    </ion-slide>
+                    <ion-slide>
+                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimage8.jpg?alt=media&token=313b17ee-c12f-46dc-a115-3481f1593ff1">
+                    </ion-slide>
+                    <ion-slide>
+                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimage9.jpg?alt=media&token=74523d1e-06d0-4e09-8bd7-ab4639421e23">
+                    </ion-slide>
+                </ion-slides>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 </ion-content>
