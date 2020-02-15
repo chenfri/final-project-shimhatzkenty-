@@ -7,11 +7,19 @@
         font-family: Calibri;
         text-align: center;
     }
+    .toolbar-content-md {
+        background: #ff5824 !important;
+    }
+    .toolbar-md {
+        padding: 0px 0px 0px 0px !important;
+        min-height: 0px !important;
+    }
     .navbarHome {
         direction: rtl;
         background-color: #ff5824;
+        padding: 0px 0px 0px 0px !important;
         width: calc(100% - 0px);
-        white-space: nowrap;
+        // white-space: nowrap;
         display: inline-block;
         overflow: visible;
         text-align: -webkit-center;
@@ -103,8 +111,8 @@
         padding: 0 1rem;
     }
     .button-inner {
-        font-size: 18px !important;
-        margin: 0px 0px 0px 0px;
+        font-size: 1.6rem !important;
+        margin: 0px 0px 0px 2.1rem;
     }
     .homedetails {
         align-items: center;

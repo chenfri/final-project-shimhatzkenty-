@@ -414,7 +414,7 @@ checkIfPhoneExist()
       this.user.street = MyGlobal.street
       this.user.homeNumber = MyGlobal.homeNumber
       this.user.city = MyGlobal.city
-    }, 3000);
+    }, 1000);
   }
 
 
