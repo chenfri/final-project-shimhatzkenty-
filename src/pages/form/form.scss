@@ -8,16 +8,22 @@
     font-family: calibri;
 }
 
-.formCSS {
+ion-content.formCSS {
+
     color: #FCBE47;
     background-color: #035445;
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
+    // background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed !important;
+    // background-attachment: scroll;
+    // --background-attachment: fixed;
+    // --background-image: url('https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b');
+
     background-size: 40%;
     font-weight: bold;
     text-align: right;
     font-family: calibri;
+
     .titleForm {
         float: right;
         text-align: right;
