@@ -360,14 +360,12 @@ CheckWhichOrganization(id)
     })
 }
 
-// myFunction() {
-//   var x = document.getElementById("topnav");
-//   if (x.className === "navbarHome") {
-//     x.className += " responsive";
-//   } else {
-//     x.className = "navbarHome";
-//   }
-//}
-
-
+myFunction() {
+  var x = document.getElementById("topNav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
 }

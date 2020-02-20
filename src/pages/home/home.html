@@ -1,4 +1,4 @@
-<ion-content class="homePage">
+<ion-content class="homePage" id="container" >
 
     <ion-row style=" background-color: #fffbd8;justify-content: center;">
         <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic.PNG?alt=media&token=a03e6e01-5391-4c5e-aa37-a6c70a2bb1a4" style="width: auto;
@@ -8,23 +8,39 @@
     <!-- <ion-row style=" background-color:#ff5828; color:#ff5828">a</ion-row> -->
     <!-- <div class ="downHomePage"> -->
 
-    <ion-row class="navbarHome">
-            <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button> -->
-            <!-- <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button> -->
+    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <div class="topnav" id="topNav">
+        <a class="navbarButton" ion-button >דף הבית</a>
+        <a class="navbarButton" ion-button *ngIf="!user.loggedIn" (click)="login()">כניסת מנהל</a>
+        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="elderly_form()">רישום לאזרח הותיק</a >    
+        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</a>
+        <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" get_data_for_admin()">מאגר נרשמים</a >
+        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="gallery()">גלריה</a>
+        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</a>
+        <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="logout()">התנתק</a >
+        <a class="icon" (click)="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    <!-- <ion-navbar class="navbarHome">
+            <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button>
+            <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button>
             <button class="navbarButton" ion-button item-start *ngIf="!user.loggedIn" (click)="login()">כניסת מנהל</button>
             <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="elderly_form()">רישום לאזרח הותיק</button >
-                <!-- <button ion-button *ngIf="user.volunteer && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button> -->
+                <button ion-button *ngIf="user.volunteer && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button>
             <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
-            <!-- <button ion-button *ngIf="user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button> -->
+            <button ion-button *ngIf="user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button>
             <button class="navbarButton" ion-button item-end *ngIf="user.Admin" (click)=" get_data_for_admin()">מאגר נרשמים</button >
                 <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="gallery()">גלריה</button>
             <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</button>
             <button class="navbarButton" ion-button item-end *ngIf="user.loggedIn" (click)="logout()">התנתק</button >
-    </ion-row>
+    </ion-navbar> -->
 <ion-grid>
         <ion-row class="homedetails">
 
-            <ion-col width="501" 
+            <ion-col class='thin-col' width="450" 
             height= "388">
                 <div class="wrapper" >
   
@@ -41,11 +57,14 @@
                 </ion-row>
 
         </ion-col>
-        <ion-col col-7>
-            <iframe style="    width: 761px;
-            height: 428px;
-            left: 0px;
-            top: 1.46875px;" src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1"></iframe>
+        <ion-col >
+            <iframe style="margin-right: 0px;
+                        width: 761px;
+                        height: 428px;
+                        left: 0px;
+                        top: 1.46875px;"
+                        src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1">
+            </iframe>
         </ion-col>
 
         </ion-row>
