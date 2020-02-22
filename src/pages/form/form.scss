@@ -8,10 +8,9 @@
         font-family: calibri;
     }
     
-    .button-ios {
-        font-size: 1.2rem !important;
-    }
-    
+    // .button-ios {
+    //     font-size: 1.2rem !important;
+    // }
     ion-content.formCSS {
         color: #FCBE47;
         background-color: #035445;
@@ -177,7 +176,7 @@
         @media screen and (max-width: 600px) {
             #imgae-form {
                 width: 17rem !important;
-                margin: -1rem 0rem 0rem -2rem;
+                //    margin: -1.4rem 0rem 0rem -2rem;
             }
         }
     }

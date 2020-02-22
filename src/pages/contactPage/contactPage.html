@@ -1,46 +1,35 @@
-<ion-content  class="contactPage">
-  
-  <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>  
-  <br><br>
+<ion-content class="contactPage">
 
-      <div style="text-align:center">
-        <h2>צור קשר</h2>
-        <p>השאר לנו הודעה</p>
-      </div>
+    <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>
+    <br><br>
 
-      <ion-row >
-          <ion-col style="width:40%;height: 15%;     text-align: center; ">
-            <img src=" https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%9E%D7%97%D7%AA%20%D7%96%D7%A7%D7%A0%D7%AA%D7%99%20%D7%9E%D7%95%D7%A4%D7%A2%D7%99%20%D7%A1%D7%9C%D7%95%D7%9F.png?alt=media&token=0ba84cff-a14e-4e62-b321-a71907156484" 
-            style="width:60%;height: 40%;  align-items: center;">     
-          </ion-col>
+    <div style="text-align:center">
+        <h4>השאירו לנו הודעה</h4><br>
+    </div>
 
-          <ion-col style= "direction: rtl;width:40%;height: 25%;">
-              <label for="fullName">שם מלא</label>
-              <input type="text" name="fullName" [(ngModel)] = "contactMessage.fullName" placeholder="..רשום כאן את השם המלא"  >
-              <label for="phoneNumber">פלאפון</label>
-              <input type="number" id="phone" name="phoneNumber" [(ngModel)] = "contactMessage.phoneNumber" placeholder="..רשום כאן את מס' הפלאפון">
-              <label for="message">הודעה</label>
-              <textarea type="text" id="message" name="message" [(ngModel)] = "contactMessage.message"  style="height:100px"></textarea>
-              <button ion-button type="submit" (click)= "add_data_to_firebase()">שלח</button>
-          </ion-col>
-        </ion-row>
-  
-      <ion-row style="background-color: #2f7cc2;color:#2f7cc2">a</ion-row>
+    <ion-row>
+        <!-- <ion-col style="width:40%;height: 15%;     text-align: center; ">
+            <img src=" https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%9E%D7%97%D7%AA%20%D7%96%D7%A7%D7%A0%D7%AA%D7%99%20%D7%9E%D7%95%D7%A4%D7%A2%D7%99%20%D7%A1%D7%9C%D7%95%D7%9F.png?alt=media&token=0ba84cff-a14e-4e62-b321-a71907156484"
+                style="width:50%;height: 30vh;  align-items: center;">
+        </ion-col> -->
 
-      <ion-row class="contact">
-           
-          <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A6%D7%95%D7%A8%20%D7%A7%D7%A9%D7%A8%20%D7%A2%D7%9D%20%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=c06e376e-a7ef-437b-9fab-e45209093ee8" style="width:100%;">
-  
-           <!-- <body class="centered">
-              
-             <p> simhatzkenty@gmail.com</p>
-           
+        <ion-col style="text-align: center ;align-items:center;width:40vh;height: 25%;">
+            <label for="fullName">שם מלא</label><br>
+            <input style="width:40vh;" type="text" name="fullName" [(ngModel)]="contactMessage.fullName" placeholder="רשום כאן את השם המלא"><br><br>
+            <label for="phoneNumber">פלאפון</label><br>
+            <input style="width:40vh;" type="number" id="phone" name="phoneNumber" [(ngModel)]="contactMessage.phoneNumber" placeholder="רשום כאן את מס' הפלאפון"><br><br>
+            <label for="message">הודעה</label><br>
+            <textarea style="width:40vh; height: 15vh;" type="text" id="message" name="message" [(ngModel)]="contactMessage.message"></textarea><br>
+            <button ion-button type="submit" (click)="add_data_to_firebase()">שלח</button>
+        </ion-col>
+    </ion-row>
+    <br>
+    <ion-row style="background-color: #2f7cc2;color:#2f7cc2">a</ion-row>
 
-              <p>רונן: 050-2288487 | נטע: 054-8122420</p> 
-              
-           </body>             
-             -->
-      </ion-row>
-     
+    <ion-row class="contact">
+
+        <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A6%D7%95%D7%A8%20%D7%A7%D7%A9%D7%A8%20%D7%A2%D7%9D%20%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=c06e376e-a7ef-437b-9fab-e45209093ee8" style="width:100%;height: 25vh;">
+    </ion-row>
+
 
 </ion-content>
