@@ -90,12 +90,8 @@
         -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0px rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
     }
     .button-md:hover:not(.disable-hover) {
-        color: #08144a;
+        color: #08144a !important;
         background-color: rgb(255, 88, 40);
-    }
-    button:hover {
-        //  background-color: rgb(253, 249, 212);
-        color: black;
     }
     .button {
         width: -webkit-fit-content;
@@ -228,7 +224,7 @@
     /* Change the color of links on hover */
     .topnav a:hover {
         //background-color: #ddd;
-        color: black;
+        color: #08144a;
     }
     //   /* Add an active class to highlight the current page */
     //   .topnav a.active {
