@@ -1,28 +1,28 @@
-<ion-content padding class="login-page" >
-   <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>  
-   <br><br><br><br>
+<ion-content padding class="login-page">
+    <button ion-button style="float: right;" (click)="click_home()">חזרה לדף הבית</button>
+    <br><br><br><br>
 
-  <div class="login-bar" style="  text-align: -webkit-center;">  
+    <div class="login-bar" style="  text-align: -webkit-center;">
 
-      <h2 class="titleLogin">התחברות למערכת</h2>
+        <h2 class="titleLogin">התחברות למערכת</h2>
 
-      <br><br>
+        <br><br>
 
-      <label style="font-weight: bold;font-size: initial;">כתובת דוא"ל</label><br>
-      <input type="text" name="email" [(ngModel)] = "user.email"><br><br>
+        <label style="font-weight: bold;font-size: initial;">כתובת דוא"ל</label><br>
+        <input type="text" name="email" [(ngModel)]="user.email"><br><br>
 
-      <label  style=" font-weight: bold;
+        <label style=" font-weight: bold;
                      font-size: initial;">סיסמא</label><br>
-                  
-      <input type="password" name="password" [(ngModel)] = "user.password"><br><br><br>
 
-   
-      <button ion-button (click)="resetPassword(user)">שכחתי סיסמא</button>
+        <input type="password" name="password" [(ngModel)]="user.password"><br><br><br>
 
-      <button ion-button (click)="signIn_function(user)">התחבר</button>
 
-     
+        <button ion-button (click)="resetPassword(user)">שכחתי סיסמא</button>
 
-             
-   </div>
-</ion-content >
+        <button ion-button (click)="signIn_function(user)">התחבר</button>
+
+
+
+
+    </div>
+</ion-content>

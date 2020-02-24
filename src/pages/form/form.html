@@ -1,26 +1,19 @@
-<ion-content  padding  class="formCSS" style="background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b);
+<ion-content padding class="formCSS" style="
 background-repeat: no-repeat;
 background-attachment: fixed !important;">
 
     <div style="position: relative;">
-       <button ion-button style="float: left;" (click)="click_home()">חזרה לדף הבית</button>
-        <!--  <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b" width= "597"
-        style="float: left;     position: relative;
-        overflow: hidden;  z-index: -1;
-
-        " height="239"
-        x="0"
-        y="0"> -->
-</div>
+        <img id="imgae-form" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b" style="width: 25rem; height: auto; align-items: left; float: left; direction: ltr; margin: -1.4rem 0rem 0rem -2rem;"
+        />
+        <button ion-button style="float: right;" (click)="click_home()">חזרה לדף הבית</button>
+    </div>
     <br><br><br>
 
-    <ion-row style="justify-content: center; ">
-        <h2 class="titleForm">הרשמה</h2><br><br><br><br>
-    </ion-row>
+    <h2 style="color: #035445;">הרשמה</h2>
+    <h2 class="mainTitle " style="text-align: center; "> הרשמה</h2> <br><br>
     <h6 style="text-align: center; "> הפרטים ישארו חסויים במיזם</h6>
     <h6 *ngIf="!user.elderly" style="text-align: center; padding: 0px 30px 0px 30px;">אם הנכם מעוניינים לארח בביתכם מתנדב שישמח אתכם במופע מוסיקה ביתי או מופע ליצנות או אפילו שעה של שיחה קלה, קריאה, משחקי חשיבה או יצירה משתפת</h6>
     <h6 *ngIf="!user.elderly" style="text-align: center;font-weight: bold; padding: 0px 30px 0px 30px;">.בואו והירשמו לשמחת זקנתי</h6>
-
     <h6 *ngIf="user.elderly" style="text-align: center;">.חשוב שאדם נוסף יהיה נוכח בפגישה הראשונה</h6>
 
     <form class="form" style="float: right; width: 100%;"> <br><br>

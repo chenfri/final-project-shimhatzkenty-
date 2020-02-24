@@ -93,18 +93,18 @@ export class HomePage
 
 
   contactPage() {
-    this.navCtrl.push(contactPage, {'login':this.user.loggedIn});
+    this.navCtrl.push(contactPage/*, {'login':this.user.loggedIn}*/);
   }
   
 
   gallery() {
-    this.navCtrl.push(GalleryPage, {'login':this.user.loggedIn});
+    this.navCtrl.push(GalleryPage/*, {'login':this.user.loggedIn}*/);
   }
 
   
   login(){
 
-    this.navCtrl.push(LoginPage, {'login':this.user.loggedIn});
+    this.navCtrl.push(LoginPage/*, {'login':this.user.loggedIn}*/);
   }
 
   
@@ -208,6 +208,19 @@ export class HomePage
       'elderNum': k , 'volunteerNum': j, 'studentNum': t, 'organizationNum': v});
         }, 1000);
   } 
+
+
+
+  hamburger_Navbar() {
+    var x = document.getElementById("topNav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+     //x.className += " <a class=\"icon\" (click)=\"hamburger_Navbar()\">"
+    } else {
+      x.className = "topnav";
+    }
+    //console.log("X: ",x)
+  }
 
   
   //------------------------ function not in used ----------------------------------------
@@ -360,7 +373,7 @@ CheckWhichOrganization(id)
     })
 }
 
-myFunction() {
+hamburgerNavbar() {
   var x = document.getElementById("topNav");
   if (x.className === "topnav") {
     x.className += " responsive";
