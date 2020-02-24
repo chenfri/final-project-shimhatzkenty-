@@ -364,8 +364,11 @@ myFunction() {
   var x = document.getElementById("topNav");
   if (x.className === "topnav") {
     x.className += " responsive";
+    console.log("x1 = " , x)
   } else {
     x.className = "topnav";
+    console.log("x2 = " , x)
+
   }
 }
 }

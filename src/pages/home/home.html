@@ -3,7 +3,7 @@
     <ion-row style=" background-color: #fffbd8;justify-content: center;">
         <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic.PNG?alt=media&token=a03e6e01-5391-4c5e-aa37-a6c70a2bb1a4" style="width: auto;
             height: auto; align-items: center;    
-            min-height: 160px;max-height: 230px;" />
+            min-height: 160px;max-height: 230px; height: 230;" />
     </ion-row>
     <!-- <ion-row style=" background-color:#ff5828; color:#ff5828">a</ion-row> -->
     <!-- <div class ="downHomePage"> -->
@@ -13,13 +13,13 @@
 
     <div class="topnav" id="topNav">
         <a class="navbarButton" ion-button >דף הבית</a>
-        <a class="navbarButton" ion-button *ngIf="!user.loggedIn" (click)="login()">כניסת מנהל</a>
-        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="elderly_form()">רישום לאזרח הותיק</a >    
-        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</a>
-        <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" get_data_for_admin()">מאגר נרשמים</a >
-        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="gallery()">גלריה</a>
-        <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</a>
-        <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="logout()">התנתק</a >
+        <a class="navbarButton" ion-button (click)="login()">כניסת מנהל</a>
+        <a class="navbarButton" ion-button (click)="elderly_form()">רישום לאזרח הותיק</a >    
+        <a class="navbarButton" ion-button (click)="volunteer_form()">הרשם כמתנדב</a>
+        <a class="navbarButton" ion-button (click)=" get_data_for_admin()">מאגר נרשמים</a >
+        <a class="navbarButton" ion-button (click)="gallery()">גלריה</a>
+        <a class="navbarButton" ion-button (click)="contactPage()">צור קשר</a>
+        <a class="navbarButton" ion-button (click)="logout()">התנתק</a >
         <a class="icon" (click)="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
