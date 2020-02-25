@@ -16,14 +16,17 @@
         <a class="navbarButton" ion-button (click)="login()">כניסת מנהל</a>
         <a class="navbarButton" ion-button (click)="elderly_form()">רישום לאזרח הותיק</a >    
         <a class="navbarButton" ion-button (click)="volunteer_form()">הרשם כמתנדב</a>
-        <a class="navbarButton" ion-button (click)=" get_data_for_admin()">מאגר נרשמים</a >
+        <!-- <a class="navbarButton" ion-button (click)=" get_data_for_admin()">מאגר נרשמים</a > -->
         <a class="navbarButton" ion-button (click)="gallery()">גלריה</a>
         <a class="navbarButton" ion-button (click)="contactPage()">צור קשר</a>
         <a class="navbarButton" ion-button (click)="logout()">התנתק</a >
-        <a class="icon" (click)="hamburger_Navbar()">
+        <a class="icon" (click)="hamburgerNavbar()">
             <i class="fa fa-bars"></i>
         </a>
     </div>
+
+  
+
     <!-- <ion-navbar class="navbarHome">
             <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button>
             <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button>

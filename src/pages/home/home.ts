@@ -103,7 +103,9 @@ export class HomePage
 
   
   login(){
-
+    // var x = document.getElementById("topNav");
+    // x.className = "topnav";
+    // console.log("x=" , x)
     this.navCtrl.push(LoginPage/*, {'login':this.user.loggedIn}*/);
   }
 
