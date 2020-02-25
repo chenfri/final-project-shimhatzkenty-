@@ -66,6 +66,8 @@ export class HomePage
 
     if(!this.user.loggedIn && this.devicePlatform)
       this.autoLogin()*/
+
+
   }
 
   //to do not touch on the slides
