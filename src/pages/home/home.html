@@ -1,4 +1,5 @@
 <ion-content class="homePage" id="container">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <ion-row style=" background-color: #fffbd8;justify-content: center;">
         <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic.PNG?alt=media&token=a03e6e01-5391-4c5e-aa37-a6c70a2bb1a4" style="width: auto;
@@ -16,7 +17,6 @@
         <a class="navbarButton" ion-button (click)="login()">כניסת מנהל</a>
         <a class="navbarButton" ion-button (click)="elderly_form()">רישום לאזרח הותיק</a >    
         <a class="navbarButton" ion-button (click)="volunteer_form()">הרשם כמתנדב</a>
-        <!-- <a class="navbarButton" ion-button (click)=" get_data_for_admin()">מאגר נרשמים</a > -->
         <a class="navbarButton" ion-button (click)="gallery()">גלריה</a>
         <a class="navbarButton" ion-button (click)="contactPage()">צור קשר</a>
         <a class="navbarButton" ion-button (click)="logout()">התנתק</a >
@@ -62,6 +62,7 @@
             <ion-col>
                 <iframe style="margin-right: 0px;
                         width: 761px;
+                        max-width: auto;
                         height: 428px;
                         left: 0px;
                         top: 1.46875px;" src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1">

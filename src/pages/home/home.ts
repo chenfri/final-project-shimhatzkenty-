@@ -66,8 +66,6 @@ export class HomePage
 
     if(!this.user.loggedIn && this.devicePlatform)
       this.autoLogin()*/
-
-
   }
 
   //to do not touch on the slides
@@ -105,9 +103,7 @@ export class HomePage
 
   
   login(){
-    // var x = document.getElementById("topNav");
-    // x.className = "topnav";
-    // console.log("x=" , x)
+
     this.navCtrl.push(LoginPage/*, {'login':this.user.loggedIn}*/);
   }
 
@@ -388,4 +384,5 @@ hamburgerNavbar() {
 
   }
 }
+
 }
