@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController ,NavParams} from 'ionic-angular';
+import {NavController ,NavParams, Content } from 'ionic-angular';
 import {adminPage} from '../Admin/adminPage';
+ import { IonContent } from "@ionic/angular";
 import {Form} from '../form/form';
 import {contactPage} from '../contactPage/contactPage'
 import {LoginPage} from '../login/login'
@@ -16,11 +17,13 @@ import { Slides } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+
 })
 
 export class HomePage 
 {
+  @ViewChild(Content) content: Content;
   @ViewChild(Slides) slides: Slides;
 
   user = {} as User;
@@ -44,6 +47,12 @@ export class HomePage
     console.log(this.user.Admin)
   }
 
+
+scrollToBottom() {
+    setTimeout(() => {
+        this.content.scrollTo(600,600,1000);
+    });
+}
 
 
   ngAfterViewInit() {
