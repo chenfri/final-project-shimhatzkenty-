@@ -53,13 +53,8 @@ export class Form
           
     {
 
-   // this.readCsvData()
-    /*this.user.loggedIn = this.params.get('login');
-    console.log("login :", this.user.loggedIn)*/
     this.user.elderly = this.params.get('elderly');
-    console.log("elderly :", this.user.elderly)
     this.user.volunteer = this.params.get('volunteer');
-    console.log("volunteer :", this.user.volunteer)
  
     //update variables
     this.selectedNH = null
@@ -96,18 +91,6 @@ export class Form
     this.organization = this.array.organization
     this.neighborhoods = this.array.neighborhoods
 
-   /* if (this.user.loggedIn)
-    {
-      this.user.hideForm = true
-      if(this.user.volunteer)
-        this.getData_fromFirebase('volunteerUsers');
-      else
-        this.getData_fromFirebase('ElderlyUsers');
-    }
-    else
-      this.user.hideForm = false*/
-    
-
   }
 
 
@@ -115,34 +98,9 @@ export class Form
   click_home()
   {
     this.init_arrays()
-    this.navCtrl.push(HomePage)
-
-    /*const db = firebase.firestore();
-    if(this.ifRegister) //if the user is allready register check if there is his document in firebase
-    {
-      if (this.user.elderly)
-      {
-        db.collection('ElderlyUsers').doc(firebase.auth().currentUser.uid).get()
-          .then(result => {
-            if (!result.exists)
-              this.alert.error_showAlert()
-          }).catch(error => console.log(error))
-      }
-      else if (this.user.volunteer)
-      {
-        db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
-          .then(result => {
-            if (!result.exists)
-              this.alert.error_showAlert()
-          }).catch(error => console.log(error))
-      }
-    }
-    else
-      this.navCtrl.push(HomePage, {
-        'login': this.user.loggedIn, 'elderly': this.user.elderly,
-        'volunteer': this.user.volunteer
-      })*/
+    this.navCtrl.popToRoot()
   }
+
 
   moreContact()
   {
@@ -153,27 +111,27 @@ export class Form
   }
 
 
-checkIfPhoneExist()
-{
-  const db = firebase.firestore();
-  if (this.user.elderly)
+  checkIfPhoneExist()
   {
-    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
-      if(i.data().phone == this.user.phone)
-        returnValue.phoneExist = 1    
-        })}).catch(error => {console.log(error)}) 
-  }
-
-  else if (this.user.volunteer)
-  {
-      db.collection('volunteerUsers').get().then(res => { res.forEach(i => {
+    const db = firebase.firestore();
+    if (this.user.elderly)
+    {
+      db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
         if(i.data().phone == this.user.phone)
-        returnValue.phoneExist = 1
+          returnValue.phoneExist = 1    
           })}).catch(error => {console.log(error)}) 
-  }
+    }
 
-  returnValue.phoneExist = 0
-}
+    else if (this.user.volunteer)
+    {
+        db.collection('volunteerUsers').get().then(res => { res.forEach(i => {
+          if(i.data().phone == this.user.phone)
+          returnValue.phoneExist = 1
+            })}).catch(error => {console.log(error)}) 
+    }
+
+    returnValue.phoneExist = 0
+  }
 
 
   validateEmail(email) {
@@ -460,10 +418,7 @@ checkIfPhoneExist()
       .then(() => {
         this.alert.showAlertSuccess();
         this.init_arrays()
-        this.navCtrl.push(HomePage/*, {
-          'login': this.user.loggedIn, 'elderly': this.user.elderly,
-          'volunteer': this.user.volunteer
-        }*/)
+        this.navCtrl.popToRoot()
       }).catch((error) => {
         console.log
       })
@@ -521,10 +476,7 @@ checkIfPhoneExist()
       .then(() => {
         this.alert.showAlertSuccess();
         this.init_arrays()
-        this.navCtrl.push(HomePage/*, {
-          'login': this.user.loggedIn, 'elderly': this.user.elderly
-          , 'volunteer': this.user.volunteer
-        }*/);
+        this.navCtrl.popToRoot();
       }).catch((error) => {
         console.log
       })

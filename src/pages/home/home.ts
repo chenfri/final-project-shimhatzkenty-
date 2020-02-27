@@ -71,13 +71,14 @@ export class HomePage
   //to do not touch on the slides
   ngAfterViewInit() {
     this.slides.onlyExternal = true;
-}
-
+  }
 
   elderly_form()
   {
     this.user.elderly = true;   
     this.user.volunteer = false;
+    var x = document.getElementById("topNav");
+    x.className = "topnav";
     this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
      'volunteer': this.user.volunteer,});
   }
@@ -87,24 +88,31 @@ export class HomePage
   {
     this.user.elderly = false;
     this.user.volunteer = true;
+    var x = document.getElementById("topNav");
+    x.className = "topnav";
     this.navCtrl.push(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
      'login':this.user.loggedIn});
   }
 
 
   contactPage() {
-    this.navCtrl.push(contactPage/*, {'login':this.user.loggedIn}*/);
+    var x = document.getElementById("topNav");
+    x.className = "topnav";
+    this.navCtrl.push(contactPage)
   }
   
 
   gallery() {
-    this.navCtrl.push(GalleryPage/*, {'login':this.user.loggedIn}*/);
+    var x = document.getElementById("topNav");
+    x.className = "topnav";
+    this.navCtrl.push(GalleryPage);
   }
 
   
   login(){
-
-    this.navCtrl.push(LoginPage/*, {'login':this.user.loggedIn}*/);
+    var x = document.getElementById("topNav");
+    x.className = "topnav";
+    this.navCtrl.push(LoginPage);
   }
 
   
@@ -112,7 +120,7 @@ export class HomePage
   {
     firebase.auth().signOut();
     this.user.loggedIn = false;
-    this.navCtrl.push(HomePage, {'login':this.user.loggedIn});
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn }); 
  }
 
 
@@ -213,13 +221,11 @@ export class HomePage
 
   hamburger_Navbar() {
     var x = document.getElementById("topNav");
-    if (x.className === "topnav") {
+    if (x.className === "topnav") 
       x.className += " responsive";
-     //x.className += " <a class=\"icon\" (click)=\"hamburger_Navbar()\">"
-    } else {
+    else 
       x.className = "topnav";
-    }
-    //console.log("X: ",x)
+    
   }
 
   

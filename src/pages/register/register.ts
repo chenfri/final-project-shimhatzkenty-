@@ -41,15 +41,15 @@ export class RegisterPage
       console.log(firebase.auth().currentUser.uid)
       db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
       .then(()=> {console.log("added new admin")
-      this.navCtrl.push(HomePage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
-  })
+      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+    })
     }
   }
 
 
   click_home()
   {
-    this.navCtrl.push(HomePage , {'login': this.user.loggedIn, 'admin': this.user.Admin});
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
 }
