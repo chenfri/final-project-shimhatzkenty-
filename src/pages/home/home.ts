@@ -44,10 +44,14 @@ export class HomePage
     console.log(this.user.Admin)
   }
 
-  //to do not touch on the slides
+
+
   ngAfterViewInit() {
-    this.slides.onlyExternal = true;
+   // this.slides.onlyExternal = true;   //to do not touch on the slides
+    this.slides.autoplayDisableOnInteraction = false;
+    this.slides.freeMode = true;
   }
+
 
   elderly_form()
   {
@@ -202,6 +206,9 @@ export class HomePage
     
   }
 
+  goToSlide() {
+    this.slides.slideTo(2, 500);
+  }
   
   //------------------------ function not in used ----------------------------------------
  

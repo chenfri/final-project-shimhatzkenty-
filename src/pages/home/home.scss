@@ -47,23 +47,15 @@
         text-align: -webkit-center;
     }
     .homePageText {
-        //  font-size: large; 
-        //  font-family: Calibri ;
-        //  text-align: center;
-        //  background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=e4b52660-e414-4d05-b6c4-1a9a449dc217");
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
     }
     #navbarHome {
         overflow: hidden;
-        //background: #fdbb4b;
-        // list-style-type: none;
         margin: 0;
         padding: 0;
-        // overflow: hidden;
         text-align: center;
-        //background:rgb(255, 88, 41);
     }
     .downHomePage {
         text-align: center;
@@ -73,15 +65,10 @@
         direction: rtl;
     }
     .navbarButton {
-        // display: inline-block;
-        // color: white;
         background: rgb(255, 88, 40);
         text-align: center;
-        // padding: 14px 18px;
         text-decoration: none;
         border: 3px solid #fdbb4b00;
-        //border: 1px solid navajowhite;
-        // border-radius: 15px;
         padding: 0 10px;
         color: #FFFBD8;
         transition: color 0.4s ease 0s;
@@ -123,7 +110,6 @@
         left: 60%;
         text-align: initial;
         transform: translate(-45%, -45%);
-        // background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5);
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
@@ -132,11 +118,6 @@
         text-align: center;
         width: auto;
         height: auto;
-        // width:340px ;
-        // height:440px ;
-        // font-size: medium;
-        // font: normal normal normal 18px/1.75em avenir-lt-w01_35-light1475496, sans-serif;
-        // background: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98.png?alt=media&token=7da6e1b8-4694-4d26-925e-9b2e4a5d70e5); 
         font-family: calibri;
     }
     .greenButton {
@@ -156,9 +137,6 @@
         transition: color 0.4s ease 0s;
         color: #FFFBD8;
         display: inline-block;
-        // margin: calc(-1 * 0px) 0px 0;
-        // position: relative;
-        // white-space: nowrap;
         height: 53px;
         min-height: 39px;
         width: 239px;
@@ -168,7 +146,6 @@
         border-radius: 50px;
         right: 15px;
         font: normal normal normal 28px/1.4em alef-regular, sans-serif;
-        // grid-area: 2 / 1 / 3 / 2;
         justify-self: start;
         align-self: start;
         height: 53px;
@@ -177,17 +154,13 @@
         transition: color 0.4s ease 0s;
         color: #FFFBD8;
         display: inline-block;
-        // margin: calc(-1 * 0px) 0px 0;
-        // position: relative;
-        // white-space: nowrap;    
-        // text-align: initial;
     }
     .twobuttons {
         justify-content: center;
     }
     .pics {
-        width: auto;
-        height: auto;
+        width: 100%;
+        height: 100%;
         border: 5px solid white;
     }
     .slides {
@@ -204,7 +177,6 @@
     /* Add a black background color to the top navigation */
     .topnav {
         background: #ff5824 !important;
-        // height: 53px;
         overflow: hidden;
         align-items: center;
         text-align: center;
@@ -223,13 +195,8 @@
     }
     /* Change the color of links on hover */
     .topnav a:hover {
-        //background-color: #ddd;
         color: #08144a;
     }
-    //   /* Add an active class to highlight the current page */
-    //   .topnav a.active {
-    //     color: black;
-    //   }
     /* Hide the link that should open and close the topnav on small screens */
     .topnav .icon {
         display: none;
@@ -265,6 +232,5 @@
     ion-col.thin-col {
         margin-right: 0px;
         width: 450px;
-        // height: 450px;
     }
 }
