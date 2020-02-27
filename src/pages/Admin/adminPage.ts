@@ -143,12 +143,12 @@ export class adminPage
 
   click_home()
   {
-    this.navCtrl.push(HomePage , {'login': this.user.loggedIn,  'admin': this.user.Admin});
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
   add_AdminUser()
   {
-    this.navCtrl.push(RegisterPage, {'login': this.user.loggedIn, 'admin': this.user.Admin});
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
 

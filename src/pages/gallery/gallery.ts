@@ -62,11 +62,7 @@ export class GalleryPage {
 
   click_home()
   {
-    
-      this.navCtrl.push(HomePage/*, {
-       'login': this.user.loggedIn, 'elderly': this.user.elderly,
-      'volunteer': this.user.volunteer
-  }*/)
+    this.navCtrl.popToRoot()
   }
 
 
