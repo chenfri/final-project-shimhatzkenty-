@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController ,NavParams, Content } from 'ionic-angular';
 import {adminPage} from '../Admin/adminPage';
- import { IonContent } from "@ionic/angular";
 import {Form} from '../form/form';
 import {contactPage} from '../contactPage/contactPage'
 import {LoginPage} from '../login/login'
@@ -50,7 +49,7 @@ export class HomePage
 
 scrollToBottom() {
     setTimeout(() => {
-        this.content.scrollTo(600,600,1000);
+        this.content.scrollTo(1000,1000,1000);
     });
 }
 
