@@ -42,30 +42,6 @@ export class HomePage
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
-
-    /*console.log("if elderly:")
-    this.user.elderly = this.params.get('elderly');
-    console.log(this.user.elderly)
-
-    console.log("if volunteer:")
-    this.user.volunteer = this.params.get('volunteer');
-    console.log(this.user.volunteer)
-
-
-    if(this.platform.is('android'))
-    {
-      this.devicePlatform = true;
-      console.log("android platform")
-    
-    }
-    else
-    {
-      this.devicePlatform = false;
-      console.log("web platform")
-    }    
-
-    if(!this.user.loggedIn && this.devicePlatform)
-      this.autoLogin()*/
   }
 
   //to do not touch on the slides
@@ -145,8 +121,6 @@ export class HomePage
       if(i.data().behalf == true )
       {
       
-        //this.CheckWhichOrganization(i.id);
-
         // find name of organization
         this.organizations = i.data().organization;
         for (let i = 0; i < this.organizations.length; i++)
