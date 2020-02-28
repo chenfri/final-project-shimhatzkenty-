@@ -46,32 +46,30 @@
 
             <ion-col class='thin-col' width="450" height="388">
                 <ion-row class="wrapper">
-
+                    
                     <ion-img class="item item-trns" width=100% src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=20c8d863-602a-45b8-8d84-4ba1fc1eab26"></ion-img>
                     <p class="p1">׳שמחת זקנתי׳ הוא מיזם חברתי השואף לרומם את רוחם ולהפיג את בדידותם של קשישים בבתיהם הפרטיים או במרכזים ציבוריים.
                         <br><br> אנחנו מחפשים מתנדבים למפגשים עם קשישים בביתם לשיחה, קריאה, טיול, משחקי שולחן, עזרה טכנולוגית עם מחשבים וטלפונים ניידים, עבודות יצירה, וכן מופעי מוזיקה, ריקוד, משחק, או ליצנות.
                         <br><br> לא תאמינו כמה שמחה תוכלו להכניס לחייהם של אותם אנשים שבעקבות גילם או מצבם הרפואי מעבירים את הזמן לבד.</p>
-                </ion-row>
+                    </ion-row>
 
-                <ion-row class="twobuttons">
-                    
-                    <button ion-button class="redButton" *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
-                    <button ion-button class="greenButton" *ngIf="!user.Admin" (click)="elderly_form()">הרשם לאזרח הותיק</button>
-                </ion-row>
+               
 
             </ion-col>
-            <ion-col>
-                <iframe style="margin-right: 0px;
-                        width: 761px;
-                        max-width: auto;
-                        height: 428px;
-                        left: 0px;
-                        top: 1.46875px;" src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1">
-            </iframe>
+            <ion-col >
+                <iframe  
+                        style="width:auto; height:auto;
+                        min-width:420px; min-height:335px;     place-content: center;"
+                         src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1">
+                    </iframe>
             </ion-col>
 
         </ion-row>
-        <!-- </div>  -->
+         <ion-row class="twobuttons">
+                    
+                    <button ion-button class="redButton" *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
+                    <button ion-button class="greenButton" *ngIf="!user.Admin" (click)="elderly_form()">הרשם לאזרח הותיק</button>
+        </ion-row>
     </ion-grid>
     <ion-grid>
         <ion-row style="background-color: #ff562b; color:#ff562b">a</ion-row>
