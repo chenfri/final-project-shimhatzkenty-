@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController ,NavParams} from 'ionic-angular';
+import {NavController ,NavParams, Content } from 'ionic-angular';
 import {adminPage} from '../Admin/adminPage';
 import {Form} from '../form/form';
 import {contactPage} from '../contactPage/contactPage'
@@ -16,11 +16,13 @@ import { Slides } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+
 })
 
 export class HomePage 
 {
+  @ViewChild(Content) content: Content;
   @ViewChild(Slides) slides: Slides;
 
   user = {} as User;
@@ -42,36 +44,22 @@ export class HomePage
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
-
-    /*console.log("if elderly:")
-    this.user.elderly = this.params.get('elderly');
-    console.log(this.user.elderly)
-
-    console.log("if volunteer:")
-    this.user.volunteer = this.params.get('volunteer');
-    console.log(this.user.volunteer)
-
-
-    if(this.platform.is('android'))
-    {
-      this.devicePlatform = true;
-      console.log("android platform")
-    
-    }
-    else
-    {
-      this.devicePlatform = false;
-      console.log("web platform")
-    }    
-
-    if(!this.user.loggedIn && this.devicePlatform)
-      this.autoLogin()*/
   }
 
-  //to do not touch on the slides
+
+scrollToBottom() {
+    setTimeout(() => {
+        this.content.scrollTo(1000,1000,1000);
+    });
+}
+
+
   ngAfterViewInit() {
-    this.slides.onlyExternal = true;
+   // this.slides.onlyExternal = true;   //to do not touch on the slides
+    this.slides.autoplayDisableOnInteraction = false;
+    this.slides.freeMode = true;
   }
+
 
   elderly_form()
   {
@@ -145,8 +133,6 @@ export class HomePage
       if(i.data().behalf == true )
       {
       
-        //this.CheckWhichOrganization(i.id);
-
         // find name of organization
         this.organizations = i.data().organization;
         for (let i = 0; i < this.organizations.length; i++)
@@ -228,6 +214,9 @@ export class HomePage
     
   }
 
+  goToSlide() {
+    this.slides.slideTo(2, 500);
+  }
   
   //------------------------ function not in used ----------------------------------------
  
