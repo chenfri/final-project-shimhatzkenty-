@@ -148,7 +148,7 @@ export class adminPage
 
   add_AdminUser()
   {
-    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+    this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
 

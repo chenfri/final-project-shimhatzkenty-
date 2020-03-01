@@ -24,6 +24,8 @@ export class Form
 {
   @ViewChild('mySelect') selectComponent:SelectSearchableComponent
   user = {} as User;
+  public ifRegister = false
+   public hideMoreContact = false;
   public familyMember: any[];
   public hobbies: any[]
   public time: any[]
@@ -37,15 +39,15 @@ export class Form
   public musical_instrument: any[]
   public dayOfMeeting: any[]
   public organization: any[]
-  public ifRegister = false
   public neighborhoods: any[]
   public selectedNH : any
-  //public durationVol: any[]
+  public fixedAddress : any
+
   temp_familyMember = new Array(3)
   name_familyMember = new Array(3)
   phone_familyMember = new Array(3)
   relationship_familyMember = new Array(3)
-  public hideMoreContact = false;
+ 
   
   constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
@@ -69,14 +71,13 @@ export class Form
     this.user.range = 0;
     this.user.age = null;
     this.user.dateTime = null;
-
+    this.familyMember = null
+    this.user.fullName = null
     this.user.hideMusic = false
     this.user.student = false
     this.user.onBehalf = false;
     this.user.numOfAssistant = 0;
 
-    
-    //this.durationVol = this.array.durationVol
     this.hobbies = this.array.hobbies
     this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
@@ -269,7 +270,11 @@ export class Form
           flag = 1;
         }
       }
-  
+    
+      if (this.user.fullName == null && this.user.onBehalf)
+        this.user.fullName = 'חסוי'
+
+
       if (flag == 0)
       {
         if (this.user.elderly)
@@ -277,10 +282,7 @@ export class Form
         else
           this.add_data_to_firebase_Volunteer();
       }
-  
-  
-      if (typeof (this.user.fullName) === "undefined" && this.user.onBehalf)
-        this.user.fullName = 'חסוי'
+
 
     }, 500);
   }
@@ -292,8 +294,11 @@ export class Form
     let arr=[];
 
     for(let index = 0 ; index < size ; index++)
-        arr[index]={'name':this.name_familyMember[index],
-       'phone':this.phone_familyMember[index],'rel': this.relationship_familyMember[index]};
+    {
+    if(this.name_familyMember[index] != null && this.phone_familyMember[index] && this.relationship_familyMember[index]) 
+      arr[index]={'name':this.name_familyMember[index],
+      'phone':this.phone_familyMember[index],'rel': this.relationship_familyMember[index]};
+    }
     
     this.familyMember = arr
     console.log(this.familyMember)
@@ -305,7 +310,6 @@ export class Form
   {
     if (this.user.onBehalf === false){
       this.user.onBehalf = true;
-      console.log("numOfAssistant ", this.user.numOfAssistant)
     }
     else
     {
@@ -380,6 +384,7 @@ export class Form
 
   add_data_to_firebase_Volunteer()
   {
+    let temp = this.arrangeAddress();
      this.user.dateTime = new Date().toISOString().substring(0, 10);
     
     let temp1="";
@@ -392,12 +397,11 @@ export class Form
     db.collection('volunteerUsers').doc().set(
       {
         fullName: this.user.fullName,
-        address: this.selectedNH.species + ", "+ this.user.street +" "+ this.user.homeNumber +" " + this.user.city,
+        address: this.fixedAddress,
         phone: this.user.phone,
         email: this.user.email,
         hobbies: this.hobbies,
         range: this.user.range,
-       // meeting_time: this.time,
         num_of_meetings: this.numOfMeeting,
         gender: this.gender,
         age: this.user.age,
@@ -411,9 +415,7 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
-       // password: this.user.password,
         dateTime : this.user.dateTime ,
-       // durationVol: this.durationVol,
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -425,13 +427,20 @@ export class Form
   }
 
 
-  add_data_to_firebase_Elderly()
+  arrangeAddress()
   {
     let temp = this.selectedNH.species + ", "+ this.user.street
     if (this.user.homeNumber != null)
       temp += " "+ this.user.homeNumber
     if (this.user.city != null)
       temp += " " + this.user.city
+    
+    this.fixedAddress =  temp
+  }
+
+  add_data_to_firebase_Elderly()
+  {
+    this.arrangeAddress();
 
     if(this.hideMoreContact)
       this.add_familyMembers();
@@ -450,7 +459,7 @@ export class Form
     db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).set(
       {
         fullName: this.user.fullName,
-        address: temp,
+        address: this.fixedAddress,
         phone: this.user.phone,
         email: this.user.email,
         gender: this.gender,
@@ -461,14 +470,12 @@ export class Form
         description: this.user.description,
         organization: this.organization,
         hobbies: this.hobbies,
-        //meeting_time: this.time,
         musicStyle: this.musicStyle,
         language: this.language,
         meetingWith: this.meetingWith,
         zone: this.zone,
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
-       // password: this.user.password,
         dateTime : this.user.dateTime ,
         familyMember: this.familyMember
 
@@ -496,7 +503,6 @@ export class Form
       this.init(this.musical_instrument)
       this.init(this.dayOfMeeting)
       this.init(this.organization)
-     // this.init(this.durationVol)
       this.init(this.neighborhoods)
     }
   

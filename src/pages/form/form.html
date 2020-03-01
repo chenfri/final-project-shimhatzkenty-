@@ -18,7 +18,6 @@ background-attachment: fixed !important;">
 
     <form class="form" style="float: right; width: 100%;"> <br><br>
 
-        <!-- <ion-grid *ngIf="user.hideForm"> -->
         <ion-row style="direction: rtl; ">
 
             <ion-col>
@@ -161,19 +160,19 @@ background-attachment: fixed !important;">
 
 
                 <div class="Assistant" *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
-                    <ion-row>
+                    <ion-row style="direction: rtl;">
                         <ion-col>
                             <label style="float: right;">שמך המלא</label><br>
                             <input text-right type="text" name="nameAssistant" [(ngModel)]="user.nameAssistant">
                         </ion-col>
 
                         <ion-col>
-                            <label style="float: right;">מספר פלאפון</label><br>
+                            <label style="float: right;">מספר טלפון</label><br>
                             <input text-right type="number" name="phone" [(ngModel)]="user.contact">
                         </ion-col>
                     </ion-row>
 
-                    <ion-row>
+                    <ion-row style="direction: rtl;">
                         <ion-col>
                             <label style="float: right;">קרבה לקשיש</label><br>
                             <input text-right type="text" name="relationship" [(ngModel)]="user.relationship">
@@ -194,29 +193,28 @@ background-attachment: fixed !important;">
                         <div class="styleMoreContact">
                             <label class ="addPerson" >הוסף בן משפחה נוסף</label>
                             <ion-icon style=" size: large;"  name="add-circle" (click)="moreContact()"></ion-icon><br>
-                            <div *ngIf="hideMoreContact" ><br>
-                                <label>חובה למלא את כל הפרטים עבור איש קשר*</label><br>
+                            <div *ngIf="hideMoreContact"><br>
+                                <label>חובה למלא את כל הפרטים עבור איש קשר*</label><br><br>
                                 <ion-row style="direction: rtl;">
-                                    <div *ngFor="let temp of temp_familyMember;let i = index">
+                                    <div class="contact" *ngFor="let temp of temp_familyMember;let i = index">
                                     <ion-col>
-                                        <label>איש קשר </label>{{i+1}}<br>
+                                        <label>איש קשר </label>{{i+1}}<br><br>
                                         <label style="float: right;">שמך המלא</label><br>
                                         <input text-right type="text" name="name" [(ngModel)]="name_familyMember[i]">
                                         <br><br>
                     
-                                        <label style="float: right;">מספר פלאפון</label><br>
+                                        <label style="float: right;">מספר טלפון</label><br>
                                         <input text-right type="number" name="phone" [(ngModel)]="phone_familyMember[i]">
                                         <br><br>
                     
                                         <label style="float: right;">קרבה לקשיש</label><br>
                                         <input text-right type="text" name="relationship" [(ngModel)]="relationship_familyMember[i]">
-                                        <br><br>
+                                        <br>
                                      </ion-col>
                                     </div>
                                 </ion-row>
                             </div> <br>
                     </div>
-                    <!-- <button (click)="add_familyMembers()">שמור</button> -->
                     </button>
                     <br><br>
 
@@ -225,7 +223,6 @@ background-attachment: fixed !important;">
             </ion-col>
         </ion-row>
         <!---------------------------------------------------------------------------------------------->
-        <!-- <ion-grid style="background-color: #ffffff80;"> -->
         <ion-grid>
             <ion-row style="direction: rtl;">
 
@@ -285,29 +282,13 @@ background-attachment: fixed !important;">
                     </ion-item>
                 </ion-col>
 
-
-
-
-
-
             </ion-row>
         </ion-grid><br>
 
-        <!-- <ion-grid style="background-color: #ffffff80;"> -->
         <ion-grid>
             <ion-row>
 
                 <!-------------------------------- just for volunteer -------------------------------------------->
-
-                <!-- <ion-col *ngIf="!user.elderly && !user.student">
-                    <h4 class="titleForm">משך התנדבות</h4><br><br><br>
-                    <ion-list radio-group>
-                        <ion-item no-lines *ngFor="let durationVol of durationVol; let i = index" style="background-color:#ffffff00 ;color:#FCBE47;">
-                            <ion-label  style="text-align: right;"> {{ durationVol.species }} </ion-label>
-                            <ion-radio item-right [checked]="durationVol.currentValue" (click)="radioClicked7(durationVol, $event)"></ion-radio>
-                        </ion-item>
-                    </ion-list>
-                </ion-col> -->
 
                 <ion-col *ngIf="!user.elderly && !user.student">
                     <h4 class="titleForm">תדירות מפגשים<br><br></h4><br>
@@ -320,15 +301,16 @@ background-attachment: fixed !important;">
                 </ion-col>
 
                 <!------------------------------------------------------------------------------------------------->
-                <!-- <ion-col>
-                    <h4 class="titleForm">זמנים נוחים למפגש</h4>
-                    <ion-list radio-group >
-                        <ion-item *ngFor="let time of time">
-                                <ion-label style="text-align: right;" > {{ time.species }} </ion-label>
-                                <ion-checkbox item-right [checked]="time.currentValue" (click)="radioClicked1(time)"></ion-checkbox>
+
+                <ion-col>
+                    <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
+                    <ion-list radio-group>
+                        <ion-item no-lines *ngFor="let meetingWith of meetingWith; let i = index" style="background-color:#ffffff00;color:#FCBE47;">
+                            <ion-label style="text-align: right; color: #FCBE47;"> {{ meetingWith.species }} </ion-label>
+                            <ion-radio item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
                         </ion-item>
                     </ion-list>
-                </ion-col>  -->
+                </ion-col>
 
                 <ion-col *ngIf="user.elderly || user.student">
                     <h4 class="titleForm">ימים מועדפים למפגש</h4><br>
@@ -341,15 +323,6 @@ background-attachment: fixed !important;">
                     </ion-list>
                 </ion-col>
 
-                <ion-col>
-                    <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
-                    <ion-list radio-group>
-                        <ion-item no-lines *ngFor="let meetingWith of meetingWith; let i = index" style="background-color:#ffffff00;color:#FCBE47;">
-                            <ion-label style="text-align: right; color: #FCBE47;"> {{ meetingWith.species }} </ion-label>
-                            <ion-radio item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
-                        </ion-item>
-                    </ion-list>
-                </ion-col>
 
                 <ion-col>
                     <h4 class="titleForm">שליטה בשפות</h4><br><br><br>
@@ -363,19 +336,17 @@ background-attachment: fixed !important;">
             </ion-row>
         </ion-grid><br>
 
-        <!-- <ion-row *ngIf="!user.elderly" style=" background: #ffffff80;direction: rtl;"> -->
         <ion-row *ngIf="!user.elderly" style=" direction: rtl;">
             <label style="float: right;">*לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב.
                 </label><br><br>
         </ion-row>
-        <!-- <ion-row *ngIf="!user.elderly" style=" background: #ffffff80;direction: rtl;"> -->
+
         <ion-row *ngIf="!user.elderly" style="direction: rtl;">
 
             <label *ngIf="!user.elderly" style="float: right;"> ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב.
                 </label>
         </ion-row>
 
-        <!-- <ion-grid style="width: fit-content; height: auto; float:right;background: #ffffff80;" *ngIf="user.elderly"> -->
         <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="user.elderly">
 
             <label>:) ספר לנו קצת על עצמך </label><br>
@@ -387,6 +358,5 @@ background-attachment: fixed !important;">
             <button ion-button style="    align-self: center;" (click)="check_field_value()">שמירה</button>
             <br><br><br><br></ion-grid>
 
-        <!-- </ion-grid> -->
     </form>
 </ion-content>s

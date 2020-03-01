@@ -22,47 +22,30 @@
         </a>
     </div>
 
-  
-
-    <!-- <ion-navbar class="navbarHome">
-            <button *ngIf = "!user.loggedIn && !platformA" (click)="facebookLogin()">התחבר עם פייסבוק</button>
-            <button *ngIf = "!user.loggedIn && !platformA" (click)="gmail()">התחבר עם גמייל</button>
-            <button class="navbarButton" ion-button item-start *ngIf="!user.loggedIn" (click)="login()">כניסת מנהל</button>
-            <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="elderly_form()">רישום לאזרח הותיק</button >
-                <button ion-button *ngIf="user.volunteer && user.loggedIn && !user.Admin" (click)="volunteer_form()">עדכון פרטים אישיים</button>
-            <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
-            <button ion-button *ngIf="user.elderly && user.loggedIn && !user.Admin" (click)="elderly_form()">עדכון פרטים אישיים</button>
-            <button class="navbarButton" ion-button item-end *ngIf="user.Admin" (click)=" get_data_for_admin()">מאגר נרשמים</button >
-                <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="gallery()">גלריה</button>
-            <button class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</button>
-            <button class="navbarButton" ion-button item-end *ngIf="user.loggedIn" (click)="logout()">התנתק</button >
-    </ion-navbar> -->
     <ion-grid>
         <ion-row class="homedetails">
 
-            <ion-col class='thin-col' >
+            <ion-col class='thin-col'>
                 <ion-row class="wrapper">
-                    
+
                     <ion-img class="item item-trns" width=100% src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=20c8d863-602a-45b8-8d84-4ba1fc1eab26"></ion-img>
                     <p class="p1">׳שמחת זקנתי׳ הוא מיזם חברתי השואף לרומם את רוחם ולהפיג את בדידותם של קשישים בבתיהם הפרטיים או במרכזים ציבוריים.
                         <br><br> אנחנו מחפשים מתנדבים למפגשים עם קשישים בביתם לשיחה, קריאה, טיול, משחקי שולחן, עזרה טכנולוגית עם מחשבים וטלפונים ניידים, עבודות יצירה, וכן מופעי מוזיקה, ריקוד, משחק, או ליצנות.
                         <br><br> לא תאמינו כמה שמחה תוכלו להכניס לחייהם של אותם אנשים שבעקבות גילם או מצבם הרפואי מעבירים את הזמן לבד.</p>
-                    </ion-row>
+                </ion-row>
 
-               
+                <ion-row class="twobuttons">
+                    <button ion-button class="redButton" *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
+                    <button ion-button class="greenButton" *ngIf="!user.Admin" (click)="elderly_form()">הרשם לאזרח הותיק</button>
+                </ion-row>
 
             </ion-col>
+
             <ion-col class="video-col">
-                <iframe class="video" 
-                         src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1">
+                <iframe class="video" src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1">
                 </iframe>
             </ion-col>
 
-        </ion-row>
-         <ion-row class="twobuttons">
-                    
-                    <button ion-button class="redButton" *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
-                    <button ion-button class="greenButton" *ngIf="!user.Admin" (click)="elderly_form()">הרשם לאזרח הותיק</button>
         </ion-row>
     </ion-grid>
     <ion-grid>
