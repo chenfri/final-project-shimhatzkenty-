@@ -144,7 +144,7 @@ background-attachment: fixed !important;">
             </ion-col>
 
             <ion-col *ngIf="!user.elderly">
-                <label class="titleForm" style="float: right;">מרחק נסיעה מקסימלי בק"מ: </label><br>
+                <label class="titleForm" style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
                 <label style="float: right; width: 100%;" *ngIf="!user.elderly">
                 <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
                 המרחק שנבחר: {{user.range}}
@@ -227,6 +227,7 @@ background-attachment: fixed !important;">
             <ion-row style="direction: rtl;">
 
                 <ion-col>
+                    <br>
                     <h4 class="titleForm" *ngIf="!user.elderly">תחומי התנדבות</h4>
                     <h4 class="titleForm" *ngIf="user.elderly">תחומי עיניין ותחביבים</h4>
                     <br><br><br>
@@ -288,20 +289,6 @@ background-attachment: fixed !important;">
         <ion-grid>
             <ion-row>
 
-                <!-------------------------------- just for volunteer -------------------------------------------->
-
-                <ion-col *ngIf="!user.elderly && !user.student">
-                    <h4 class="titleForm">תדירות מפגשים<br><br></h4><br>
-                    <ion-list radio-group>
-                        <ion-item no-lines *ngFor="let numOfMeeting of numOfMeeting; let i = index" style="background-color:#ffffff00;color:#FCBE47;">
-                            <ion-label style="text-align: right; color: #FCBE47;"> {{ numOfMeeting.species }} </ion-label>
-                            <ion-radio item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
-                        </ion-item>
-                    </ion-list>
-                </ion-col>
-
-                <!------------------------------------------------------------------------------------------------->
-
                 <ion-col>
                     <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
                     <ion-list radio-group>
@@ -323,6 +310,19 @@ background-attachment: fixed !important;">
                     </ion-list>
                 </ion-col>
 
+                <!-------------------------------- just for volunteer -------------------------------------------->
+
+                <ion-col *ngIf="!user.elderly && !user.student">
+                    <h4 class="titleForm">תדירות מפגשים<br><br></h4><br>
+                    <ion-list radio-group>
+                        <ion-item no-lines *ngFor="let numOfMeeting of numOfMeeting; let i = index" style="background-color:#ffffff00;color:#FCBE47;">
+                            <ion-label style="text-align: right; color: #FCBE47;"> {{ numOfMeeting.species }} </ion-label>
+                            <ion-radio item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+
+                <!------------------------------------------------------------------------------------------------->
 
                 <ion-col>
                     <h4 class="titleForm">שליטה בשפות</h4><br><br><br>
@@ -332,6 +332,7 @@ background-attachment: fixed !important;">
                         <ion-checkbox item-right [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
                     </ion-item>
                 </ion-col>
+
 
             </ion-row>
         </ion-grid><br>
