@@ -93,7 +93,8 @@ export class Arrays {
           'currentValue': false
         }, {
           'species': 'אחר',
-          'currentValue': false
+          'currentValue': false,
+          id:4
         }];
 
 
@@ -278,16 +279,20 @@ export class Arrays {
     this.organization = [
       {
         'species': 'יד שרה',
-        'currentValue': false
+        'currentValue': false,
+        'id' : 1
       }, {
         'species': 'מלבב',
-        'currentValue': false
+        'currentValue': false,
+        'id' : 2
       }, {
         'species': 'עזר מציון',
-        'currentValue': false
+        'currentValue': false,
+        'id' : 3
       }, {
         'species': 'אחר',
-        'currentValue': false
+        'currentValue': false,
+        'id' : 4
       }];
 
 

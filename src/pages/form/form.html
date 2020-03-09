@@ -11,10 +11,10 @@ background-attachment: fixed !important;">
 
     <h2 style="color: #035445;">הרשמה</h2>
     <h2 class="mainTitle " style="text-align: center; "> הרשמה</h2> <br><br>
-    <h6 style="text-align: center; "> הפרטים ישארו חסויים במיזם</h6>
-    <h6 *ngIf="!user.elderly" style="text-align: center; padding: 0px 30px 0px 30px;">אם הנכם מעוניינים לארח בביתכם מתנדב שישמח אתכם במופע מוסיקה ביתי או מופע ליצנות או אפילו שעה של שיחה קלה, קריאה, משחקי חשיבה או יצירה משתפת</h6>
-    <h6 *ngIf="!user.elderly" style="text-align: center;font-weight: bold; padding: 0px 30px 0px 30px;">.בואו והירשמו לשמחת זקנתי</h6>
-    <h6 *ngIf="user.elderly" style="text-align: center;">.חשוב שאדם נוסף יהיה נוכח בפגישה הראשונה</h6>
+    <h6 style="text-align: center; color:white;"> הפרטים ישארו חסויים במיזם</h6>
+    <h6 *ngIf="!user.elderly" style="text-align: center; padding: 0px 30px 0px 30px;color:white;">אם הנכם מעוניינים לארח בביתכם מתנדב שישמח אתכם במופע מוסיקה ביתי או מופע ליצנות או אפילו שעה של שיחה קלה, קריאה, משחקי חשיבה או יצירה משתפת</h6>
+    <h6 *ngIf="!user.elderly" style="text-align: center;font-weight: bold; padding: 0px 30px 0px 30px;color:white;">.בואו והירשמו לשמחת זקנתי</h6>
+    <h6 *ngIf="user.elderly" style="text-align: center;color:white;">.חשוב שאדם נוסף יהיה נוכח בפגישה הראשונה</h6>
 
     <form class="form" style="float: right; width: 100%;"> <br><br>
 
@@ -41,12 +41,13 @@ background-attachment: fixed !important;">
 
             <ion-col>
                 <ion-row>
-                    <label>מספר טלפון</label>
+                    <label>מספר פלאפון</label>
                 </ion-row>
                 <ion-row>
                     <input text-right type="number" name="phone" [(ngModel)]="user.phone">
                 </ion-row>
             </ion-col>
+
 
             <ion-col>
                 <ion-row *ngIf="!user.elderly">
@@ -103,7 +104,7 @@ background-attachment: fixed !important;">
 
             <ion-col *ngIf="!user.elderly" style="direction: ltr;">
                 <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
-                <label>הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
+                <label style="color:white;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
                 <label style="float: right; width: 100%;" *ngIf="!user.elderly">
                 <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
                 המרחק שנבחר: {{user.range}} ק"מ
@@ -139,7 +140,7 @@ background-attachment: fixed !important;">
                 </ion-item>
 
                 <div class="Assistant" *ngIf="user.student" style="background-color: #ffffff00;">
-                    <ion-label style="text-align: right;font-weight:bold;">עבור 2 נ"ז אקדמיות לתלמידי תואר ראשון</ion-label>
+                    <ion-label style="text-align: right;font-weight:bold; color:white;">עבור 2 נ"ז אקדמיות לתלמידי תואר ראשון</ion-label>
                     <label>מוסד אקדמי</label><br>
                     <input text-right style="  width: 80%;" type="text" name="college" [(ngModel)]="user.college">
                 </div>
@@ -186,6 +187,9 @@ background-attachment: fixed !important;">
                                 </ion-select>
                             </ion-item>
                         </ion-col>
+                        <!-- <div *ngIf="showOther">
+                            <ion-input [(ngModel)]="user.relationship" name="other" placeholder="אחר"></ion-input>
+                        </div> -->
                     </ion-row>
                     <br><br>
 
@@ -194,7 +198,7 @@ background-attachment: fixed !important;">
                             <label class ="addPerson" >הוסף בן משפחה נוסף</label>
                             <ion-icon style=" size: large;"  name="add-circle" (click)="moreContact()"></ion-icon><br>
                             <div *ngIf="hideMoreContact"><br>
-                                <label>חובה למלא את כל הפרטים עבור איש קשר*</label><br><br>
+                                <label style="color:white;">חובה למלא את כל הפרטים עבור איש קשר*</label><br><br>
                                 <ion-row style="direction: rtl;">
                                     <div class="contact" *ngFor="let temp of temp_familyMember;let i = index">
                                     <ion-col>
@@ -231,7 +235,7 @@ background-attachment: fixed !important;">
                     <h4 class="titleForm" *ngIf="!user.elderly">תחומי התנדבות</h4>
                     <h4 class="titleForm" *ngIf="user.elderly">תחומי עיניין ותחביבים</h4>
                     <br><br><br>
-                    <label style="float: right;">ריבוי תחומים יאפשר התאמות רבות יותר</label>
+                    <label style="float: right; color:white;">ריבוי תחומים יאפשר התאמות רבות יותר</label>
 
                     <ion-item no-lines *ngFor="let hobbies of hobbies" style="background-color:#ffffff00 ;color:#FCBE47; margin-bottom: -10px;">
                         <ion-label style="text-align: right;"> {{ hobbies.species }} </ion-label>
@@ -242,7 +246,7 @@ background-attachment: fixed !important;">
                 <ion-col *ngIf="user.hideMusic">
                     <ion-list radio-group *ngIf="user.hideMusic"><br>
                         <h4 class="titleForm">סגנון מוזיקלי מועדף</h4><br><br><br>
-                        <label style="float: right;">למעוניינים במוסיקה / שירה יש למלא סעיף זה</label>
+                        <label style="float: right; color:white;">למעוניינים במוסיקה / שירה יש למלא סעיף זה</label>
                         <ion-item no-lines *ngFor="let musicStyle of musicStyle" style="background-color:#ffffff00;color:#FCBE47;margin-bottom: -10px">
                             <ion-label style="text-align: right;"> {{ musicStyle.species }} </ion-label>
                             <ion-checkbox [checked]="musicStyle.currentValue" (click)="CheckboxClicked2(musicStyle, $event)"></ion-checkbox>
@@ -252,7 +256,7 @@ background-attachment: fixed !important;">
 
                 <ion-col *ngIf="user.elderly" style="direction: rtl;"><br>
                     <h4 class="titleForm">שליטה בשפות</h4><br><br><br>
-                    <label style="float: right;">ניתן לבחור יותר משפה אחת</label><br>
+                    <label style="float: right; color:white;">ניתן לבחור יותר משפה אחת</label><br>
                     <ion-item no-lines *ngFor="let language of language" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
                         <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
                         <ion-checkbox [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
@@ -262,7 +266,7 @@ background-attachment: fixed !important;">
                 <ion-col *ngIf="!user.elderly && user.hideMusic">
                     <ion-list radio-group *ngIf="!user.elderly && user.hideMusic"><br>
                         <h4 class="titleForm">כלי נגינה</h4><br><br><br>
-                        <label style="float: right;">ניתן לבחור יותר מכלי אחד</label><br><br>
+                        <label style="float: right; color:white;">ניתן לבחור יותר מכלי אחד</label><br><br>
                         <ion-item no-lines *ngFor="let musical_instrument of musical_instrument" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
                             <ion-label style="text-align: right;"> {{ musical_instrument.species }} </ion-label>
                             <ion-checkbox [checked]="musical_instrument.currentValue" (click)="CheckboxClicked5(musical_instrument, $event)"></ion-checkbox>
@@ -296,7 +300,7 @@ background-attachment: fixed !important;">
 
                 <ion-col *ngIf="user.elderly || user.student">
                     <h4 class="titleForm">ימים מועדפים למפגש</h4><br><br>
-                    <label style="float: right;">מומלץ לציין מספר רב של מועדים זה יגדיל את הסיכוי להתאמה טובה ונוחה</label>
+                    <label style="float: right; color:white;">מומלץ לציין מספר רב של מועדים זה יגדיל את הסיכוי להתאמה טובה ונוחה</label>
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let time of dayOfMeeting" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
                             <ion-label style="text-align: right;"> {{ time.species }} </ion-label>
@@ -321,7 +325,7 @@ background-attachment: fixed !important;">
 
                 <ion-col *ngIf="!user.elderly">
                     <h4 class="titleForm">שליטה בשפות</h4><br><br>
-                    <label style="float: right;">ניתן לבחור יותר משפה אחת</label><br>
+                    <label style="float: right; color:white;">ניתן לבחור יותר משפה אחת</label><br>
                     <ion-item no-lines *ngFor="let language of language" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
                         <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
                         <ion-checkbox item-right [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
@@ -332,13 +336,13 @@ background-attachment: fixed !important;">
         </ion-grid><br>
 
         <ion-row *ngIf="!user.elderly" style=" direction: rtl;">
-            <label style="float: right;">*לתשומת לבכם -הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב.
+            <label style="float: right;color:white;">*לתשומת לבכם - הופעה בבית הקשיש תתאפשר אם תביא אתך את כלי הנגינה שלך למקום. אם את/ה רוצה לנגן בהרכב, נשמח אם תביא/י איתך את שותפיך להרכב.
                 </label><br><br>
         </ion-row>
 
         <ion-row *ngIf="!user.elderly" style="direction: rtl;">
 
-            <label *ngIf="!user.elderly" style="float: right;font-weight: bold; font-size:18px;"> ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב.
+            <label *ngIf="!user.elderly" style="float: right;font-weight: bold; font-size:18px;color:white;"> ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב.
                 </label>
         </ion-row>
 

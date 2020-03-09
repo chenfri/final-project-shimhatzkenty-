@@ -43,6 +43,7 @@ export class Form
   public selectedNH : any
   public fixedAddress : any
   public relationship: any[]
+  public showOther = false
 
   temp_familyMember = new Array(3)
   name_familyMember = new Array(3)
@@ -175,18 +176,18 @@ export class Form
     setTimeout(() => 
     {
 
-      if (typeof(this.user.fullName) === "undefined" && !this.user.onBehalf)
+      if (this.user.fullName == null && !this.user.elderly)
       {
           this.alert.error_emptyFullName();
           flag = 1;
       }
   
-      else if (typeof (this.user.email ) === "undefined" || !this.validateEmail(this.user.email)) {
+      else if (typeof (this.user.email) === "undefined" || !this.validateEmail(this.user.email)) {
         this.alert.error_illegalEmail()
         flag = 1;
       }
   
-      else if (typeof (this.user.phone) === "undefined" || (!this.validatePhoneNumber(phone) && !this.validateCellPhoneNumber(phone))) {
+      else if (typeof (this.user.phone) === "undefined" || !this.validateCellPhoneNumber(phone)) {
         this.alert.error_emptyPhone()
         flag = 1;
       }
@@ -216,7 +217,7 @@ export class Form
          flag = 1;
       }
   
-      else if(this.user.onBehalf && (this.user.relationship == null && this.check_arrayVaule(this.organization) == 1))
+      else if(this.user.onBehalf && ( this.check_arrayVaule(this.relationship) && this.check_arrayVaule(this.organization) == 1))
       {  this.alert.showError_relationship();
          flag = 1;
       }
@@ -246,7 +247,7 @@ export class Form
         flag = 1;
       }
   
-      else if (this.check_arrayVaule(this.zone) == 1) {
+      else if (!this.user.elderly && this.check_arrayVaule(this.zone) == 1) {
         this.alert.showError_zone();
         flag = 1;
       }
@@ -272,7 +273,7 @@ export class Form
         }
       }
     
-      if (this.user.fullName == null && this.user.onBehalf)
+      if (this.user.fullName == null && this.user.elderly)
         this.user.fullName = 'חסוי'
 
 
@@ -462,7 +463,7 @@ export class Form
         gender: this.gender,
         behalf: this.user.onBehalf,
         nameAssistant: this.user.nameAssistant,
-        relationship: this.user.relationship,
+        relationship: this.relationship,
         contact: this.user.contact,
         description: this.user.description,
         organization: this.organization,
@@ -474,7 +475,7 @@ export class Form
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
         dateTime : this.user.dateTime ,
-        familyMember: this.familyMember
+        familyMember: this.familyMember,
 
       })
       .then(() => {
@@ -633,6 +634,9 @@ export class Form
 
   select_relationship(item: any, $event) {
     this.selectTagClicked(item, this.relationship)
+    if(this.relationship[this.relationship.length-1])
+      this.showOther = true;
+
   }
 
 
