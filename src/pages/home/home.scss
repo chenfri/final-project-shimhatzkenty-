@@ -23,7 +23,6 @@
             padding: 0.25em 1.25em;
             position: absolute;
             font-family: Calibri;
-            //  word-spacing: 10px;
             width: 450px;
         }
         .video-col {
@@ -57,7 +56,6 @@
                 padding: 0.25em 1.25em;
                 position: absolute;
                 font-family: Calibri;
-                //  word-spacing: 10px;
                 width: 450px;
             }
             .video-col {
@@ -77,21 +75,17 @@
     @media screen and (max-width: 437px) {
         .wrapper {
             position: relative;
-            min-width: 217px;
-            min-height: 170px;
+            min-width: 250px;
+            min-height: 200px;
             width: auto;
             height: auto;
         }
         .p1 {
-            /* top: 0%; */
             color: #08144A;
-            font-size: 4vw;
-            /* left: 0%; */
-            /* right: 5%; */
-            padding: 0.25em 2em 5em;
+            font-size: 3.7vw;
+            padding: 0.25em 2em;
             position: absolute;
             font-family: Calibri;
-            // word-spacing: 0.5em;
         }
         .video-col {
             min-width: 200px;
@@ -186,8 +180,6 @@
         font-family: Calibri;
     }
     .homedetails {
-        // align-items: center;
-        // place-content: center;
         direction: rtl;
     }
     .homePageText {
@@ -242,51 +234,6 @@
         color: #08144a !important;
         background-color: rgba(37, 146, 98, 1);
     }
-    // .greenButton {
-    //     margin: 0px 0px 0px 5px;
-    //     background-color: rgba(37, 146, 98, 1);
-    //     border: solid rgba(0, 0, 0, 1) 0px;
-    //     cursor: pointer !important;
-    //     text-align: initial;
-    //     align-items: center;
-    //     border-radius: 50px;
-    //     top: 0;
-    //     right: 20px;
-    //     bottom: 0;
-    //     left: 0;
-    //     transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
-    //     box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
-    //     font: normal normal normal 1.5em alef-regular, sans-serif;
-    //     transition: color 0.4s ease 0s;
-    //     color: #FFFBD8;
-    //     display: inline-block;
-    //     height: 53px;
-    //     min-height: 30px;
-    //     width: 185px;
-    //     padding: 0px 10px 0px 10px;
-    // }
-    // .redButton {
-    //     margin: 0px 5px 0px 0px;
-    //     background-color: #ff5828;
-    //     border-radius: 50px;
-    //     right: 15px;
-    //     font: normal normal normal 1.5em alef-regular, sans-serif;
-    //     justify-self: start;
-    //     -webkit-align-self: start;
-    //     -ms-flex-item-align: start;
-    //     align-self: start;
-    //     height: 53px;
-    //     min-height: 30px;
-    //     top: 0;
-    //     right: 20px;
-    //     bottom: 0;
-    //     left: 0;
-    //     width: 150px;
-    //     -webkit-transition: color 0.4s ease 0s;
-    //     transition: color 0.4s ease 0s;
-    //     color: #FFFBD8;
-    //     display: inline-block;
-    // }
     .twobuttons {
         place-content: center;
     }
@@ -364,5 +311,14 @@
     ion-col.thin-col {
         margin-right: 0px;
         width: 450px;
+    }
+    .imgnew {
+        width: 50rem;
+        border: 36px solid #fffbdc;
+        margin: 30px;
+        padding: 12rem;
+        border-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=20c8d863-602a-45b8-8d84-4ba1fc1eab26") 110 round;
+        background: #fffbdc;
+        border-image-outset: 3rem;
     }
 }
