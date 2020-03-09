@@ -42,6 +42,7 @@ export class Form
   public neighborhoods: any[]
   public selectedNH : any
   public fixedAddress : any
+  public relationship: any[]
 
   temp_familyMember = new Array(3)
   name_familyMember = new Array(3)
@@ -60,7 +61,6 @@ export class Form
  
     //update variables
     this.selectedNH = null
-    this.user.homeNumber = null
     this.user.city = null
     this.user.nameAssistant = null;
     this.user.relationship = null;
@@ -91,6 +91,7 @@ export class Form
     this.dayOfMeeting = this.array.dayOfMeeting
     this.organization = this.array.organization
     this.neighborhoods = this.array.neighborhoods
+    this.relationship = this.array.relationship
 
   }
 
@@ -357,8 +358,7 @@ export class Form
       {
         var address = JSON.parse(this.responseText)
         MyGlobal.street = address.results[0].address_components[1].long_name
-        MyGlobal.homeNumber = address.results[0].address_components[0].long_name
-        MyGlobal.city = address.results[0].address_components[2].long_name
+        MyGlobal.city = address.results[0].address_components[0].long_name
       }
     };
 
@@ -374,7 +374,6 @@ export class Form
     navigator.geolocation.getCurrentPosition(this.getUserAddressByCoordinates)
     setTimeout(() => {
       this.user.street = MyGlobal.street
-      this.user.homeNumber = MyGlobal.homeNumber
       this.user.city = MyGlobal.city
     }, 1000);
   }
@@ -430,8 +429,6 @@ export class Form
   arrangeAddress()
   {
     let temp = this.selectedNH.species + ", "+ this.user.street
-    if (this.user.homeNumber != null)
-      temp += " "+ this.user.homeNumber
     if (this.user.city != null)
       temp += " " + this.user.city
     
@@ -513,62 +510,6 @@ export class Form
         arr[i].currentValue = false
     }
   
-
-  getData_fromFirebase(str)
-  {
-    const db = firebase.firestore();
-
-    db.collection(str).doc(firebase.auth().currentUser.uid).get()
-    .then(result => {
-      if (!result.exists) return
-      this.user.fullName = result.data().fullName
-      this.user.street = result.data().address[0]
-      this.user.homeNumber = result.data().address[1]
-      this.selectedNH = {
-        'species': result.data().address[2],
-        'currentValue': true
-      }
-
-      this.user.city = result.data().address[3]
-      this.user.phone = result.data().phone
-      this.user.email = result.data().email
-      this.hobbies = result.data().hobbies
-      //this.time = result.data().meeting_time
-      this.gender = result.data().gender
-      this.language = result.data().language
-      this.meetingWith = result.data().meetingWith
-      this.zone = result.data().zone
-      this.user.hideMusic = result.data().hideMusic
-      this.dayOfMeeting = result.data().dayOfMeeting
-      this.musicStyle = result.data().musicStyle
-      this.user.password = result.data().password
-
-      if(this.user.volunteer)
-      {
-        this.user.range = result.data().range,
-        this.user.age = result.data().age
-        this.user.id = result.data().id
-        this.user.student = result.data().student
-        this.musical_instrument = result.data().musical_instrument
-        this.user.dateTime = result.data().dateTime 
-        //this.durationVol = result.data().durationVol
-        this.numOfMeeting = result.data().num_of_meetings
-        this.user.college = result.data().college
-      }
-      else
-      {
-        this.familyMember = result.data().familyMember
-        this.user.onBehalf = result.data().behalf
-        this.user.nameAssistant = result.data().nameAssistant
-        this.user.relationship = result.data().relationship
-        this.organization = result.data().organization
-        this.user.contact = result.data().contact
-        this.user.description = result.data().description
-      }
-
-    }).catch(error => {console.log(error)})
-  }
-
 
   //---------------------- checkbox and radio functions ------------------------
 
@@ -662,11 +603,7 @@ export class Form
     this.radioClicked(item, this.zone)
   }
 
-
-  /*radioClicked7(item: any, $event) {
-    this.radioClicked(item, this.durationVol)
-  }*/
-
+  
 
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
@@ -694,6 +631,11 @@ export class Form
   }
 
 
+  select_relationship(item: any, $event) {
+    this.selectTagClicked(item, this.relationship)
+  }
+
+
   selectTagClicked(item , arr)
   {
     for (let i = 0; i < arr.length; i++)
@@ -708,6 +650,63 @@ export class Form
 
   //------------------------- function not in used ------------------------
   
+
+  
+  getData_fromFirebase(str)
+  {
+    const db = firebase.firestore();
+
+    db.collection(str).doc(firebase.auth().currentUser.uid).get()
+    .then(result => {
+      if (!result.exists) return
+      this.user.fullName = result.data().fullName
+      this.user.street = result.data().address[0]
+      this.selectedNH = {
+        'species': result.data().address[2],
+        'currentValue': true
+      }
+
+      this.user.city = result.data().address[3]
+      this.user.phone = result.data().phone
+      this.user.email = result.data().email
+      this.hobbies = result.data().hobbies
+      //this.time = result.data().meeting_time
+      this.gender = result.data().gender
+      this.language = result.data().language
+      this.meetingWith = result.data().meetingWith
+      this.zone = result.data().zone
+      this.user.hideMusic = result.data().hideMusic
+      this.dayOfMeeting = result.data().dayOfMeeting
+      this.musicStyle = result.data().musicStyle
+      this.user.password = result.data().password
+
+      if(this.user.volunteer)
+      {
+        this.user.range = result.data().range,
+        this.user.age = result.data().age
+        this.user.id = result.data().id
+        this.user.student = result.data().student
+        this.musical_instrument = result.data().musical_instrument
+        this.user.dateTime = result.data().dateTime 
+        //this.durationVol = result.data().durationVol
+        this.numOfMeeting = result.data().num_of_meetings
+        this.user.college = result.data().college
+      }
+      else
+      {
+        this.familyMember = result.data().familyMember
+        this.user.onBehalf = result.data().behalf
+        this.user.nameAssistant = result.data().nameAssistant
+        this.user.relationship = result.data().relationship
+        this.organization = result.data().organization
+        this.user.contact = result.data().contact
+        this.user.description = result.data().description
+      }
+
+    }).catch(error => {console.log(error)})
+  }
+
+
   //read list of neighborhoods from csv file
   readCsvData()
   {

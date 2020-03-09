@@ -18,7 +18,7 @@ export class Arrays {
   public organization: any[]
   public durationVol: any[]
   public neighborhoods: any[]
-
+  public relationship: any[]
   constructor(public alertCtrl: AlertController) {
 
     this.hobbies = [
@@ -70,12 +70,42 @@ export class Arrays {
         'currentValue': false
       }];
 
+
+
+      this.relationship = [
+        {
+          'species': 'בעל',
+          'currentValue': false
+        }, {
+          'species': 'אישה',
+          'currentValue': false
+        }, {
+          'species': 'בן/בת',
+          'currentValue': false
+        }, {
+          'species': 'נכד/ה',
+          'currentValue': false
+        }, {
+          'species': 'עו"ס',
+          'currentValue': false
+        }, {
+          'species': 'רכז קהילתי',
+          'currentValue': false
+        }, {
+          'species': 'אחר',
+          'currentValue': false
+        }];
+
+
     this.numOfMeeting = [
       {
         'species': 'פעם בשבוע',
         'currentValue': false
       }, {
         'species': 'פעם בשבועיים',
+        'currentValue': false
+      }, {
+        'species': 'פעם בשלושה שבועות',
         'currentValue': false
       }];
 
@@ -184,7 +214,7 @@ export class Arrays {
         'species': 'אזור פסגת זאב, נווה יעקב, רמות',
         'currentValue': false
       }, {
-        'species': '(מרכז העיר (כולל קטמון, המושבה הגרמנית וכדומה',
+        'species': ' מרכז העיר (כולל קטמון, המושבה הגרמנית וכדומה)',
         'currentValue': false
       }, {
         'species': 'אזור גילה, תלפיות, תלפ"ז, בקעה',
@@ -255,18 +285,10 @@ export class Arrays {
       }, {
         'species': 'עזר מציון',
         'currentValue': false
-      }];
-
-
-    /*this.durationVol = [
-      {
-        'species': 'שישה חודשים',
-        'currentValue': false
       }, {
-        'species': 'תשעה חודשים',
+        'species': 'אחר',
         'currentValue': false
-      }
-    ]*/
+      }];
 
 
     this.neighborhoods = [

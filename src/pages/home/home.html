@@ -2,7 +2,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <ion-row style=" background-color: #fffbd8;justify-content: center;">
-        <img src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic.PNG?alt=media&token=a03e6e01-5391-4c5e-aa37-a6c70a2bb1a4" style="width: auto;
+        <img class="coverImg" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/picpic.PNG?alt=media&token=a03e6e01-5391-4c5e-aa37-a6c70a2bb1a4" style="width: auto;
             height: auto; align-items: center;    
             min-height: 160px;max-height: 230px; height: 230;" />
     </ion-row>
@@ -34,8 +34,8 @@
                 </ion-row>
 
                 <ion-row class="twobuttons">
-                    <button ion-button class="redButton" *ngIf="!user.Admin" (click)="volunteer_form()">הרשם כמתנדב</button>
-                    <button ion-button class="greenButton" *ngIf="!user.Admin" (click)="elderly_form()">הרשם לאזרח הותיק</button>
+                    <button ion-button class="redButton" *ngIf="!user.Admin" (click)="volunteer_form()">מתנדב</button>
+                    <button ion-button class="greenButton" *ngIf="!user.Admin" (click)="elderly_form()">אזרח הותיק</button>
                 </ion-row>
 
             </ion-col>

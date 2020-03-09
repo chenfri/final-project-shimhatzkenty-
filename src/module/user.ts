@@ -5,7 +5,6 @@ export interface User
     fullName: string,
     phone: string,
     street: string,
-    homeNumber: string,
     city: string,
     
     loggedIn: boolean,

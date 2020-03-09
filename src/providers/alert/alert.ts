@@ -11,7 +11,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'בוצע',
-      subTitle: '!הפרטים נשמרו בהצלחה',
+      subTitle: 'הרשמתך נקלטה בהצלחה!',
       buttons: ['OK']
     });
     alert.present();
