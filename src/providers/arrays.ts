@@ -131,6 +131,9 @@ export class Arrays {
       }, {
         'species': 'זכר',
         'currentValue': false
+      }, {
+        'species': 'לא רלוונטי',
+        'currentValue': false
       }];
 
 

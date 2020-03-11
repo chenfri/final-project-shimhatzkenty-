@@ -12,8 +12,8 @@ background-attachment: fixed !important;">
     <h2 style="color: #035445;">הרשמה</h2>
     <h2 class="mainTitle " style="text-align: center; "> הרשמה</h2> <br><br>
     <h6 style="text-align: center; color:white;"> הפרטים ישארו חסויים במיזם</h6>
-    <h6 *ngIf="!user.elderly" style="text-align: center; padding: 0px 30px 0px 30px;color:white;">אם הנכם מעוניינים לארח בביתכם מתנדב שישמח אתכם במופע מוסיקה ביתי או מופע ליצנות או אפילו שעה של שיחה קלה, קריאה, משחקי חשיבה או יצירה משתפת</h6>
-    <h6 *ngIf="!user.elderly" style="text-align: center;font-weight: bold; padding: 0px 30px 0px 30px;color:white;">.בואו והירשמו לשמחת זקנתי</h6>
+    <h6 *ngIf="user.elderly" style="text-align: center; padding: 0px 30px 0px 30px;color:white;">אם הנכם מעוניינים לארח בביתכם מתנדב שישמח אתכם במופע מוסיקה ביתי או מופע ליצנות או אפילו שעה של שיחה קלה, קריאה, משחקי חשיבה או יצירה משתפת</h6>
+    <h6 style="text-align: center;font-weight: bold; padding: 0px 30px 0px 30px;color:white;">.בואו והירשמו לשמחת זקנתי</h6>
     <h6 *ngIf="user.elderly" style="text-align: center;color:white;">.חשוב שאדם נוסף יהיה נוכח בפגישה הראשונה</h6>
 
     <form class="form" style="float: right; width: 100%;"> <br><br>
@@ -80,14 +80,12 @@ background-attachment: fixed !important;">
                     <label>רחוב</label>
                 </ion-row>
                 <ion-row>
-                    <ion-col>
-                        <ion-row>
-                            <input text-right type="text" name="street" [(ngModel)]="user.street">
-                        </ion-row>
-                        <ion-row>
-                            <button ion-button (click)="get_UserLocation()">השתמש בשירותי מיקום</button>
-                        </ion-row>
-                    </ion-col>
+                    <ion-row>
+                        <input text-right type="text" name="street" [(ngModel)]="user.street">
+                    </ion-row>
+                    <ion-row>
+                        <button ion-button (click)="get_UserLocation()">השתמש בשירותי מיקום</button>
+                    </ion-row>
                 </ion-row>
             </ion-col>
 
@@ -100,16 +98,30 @@ background-attachment: fixed !important;">
                 </ion-row>
             </ion-col>
 
-            <ion-col *ngIf="user.elderly" style="direction: ltr;"></ion-col>
-
-            <ion-col *ngIf="!user.elderly" style="direction: ltr;">
-                <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
-                <label style="color:white;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
-                <label style="float: right; width: 100%;" *ngIf="!user.elderly">
+            <ion-row>
+                <ion-col class="range">
+                    <ion-col *ngIf="!user.elderly" style="direction: ltr;">
+                        <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
+                        <label style="color:white;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
+                        <label style="float: right; width: 100%;" *ngIf="!user.elderly">
                 <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
                 המרחק שנבחר: {{user.range}} ק"מ
                 </label>
-            </ion-col>
+                    </ion-col>
+                </ion-col>
+            </ion-row>
+
+            <!-- <ion-row class="range2">
+                <ion-col *ngIf="!user.elderly" style="direction: ltr;">
+                    <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
+                    <label style="color:white;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
+                    <label style="float: right; width: 100%;" *ngIf="!user.elderly">
+        <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
+        המרחק שנבחר: {{user.range}} ק"מ
+        </label>
+                </ion-col>
+            </ion-row> -->
+
 
         </ion-row>
 
@@ -178,6 +190,12 @@ background-attachment: fixed !important;">
                                 </ion-select>
                             </ion-item>
                         </ion-col>
+
+                        <ion-col *ngIf="showOtherR">
+                            <label style="float: right;">אחר</label><br>
+                            <input placeholder="הכנס כאן סוג קרבה" text-right type="text" name="nameAssistant" [(ngModel)]="user.relationName">
+                        </ion-col>
+
                         <ion-col>
                             <label>ארגון</label>
                             <ion-item no-lines style="direction: rtl; background-color:#259262;">
@@ -187,9 +205,12 @@ background-attachment: fixed !important;">
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <!-- <div *ngIf="showOther">
-                            <ion-input [(ngModel)]="user.relationship" name="other" placeholder="אחר"></ion-input>
-                        </div> -->
+
+                        <ion-col *ngIf="showOtherO">
+                            <label style="float: right;">אחר</label><br>
+                            <input placeholder="הכנס כאן שם ארגון" text-right type="text" name="nameAssistant" [(ngModel)]="user.orgName">
+                        </ion-col>
+
                     </ion-row>
                     <br><br>
 
@@ -286,17 +307,18 @@ background-attachment: fixed !important;">
         </ion-grid><br>
 
         <ion-grid>
-            <ion-row>
+            <ion-row style="direction: rtl;">
 
-                <ion-col>
-                    <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
-                    <ion-list radio-group>
-                        <ion-item no-lines *ngFor="let meetingWith of meetingWith; let i = index" style="background-color:#ffffff00;color:#FCBE47;margin-bottom: -10px">
-                            <ion-label style="text-align: right; color: #FCBE47;"> {{ meetingWith.species }} </ion-label>
-                            <ion-radio item-right [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
-                        </ion-item>
-                    </ion-list>
+                <ion-col *ngIf="!user.elderly">
+                    <h4 class="titleForm">שליטה בשפות</h4><br><br>
+                    <label style="float: right; color:white;">ניתן לבחור יותר משפה אחת</label><br>
+                    <ion-item no-lines *ngFor="let language of language" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
+                        <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
+                        <ion-checkbox [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
+                    </ion-item><br>
                 </ion-col>
+
+
 
                 <ion-col *ngIf="user.elderly || user.student">
                     <h4 class="titleForm">ימים מועדפים למפגש</h4><br><br>
@@ -304,7 +326,7 @@ background-attachment: fixed !important;">
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let time of dayOfMeeting" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
                             <ion-label style="text-align: right;"> {{ time.species }} </ion-label>
-                            <ion-checkbox item-right [checked]="time.currentValue" (click)="CheckboxClicked6(time)"></ion-checkbox>
+                            <ion-checkbox [checked]="time.currentValue" (click)="CheckboxClicked6(time)"></ion-checkbox>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -316,21 +338,22 @@ background-attachment: fixed !important;">
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let numOfMeeting of numOfMeeting; let i = index" style="background-color:#ffffff00;color:#FCBE47;margin-bottom: -10px">
                             <ion-label style="text-align: right; color: #FCBE47;"> {{ numOfMeeting.species }} </ion-label>
-                            <ion-radio item-right [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
+                            <ion-radio item-left [checked]="numOfMeeting.currentValue" (click)="radioClicked2(numOfMeeting)"></ion-radio>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+
+                <ion-col>
+                    <h4 class="titleForm">מעוניין להיפגש עם</h4><br><br><br>
+                    <ion-list radio-group>
+                        <ion-item no-lines *ngFor="let meetingWith of meetingWith; let i = index" style="background-color:#ffffff00;color:#FCBE47;margin-bottom: -10px">
+                            <ion-label style="text-align: right; color: #FCBE47;"> {{ meetingWith.species }} </ion-label>
+                            <ion-radio item-left [checked]="meetingWith.currentValue" (click)="radioClicked5(meetingWith, $event)"></ion-radio>
                         </ion-item>
                     </ion-list>
                 </ion-col>
 
                 <!------------------------------------------------------------------------------------------------->
-
-                <ion-col *ngIf="!user.elderly">
-                    <h4 class="titleForm">שליטה בשפות</h4><br><br>
-                    <label style="float: right; color:white;">ניתן לבחור יותר משפה אחת</label><br>
-                    <ion-item no-lines *ngFor="let language of language" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
-                        <ion-label style="text-align: right;"> {{ language.species }} </ion-label>
-                        <ion-checkbox item-right [checked]="language.currentValue" (click)="CheckboxClicked3(language, $event)"></ion-checkbox>
-                    </ion-item>
-                </ion-col>
 
             </ion-row>
         </ion-grid><br>

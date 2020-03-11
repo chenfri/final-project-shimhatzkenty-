@@ -217,6 +217,21 @@ scrollToBottom() {
   goToSlide() {
     this.slides.slideTo(2, 500);
   }
+
+
+  hamburgerNavbar() {
+    
+    var x = document.getElementById("topNav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+      console.log("x1 = " , x)
+    }
+    else {
+      x.className = "topnav";
+      console.log("x2 = " , x)
+  
+    }
+  }
   
   //------------------------ function not in used ----------------------------------------
  
@@ -368,16 +383,5 @@ CheckWhichOrganization(id)
     })
 }
 
-hamburgerNavbar() {
-  var x = document.getElementById("topNav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-    console.log("x1 = " , x)
-  } else {
-    x.className = "topnav";
-    console.log("x2 = " , x)
-
-  }
-}
 
 }

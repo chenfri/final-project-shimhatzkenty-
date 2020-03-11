@@ -13,7 +13,8 @@ export interface User
     onBehalf: boolean,
     nameAssistant: string,
     numOfAssistant: number,
-    relationship: string,
+    relationName: string,
+    orgName: string,
     contact: string,
     description:string,
 

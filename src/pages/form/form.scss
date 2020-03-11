@@ -120,6 +120,12 @@
                 width: 100%;
                 margin-top: 0;
             }
+            // .range {
+            //     display: none !important
+            // }
+            // .range2 {
+            //     display: show !important
+            // }
         }
         .slider {
             -webkit-appearance: none;
@@ -184,4 +190,13 @@
                 //    margin: -1.4rem 0rem 0rem -2rem;
             }
         }
+         ::placeholder {
+            color: rgb(226, 222, 222);
+        }
+        // .range2 {
+        //     display: none
+        // }
+        // .range {
+        //     display: show
+        // }
     }

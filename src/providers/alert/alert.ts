@@ -37,6 +37,16 @@ export class AlertProvider
     });
     alert.present();
   }
+
+  showError_otherField()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: '"נא למלא שדה "אחר',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
   
   showError_zone()
   {
@@ -49,11 +59,11 @@ export class AlertProvider
   }
   
 
-  showError_musical_instrument()
+  showError_gender()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה לבחור כלי נגינה' ,
+      subTitle: 'חובה לבחור מגדר' ,
       buttons: ['OK']
     });
     alert.present();
@@ -119,16 +129,6 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא שכונה ורחוב מגורים' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  showError_musicStyle()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור סגנון מוזיקלי' ,
       buttons: ['OK']
     });
     alert.present();

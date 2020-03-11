@@ -8,7 +8,7 @@ import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
 import { Component ,ViewChild} from '@angular/core';
 import { Platform } from 'ionic-angular';
-import {returnValue, indexFamilyMember ,MyGlobal} from '../../module/global'
+import {returnValue ,MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
@@ -27,10 +27,6 @@ export class Form
   public ifRegister = false
    public hideMoreContact = false;
   public familyMember: any[];
-  public hobbies: any[]
-  public time: any[]
-  public numOfMeeting: any[]
-  public place: any[]
   public gender: any[]
   public musicStyle: any[]
   public language: any[]
@@ -40,10 +36,17 @@ export class Form
   public dayOfMeeting: any[]
   public organization: any[]
   public neighborhoods: any[]
+  public hobbies: any[]
+  public time: any[]
+  public numOfMeeting: any[]
+  public place: any[]
+
   public selectedNH : any
   public fixedAddress : any
   public relationship: any[]
-  public showOther = false
+  public showOtherO = false
+  public showOtherR = false
+  public relationName;
 
   temp_familyMember = new Array(3)
   name_familyMember = new Array(3)
@@ -62,9 +65,10 @@ export class Form
  
     //update variables
     this.selectedNH = null
+    this.user.orgName = null
     this.user.city = null
     this.user.nameAssistant = null;
-    this.user.relationship = null;
+    this.user.relationName = null;
     this.user.college = null
     this.user.id = null
     this.user.contact = null
@@ -164,7 +168,7 @@ export class Form
   {
     
     let flag = 0;
-    //conbert the phone to string for do more checks
+    //convert the phone to string for do more checks
     let phone =  String(this.user.phone);
     let contact = String(this.user.contact)
     let temp = "0"
@@ -218,7 +222,14 @@ export class Form
       }
   
       else if(this.user.onBehalf && ( this.check_arrayVaule(this.relationship) && this.check_arrayVaule(this.organization) == 1))
-      {  this.alert.showError_relationship();
+      { 
+         this.alert.showError_relationship();
+         flag = 1;
+      }
+    
+      else if((this.showOtherR && this.user.relationName == null) || (this.showOtherO && this.user.orgName == null))
+      { 
+         this.alert.showError_otherField();
          flag = 1;
       }
   
@@ -227,7 +238,12 @@ export class Form
         this.alert.showAlert_chooseRange()
         flag = 1;
       }
-  
+
+      else if (this.check_arrayVaule(this.gender) == 1)
+      {
+        this.alert.showError_gender()
+        flag = 1;
+      }
   
       else if (!this.user.elderly && this.user.age == null)
       {
@@ -317,9 +333,7 @@ export class Form
     {
       this.user.onBehalf = false;
       this.user.nameAssistant = null;
-      this.user.relationship = null;
-    
-      
+      this.user.relationName = null;  
     }
   }
 
@@ -331,7 +345,6 @@ export class Form
     else
     {
       this.user.student = false;
-      this.user.id = null;
       this.user.college = null;
     }
   }
@@ -384,14 +397,8 @@ export class Form
 
   add_data_to_firebase_Volunteer()
   {
-    let temp = this.arrangeAddress();
-     this.user.dateTime = new Date().toISOString().substring(0, 10);
-    
-    let temp1="";
-    temp1= this.user.dateTime[8] +this.user.dateTime[9] + "-" +this.user.dateTime[5] +this.user.dateTime[6]
-          +"-"+ this.user.dateTime[0] +this.user.dateTime[1]+this.user.dateTime[2] +this.user.dateTime[3];
-    
-    this.user.dateTime=temp1;
+    this.arrangeAddress();
+    this.arrangeDate();
 
     const db = firebase.firestore();
     db.collection('volunteerUsers').doc().set(
@@ -427,6 +434,18 @@ export class Form
   }
 
 
+  arrangeDate()
+  {
+    this.user.dateTime = new Date().toISOString().substring(0, 10);
+
+    let temp2 = "";
+    temp2= this.user.dateTime[8] +this.user.dateTime[9] + "-" +this.user.dateTime[5] +this.user.dateTime[6]
+          +"-"+ this.user.dateTime[0] +this.user.dateTime[1]+this.user.dateTime[2] +this.user.dateTime[3];
+    
+    this.user.dateTime = temp2;
+  }
+
+
   arrangeAddress()
   {
     let temp = this.selectedNH.species + ", "+ this.user.street
@@ -436,25 +455,17 @@ export class Form
     this.fixedAddress =  temp
   }
 
+
   add_data_to_firebase_Elderly()
   {
     this.arrangeAddress();
-
+    this.arrangeDate();
+    
     if(this.hideMoreContact)
       this.add_familyMembers();
 
-    this.user.dateTime = new Date().toISOString().substring(0, 10);
-
-    let temp2="";
-    temp2= this.user.dateTime[8] +this.user.dateTime[9] + "-" +this.user.dateTime[5] +this.user.dateTime[6]
-          +"-"+ this.user.dateTime[0] +this.user.dateTime[1]+this.user.dateTime[2] +this.user.dateTime[3];
-    
-
-    this.user.dateTime=temp2;
-  
-    
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(/*firebase.auth().currentUser.uid*/).set(
+    db.collection('ElderlyUsers').doc().set(
       {
         fullName: this.user.fullName,
         address: this.fixedAddress,
@@ -462,8 +473,10 @@ export class Form
         email: this.user.email,
         gender: this.gender,
         behalf: this.user.onBehalf,
+        relationName: this.user.relationName,
         nameAssistant: this.user.nameAssistant,
         relationship: this.relationship,
+        orgName: this.user.orgName,
         contact: this.user.contact,
         description: this.user.description,
         organization: this.organization,
@@ -471,7 +484,6 @@ export class Form
         musicStyle: this.musicStyle,
         language: this.language,
         meetingWith: this.meetingWith,
-        zone: this.zone,
         hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
         dateTime : this.user.dateTime ,
@@ -502,6 +514,8 @@ export class Form
       this.init(this.dayOfMeeting)
       this.init(this.organization)
       this.init(this.neighborhoods)
+      this.init(this.organization)
+      this.init(this.relationship)
     }
   
   
@@ -622,21 +636,27 @@ export class Form
 
   selectOrg(item)
   {
+    if(item.id == 4)
+      this.showOtherO = true
+    else
+      this.showOtherO = false
     this.selectTagClicked(item, this.organization)
   }
 
-  
+
   select_neighborhood(event:{component: SelectSearchableComponent, value:any})
   {
     this.selectTagClicked(event.value, this.neighborhoods)
   }
 
 
-  select_relationship(item: any, $event) {
+  select_relationship(item: any, $event)
+  {
+    if(item.id == 4)
+      this.showOtherR = true
+    else
+      this.showOtherR = false
     this.selectTagClicked(item, this.relationship)
-    if(this.relationship[this.relationship.length-1])
-      this.showOther = true;
-
   }
 
 
@@ -701,7 +721,7 @@ export class Form
         this.familyMember = result.data().familyMember
         this.user.onBehalf = result.data().behalf
         this.user.nameAssistant = result.data().nameAssistant
-        this.user.relationship = result.data().relationship
+       // this.user.relationship = result.data().relationship
         this.organization = result.data().organization
         this.user.contact = result.data().contact
         this.user.description = result.data().description
