@@ -35,7 +35,7 @@ export class contactPage
       })
       .then(() => {
         this.alert.showAlert_sendMessage()
-        this.navCtrl.popToRoot()
+        this.navCtrl.setRoot(HomePage)
       }).catch((error)=> {
         console.log })
   }
@@ -43,7 +43,7 @@ export class contactPage
 
   click_home()
   {
-    this.navCtrl.popToRoot()
+    this.navCtrl.setRoot(HomePage)
   }
   
 }

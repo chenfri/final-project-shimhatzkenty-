@@ -7,7 +7,6 @@ import { AlertProvider } from '../../providers/alert/alert'
 import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
 import { Component ,ViewChild} from '@angular/core';
-import { Platform } from 'ionic-angular';
 import {returnValue ,MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Events } from 'ionic-angular';
@@ -54,7 +53,7 @@ export class Form
   relationship_familyMember = new Array(3)
  
   
-  constructor(public navCtrl: NavController, public params: NavParams, private platform: Platform,
+  constructor(public navCtrl: NavController, public params: NavParams,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
           public events: Events, private http: HttpClient)
           
@@ -105,7 +104,7 @@ export class Form
   click_home()
   {
     this.init_arrays()
-    this.navCtrl.popToRoot()
+    this.navCtrl.setRoot(HomePage)
   }
 
 

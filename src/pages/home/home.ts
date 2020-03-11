@@ -58,6 +58,7 @@ scrollToBottom() {
    // this.slides.onlyExternal = true;   //to do not touch on the slides
     this.slides.autoplayDisableOnInteraction = false;
     this.slides.freeMode = true;
+    this.slides.autoplay = 1000;
   }
 
 

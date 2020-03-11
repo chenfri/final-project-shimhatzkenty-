@@ -75,7 +75,7 @@ export class LoginPage
 
   click_home()
   {
-    this.navCtrl.popToRoot(); 
+    this.navCtrl.setRoot(HomePage)
   }
 
 
