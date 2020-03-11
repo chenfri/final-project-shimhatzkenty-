@@ -12,7 +12,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'בוצע',
       subTitle: 'הרשמתך נקלטה בהצלחה!',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -23,7 +23,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה לבחור שפה' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -33,7 +33,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא גיל' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -43,7 +43,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: '"נא למלא שדה "אחר',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -53,7 +53,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה לבחור איזור' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -64,7 +64,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה לבחור מגדר' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -76,7 +76,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה לבחור ימים מועדפים' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -87,7 +87,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא מוסד אקדמי' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -98,7 +98,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא ת"ז תקין כולל סיפרת ביקורת' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -108,7 +108,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא שם ופלאפון תקין של איש קשר' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -118,7 +118,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא קרבה לקשיש/ ארגון' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -129,7 +129,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא שכונה ורחוב מגורים' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -140,7 +140,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא מספר פלאפון/טלפון תקין, ללא מקף',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -150,8 +150,8 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: '!חובה למלא שם מלא',
-      buttons: ['OK']
+      subTitle: 'חובה למלא שם מלא',
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -162,7 +162,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -172,7 +172,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא כתובת דוא"ל מהצורה exapmle@example.com <br> וסיסמה באורך 6 תווים לפחות',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -183,7 +183,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'מספר הטלפון כבר קיים במערכת, יש להקיש מספר אחר',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -193,7 +193,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה למלא כתובת דוא"ל וסיסמה',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -205,7 +205,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'כתובת הדואל לא קיימת , נא נסה שנית',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -216,7 +216,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'סיסמה לא נכונה, נא נסה שנית',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -227,7 +227,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שים לב',
       subTitle: 'כעת נשלח לכתובת המייל שלך מייל לאחזור סיסמה' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -237,7 +237,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'בוצע',
       subTitle: '!ההודעה נשלחה בהצלחה',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -248,7 +248,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'בוצע',
       subTitle: '!ההודעה נמחקה בהצלחה',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -259,7 +259,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'יש לבחור מרחק מקסימלי',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -270,7 +270,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'חובה לבחור תחום עניין אחד לפחות',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -281,7 +281,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle:'חובה לבחור תדירות מפגשים',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -292,7 +292,7 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle:'כתובת הדוא"ל כבר קיימת המערכת',
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
