@@ -104,7 +104,7 @@ background-attachment: fixed !important;">
                 <ion-col class="range">
                     <ion-col *ngIf="!user.elderly" style="direction: ltr;">
                         <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
-                        <label style="color:white;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
+                        <label style="color:white;float: right;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
                         <label style="float: right; width: 100%;" *ngIf="!user.elderly">
                 <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
                 המרחק שנבחר: {{user.range}} ק"מ
@@ -128,8 +128,6 @@ background-attachment: fixed !important;">
                     <ion-label item-right style="text-align: right; color: #FCBE47;"> {{ gender.species }} </ion-label>
                     <ion-radio item-right [checked]="gender.currentValue" (click)="radioClicked4(gender)"></ion-radio>
                 </ion-item>
-
-
             </ion-col>
 
             <ion-col *ngIf="!user.elderly">
@@ -203,6 +201,12 @@ background-attachment: fixed !important;">
                     </ion-row>
                     <br><br>
 
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <div class="Assistant" *ngIf="user.onBehalf" style="background-color: #ffffff00; float: right;">
                     <button item-right style="background: #ffffff00;">
                         <div class="styleMoreContact">
                             <label class ="addPerson" >הוסף בן משפחה נוסף</label>
@@ -212,7 +216,7 @@ background-attachment: fixed !important;">
                                 <ion-row style="direction: rtl;">
                                     <div class="contact" *ngFor="let temp of temp_familyMember;let i = index">
                                     <ion-col>
-                                        <label>איש קשר </label>{{i+1}}<br><br>
+                                        <br><label>איש קשר </label>{{i+1}}<br><br>
                                         <label style="float: right;">שמך המלא</label><br>
                                         <input text-right type="text" name="name" [(ngModel)]="name_familyMember[i]">
                                         <br><br>
@@ -223,7 +227,7 @@ background-attachment: fixed !important;">
                     
                                         <label style="float: right;">קרבה לקשיש</label><br>
                                         <input text-right type="text" name="relationship" [(ngModel)]="relationship_familyMember[i]">
-                                        <br>
+                                        <br><br>
                                      </ion-col>
                                     </div>
                                 </ion-row>
@@ -231,8 +235,6 @@ background-attachment: fixed !important;">
                     </div>
                     </button>
                     <br><br>
-
-
                 </div>
             </ion-col>
         </ion-row>

@@ -75,65 +75,80 @@ export class Arrays {
       this.relationship = [
         {
           'species': 'בעל',
-          'currentValue': false
+          'currentValue': false,
+          'id': 1
         }, {
           'species': 'אישה',
-          'currentValue': false
+          'currentValue': false,
+          'id': 2
         }, {
           'species': 'בן/בת',
-          'currentValue': false
+          'currentValue': false,
+          'id': 3
         }, {
           'species': 'נכד/ה',
-          'currentValue': false
+          'currentValue': false,
+          'id': 4
         }, {
           'species': 'עו"ס',
-          'currentValue': false
+          'currentValue': false,
+          'id': 5
         }, {
           'species': 'רכז קהילתי',
-          'currentValue': false
+          'currentValue': false,
+          'id': 6
         }, {
           'species': 'אחר',
           'currentValue': false,
-          id:4
+          'id': 7
         }];
 
 
     this.numOfMeeting = [
       {
         'species': 'פעם בשבוע',
-        'currentValue': false
+        'currentValue': false,
+        'id':1
       }, {
         'species': 'פעם בשבועיים',
-        'currentValue': false
+        'currentValue': false,
+        'id':2
       }, {
         'species': 'פעם בשלושה שבועות',
-        'currentValue': false
+        'currentValue': false,
+        'id':3
       }];
 
 
     this.place = [
       {
         'species': 'בבית הקשיש',
-        'currentValue': false
+        'currentValue': false,
+        'id':1
       }, {
         'species': 'במועדון קשישים',
-        'currentValue': false
+        'currentValue': false,
+        'id':2
       }, {
         'species': 'בשניהם',
-        'currentValue': false
+        'currentValue': false,
+        'id':3
       }];
 
 
     this.gender = [
       {
         'species': 'נקבה',
-        'currentValue': false
+        'currentValue': false,
+        'id': 1
       }, {
         'species': 'זכר',
-        'currentValue': false
+        'currentValue': false,
+        'id': 2
       }, {
         'species': 'לא רלוונטי',
-        'currentValue': false
+        'currentValue': false,
+        'id': 3
       }];
 
 
@@ -190,26 +205,16 @@ export class Arrays {
     this.meetingWith = [
       {
         'species': 'אין העדפה',
-        'currentValue': false
+        'currentValue': false,
+        'id' : 1
       }, {
         'species': 'נשים בלבד',
-        'currentValue': false
+        'currentValue': false,
+        'id' : 2
       }, {
         'species': 'גברים בלבד',
-        'currentValue': false
-      }];
-
-
-    this.meetingWith = [
-      {
-        'species': 'אין העדפה',
-        'currentValue': false
-      }, {
-        'species': 'נשים בלבד',
-        'currentValue': false
-      }, {
-        'species': 'גברים בלבד',
-        'currentValue': false
+        'currentValue': false,
+        'id' : 3
       }];
 
 

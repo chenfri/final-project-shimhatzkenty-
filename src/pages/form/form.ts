@@ -39,15 +39,18 @@ export class Form
   public time: any[]
   public numOfMeeting: any[]
   public place: any[]
+ public relationship: any[]
 
-  public orgi;
-
+  public orgi
+  public gender_
+  public meetingWith_
+  public numOfMeeting_
+  public relationship_
   public selectedNH : any
   public fixedAddress : any
-  public relationship: any[]
   public showOtherO = false
   public showOtherR = false
-  public relationName;
+
 
   temp_familyMember = new Array(3)
   name_familyMember = new Array(3)
@@ -61,30 +64,33 @@ export class Form
           
     {
 
-    this.user.elderly = this.params.get('elderly');
-    this.user.volunteer = this.params.get('volunteer');
- 
+    this.user.elderly = this.params.get('elderly')
+    this.user.volunteer = this.params.get('volunteer')
+
     //update variables
     this.selectedNH = null
     this.user.orgName = null
     this.user.city = null
-    this.user.nameAssistant = null;
-    this.user.relationName = null;
+    this.user.nameAssistant = null
+    this.user.relationName = null
     this.user.college = null
     this.user.id = null
     this.user.contact = null
-    this.user.description = null;
-    this.user.range = 0;
-    this.user.age = null;
-    this.user.dateTime = null;
+    this.user.description = null
+    this.user.range = 0
+    this.user.age = null
+    this.user.dateTime = null
     this.familyMember = null
     this.user.fullName = null
     this.user.hideMusic = false
     this.user.student = false
-    this.user.onBehalf = false;
-    this.user.numOfAssistant = 0;
-
-    this.orgi=null
+    this.user.onBehalf = false
+    this.user.numOfAssistant = 0
+    this.orgi = null
+    this.gender_ = null
+    this.meetingWith_ = null
+    this.numOfMeeting_ = null
+    this.relationship_ = null
 
     this.hobbies = this.array.hobbies
     this.time = this.array.time
@@ -224,7 +230,7 @@ export class Form
          flag = 1;
       }
   
-      else if(this.user.onBehalf && ( this.check_arrayVaule(this.relationship) && this.check_arrayVaule(this.organization) == 1))
+      else if(this.user.onBehalf && (this.relationship == null && this.orgi == null))
       { 
          this.alert.showError_relationship();
          flag = 1;
@@ -242,7 +248,7 @@ export class Form
         flag = 1;
       }
 
-      else if (this.check_arrayVaule(this.gender) == 1)
+      else if (this.gender_ == null)
       {
         this.alert.showError_gender()
         flag = 1;
@@ -286,7 +292,7 @@ export class Form
   
       else if (!this.user.elderly && !this.user.student)
       {
-        if (this.check_arrayVaule(this.numOfMeeting) == 1) {
+        if (this.numOfMeeting_ == null) {
           this.alert.error_numOfMeeting();
           flag = 1;
         }
@@ -410,22 +416,21 @@ export class Form
         address: this.fixedAddress,
         phone: this.user.phone,
         email: this.user.email,
-        hobbies: this.hobbies,
         range: this.user.range,
-        num_of_meetings: this.numOfMeeting,
-        gender: this.gender,
         age: this.user.age,
-        language: this.language,
-        meetingWith: this.meetingWith,
-        zone: this.zone,
         student: this.user.student,
         college: this.user.college,
         id: this.user.id,
-        hideMusic: this.user.hideMusic,
+        num_of_meetings: this.numOfMeeting_,
+        meetingWith: this.meetingWith_,
+        dateTime : this.user.dateTime ,
+        gender: this.gender_,
+        language: this.language,
+        hobbies: this.hobbies,
+        zone: this.zone,
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
-        dateTime : this.user.dateTime ,
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -474,24 +479,22 @@ export class Form
         address: this.fixedAddress,
         phone: this.user.phone,
         email: this.user.email,
-        gender: this.gender,
         behalf: this.user.onBehalf,
         relationName: this.user.relationName,
         nameAssistant: this.user.nameAssistant,
-        relationship: this.relationship,
+        orgi: this.orgi,
+        gender: this.gender_,
         orgName: this.user.orgName,
         contact: this.user.contact,
+        dateTime : this.user.dateTime ,
         description: this.user.description,
-        organization: this.organization,
+        meetingWith: this.meetingWith_,
+        relationship: this.relationship_,
         hobbies: this.hobbies,
         musicStyle: this.musicStyle,
         language: this.language,
-        meetingWith: this.meetingWith,
-        hideMusic: this.user.hideMusic,
         dayOfMeeting: this.dayOfMeeting,
-        dateTime : this.user.dateTime ,
         familyMember: this.familyMember,
-        orgi: this.orgi
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -507,7 +510,7 @@ export class Form
     init_arrays()
     {
       this.init(this.hobbies)
-      this.init(this.numOfMeeting )
+      this.init(this.numOfMeeting)
       this.init(this.gender)
       this.init(this.musicStyle)
       this.init(this.language)
@@ -517,7 +520,6 @@ export class Form
       this.init(this.dayOfMeeting)
       this.init(this.organization)
       this.init(this.neighborhoods)
-      this.init(this.organization)
       this.init(this.relationship)
     }
   
@@ -601,6 +603,7 @@ export class Form
   }
 
   radioClicked2(item: any, $event) {
+    this.numOfMeeting_ = item.id
     this.radioClicked(item, this.numOfMeeting)
   }
 
@@ -609,11 +612,15 @@ export class Form
   }
 
   
-  radioClicked4(item: any, $event) {
+  radioClicked4(item) {
+    this.gender_ = item.id
+    console.log(item)
+    console.log(this.gender_)
     this.radioClicked(item, this.gender)
   }
 
   radioClicked5(item: any, $event) {
+    this.meetingWith_ = item.id
     this.radioClicked(item, this.meetingWith)
   }
 
@@ -639,6 +646,7 @@ export class Form
 
   selectOrg(item)
   {
+    this.orgi = item.id
     if(item.id == 4)
       this.showOtherO = true
     else
@@ -655,8 +663,8 @@ export class Form
 
   select_relationship(item: any, $event)
   {
-    this.orgi = item.id
-    if(item.id == 4)
+    this.relationship_ = item.id
+    if(item.id == 7)
       this.showOtherR = true
     else
       this.showOtherR = false
