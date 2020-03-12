@@ -16,11 +16,7 @@ import {Functions} from '../../providers/functions'
 export class adminPage
 {
   user = {} as User
-  organizationNum: any
   organizationName: any;
-  elderNum: any
-  volunteerNum: any
-  studentNum: any
   userE : any[]
   userV : any[]
   userStudent : any[]
@@ -36,49 +32,50 @@ export class adminPage
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
-    console.log("userE ", this.userE)
     this.userV = this.navParams.get('volunteer');
-    console.log("volunteer ", this.userV)
     this.userStudent = this.navParams.get('students');
     this.organizationEledry = this.navParams.get('organizationEledry');
-    //console.log(this.organizationEledry)
     this.messages = this.navParams.get('messages');
-    // this.user.dateTime = this.navParams.get('dateTime');
-
-    this.organizationNum = this.navParams.get('organizationNum')
-    //console.log(this.organizationNum)
-    this.elderNum = this.navParams.get('elderNum');
-    this.volunteerNum = this.navParams.get('volunteerNum');
-    this.studentNum = this.navParams.get('studentNum');
-
-    
+ 
+    console.log(this.organizationEledry)
+    //console.log("volunteer ", this.userV)
+   // console.log("userE ", this.userE)
 
   }
 
 
-  csvFile(array , lengthArray , type)
+  csvFile(array , type , arrType)
   {
-      let tmp= []
-      for(let i = 0 ; i < lengthArray ; i++)
-        tmp[i] = array[i]
-    
-      if(type == "eledry")
-        this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
-      if(type == "volunteer")
-        this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
-      if(type == "student") 
-        this.headerRow = ["שם" , "פלאפון", "תעודת זהות","מוסד אקדמי"]
-      if(type == "organization")
-        this.headerRow = ["שם", "פלאפון הקשיש" ,"שם איש קשר","פלאפון איש קשר" , "שם האירגון"]
+    let tmp= []
 
-      console.log("tmp: " + tmp)
+    if(array != null || array != undefined)
+    {
+      for(let i = 0 ; i < array.length ; i++)
+      {
+        if(arrType)
+          tmp[i] = [array[i].name, array[i].phoneE, array[i].assistName, array[i].phoneA, array[i].id]  
+        else  
+          tmp[i] = array[i]
+      }
+    }
 
-      let csv = papa.unparse({
-        fields: this.headerRow,
-        data: tmp
-      });
+    if(type == "eledry")
+      this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
+    if(type == "volunteer")
+      this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
+    if(type == "student") 
+      this.headerRow = ["שם" , "פלאפון", "תעודת זהות","מוסד אקדמי"]
+    if(type == "organization")
+      this.headerRow = ["שם", "פלאפון הקשיש" ,"שם איש קשר","פלאפון איש קשר" , "שם האירגון"]
 
-      this.downloadCSV(csv , type)
+    console.log(tmp)
+
+    let csv = papa.unparse({
+      fields: this.headerRow,
+      data: tmp
+    });
+
+    this.downloadCSV(csv , type)
   }
 
 
@@ -123,7 +120,33 @@ export class adminPage
     });
   }
 
+    click_home()
+    {
+      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+    }
 
+    add_AdminUser()
+    {
+      this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+    }
+
+
+  // ------------------------------- function not in used --------------------------------------
+
+  deleteElderlyUser(item)
+  {
+    this.deleteUserFromFirebase(item, 'ElderlyUsers')
+    
+  }
+  
+
+  deleteVolunteerUser(item)
+  {
+    this.deleteUserFromFirebase(item, 'volunteerUsers')
+  }
+ 
+
+  
   CheckWhichOrganization(id)
   {
     const db = firebase.firestore();
@@ -141,31 +164,6 @@ export class adminPage
       )
   }
 
-  click_home()
-  {
-    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
-  }
-
-  add_AdminUser()
-  {
-    this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
-  }
-
-
-  // ------------------------------- function not in used --------------------------------------
-
-  deleteElderlyUser(item)
-  {
-    this.deleteUserFromFirebase(item, 'ElderlyUsers')
-    
-  }
-  
-
-  deleteVolunteerUser(item)
-  {
-    this.deleteUserFromFirebase(item, 'volunteerUsers')
-  }
- 
 
   deleteUserFromFirebase(item, collectionName)
   {

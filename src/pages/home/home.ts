@@ -13,6 +13,7 @@ import {Observable} from 'rxjs/Observable'
 import {Functions} from '../../providers/functions'
 import {GalleryPage} from '../gallery/gallery'
 import { Slides } from 'ionic-angular';
+import { Arrays } from '../../providers/arrays'
 
 @Component({
   selector: 'page-home',
@@ -32,7 +33,7 @@ export class HomePage
   public organizations: any[]
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
-        public auth: AngularFireAuth, private platform: Platform, public func:Functions)
+        public auth: AngularFireAuth, private platform: Platform, public func:Functions, public array:Arrays)
   {
 
     console.log("if login:")
@@ -113,10 +114,32 @@ scrollToBottom() {
  }
 
 
+    groupByFuntion(arr, key) {
+
+      return arr.reduce(function(rv, x) {
+
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+
+        return rv;
+
+      }, {});
+
+    };
+
+
+    findOrgNameByID(id)
+    {
+      let arr = this.array.organization
+      for(let i = 0 ; i < arr.length; i++)
+        if(arr[i].id == id)
+          return arr[i].species
+    }
+
+
   get_data_for_admin()
   {
     let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
-    let k = 0 , l = 0 , j = 0 , t=0 , v=0
+    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = []
    
     const db = firebase.firestore();
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
@@ -129,38 +152,27 @@ scrollToBottom() {
         i.id]
         k++})}).catch(error => {console.log(error)})
 
+    
 
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
       if(i.data().behalf == true )
       {
-      
-        // find name of organization
-        this.organizations = i.data().organization;
-        for (let i = 0; i < this.organizations.length; i++)
-        {
-            if(this.organizations[i].currentValue){
-              this.organization = this.organizations[i].species;
-              console.log("organization.func :  " + this.organization)
-              break;}
-        }
-  
-          console.log("org ",this.organization)
-          if(this.organization != null)
-          {
+            if(i.data().orgi != null)
+            {
+              let orgName = this.findOrgNameByID(i.data().orgi)
               organizationEledry[v] = 
-              [
-                i.data().fullName,
-                i.data().phone,
-                i.data().nameAssistant,
-                i.data().contact,
-                this.organization,
-                i.id,
-              ]
+                { name: i.data().fullName,
+                  phoneE: i.data().phone,
+                  assistName: i.data().nameAssistant,
+                  phoneA: i.data().contact,
+                  id: orgName,              
+                }        
               v++;
           }
       }
       })}).catch(error => {console.log(error)})
    
+
 
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
       volunteer[j] =
@@ -171,6 +183,7 @@ scrollToBottom() {
         i.id
       ]
         j++})}).catch(error => {console.log(error)})
+
 
 
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{
@@ -197,10 +210,11 @@ scrollToBottom() {
 
     setTimeout(() =>
     {
+      console.log("organizationEledry ",organizationEledry)
+      groupbyOrg = this.groupByFuntion(organizationEledry,"id")
       this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
       'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
-      'organizationEledry': organizationEledry,
-      'elderNum': k , 'volunteerNum': j, 'studentNum': t, 'organizationNum': v});
+      'organizationEledry': groupbyOrg});
         }, 1000);
   } 
 

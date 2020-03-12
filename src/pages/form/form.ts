@@ -40,6 +40,8 @@ export class Form
   public numOfMeeting: any[]
   public place: any[]
 
+  public orgi;
+
   public selectedNH : any
   public fixedAddress : any
   public relationship: any[]
@@ -81,6 +83,8 @@ export class Form
     this.user.student = false
     this.user.onBehalf = false;
     this.user.numOfAssistant = 0;
+
+    this.orgi=null
 
     this.hobbies = this.array.hobbies
     this.time = this.array.time
@@ -487,7 +491,7 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         dateTime : this.user.dateTime ,
         familyMember: this.familyMember,
-
+        orgi: this.orgi
       })
       .then(() => {
         this.alert.showAlertSuccess();
@@ -651,6 +655,7 @@ export class Form
 
   select_relationship(item: any, $event)
   {
+    this.orgi = item.id
     if(item.id == 4)
       this.showOtherR = true
     else
