@@ -1,4 +1,4 @@
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController} from 'ionic-angular';
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
@@ -9,15 +9,15 @@ import {Functions} from '../../providers/functions'
 import { Component ,ViewChild} from '@angular/core';
 import {returnValue ,MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
-import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import {SelectSearchableComponent} from 'ionic-select-searchable'
+import { ModalPage } from '../modal/modal';
+
 
 @Component({
   selector: 'page-form',
   templateUrl: 'form.html',
 })
-
 
 export class Form 
 {
@@ -50,6 +50,7 @@ export class Form
   public fixedAddress : any
   public showOtherO = false
   public showOtherR = false
+  public showModal = false
 
 
   temp_familyMember = new Array(3)
@@ -60,7 +61,7 @@ export class Form
   
   constructor(public navCtrl: NavController, public params: NavParams,
           public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
-          public events: Events, private http: HttpClient)
+          private http: HttpClient, private modal: ModalController)
           
     {
 
@@ -109,6 +110,12 @@ export class Form
 
   }
 
+  async presentModal() {
+    const modal = await this.modal.create(
+      ModalPage
+    );
+   modal.present();
+  }
 
   //if the user press on home page button and he didn't finish fill the form
   click_home()
@@ -124,6 +131,21 @@ export class Form
       this.hideMoreContact = true
     else
       this.hideMoreContact = false
+  }
+
+  
+  modalFunc()
+  {
+    var x = document.getElementById("Modal");
+    if(!this.showModal)
+    {
+      this.showModal = true
+      if (x.className === "modal label label-md red") 
+        x.className = "modal label label-md";
+      this.presentModal()
+    }
+    else
+      this.showModal = false
   }
 
 
@@ -301,6 +323,13 @@ export class Form
       if (this.user.fullName == null && this.user.elderly)
         this.user.fullName = 'חסוי'
 
+      if(!this.showModal)
+      {
+        var x = document.getElementById("Modal");
+        if (x.className === "modal label label-md") 
+        x.className += " red";
+        flag = 1;
+      }
 
       if (flag == 0)
       {
@@ -811,11 +840,6 @@ export class Form
       , 'volunteer': this.user.volunteer
     });
   }
-
-   // createUser(user) {
-  //   console.log('User created! , ' + Date.now())
-  //   this.events.publish('user:created', user, Date.now());
-  // }
 
 }
 

@@ -14,6 +14,7 @@ import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
 import {GalleryPage} from '../pages/gallery/gallery'
+import { ModalPage } from '../pages/modal/modal';
 
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
@@ -48,7 +49,8 @@ export const firebaseConfig = {
     LoginPage,
     contactPage,
     adminPage,
-    GalleryPage
+    GalleryPage,
+    ModalPage
   ],
   imports: [ 
     FormsModule,  
@@ -70,7 +72,8 @@ export const firebaseConfig = {
     RegisterPage,
     LoginPage,
     adminPage,
-    GalleryPage
+    GalleryPage,
+    ModalPage
   ],
   providers: [
     StatusBar,

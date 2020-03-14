@@ -17,7 +17,6 @@ background-attachment: fixed !important;">
     <h6 *ngIf="user.elderly" style="text-align: center;color:white;">.חשוב שאדם נוסף יהיה נוכח בפגישה הראשונה</h6>
 
     <form class="form" style="float: right; width: 100%;"> <br><br>
-
         <ion-row style="direction: rtl;">
 
             <ion-col>
@@ -365,11 +364,15 @@ background-attachment: fixed !important;">
             <label>:) ספר לנו קצת על עצמך </label><br>
             <ion-textarea cols="40" rows="10" class="description" text-right type="text" name="description" [(ngModel)]="user.description"></ion-textarea>
         </ion-grid>
-        <br><br><br><br>
+        <br><br>
 
         <ion-grid>
-            <button ion-button style="    align-self: center;" (click)="check_field_value()">שמירה</button>
+            <ion-item no-lines style="background-color:#ffffff00 ;color:#FCBE47; margin-bottom: -15px;">
+                <ion-label class="modal" id="Modal" style="text-align: right;font-weight:bold; font-size: 15px;">חובה לאשר תנאי שימוש באתר לפני השליחה</ion-label>
+                <ion-checkbox item-right (click)="modalFunc()"></ion-checkbox>
+            </ion-item><br>
+            <button ion-button style="align-self: center;" (click)="check_field_value($this)">שליחת הטופס</button>
             <br><br><br><br></ion-grid>
 
     </form>
-</ion-content>s
+</ion-content>
