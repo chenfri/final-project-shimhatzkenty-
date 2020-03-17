@@ -48,7 +48,7 @@ background-attachment: fixed !important;">
             </ion-col>
 
 
-            <ion-col>
+            <ion-col *ngIf="!user.elderly">
                 <ion-row *ngIf="!user.elderly">
                     <label>ת"ז (נדרש לצורך ביטוח)</label>
                 </ion-row>
@@ -78,14 +78,14 @@ background-attachment: fixed !important;">
                 <ion-row>
                     <label>רחוב</label>
                 </ion-row>
-                <ion-row>
+                <!-- <ion-row> -->
                     <ion-row>
                         <input text-right type="text" name="street" [(ngModel)]="user.street">
                     </ion-row>
                     <ion-row>
                         <button ion-button (click)="get_UserLocation()">השתמש בשירותי מיקום</button>
                     </ion-row>
-                </ion-row>
+                <!-- </ion-row> -->
             </ion-col>
 
             <ion-col>
@@ -95,27 +95,32 @@ background-attachment: fixed !important;">
                 <ion-row>
                     <input text-right type="text" name="city" [(ngModel)]="user.city">
                 </ion-row>
-            </ion-col>
+            </ion-col> 
+         
+            <ion-col *ngIf="!user.elderly" ></ion-col>
+         </ion-row>
 
-            <ion-col *ngIf="user.elderly"></ion-col>
-
-            <ion-row>
-                <ion-col class="range">
-                    <ion-col *ngIf="!user.elderly" style="direction: ltr;">
-                        <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
-                        <label style="color:white;float: right;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
-                        <label style="float: right; width: 100%;" *ngIf="!user.elderly">
-                <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
-                המרחק שנבחר: {{user.range}} ק"מ
-                </label>
+            <ion-row  *ngIf="!user.elderly" style=" direction: rtl;float: right;">
+                    <ion-col >
+                        <ion-row>
+                             <label style="float: right;">מרחק נסיעה מקסימלי בק"מ:</label><br>
+                        </ion-row>
+                        <ion-row>
+                         <label style="color:white;float: right;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
+                        </ion-row>   
+                 
+                        <ion-row style="float: right;">            
+                            <label style="float: right; width: 100%;" *ngIf="!user.elderly">
+                                <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
+                            המרחק שנבחר: {{user.range}} ק"מ
+                            </label>
+                        </ion-row>  
                     </ion-col>
-                </ion-col>
-            </ion-row>
-        </ion-row>
+                <!-- </ion-row> -->
+            
 
+            <!-- <ion-col *ngIf="user.elderly"></ion-col> -->
 
-        <br><br><br><br>
-        <ion-row>
             <ion-col *ngIf="!user.elderly" style="background-color:#ffffff00 ;color:#FCBE47;">
                 <ion-label style="text-align: right; "> גיל</ion-label>
                 <input style="float: right;width: auto;" text-right type="number" name="age" [(ngModel)]="user.age">
@@ -129,12 +134,12 @@ background-attachment: fixed !important;">
                 </ion-item>
             </ion-col>
 
-            <ion-col *ngIf="!user.elderly">
+            <ion-col>
 
                 <!------------------------------------- just for volunteer ----------------------------------------->
                 <ion-item no-lines style="background-color:#ffffff00 ;color:#FCBE47; margin-bottom: -15px;">
                     <ion-label style="text-align: right;font-weight:bold;">סטודנט </ion-label>
-                    <ion-checkbox item-right *ngIf="!user.elderly" [checked]="user.student" (click)="ifStudent()"></ion-checkbox>
+                    <ion-checkbox item-right [checked]="user.student" (click)="ifStudent()"></ion-checkbox>
                 </ion-item>
 
                 <div class="Assistant" *ngIf="user.student" style="background-color: #ffffff00;">
@@ -144,7 +149,8 @@ background-attachment: fixed !important;">
                 </div>
             </ion-col>
 
-
+            </ion-row>
+            <ion-row>
             <!-------------------------------- just for elderly ------------------------------------------->
             <ion-col *ngIf="user.elderly">
                 <ion-item no-lines style="background-color:#ffffff00">
