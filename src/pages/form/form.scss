@@ -124,6 +124,12 @@
                 width: 100%;
                 margin-top: 0;
             }
+            .range1 {
+                display: none;
+            }
+            .range {
+                display: block !important;
+            }
         }
         .slider {
             -webkit-appearance: none;
