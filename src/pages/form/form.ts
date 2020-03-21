@@ -35,6 +35,7 @@ export class Form
   public dayOfMeeting: any[]
   public organization: any[]
   public neighborhoods: any[]
+  public placeToVol : any
   public hobbies: any[]
   public time: any[]
   public numOfMeeting: any[]
@@ -106,6 +107,7 @@ export class Form
     this.dayOfMeeting = this.array.dayOfMeeting
     this.organization = this.array.organization
     this.neighborhoods = this.array.neighborhoods
+    this.placeToVol = this.array.neighborhoods
     this.relationship = this.array.relationship
 
   }
@@ -603,6 +605,13 @@ export class Form
   }
 
 
+  selectVol_neighborhood(event:{component: SelectSearchableComponent, value:any})
+  {
+    this.CheckboxClicked(event.value, this.placeToVol)
+    console.log( this.placeToVol)
+  }
+
+
   //if user cancel music hobby so we cancel musicStyle and musical_instrument
   cancelCheckBox(arr)
   {  
@@ -620,6 +629,7 @@ export class Form
   //check which checkbox was clicked and update the array
   CheckboxClicked(item: any, arr)
   {
+    console.log(item)
     for (let i = 0; i < arr.length; i++)
     {
       if (arr[i] === item)
