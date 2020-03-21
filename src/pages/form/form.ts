@@ -30,7 +30,6 @@ export class Form
   public musicStyle: any[]
   public language: any[]
   public meetingWith: any[]
-  public zone: any[]
   public musical_instrument: any[]
   public dayOfMeeting: any[]
   public organization: any[]
@@ -48,6 +47,7 @@ export class Form
   public numOfMeeting_
   public relationship_
   public selectedNH : any
+  public selectedFav : any
   public fixedAddress : any
   public showOtherO = false
   public showOtherR = false
@@ -70,6 +70,7 @@ export class Form
     this.user.volunteer = this.params.get('volunteer')
 
     //update variables
+    this.selectedFav = null
     this.selectedNH = null
     this.user.orgName = null
     this.user.city = null
@@ -102,7 +103,6 @@ export class Form
     this.musicStyle = this.array.musicStyle
     this.language = this.array.language
     this.meetingWith = this.array.meetingWith
-    this.zone = this.array.zone
     this.musical_instrument = this.array.musical_instrument
     this.dayOfMeeting = this.array.dayOfMeeting
     this.organization = this.array.organization
@@ -296,10 +296,6 @@ export class Form
         flag = 1;
       }
   
-      else if (!this.user.elderly && this.check_arrayVaule(this.zone) == 1) {
-        this.alert.showError_zone();
-        flag = 1;
-      }
   
       else if (this.check_arrayVaule(this.language) == 1) {
         this.alert.showError_language();
@@ -321,7 +317,12 @@ export class Form
           flag = 1;
         }
       }
-    
+
+      else if (!this.user.elderly && this.check_arrayVaule(this.placeToVol) == 1) {
+        this.alert.showError_favoriteN();
+        flag = 1;
+      }
+  
       if (this.user.fullName == null && this.user.elderly)
         this.user.fullName = 'חסוי'
 
@@ -458,7 +459,7 @@ export class Form
         gender: this.gender_,
         language: this.language,
         hobbies: this.hobbies,
-        zone: this.zone,
+        favoriteNegibrhood: this.placeToVol,
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
@@ -546,7 +547,7 @@ export class Form
       this.init(this.musicStyle)
       this.init(this.language)
       this.init(this.meetingWith)
-      this.init(this.zone)
+      this.init(this.placeToVol)
       this.init(this.musical_instrument)
       this.init(this.dayOfMeeting)
       this.init(this.organization)
@@ -589,11 +590,6 @@ export class Form
   }
 
   
-  CheckboxClicked4(item: any, $event)
-  {
-    this.CheckboxClicked(item, this.zone)
-  }
-
   CheckboxClicked5(item: any, $event)
   {
     this.CheckboxClicked(item, this.musical_instrument)
@@ -662,11 +658,6 @@ export class Form
     this.meetingWith_ = item.id
     this.radioClicked(item, this.meetingWith)
   }
-
-  radioClicked6(item: any, $event) {
-    this.radioClicked(item, this.zone)
-  }
-
   
 
   //check which radio was clicked and update the array
@@ -749,7 +740,7 @@ export class Form
       this.gender = result.data().gender
       this.language = result.data().language
       this.meetingWith = result.data().meetingWith
-      this.zone = result.data().zone
+     // this.zone = result.data().zone
       this.user.hideMusic = result.data().hideMusic
       this.dayOfMeeting = result.data().dayOfMeeting
       this.musicStyle = result.data().musicStyle

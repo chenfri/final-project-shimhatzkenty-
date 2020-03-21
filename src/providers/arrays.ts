@@ -218,25 +218,6 @@ export class Arrays {
       }];
 
 
-    this.zone = [
-      {
-        'species': 'אזור פסגת זאב, נווה יעקב, רמות',
-        'currentValue': false
-      }, {
-        'species': ' מרכז העיר (כולל קטמון, המושבה הגרמנית וכדומה)',
-        'currentValue': false
-      }, {
-        'species': 'אזור גילה, תלפיות, תלפ"ז, בקעה',
-        'currentValue': false
-      }, {
-        'species': 'אזור בית הכרם, קריית היובל, גבעת משואה, עיר גנים, קריית מנחם ועין כרם',
-        'currentValue': false
-      }, {
-        'species': 'אזור רוממה, גבעת שאול, קריית משה והר נוף',
-        'currentValue': false
-      }];
-
-
     this.musical_instrument = [
       {
         'species': 'שירה',

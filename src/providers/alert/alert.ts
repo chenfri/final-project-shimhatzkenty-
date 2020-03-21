@@ -48,11 +48,11 @@ export class AlertProvider
     alert.present();
   }
   
-  showError_zone()
+  showError_favoriteN()
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה לבחור איזור' ,
+      subTitle: 'חובה לבחור שכונות מועדפות להתנדבות' ,
       buttons: ['אישור']
     });
     alert.present();
