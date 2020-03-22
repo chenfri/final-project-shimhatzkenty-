@@ -34,7 +34,6 @@ export class Form
   public dayOfMeeting: any[]
   public organization: any[]
   public neighborhoods: any[]
-  public placeToVol : any
   public hobbies: any[]
   public time: any[]
   public numOfMeeting: any[]
@@ -107,7 +106,6 @@ export class Form
     this.dayOfMeeting = this.array.dayOfMeeting
     this.organization = this.array.organization
     this.neighborhoods = this.array.neighborhoods
-    this.placeToVol = this.array.neighborhoods
     this.relationship = this.array.relationship
 
   }
@@ -212,7 +210,6 @@ export class Form
 
     setTimeout(() => 
     {
-
       if (this.user.fullName == null && !this.user.elderly)
       {
           this.alert.error_emptyFullName();
@@ -272,6 +269,12 @@ export class Form
         flag = 1;
       }
 
+      else if (this.user.student && this.user.college == null)
+      {
+         this.alert.showError_studentDetails();
+         flag = 1;
+      }
+      
       else if (this.gender_ == null)
       {
         this.alert.showError_gender()
@@ -284,12 +287,6 @@ export class Form
           flag = 1;
       }
 
-      else if (this.user.student && this.user.college == null)
-      {
-         this.alert.showError_studentDetails();
-         flag = 1;
-      }
-      
   
       else if (this.check_arrayVaule(this.hobbies) == 1) {
         this.alert.error_hobbies();
@@ -310,23 +307,18 @@ export class Form
         flag = 1;}
       }
   
-      else if (!this.user.elderly && !this.user.student)
+      else if (!this.user.elderly && !this.user.student && this.numOfMeeting_ == null)
       {
-        if (this.numOfMeeting_ == null) {
           this.alert.error_numOfMeeting();
           flag = 1;
-        }
       }
 
-      else if (!this.user.elderly && this.check_arrayVaule(this.placeToVol) == 1) {
+      else if (!this.user.elderly && this.selectedFav == null) {
         this.alert.showError_favoriteN();
         flag = 1;
       }
-  
-      if (this.user.fullName == null && this.user.elderly)
-        this.user.fullName = 'חסוי'
 
-      if(!this.showModal)
+      else if(!this.showModal)
       {
         var x = document.getElementById("Modal");
         if (x.className === "modal label label-md") 
@@ -336,6 +328,9 @@ export class Form
 
       if (flag == 0)
       {
+        if (this.user.fullName == null && this.user.elderly)
+        this.user.fullName = 'חסוי'
+
         if (this.user.elderly)
           this.add_data_to_firebase_Elderly();
         else
@@ -459,7 +454,7 @@ export class Form
         gender: this.gender_,
         language: this.language,
         hobbies: this.hobbies,
-        favoriteNegibrhood: this.placeToVol,
+        favoriteNegibrhood: this.selectedFav,
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
@@ -547,12 +542,12 @@ export class Form
       this.init(this.musicStyle)
       this.init(this.language)
       this.init(this.meetingWith)
-      this.init(this.placeToVol)
       this.init(this.musical_instrument)
       this.init(this.dayOfMeeting)
       this.init(this.organization)
       this.init(this.neighborhoods)
       this.init(this.relationship)
+      this.selectedFav = null
     }
   
   
@@ -603,8 +598,10 @@ export class Form
 
   selectVol_neighborhood(event:{component: SelectSearchableComponent, value:any})
   {
-    this.CheckboxClicked(event.value, this.placeToVol)
-    console.log( this.placeToVol)
+    for(let i = 0 ; i < event.value.length; i++)
+      this.selectedFav[i].currentValue = true
+
+      console.log(this.selectedFav)
   }
 
 
