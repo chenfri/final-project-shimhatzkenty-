@@ -310,9 +310,9 @@ background-attachment: fixed !important;">
         <ion-grid>
             <ion-row style="direction: rtl;">
 
-                <ion-col *ngIf="user.elderly || user.student"><br>
-                    <h4 class="titleForm">ימים מועדפים למפגש</h4><br><br>
-                    <label style="float: right; color:white;">מומלץ לציין מספר רב של מועדים זה יגדיל את הסיכוי להתאמה טובה ונוחה</label>
+                <ion-col><br>
+                    <h4 class="titleForm">ימים מועדפים למפגש</h4><br><br><br>
+                    <label style="float: right; color:white;">ריבוי מועדים יגדיל את הסיכוי להתאמה טובה ונוחה יותר</label>
                     <ion-list radio-group>
                         <ion-item no-lines *ngFor="let time of dayOfMeeting" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
                             <ion-label style="text-align: right;"> {{ time.species }} </ion-label>

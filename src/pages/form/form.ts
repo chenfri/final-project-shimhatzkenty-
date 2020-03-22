@@ -299,13 +299,12 @@ export class Form
         flag = 1;
       }
   
-  
-      else if(this.user.student || this.user.elderly)
-      { 
-        if (this.check_arrayVaule(this.dayOfMeeting) == 1) {
+      else if (this.check_arrayVaule(this.dayOfMeeting) == 1)
+      {
         this.alert.showError_dayOfMeeting();
-        flag = 1;}
+        flag = 1;
       }
+      
   
       else if (!this.user.elderly && !this.user.student && this.numOfMeeting_ == null)
       {
