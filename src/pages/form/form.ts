@@ -2,7 +2,7 @@ import { NavController, NavParams, ModalController} from 'ionic-angular';
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import 'firebase/firestore';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import { AlertProvider } from '../../providers/alert/alert'
 import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
@@ -23,48 +23,28 @@ export class Form
 {
   @ViewChild('mySelect') selectComponent:SelectSearchableComponent
   user = {} as User;
-  public ifRegister = false
-   public hideMoreContact = false;
-  public familyMember: any[];
-  public gender: any[]
-  public musicStyle: any[]
-  public language: any[]
-  public meetingWith: any[]
-  public musical_instrument: any[]
-  public dayOfMeeting: any[]
-  public organization: any[]
-  public neighborhoods: any[]
-  public hobbies: any[]
-  public time: any[]
-  public numOfMeeting: any[]
-  public place: any[]
- public relationship: any[]
+  public familyMember: any[]; gender: any[] ; musicStyle: any[]
+  public language: any[] ; meetingWith: any[] ;musical_instrument: any[]
+  public dayOfMeeting: any[] ; organization: any[] ; neighborhoods: any[]
+  public hobbies: any[] ; time: any[] ; numOfMeeting: any[]
+  public place: any[] ; relationship: any[]
 
-  public orgi
-  public gender_
-  public meetingWith_
-  public numOfMeeting_
-  public relationship_
-  public selectedNH : any
-  public selectedFav : any
-  public fixedAddress : any
-  public showOtherO = false
-  public showOtherR = false
-  public showModal = false
+  public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; relationship_ ; selectedNH : any
+  public selectedFav : any ; fixedAddress : any
+  public ifRegister = false; hideMoreContact = false; showOtherO = false
+  public showOtherR = false ; showModal = false
 
 
-  temp_familyMember = new Array(3)
-  name_familyMember = new Array(3)
-  phone_familyMember = new Array(3)
-  relationship_familyMember = new Array(3)
+  temp_familyMember = new Array(3) ;name_familyMember = new Array(3)
+  phone_familyMember = new Array(3) ; relationship_familyMember = new Array(3)
  
   
   constructor(public navCtrl: NavController, public params: NavParams,
-          public alert: AlertProvider, public func:Functions , public array:Arrays, public auth:AngularFireAuth,
-          private http: HttpClient, private modal: ModalController)
+          public alert: AlertProvider, public func:Functions , public array:Arrays,
+          public auth:AngularFireAuth, private http: HttpClient, private modal: ModalController)
           
     {
-
+    this.user.loggedIn = this.params.get('login');
     this.user.elderly = this.params.get('elderly')
     this.user.volunteer = this.params.get('volunteer')
 
@@ -108,7 +88,46 @@ export class Form
     this.neighborhoods = this.array.neighborhoods
     this.relationship = this.array.relationship
 
+    if(this.user.volunteer)
+      this.user.hideForm = false
+    else
+      this.user.hideForm = true
+
+    if (this.user.loggedIn)
+    {
+      this.user.hideForm = true
+      this.getData_fromFirebaseVol();
+    }
+
   }
+
+
+  async registry()
+  {
+    let a = ""
+    if (this.user.email == "undefined" || this.user.password == "undefined")
+      this.alert.error_emptyEmailOrPassword();
+    else
+    {
+      try {
+        const res = await firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.password);
+        if (res)
+          {
+            this.alert.showAlert();
+            this.ifRegister = true;
+            this.user.hideForm = true;
+          }
+      }
+      catch (e) {
+        console.error(e);
+        if (e.message == "The email address is already in use by another account.")
+          this.alert.error_emailIsAllreadyExist();
+        else
+          this.alert.error_illegalEmailOrPassword();
+      }
+    }
+    }
+
 
   async presentModal() {
     const modal = await this.modal.create(
@@ -116,12 +135,25 @@ export class Form
     );
    modal.present();
   }
+  
 
   //if the user press on home page button and he didn't finish fill the form
   click_home()
   {
-    this.init_arrays()
-    this.navCtrl.setRoot(HomePage)
+    const db = firebase.firestore();
+    if(this.ifRegister) //if the user is allready register check if there is his document in firebase
+    {
+        db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
+          .then(result => {
+            if (!result.exists)
+              this.alert.error_showAlert()
+          }).catch(error => console.log(error))
+      }
+    else
+    {
+      this.init_arrays()
+      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn})
+    }
   }
 
 
@@ -156,7 +188,7 @@ export class Form
     {
       db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
         if(i.data().phone == this.user.phone)
-          returnValue.phoneExist = 1    
+          returnValue.phoneExist = 2   
           })}).catch(error => {console.log(error)}) 
     }
 
@@ -226,7 +258,12 @@ export class Form
         flag = 1;
       }
 
-      else if (returnValue.phoneExist == 1) {
+      else if (returnValue.phoneExist == 1 && !this.user.loggedIn) {
+        this.alert.error_phoneIsAllreadyExist()
+        flag = 1;
+      }
+
+      else if (returnValue.phoneExist == 2) {
         this.alert.error_phoneIsAllreadyExist()
         flag = 1;
       }
@@ -436,7 +473,7 @@ export class Form
     this.arrangeDate();
 
     const db = firebase.firestore();
-    db.collection('volunteerUsers').doc().set(
+    db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
       {
         fullName: this.user.fullName,
         address: this.fixedAddress,
@@ -446,6 +483,9 @@ export class Form
         age: this.user.age,
         student: this.user.student,
         college: this.user.college,
+        city: this.user.city,
+        street: this.user.street,
+        neighborhood: this.selectedNH,
         id: this.user.id,
         num_of_meetings: this.numOfMeeting_,
         meetingWith: this.meetingWith_,
@@ -457,14 +497,54 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
+        hideMusic: this.user.hideMusic
       })
       .then(() => {
         this.alert.showAlertSuccess();
         this.init_arrays()
-        this.navCtrl.popToRoot()
+        this.navCtrl.setRoot(HomePage ,{'login':this.user.loggedIn})
       }).catch((error) => {
         console.log
       })
+  }
+
+
+  
+  
+  getData_fromFirebaseVol()
+  {
+    const db = firebase.firestore();
+
+    db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).get()
+    .then(result => {
+      if (!result.exists) return
+      this.user.fullName = result.data().fullName
+      this.user.phone = result.data().phone
+      this.user.email = result.data().email
+      this.hobbies = result.data().hobbies
+      this.language = result.data().language
+      this.dayOfMeeting = result.data().dayOfMeeting
+      this.musicStyle = result.data().musicStyle
+      this.user.range = result.data().range,
+      this.user.age = result.data().age
+      this.user.id = result.data().id
+      this.user.student = result.data().student
+      this.user.college = result.data().college
+      this.musical_instrument = result.data().musical_instrument
+      this.meetingWith_ = result.data().meetingWith
+      this.numOfMeeting_ = result.data().num_of_meetings
+      this.gender_ = result.data().gender
+      this.user.city = result.data().city
+      this.user.street = result.data().street
+      this.selectedNH = result.data().neighborhood,
+      this.user.hideMusic = result.data().hideMusic
+      this.selectedFav = result.data().favoriteNegibrhood
+      this.radioClicked_fromDB(this.meetingWith, this.meetingWith_)
+      this.radioClicked_fromDB(this.numOfMeeting, this.numOfMeeting_)
+      this.radioClicked_fromDB(this.gender, this.gender_)
+
+    }).catch(error => {console.log(error)})
+ 
   }
 
 
@@ -503,6 +583,9 @@ export class Form
       {
         fullName: this.user.fullName,
         address: this.fixedAddress,
+        city: this.user.city,
+        street: this.user.street,
+        neighborhood: this.selectedNH,
         phone: this.user.phone,
         email: this.user.email,
         behalf: this.user.onBehalf,
@@ -525,7 +608,7 @@ export class Form
       .then(() => {
         this.alert.showAlertSuccess();
         this.init_arrays()
-        this.navCtrl.popToRoot();
+        this.navCtrl.setRoot(HomePage)
       }).catch((error) => {
         console.log
       })
@@ -559,9 +642,9 @@ export class Form
 
   //---------------------- checkbox and radio functions ------------------------
 
-  CheckboxClicked1(item: any, $event)
+  CheckboxClicked1(item: any, arr)
   {
-    this.CheckboxClicked(item, this.hobbies)
+    this.CheckboxClicked(item, arr)
     if(this.hobbies[0].currentValue)
       this.user.hideMusic = true;
     else
@@ -572,28 +655,17 @@ export class Form
     }
   }
 
-  CheckboxClicked2(item: any, $event)
+
+  //check which checkbox was clicked and update the array
+  CheckboxClicked(item: any, arr)
   {
-    this.CheckboxClicked(item, this.musicStyle)
+    console.log(item)
+    for (let i = 0; i < arr.length; i++)
+    {
+      if (arr[i] === item)
+          arr[i].currentValue = !item.currentValue
+    }
   }
-
-
-  CheckboxClicked3(item: any, $event)
-  {
-    this.CheckboxClicked(item, this.language)
-  }
-
-  
-  CheckboxClicked5(item: any, $event)
-  {
-    this.CheckboxClicked(item, this.musical_instrument)
-  }
-
-  CheckboxClicked6(item: any, $event)
-  {
-    this.CheckboxClicked(item, this.dayOfMeeting)
-  }
-
 
   selectVol_neighborhood(event:{component: SelectSearchableComponent, value:any})
   {
@@ -617,17 +689,6 @@ export class Form
       }
   }
   
-
-  //check which checkbox was clicked and update the array
-  CheckboxClicked(item: any, arr)
-  {
-    console.log(item)
-    for (let i = 0; i < arr.length; i++)
-    {
-      if (arr[i] === item)
-          arr[i].currentValue = !item.currentValue
-    }
-  }
 
   radioClicked1(item: any, $event) {
     this.radioClicked(item, this.time)
@@ -655,6 +716,15 @@ export class Form
     this.radioClicked(item, this.meetingWith)
   }
   
+
+  radioClicked_fromDB(arr,item)
+  {
+    for (let i = 0; i < arr.length; i++)
+    {
+      if (arr[i].id === item)
+        arr[i].currentValue =  true
+    }
+  }
 
   //check which radio was clicked and update the array
   radioClicked(item: any, arr)
@@ -708,134 +778,6 @@ export class Form
       if (arr[i] === item && !arr[i].currentValue)
         arr[i].currentValue = !item.currentValue
     }
-  }
-
-  //------------------------- function not in used ------------------------
-  
-
-  
-  getData_fromFirebase(str)
-  {
-    const db = firebase.firestore();
-
-    db.collection(str).doc(firebase.auth().currentUser.uid).get()
-    .then(result => {
-      if (!result.exists) return
-      this.user.fullName = result.data().fullName
-      this.user.street = result.data().address[0]
-      this.selectedNH = {
-        'species': result.data().address[2],
-        'currentValue': true
-      }
-
-      this.user.city = result.data().address[3]
-      this.user.phone = result.data().phone
-      this.user.email = result.data().email
-      this.hobbies = result.data().hobbies
-      //this.time = result.data().meeting_time
-      this.gender = result.data().gender
-      this.language = result.data().language
-      this.meetingWith = result.data().meetingWith
-     // this.zone = result.data().zone
-      this.user.hideMusic = result.data().hideMusic
-      this.dayOfMeeting = result.data().dayOfMeeting
-      this.musicStyle = result.data().musicStyle
-      this.user.password = result.data().password
-
-      if(this.user.volunteer)
-      {
-        this.user.range = result.data().range,
-        this.user.age = result.data().age
-        this.user.id = result.data().id
-        this.user.student = result.data().student
-        this.musical_instrument = result.data().musical_instrument
-        this.user.dateTime = result.data().dateTime 
-        //this.durationVol = result.data().durationVol
-        this.numOfMeeting = result.data().num_of_meetings
-        this.user.college = result.data().college
-      }
-      else
-      {
-        this.familyMember = result.data().familyMember
-        this.user.onBehalf = result.data().behalf
-        this.user.nameAssistant = result.data().nameAssistant
-       // this.user.relationship = result.data().relationship
-        this.organization = result.data().organization
-        this.user.contact = result.data().contact
-        this.user.description = result.data().description
-      }
-
-    }).catch(error => {console.log(error)})
-  }
-
-
-  //read list of neighborhoods from csv file
-  readCsvData()
-  {
-    let array = []
-    let data = '' , index = 0;
-
-    this.http.get('./assets/neighborhoods.csv', {responseType: 'text'}).subscribe(res => {
-      data = res
-    }, err => console.error(err))
-
-
-    //convert the string to array of object
-    setTimeout(() => 
-    {
-      for(let i = 0 ;i < 57; i ++)
-      {
-        let x = '';
-        for (let k = index ; k < data.length ; k++)
-        {
-          if(data[k] == '\n')
-          {
-            index = k+1
-            break
-          }
-          x += data[k]
-        }
-   
-        array[i] = {'species': x,
-        'currentValue': false}
-      }
-      this.neighborhoods = array
-      console.log(this.neighborhoods)
-    }, 3000);
-    
-  }
-
-
-  async registry()
-  {
-    let str = await this.func.registry(this.user.email, this.user.password)
-    if(str == "sucsses"){
-      this.ifRegister = true;
-      this.user.hideForm = true;
-      // console.log('User created! , ' + this.user.dateTime)
-    }
-
-    // this.alert.showError_NotEmailVerfied();
-  }
-
-
-  //if the user want to change his user to password 
-  update_email_or_password()
-  {
-    firebase.auth().currentUser.updatePassword(this.user.password);
-    firebase.auth().currentUser.updateEmail(this.user.email);
-    this.alert.showAlert_changeEmailAndPassword();
-    
-    if(!this.user.loggedIn)
-    {
-      this.user.elderly = false
-      this.user.volunteer = false
-    }
-
-    this.navCtrl.push(HomePage, {
-      'login': this.user.loggedIn, 'elderly': this.user.elderly
-      , 'volunteer': this.user.volunteer
-    });
   }
 
 }

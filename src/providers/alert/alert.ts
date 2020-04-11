@@ -297,56 +297,13 @@ export class AlertProvider
     alert.present();
   }
 
-  // ---------------------------- function not in used ------------------------------
-
-  showError_meetingWith()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור עם מי המפגש יתקיים' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-  
+    
   showAlert()
   {
     let alert = this.alertCtrl.create({
       title: '!הפרטים נשמרו בהצלחה',
       subTitle: 'שים לב, יש למלא את כל הטופס' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-  
-
-  showAlert_changeEmailAndPassword()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'בוצע',
-      subTitle: 'כתובת הדוא"ל והסיסמה שונו בהצלחה',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  showAlert_EmailVerfied()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה - לא ניתן להתחבר',
-      subTitle: 'יש לאמת תחילה את כתובת הדוא"ל שלך במייל שנשלח לכתובת שהזנת' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  showError_NotEmailVerfied()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'לתשומת ליבך!',
-      subTitle: 'כעת נשלח מייל אימות לכתובת דוא"ל שהזנת, יש לאשר שהכתובת אכן נכונה' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
@@ -356,41 +313,10 @@ export class AlertProvider
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
       subTitle: 'שים לב, יש למלא את כל הטופס' ,
-      buttons: ['OK']
+      buttons: ['אישור']
     });
     alert.present();
   }
-
-  error_place()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור מקום התנדבות',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_timeOfMeeting()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור זמן שמתאים למפגש',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-  error_VolunteerDuration()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור משך התנדבות',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
+ 
 
 }
