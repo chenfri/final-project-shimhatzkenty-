@@ -135,7 +135,7 @@ export class Form
     );
    modal.present();
   }
-  
+
 
   //if the user press on home page button and he didn't finish fill the form
   click_home()
