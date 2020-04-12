@@ -69,7 +69,7 @@ scrollToBottom() {
     this.user.volunteer = false;
     var x = document.getElementById("topNav");
     x.className = "topnav";
-    this.navCtrl.push(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
+    this.navCtrl.setRoot(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
      'volunteer': this.user.volunteer,});
   }
 
@@ -80,7 +80,7 @@ scrollToBottom() {
     this.user.volunteer = true;
     var x = document.getElementById("topNav");
     x.className = "topnav";
-    this.navCtrl.push(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
+    this.navCtrl.setRoot(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
      'login':this.user.loggedIn});
   }
 

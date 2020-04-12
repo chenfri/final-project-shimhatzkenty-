@@ -15,7 +15,7 @@
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="scrollToBottom()">גלריה</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</a>
         <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="logout()">התנתק</a >
-        <a class="navbarButton" ion-button *ngIf="!user.loggedIn" (click)="login()">כניסת מנהל</a>
+        <a class="navbarButton" ion-button *ngIf="!user.loggedIn" (click)="login()">התחברות</a>
         <a class="icon" (click)="hamburger_Navbar()">
             <i class="fa fa-bars"></i>
         </a>

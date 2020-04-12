@@ -17,10 +17,10 @@
         color: red;
     }
     
-    .description textarea {
-        padding: 0px !important;
-    }
-    
+    //for android app
+    // .description textarea {
+    //     padding: 0px !important;
+    // }
     // .button-ios {
     //     font-size: 1.2rem !important;
     // }
@@ -67,6 +67,7 @@
         textarea {
             width: max-content;
             padding: 12px;
+            padding-left: 5px; //remove for android
             border: 1px solid #259262;
             resize: vertical;
             background-color: #259262;
