@@ -12,3 +12,43 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.alert-md .alert-head {
+    text-align: left;
+    text-align: start;
+    padding: 24px 24px 4px;
+    font-family: calibri;
+}
+
+.alert-md .alert-title {
+    direction: rtl;
+    font-size: 22px;
+    padding-bottom: 11px;
+}
+
+.alert-md .alert-sub-title {
+    direction: rtl;
+    font-size: 16px;
+}
+.alert-md .alert-button-group {
+    -webkit-flex-wrap: wrap-reverse;
+    -ms-flex-wrap: wrap-reverse;
+    flex-wrap: wrap-reverse;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 8px 8px 8px 24px;
+    direction: rtl;
+}
+.alert-md .alert-button .button-inner {
+    font-size: large;
+}
+.scroll-content {
+    direction: rtl;
+
+}
+.toolbar-title-md {
+    direction: rtl;
+}
+

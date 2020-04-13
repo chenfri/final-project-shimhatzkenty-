@@ -127,9 +127,9 @@ background-attachment: fixed !important;">
                         <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
                         <label style="color:white;float: right;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
                         <label style="float: right; width: 100%;" *ngIf="!user.elderly">
-                <input type="range" min="user.range" max="50" color="warning" pin="true" name="range1" [(ngModel)]="user.range" class="slider" id="myRange1"><br>
-            המרחק שנבחר: {{user.range}} ק"מ
-            </label>
+                        <input type="range" min="user.range" max="50" color="warning" pin="true" name="range1" [(ngModel)]="user.range" class="slider" id="myRange1"><br>
+                              המרחק שנבחר: {{user.range}} ק"מ
+                        </label>
                     </ion-col>
                 </ion-col>
 
@@ -140,6 +140,7 @@ background-attachment: fixed !important;">
                             <label style="color:white;float: right;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
                             <label style="float: right; width: 100%;" *ngIf="!user.elderly">
                 <input type="range" min="user.range" max="50" color="warning" pin="true" name="range" [(ngModel)]="user.range" class="slider" id="myRange"><br>
+                
                 המרחק שנבחר: {{user.range}} ק"מ
                 </label>
                         </ion-col>
