@@ -18,6 +18,17 @@ export class AlertProvider
   }
 
 
+  showAlertUpdateDetails()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'הפרטים נשמרו בהצלחה!',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
   showError_language()
   {
     let alert = this.alertCtrl.create({
@@ -301,8 +312,19 @@ export class AlertProvider
   showAlert()
   {
     let alert = this.alertCtrl.create({
-      title: '!הפרטים נשמרו בהצלחה',
+      title: 'הפרטים נשמרו בהצלחה!',
       subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
+  showErrorMsg()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'שים לב, יש למלא את כל השדות' ,
       buttons: ['אישור']
     });
     alert.present();

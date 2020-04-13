@@ -13,7 +13,6 @@ import {RegisterPage} from '../pages/register/register'
 import {LoginPage} from '../pages/login/login'
 import {contactPage} from '../pages/contactPage/contactPage'
 import {adminPage} from '../pages/Admin/adminPage';
-import {GalleryPage} from '../pages/gallery/gallery'
 import { ModalPage } from '../pages/modal/modal';
 
 import * as firebase from 'firebase';
@@ -49,7 +48,6 @@ export const firebaseConfig = {
     LoginPage,
     contactPage,
     adminPage,
-    GalleryPage,
     ModalPage
   ],
   imports: [ 
@@ -72,7 +70,6 @@ export const firebaseConfig = {
     RegisterPage,
     LoginPage,
     adminPage,
-    GalleryPage,
     ModalPage
   ],
   providers: [

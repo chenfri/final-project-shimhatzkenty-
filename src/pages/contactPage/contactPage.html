@@ -20,7 +20,7 @@
             <input style="width:40vh;" type="number" id="phone" name="phoneNumber" [(ngModel)]="contactMessage.phoneNumber" placeholder="רשום כאן את מס' הפלאפון"><br><br>
             <label for="message">הודעה</label><br>
             <textarea style="width:40vh; height: 15vh;" type="text" id="message" name="message" [(ngModel)]="contactMessage.message"></textarea><br>
-            <button ion-button type="submit" (click)="add_data_to_firebase()">שלח</button>
+            <button ion-button type="submit" (click)="check_valid_fields()">שלח</button>
         </ion-col>
     </ion-row>
     <br>

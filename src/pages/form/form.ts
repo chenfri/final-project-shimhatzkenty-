@@ -500,7 +500,11 @@ export class Form
         hideMusic: this.user.hideMusic
       })
       .then(() => {
-        this.alert.showAlertSuccess();
+        if(this.user.loggedIn)
+          this.alert.showAlertUpdateDetails()
+        else
+          this.alert.showAlertSuccess();
+          
         this.init_arrays()
         this.navCtrl.setRoot(HomePage ,{'login':this.user.loggedIn})
       }).catch((error) => {

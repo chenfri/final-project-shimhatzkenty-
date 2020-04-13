@@ -1,67 +1,58 @@
-.login-page{
-
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b") ;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  // background-position: center;
-  background-size: 40%;
-
-
+.login-page {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 40%;
+    font-family: calibri;
     background-color: #08144a;
-    color:#FCBE47;
-
-  .titleLogin{
-      font-size: xx-large;
-    font-weight: bold;
-  }
-
-* {
-  box-sizing: border-box;
-}
-
-input[type=text],input[type=password],input[type=number], select, textarea {
-  width: max-content;
- padding: 12px;
-  border: 1px solid rgba(48, 124, 193, 1);
-  //margin-top: 6px;
-  //margin-bottom: 16px;
-  resize: vertical;
-  background-color: rgba(48, 124, 193, 1);;
-}
-
-input[type=submit] {
-  background-color: #af4c4c96; 
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  cursor: pointer;
-  text-align: -webkit-center;
-  margin:0px 8px;
-}
-
-input[type=submit]:hover {
-  background-color:#945151;
-}
-
-.button {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  background-color: #eca8a9;
-  border: solid black 0px;
-  cursor: pointer !important;
-  border-radius: 50px;
-  -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
-  transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
-  -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
-  box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
-  color: #035445;
-}
-
-.button:hover {
-  background-color:#FCBE47;
-
-  color: white;
-}
-
+    color: #FCBE47;
+    .titleLogin {
+        font-size: xx-large;
+        font-weight: bold;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    input[type=text],
+    input[type=password],
+    input[type=number],
+    select,
+    textarea {
+        width: max-content;
+        padding: 12px;
+        border: 1px solid rgba(48, 124, 193, 1);
+        resize: vertical;
+        background-color: rgba(48, 124, 193, 1);
+        ;
+    }
+    input[type=submit] {
+        background-color: #af4c4c96;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+        text-align: -webkit-center;
+        margin: 0px 8px;
+    }
+    input[type=submit]:hover {
+        background-color: #945151;
+    }
+    .button {
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        background-color: #eca8a9;
+        border: solid black 0px;
+        cursor: pointer !important;
+        border-radius: 50px;
+        -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+        transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+        -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+        box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+        color: #035445;
+    }
+    .button:hover {
+        background-color: #FCBE47;
+        color: white;
+    }
 }
