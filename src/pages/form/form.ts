@@ -224,6 +224,31 @@ export class Form
     var digits = phone.replace(/[-.]/g, "");
     return phoneRe.test(digits);
   }
+  
+  legalID(numberID) {
+    var tot = 0;
+    var ID =new String(numberID)
+    for (var i=0; i<8; i++)
+        {
+          var y;
+            var x = (((i%2)+1)*Number(ID.charAt(i)));
+            if (x > 9)
+                {
+                  y =String(x)
+                  x=Number(y.charAt(0))+Number(y.charAt(1))
+                }
+          tot += x;
+        }
+    
+    if ((tot+Number(ID.charAt(8)))%10 == 0) {
+       console.log("OK");
+      return true;
+    } 
+    else {
+      console.log("NOT OK")
+      return false;
+  }
+  }
 
 
   //check that all user inputs are legal
@@ -268,10 +293,10 @@ export class Form
         flag = 1;
       }
   
-      else if (!this.user.elderly && (this.user.id == null ||String(this.user.id).length != 9))
+      else if (!this.user.elderly && (this.user.id == null || !this.legalID(String(this.user.id))))
       {
-        this.alert.showError_studentID()
-         flag = 1;
+           this.alert.showError_studentID()
+            flag = 1;       
       }
   
       else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
@@ -377,7 +402,6 @@ export class Form
     }, 500);
   }
   
-
   add_familyMembers()
   {
     let size = this.phone_familyMember.length

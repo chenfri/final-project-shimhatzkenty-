@@ -97,7 +97,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה למלא ת"ז תקין כולל סיפרת ביקורת' ,
+      subTitle: 'תעודת הזהות אינה תקינה' ,
       buttons: ['אישור']
     });
     alert.present();
