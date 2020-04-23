@@ -5,7 +5,7 @@ import { AlertController } from 'ionic-angular';
 export class Arrays {
 
   public hobbies: any[]
-  public time: any[]
+  // public time: any[]
   public hours: any[]
   public numOfMeeting: any[]
   public place: any[]
@@ -13,11 +13,11 @@ export class Arrays {
   public musicStyle: any[]
   public language: any[]
   public meetingWith: any[]
-  public zone: any[]
+  // public zone: any[]
   public musical_instrument: any[]
   public dayOfMeeting: any[]
   public organization: any[]
-  public durationVol: any[]
+  // public durationVol: any[]
   public neighborhoods: any[]
   public relationship: any[]
   constructor(public alertCtrl: AlertController) {

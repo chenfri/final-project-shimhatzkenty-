@@ -73,9 +73,10 @@ export class Form
     this.meetingWith_ = null
     this.numOfMeeting_ = null
     this.relationship_ = null
+    this.hours = null
 
     this.hobbies = this.array.hobbies
-    this.time = this.array.time
+    // this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
     this.hours = this.array.hours
     this.place = this.array.place
@@ -375,7 +376,7 @@ export class Form
           flag = 1;
       }
 
-      else if (this.hours_ == null)
+      else if (this.check_arrayVaule(this.hours) == 1)
       {
           this.alert.error_hours();
           flag = 1;
@@ -519,7 +520,7 @@ export class Form
         neighborhood: this.selectedNH,
         id: this.user.id,
         num_of_meetings: this.numOfMeeting_,
-        hours: this.hours_,
+        hours: this.hours,
         meetingWith: this.meetingWith_,
         dateTime : this.user.dateTime ,
         gender: this.gender_,
@@ -565,7 +566,7 @@ export class Form
       this.musical_instrument = result.data().musical_instrument
       this.meetingWith_ = result.data().meetingWith
       this.numOfMeeting_ = result.data().num_of_meetings
-      this.hours_ = result.data().hours
+      this.hours = result.data().hours
       this.gender_ = result.data().gender
       this.user.city = result.data().city
       this.user.street = result.data().street
@@ -637,6 +638,7 @@ export class Form
         musicStyle: this.musicStyle,
         language: this.language,
         dayOfMeeting: this.dayOfMeeting,
+        hours: this.hours,
         familyMember: this.familyMember,
       })
       .then(() => {
