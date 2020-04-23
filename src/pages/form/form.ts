@@ -26,10 +26,10 @@ export class Form
   public familyMember: any[]; gender: any[] ; musicStyle: any[]
   public language: any[] ; meetingWith: any[] ;musical_instrument: any[]
   public dayOfMeeting: any[] ; organization: any[] ; neighborhoods: any[]
-  public hobbies: any[] ; time: any[] ; numOfMeeting: any[]
+  public hobbies: any[] ; time: any[] ; numOfMeeting: any[]; hours: any[];
   public place: any[] ; relationship: any[]
 
-  public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; relationship_ ; selectedNH : any
+  public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; hours_ ; relationship_ ; selectedNH : any
   public selectedFav : any ; fixedAddress : any
   public ifRegister = false; hideMoreContact = false; showOtherO = false
   public showOtherR = false ; showModal = false
@@ -77,6 +77,7 @@ export class Form
     this.hobbies = this.array.hobbies
     this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
+    this.hours = this.array.hours
     this.place = this.array.place
     this.gender = this.array.gender
     this.musicStyle = this.array.musicStyle
@@ -299,11 +300,11 @@ export class Form
             flag = 1;       
       }
   
-      else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
-      {
-        this.alert.showError_address();
-        flag = 1;
-      }
+      // else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
+      // {
+      //   this.alert.showError_address();
+      //   flag = 1;
+      // }
   
   
       else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null
@@ -374,10 +375,16 @@ export class Form
           flag = 1;
       }
 
-      else if (!this.user.elderly && this.selectedFav == null) {
-        this.alert.showError_favoriteN();
-        flag = 1;
+      else if (this.hours_ == null)
+      {
+          this.alert.error_hours();
+          flag = 1;
       }
+
+      // else if (!this.user.elderly && this.selectedFav == null) {
+      //   this.alert.showError_favoriteN();
+      //   flag = 1;
+      // }
 
       else if(!this.showModal)
       {
@@ -512,6 +519,7 @@ export class Form
         neighborhood: this.selectedNH,
         id: this.user.id,
         num_of_meetings: this.numOfMeeting_,
+        hours: this.hours_,
         meetingWith: this.meetingWith_,
         dateTime : this.user.dateTime ,
         gender: this.gender_,
@@ -557,6 +565,7 @@ export class Form
       this.musical_instrument = result.data().musical_instrument
       this.meetingWith_ = result.data().meetingWith
       this.numOfMeeting_ = result.data().num_of_meetings
+      this.hours_ = result.data().hours
       this.gender_ = result.data().gender
       this.user.city = result.data().city
       this.user.street = result.data().street
@@ -565,6 +574,7 @@ export class Form
       this.selectedFav = result.data().favoriteNegibrhood
       this.radioClicked_fromDB(this.meetingWith, this.meetingWith_)
       this.radioClicked_fromDB(this.numOfMeeting, this.numOfMeeting_)
+      this.radioClicked_fromDB(this.hours, this.hours_)
       this.radioClicked_fromDB(this.gender, this.gender_)
 
     }).catch(error => {console.log(error)})
@@ -644,6 +654,7 @@ export class Form
     {
       this.init(this.hobbies)
       this.init(this.numOfMeeting)
+      this.init(this.hours)
       this.init(this.gender)
       this.init(this.musicStyle)
       this.init(this.language)
@@ -714,15 +725,19 @@ export class Form
   }
   
 
-  radioClicked1(item: any, $event) {
-    this.radioClicked(item, this.time)
+  // radioClicked1(item: any, $event) {
+  //   this.radioClicked(item, this.time)
+  // }
+ radioClicked1(item: any, $event) {
+    this.hours_ = item.id
+    this.radioClicked(item, this.hours)
   }
 
   radioClicked2(item: any, $event) {
     this.numOfMeeting_ = item.id
     this.radioClicked(item, this.numOfMeeting)
   }
-
+ 
   radioClicked3(item: any, $event) {
     this.radioClicked(item, this.place)
   }

@@ -41,7 +41,7 @@ background-attachment: fixed !important;">
         </ion-row>
         <br><br><br>
 
-        <!-- <ion-grid *ngIf="user.hideForm"> -->
+        <ion-grid *ngIf="user.hideForm">
             <ion-row style="direction: rtl;">
 
                 <ion-col>
@@ -330,12 +330,6 @@ background-attachment: fixed !important;">
                     </ion-col>
 
 
-                </ion-row>
-            </ion-grid><br>
-
-            <ion-grid>
-                <ion-row style="direction: rtl;">
-
                     <ion-col><br>
                         <h4 class="titleForm">ימים מועדפים למפגש</h4><br><br><br>
                         <label style="float: right; color:white;">ריבוי מועדים יגדיל את הסיכוי להתאמה טובה ונוחה יותר</label>
@@ -346,7 +340,21 @@ background-attachment: fixed !important;">
                             </ion-item>
                         </ion-list>
                     </ion-col>
+                </ion-row>
+            </ion-grid><br>
 
+            <ion-grid>
+                <ion-row style="direction: rtl;">
+                    <ion-col><br>
+                        <h4 class="titleForm">שעות מועדפים למפגש</h4><br><br><br>
+                        <ion-list radio-group>
+                            <ion-item no-lines *ngFor="let hour of hours" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
+                                <ion-label style="text-align: right;"> {{ hour.species }} </ion-label>
+                                <ion-checkbox [checked]="hour.currentValue" (click)="CheckboxClicked(hour, hours)"></ion-checkbox>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                    
                     <!-------------------------------- just for volunteer -------------------------------------------->
 
                     <ion-col *ngIf="!user.elderly && !user.student"><br>
@@ -395,7 +403,7 @@ background-attachment: fixed !important;">
                 <label *ngIf="!user.elderly" style="float: right;font-weight: bold; font-size:18px;color:white;"> ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב.
                 </label>
             </ion-row>
-        <!-- </ion-grid> -->
+        </ion-grid>
         <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="user.elderly">
 
             <label>:) ספר לנו קצת על עצמך </label><br>

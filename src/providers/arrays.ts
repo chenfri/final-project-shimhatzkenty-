@@ -6,6 +6,7 @@ export class Arrays {
 
   public hobbies: any[]
   public time: any[]
+  public hours: any[]
   public numOfMeeting: any[]
   public place: any[]
   public gender: any[]
@@ -57,22 +58,45 @@ export class Arrays {
       }
     ];
 
-    this.time = [
-      {
-        'species': 'בוקר',
-        'currentValue': false
-      }, {
-        'species': 'אחה"צ',
-        'currentValue': false
-      }, {
-        'species': 'ערב',
-        'currentValue': false
-      }, {
-        'species': 'לא משנה',
-        'currentValue': false
-      }];
+    // this.time = [
+    //   {
+    //     'species': 'בוקר',
+    //     'currentValue': false
+    //   }, {
+    //     'species': 'אחה"צ',
+    //     'currentValue': false
+    //   }, {
+    //     'species': 'ערב',
+    //     'currentValue': false
+    //   }, {
+    //     'species': 'לא משנה',
+    //     'currentValue': false
+    //   }];
 
-
+      this.hours = [
+        {
+          'species': 'כל שעה ביום',
+          'currentValue': false
+        },
+        {
+          'species': '8-10',
+          'currentValue': false
+        }, {
+          'species': '10-12',
+          'currentValue': false
+        }, {
+          'species': '12-14',
+          'currentValue': false
+        }, {
+          'species': '14-16',
+          'currentValue': false
+        }, {
+          'species': '16-18',
+          'currentValue': false
+        }, {
+          'species': '18-20',
+          'currentValue': false
+        }];
 
       this.relationship = [
         {
