@@ -59,7 +59,7 @@ export class Form
     this.user.id = null
     this.user.contact = null
     this.user.description = null
-    this.user.range = 0
+    // this.user.range = 0
     this.user.age = null
     this.user.dateTime = null
     this.familyMember = null
@@ -325,11 +325,11 @@ export class Form
          flag = 1;
       }
   
-      else if (!this.user.elderly && this.user.range == 0)
-      {
-        this.alert.showAlert_chooseRange()
-        flag = 1;
-      }
+      // else if (!this.user.elderly && this.user.range == 0)
+      // {
+      //   this.alert.showAlert_chooseRange()
+      //   flag = 1;
+      // }
 
       else if (this.user.student && this.user.college == null)
       {
@@ -503,7 +503,7 @@ export class Form
         address: this.fixedAddress,
         phone: this.user.phone,
         email: this.user.email,
-        range: this.user.range,
+        // range: this.user.range,
         age: this.user.age,
         student: this.user.student,
         college: this.user.college,
@@ -549,7 +549,7 @@ export class Form
       this.language = result.data().language
       this.dayOfMeeting = result.data().dayOfMeeting
       this.musicStyle = result.data().musicStyle
-      this.user.range = result.data().range,
+      // this.user.range = result.data().range,
       this.user.age = result.data().age
       this.user.id = result.data().id
       this.user.student = result.data().student

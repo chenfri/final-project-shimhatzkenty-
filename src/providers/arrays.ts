@@ -31,10 +31,12 @@ export class Arrays {
       }, {
         'species': 'קריאה',
         'currentValue': false
-      }, {
-        'species': 'טיול קצר',
-        'currentValue': false
-      }, {
+      },
+      //  {
+      //   'species': 'טיול קצר',
+      //   'currentValue': false
+      // },
+       {
         'species': 'פרשת השבוע',
         'currentValue': false
       }, {

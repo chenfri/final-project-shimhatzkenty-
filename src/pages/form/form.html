@@ -41,7 +41,7 @@ background-attachment: fixed !important;">
         </ion-row>
         <br><br><br>
 
-        <ion-grid *ngIf="user.hideForm">
+        <!-- <ion-grid *ngIf="user.hideForm"> -->
             <ion-row style="direction: rtl;">
 
                 <ion-col>
@@ -122,8 +122,8 @@ background-attachment: fixed !important;">
                     </ion-row>
                 </ion-col>
 
-                <ion-col class="range1">
-                    <ion-col *ngIf="!user.elderly" style="direction: ltr;">
+               <ion-col class="range1"></ion-col> 
+                    <!--  <ion-col *ngIf="!user.elderly" style="direction: ltr;">
                         <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
                         <label style="color:white;float: right;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
                         <label style="float: right; width: 100%;" *ngIf="!user.elderly">
@@ -131,7 +131,7 @@ background-attachment: fixed !important;">
                               המרחק שנבחר: {{user.range}} ק"מ
                         </label>
                     </ion-col>
-                </ion-col>
+                </ion-col> -->
 
                 <ion-row class="range" style="   display: none;">
                     <ion-col>
@@ -395,7 +395,7 @@ background-attachment: fixed !important;">
                 <label *ngIf="!user.elderly" style="float: right;font-weight: bold; font-size:18px;color:white;"> ההתנדבות היא אחריות אנא רשום את עצמך במידה ואתה יכול באמת להתחייב.
                 </label>
             </ion-row>
-        </ion-grid>
+        <!-- </ion-grid> -->
         <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="user.elderly">
 
             <label>:) ספר לנו קצת על עצמך </label><br>
