@@ -49,13 +49,8 @@ export const firebaseConfig = {
     LoginPage,
     contactPage,
     adminPage,
-<<<<<<< HEAD
-    ModalPage
-=======
-    GalleryPage,
     ModalPage,
     PopoverPage
->>>>>>> 9a85eaf5d310e73e0b1d746417af16ce7ae67642
   ],
   imports: [ 
     FormsModule,  
