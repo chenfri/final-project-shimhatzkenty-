@@ -79,22 +79,22 @@ export class Arrays {
           'currentValue': false
         },
         {
-          'species': '8-10',
+          'species': '8:00-10:00',
           'currentValue': false
         }, {
-          'species': '10-12',
+          'species': '10:00-12:00',
           'currentValue': false
         }, {
-          'species': '12-14',
+          'species': '12:00-14:00',
           'currentValue': false
         }, {
-          'species': '14-16',
+          'species': '14:00-16:00',
           'currentValue': false
         }, {
-          'species': '16-18',
+          'species': '16:00-18:00',
           'currentValue': false
         }, {
-          'species': '18-20',
+          'species': '18:00-20:00',
           'currentValue': false
         }];
 
