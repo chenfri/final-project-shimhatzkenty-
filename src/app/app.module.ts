@@ -16,6 +16,7 @@ import {adminPage} from '../pages/Admin/adminPage';
 import {GalleryPage} from '../pages/gallery/gallery'
 import { ModalPage } from '../pages/modal/modal';
 import {PopoverPage} from '../pages/popover/popover';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 import * as firebase from 'firebase';
 import {AngularFireAuthModule} from 'angularfire2/auth'
@@ -63,7 +64,8 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     HttpModule,
     HttpClientModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    IonicSelectableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

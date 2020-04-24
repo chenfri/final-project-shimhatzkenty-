@@ -93,8 +93,23 @@ background-attachment: fixed !important;">
                     <ion-row>
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
-                            <select-searchable item-content [(ngModel)]="selectedNH" name="name" [items]="neighborhoods" itemValueField="id" itemTextField="species" [canSearch]="true" (onChange)="select_neighborhood($event)">
-                            </select-searchable>
+                               <ionic-selectable item-content 
+                                    [(ngModel)]="selectedNH" 
+                                    name="name" 
+                                    [items]="neighborhoods" 
+                                    itemValueField="id" 
+                                    itemTextField="species" 
+                                    [canSearch]="true" 
+                                    searchplaceholder="חיפוש"
+                                    (onChange)="select_neighborhood($event)">
+                                <ng-template ionicSelectableCloseButtonTemplate>
+                                    <ion-icon name="close-circle" style="font-size: 24px; color: white;"></ion-icon>
+                                </ng-template>
+                                <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
+                                    <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'primary' : null">
+                                    </ion-icon>
+                                </ng-template>
+                            </ionic-selectable>
                         </ion-item>
                     </ion-row>
                 </ion-col>
@@ -383,8 +398,26 @@ background-attachment: fixed !important;">
                         <br><br>
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
-                            <select-searchable item-content [(ngModel)]="selectedFav" name="nameN" [isMultiple]="true" [items]="neighborhoods" itemTextField="species" [canSearch]="true" (onChange)="selectVol_neighborhood($event)">
-                            </select-searchable>
+                            <ionic-selectable item-content 
+                                [canClear]="true"
+                                clearButtonText="נקה"
+                                addButtonText="בחר"
+                                [(ngModel)]="selectedFav"
+                                name="nameN" 
+                                [isMultiple]="true" 
+                                [items]="neighborhoods" 
+                                itemTextField="species"
+                                [canSearch]="true" 
+                                (onChange)="selectVol_neighborhood($event)">
+                                <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
+                                    <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'primary' : null">
+                                    </ion-icon>
+                                </ng-template>
+                                <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
+                                    <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'primary' : null">
+                                    </ion-icon>
+                                </ng-template>
+                            </ionic-selectable>
                         </ion-item>
                     </ion-col>
 
