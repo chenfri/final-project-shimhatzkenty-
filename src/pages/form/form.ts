@@ -52,6 +52,7 @@ export class Form
     this.selectedFav = null
     this.selectedNH = null
     this.user.orgName = null
+    this.user.street = null
     this.user.city = null
     this.user.nameAssistant = null
     this.user.relationName = null
@@ -533,7 +534,11 @@ export class Form
         hideMusic: this.user.hideMusic
       })
       .then(() => {
-        this.alert.showAlertSuccess();
+        if(this.user.loggedIn)
+          this.alert.showAlertUpdateDetails()
+        else
+          this.alert.showAlertSuccess();
+          
         this.init_arrays()
         this.navCtrl.setRoot(HomePage ,{'login':this.user.loggedIn})
       }).catch((error) => {
@@ -597,7 +602,11 @@ export class Form
 
   arrangeAddress()
   {
-    let temp = this.selectedNH.species + ", "+ this.user.street
+    let temp = "לא צויין"
+    if(this.selectedNH != null)
+      temp = this.selectedNH.species + ", "
+    if(this.user.street != null)
+      temp += this.user.street + ", "
     if (this.user.city != null)
       temp += " " + this.user.city
     

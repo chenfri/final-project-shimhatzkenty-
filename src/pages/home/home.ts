@@ -8,10 +8,8 @@ import {User} from '../../module/User'
 import {AlertProvider} from '../../providers/alert/alert'
 import firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {Platform} from 'ionic-angular';
 import {Observable} from 'rxjs/Observable'
 import {Functions} from '../../providers/functions'
-import {GalleryPage} from '../gallery/gallery'
 import { Slides } from 'ionic-angular';
 import { Arrays } from '../../providers/arrays'
 
@@ -33,7 +31,7 @@ export class HomePage
   public organizations: any[]
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
-        public auth: AngularFireAuth, private platform: Platform, public func:Functions, public array:Arrays)
+        public auth: AngularFireAuth, public func:Functions, public array:Arrays)
   {
 
     console.log("if login:")
@@ -88,17 +86,10 @@ scrollToBottom() {
   contactPage() {
     var x = document.getElementById("topNav");
     x.className = "topnav";
-    this.navCtrl.push(contactPage)
+    this.navCtrl.push(contactPage, {'login': this.user.loggedIn })
   }
   
 
-  gallery() {
-    var x = document.getElementById("topNav");
-    x.className = "topnav";
-    this.navCtrl.push(GalleryPage);
-  }
-
-  
   login(){
     var x = document.getElementById("topNav");
     x.className = "topnav";
@@ -324,57 +315,6 @@ scrollToBottom() {
    }, 2500);
    }
  }
-
-
- gmail()
- {
-   if(this.platform.is('android'))
-   {
-     alert("android platform")
-    // this.nativeGoogleLogin();
-   }
-   else
-   {
-     alert("web platform")
-     this.gmailLogin();
-   }
- }
-
-
- gmailLogin()
- {
-   this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
-     console.log(res)
-     alert("login success")
-   })
- }
-
-
-
-facebookLogin()
-{
- console.log("gg")
- this.auth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then((res)=>{
-   alert(res.user.uid)
- //  this.navCtrl.push(RegisterPage);
-
- })
-}
-
-
-facebooklogin()
-{
- let provider = new firebase.auth.FacebookAuthProvider();
- firebase.auth().signInWithRedirect(provider).then(()=>{ 
-   console.log("a")
-   firebase.auth().getRedirectResult().then((result)=>{
-     console.log(result.user.uid) 
-     console.log("b")
-  
-   }).catch(function(error)
-   { console.log(JSON.stringify(error))})
- })
-}
 
 
 CheckWhichOrganization(id)

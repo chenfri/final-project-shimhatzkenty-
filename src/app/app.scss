@@ -12,7 +12,6 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 .alert-md .alert-head {
     text-align: left;
     text-align: start;
@@ -30,6 +29,7 @@
     direction: rtl;
     font-size: 16px;
 }
+
 .alert-md .alert-button-group {
     -webkit-flex-wrap: wrap-reverse;
     -ms-flex-wrap: wrap-reverse;
@@ -41,6 +41,7 @@
     padding: 8px 8px 8px 24px;
     direction: rtl;
 }
+
 .alert-md .alert-button .button-inner {
     font-size: large;
 }
