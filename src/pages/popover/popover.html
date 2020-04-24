@@ -10,7 +10,8 @@
   </ion-navbar>
 </ion-header>
 
-  <ion-content padding style="direction: rtl;">
+
+  <ion-card style="direction: rtl;">
     <ion-row>שם מלא: {{this.user.fullName}}</ion-row>
     <ion-row>פלאפון: {{this.user.phone}}</ion-row>
     <ion-row>אימייל: {{this.user.email }}</ion-row>
@@ -20,7 +21,7 @@
     <ion-row>עיר: {{ this.user.city }}</ion-row>
     <ion-row>רחוב: {{ this.user.street }}</ion-row>
     <!-- <ion-row>שכונה: {{ this.selectedNH }}</ion-row> -->
-    <ion-row *ngIf="this.user.student ">{{ this.user.college }} סטודנט/ית במכללת </ion-row>
+    <ion-row *ngIf="this.user.student "> סטודנט/ית במכללת {{ this.user.college }}</ion-row>
    
     <ion-row > תחביבים:</ion-row>
     <ion-row *ngFor="let value of this.hobbies">
@@ -71,6 +72,5 @@
     </ion-row>
 
     
+</ion-card>
 
-
-</ion-content>

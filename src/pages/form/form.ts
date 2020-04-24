@@ -301,11 +301,11 @@ export class Form
             flag = 1;       
       }
   
-      // else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
-      // {
-      //   this.alert.showError_address();
-      //   flag = 1;
-      // }
+      else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
+      {
+        this.alert.showError_address();
+        flag = 1;
+      }
   
   
       else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null
