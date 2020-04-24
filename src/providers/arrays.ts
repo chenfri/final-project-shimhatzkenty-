@@ -5,18 +5,19 @@ import { AlertController } from 'ionic-angular';
 export class Arrays {
 
   public hobbies: any[]
-  public time: any[]
+  // public time: any[]
+  public hours: any[]
   public numOfMeeting: any[]
   public place: any[]
   public gender: any[]
   public musicStyle: any[]
   public language: any[]
   public meetingWith: any[]
-  public zone: any[]
+  // public zone: any[]
   public musical_instrument: any[]
   public dayOfMeeting: any[]
   public organization: any[]
-  public durationVol: any[]
+  // public durationVol: any[]
   public neighborhoods: any[]
   public relationship: any[]
   constructor(public alertCtrl: AlertController) {
@@ -31,10 +32,12 @@ export class Arrays {
       }, {
         'species': 'קריאה',
         'currentValue': false
-      }, {
-        'species': 'טיול קצר',
-        'currentValue': false
-      }, {
+      },
+      //  {
+      //   'species': 'טיול קצר',
+      //   'currentValue': false
+      // },
+       {
         'species': 'פרשת השבוע',
         'currentValue': false
       }, {
@@ -55,22 +58,45 @@ export class Arrays {
       }
     ];
 
-    this.time = [
-      {
-        'species': 'בוקר',
-        'currentValue': false
-      }, {
-        'species': 'אחה"צ',
-        'currentValue': false
-      }, {
-        'species': 'ערב',
-        'currentValue': false
-      }, {
-        'species': 'לא משנה',
-        'currentValue': false
-      }];
+    // this.time = [
+    //   {
+    //     'species': 'בוקר',
+    //     'currentValue': false
+    //   }, {
+    //     'species': 'אחה"צ',
+    //     'currentValue': false
+    //   }, {
+    //     'species': 'ערב',
+    //     'currentValue': false
+    //   }, {
+    //     'species': 'לא משנה',
+    //     'currentValue': false
+    //   }];
 
-
+      this.hours = [
+        {
+          'species': 'כל שעה ביום',
+          'currentValue': false
+        },
+        {
+          'species': '8-10',
+          'currentValue': false
+        }, {
+          'species': '10-12',
+          'currentValue': false
+        }, {
+          'species': '12-14',
+          'currentValue': false
+        }, {
+          'species': '14-16',
+          'currentValue': false
+        }, {
+          'species': '16-18',
+          'currentValue': false
+        }, {
+          'species': '18-20',
+          'currentValue': false
+        }];
 
       this.relationship = [
         {

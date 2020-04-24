@@ -1,4 +1,4 @@
-import { NavController,NavParams, AlertController} from 'ionic-angular';
+import { NavController,NavParams, AlertController, PopoverController} from 'ionic-angular';
 import { Component } from '@angular/core';
 import firebase from 'firebase';
 import * as papa from 'papaparse';
@@ -6,7 +6,8 @@ import {AlertProvider} from '../../providers/alert/alert'
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
-import {Functions} from '../../providers/functions'
+import {Functions} from '../../providers/functions';
+import { PopoverPage } from '../popover/popover';
 
 @Component({
   selector: 'adminPage',
@@ -27,7 +28,7 @@ export class adminPage
   public organizations: any[]
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public alertCtrl: AlertController , public alert: AlertProvider, public func: Functions) 
+  public alertCtrl: AlertController , public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
   {
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
@@ -265,5 +266,13 @@ export class adminPage
     });
     alert.present();
   }
+
+  async openPopover(event , uid){
+    console.log('uid: ',uid)
+    let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid});
+    popover.present({
+      ev: event
+    });
+}
 
 }

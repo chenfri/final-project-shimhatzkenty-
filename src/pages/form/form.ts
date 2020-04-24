@@ -26,10 +26,10 @@ export class Form
   public familyMember: any[]; gender: any[] ; musicStyle: any[]
   public language: any[] ; meetingWith: any[] ;musical_instrument: any[]
   public dayOfMeeting: any[] ; organization: any[] ; neighborhoods: any[]
-  public hobbies: any[] ; time: any[] ; numOfMeeting: any[]
+  public hobbies: any[] ; time: any[] ; numOfMeeting: any[]; hours: any[];
   public place: any[] ; relationship: any[]
 
-  public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; relationship_ ; selectedNH : any
+  public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; hours_ ; relationship_ ; selectedNH : any
   public selectedFav : any ; fixedAddress : any
   public ifRegister = false; hideMoreContact = false; showOtherO = false
   public showOtherR = false ; showModal = false
@@ -59,7 +59,7 @@ export class Form
     this.user.id = null
     this.user.contact = null
     this.user.description = null
-    this.user.range = 0
+    // this.user.range = 0
     this.user.age = null
     this.user.dateTime = null
     this.familyMember = null
@@ -73,10 +73,12 @@ export class Form
     this.meetingWith_ = null
     this.numOfMeeting_ = null
     this.relationship_ = null
+    this.hours = null
 
     this.hobbies = this.array.hobbies
-    this.time = this.array.time
+    // this.time = this.array.time
     this.numOfMeeting = this.array.numOfMeeting
+    this.hours = this.array.hours
     this.place = this.array.place
     this.gender = this.array.gender
     this.musicStyle = this.array.musicStyle
@@ -224,6 +226,31 @@ export class Form
     var digits = phone.replace(/[-.]/g, "");
     return phoneRe.test(digits);
   }
+  
+  legalID(numberID) {
+    var tot = 0;
+    var ID =new String(numberID)
+    for (var i=0; i<8; i++)
+        {
+          var y;
+            var x = (((i%2)+1)*Number(ID.charAt(i)));
+            if (x > 9)
+                {
+                  y =String(x)
+                  x=Number(y.charAt(0))+Number(y.charAt(1))
+                }
+          tot += x;
+        }
+    
+    if ((tot+Number(ID.charAt(8)))%10 == 0) {
+       console.log("OK");
+      return true;
+    } 
+    else {
+      console.log("NOT OK")
+      return false;
+  }
+  }
 
 
   //check that all user inputs are legal
@@ -268,17 +295,17 @@ export class Form
         flag = 1;
       }
   
-      else if (!this.user.elderly && (this.user.id == null ||String(this.user.id).length != 9))
+      else if (!this.user.elderly && (this.user.id == null || !this.legalID(String(this.user.id))))
       {
-        this.alert.showError_studentID()
-         flag = 1;
+           this.alert.showError_studentID()
+            flag = 1;       
       }
   
-      else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
-      {
-        this.alert.showError_address();
-        flag = 1;
-      }
+      // else if (this.selectedNH == null || typeof(this.user.street) === "undefined")
+      // {
+      //   this.alert.showError_address();
+      //   flag = 1;
+      // }
   
   
       else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null
@@ -300,11 +327,11 @@ export class Form
          flag = 1;
       }
   
-      else if (!this.user.elderly && this.user.range == 0)
-      {
-        this.alert.showAlert_chooseRange()
-        flag = 1;
-      }
+      // else if (!this.user.elderly && this.user.range == 0)
+      // {
+      //   this.alert.showAlert_chooseRange()
+      //   flag = 1;
+      // }
 
       else if (this.user.student && this.user.college == null)
       {
@@ -349,10 +376,16 @@ export class Form
           flag = 1;
       }
 
-      else if (!this.user.elderly && this.selectedFav == null) {
-        this.alert.showError_favoriteN();
-        flag = 1;
+      else if (this.check_arrayVaule(this.hours) == 1)
+      {
+          this.alert.error_hours();
+          flag = 1;
       }
+
+      // else if (!this.user.elderly && this.selectedFav == null) {
+      //   this.alert.showError_favoriteN();
+      //   flag = 1;
+      // }
 
       else if(!this.showModal)
       {
@@ -377,7 +410,6 @@ export class Form
     }, 500);
   }
   
-
   add_familyMembers()
   {
     let size = this.phone_familyMember.length
@@ -479,7 +511,7 @@ export class Form
         address: this.fixedAddress,
         phone: this.user.phone,
         email: this.user.email,
-        range: this.user.range,
+        // range: this.user.range,
         age: this.user.age,
         student: this.user.student,
         college: this.user.college,
@@ -488,6 +520,7 @@ export class Form
         neighborhood: this.selectedNH,
         id: this.user.id,
         num_of_meetings: this.numOfMeeting_,
+        hours: this.hours,
         meetingWith: this.meetingWith_,
         dateTime : this.user.dateTime ,
         gender: this.gender_,
@@ -529,7 +562,7 @@ export class Form
       this.language = result.data().language
       this.dayOfMeeting = result.data().dayOfMeeting
       this.musicStyle = result.data().musicStyle
-      this.user.range = result.data().range,
+      // this.user.range = result.data().range,
       this.user.age = result.data().age
       this.user.id = result.data().id
       this.user.student = result.data().student
@@ -537,6 +570,7 @@ export class Form
       this.musical_instrument = result.data().musical_instrument
       this.meetingWith_ = result.data().meetingWith
       this.numOfMeeting_ = result.data().num_of_meetings
+      this.hours = result.data().hours
       this.gender_ = result.data().gender
       this.user.city = result.data().city
       this.user.street = result.data().street
@@ -545,6 +579,7 @@ export class Form
       this.selectedFav = result.data().favoriteNegibrhood
       this.radioClicked_fromDB(this.meetingWith, this.meetingWith_)
       this.radioClicked_fromDB(this.numOfMeeting, this.numOfMeeting_)
+      this.radioClicked_fromDB(this.hours, this.hours_)
       this.radioClicked_fromDB(this.gender, this.gender_)
 
     }).catch(error => {console.log(error)})
@@ -607,6 +642,7 @@ export class Form
         musicStyle: this.musicStyle,
         language: this.language,
         dayOfMeeting: this.dayOfMeeting,
+        hours: this.hours,
         familyMember: this.familyMember,
       })
       .then(() => {
@@ -624,6 +660,7 @@ export class Form
     {
       this.init(this.hobbies)
       this.init(this.numOfMeeting)
+      this.init(this.hours)
       this.init(this.gender)
       this.init(this.musicStyle)
       this.init(this.language)
@@ -694,15 +731,19 @@ export class Form
   }
   
 
-  radioClicked1(item: any, $event) {
-    this.radioClicked(item, this.time)
+  // radioClicked1(item: any, $event) {
+  //   this.radioClicked(item, this.time)
+  // }
+ radioClicked1(item: any, $event) {
+    this.hours_ = item.id
+    this.radioClicked(item, this.hours)
   }
 
   radioClicked2(item: any, $event) {
     this.numOfMeeting_ = item.id
     this.radioClicked(item, this.numOfMeeting)
   }
-
+ 
   radioClicked3(item: any, $event) {
     this.radioClicked(item, this.place)
   }

@@ -59,15 +59,15 @@ export class AlertProvider
     alert.present();
   }
   
-  showError_favoriteN()
-  {
-    let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle: 'חובה לבחור שכונות מועדפות להתנדבות' ,
-      buttons: ['אישור']
-    });
-    alert.present();
-  }
+  // showError_favoriteN()
+  // {
+  //   let alert = this.alertCtrl.create({
+  //     title: 'שגיאה',
+  //     subTitle: 'חובה לבחור שכונות מועדפות להתנדבות' ,
+  //     buttons: ['אישור']
+  //   });
+  //   alert.present();
+  // }
   
 
   showError_gender()
@@ -108,7 +108,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'חובה למלא ת"ז תקין כולל סיפרת ביקורת' ,
+      subTitle: 'תעודת הזהות אינה תקינה' ,
       buttons: ['אישור']
     });
     alert.present();
@@ -296,7 +296,15 @@ export class AlertProvider
     });
     alert.present();
   }
-
+  error_hours()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle:' חובה לבחור שעות מועדפות או לסמן כל שעה ביום',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
 
   error_emailIsAllreadyExist()
   {

@@ -19,7 +19,7 @@ export interface User
     description:string,
 
     student: boolean,
-    range: number,
+    // range: number,
     age: string,
     id: string,
     college: string

@@ -50,6 +50,945 @@
     direction: rtl;
 }
 
+<<<<<<< HEAD
 .select-searchable-group .item-md {
     direction: rtl;
 }
+=======
+.toolbar-background-md {
+    border-color: #b2b2b2;
+    background: #035445;
+    font-family: calibri;
+  }
+  
+  ion-app.md [margin], ion-app.md [margin] .scroll-content {
+    margin: 16px;
+    direction: rtl;
+  }
+  
+  .button-md {
+    background-color: #259262;
+  }
+  
+  .button-md:hover:not(.disable-hover) {
+    background-color: #fcbe47;
+  }
+  
+  .toolbar.toolbar-md {
+    direction: rtl;
+  }
+  
+  .ionic-selectable-group {
+    direction: rtl;
+  }
+  
+  .searchbar-md .searchbar-input {
+    background-color: #259262;
+    color: #FCBE47;
+    font-family: calibri;
+  }
+  
+  .ionic-selectable-item {
+    background-color: #035445;
+    color: #FCBE47;
+  }
+  
+  .searchbar-input {
+    text-align: right;
+  }
+  
+  .popover-md .popover-content {
+    direction: rtl;
+  }
+  
+  .alert-md .alert-head {
+    text-align: left;
+    text-align: start;
+    padding: 24px 24px 4px;
+    font-family: calibri;
+  }
+  
+  .alert-md .alert-title {
+    direction: rtl;
+    font-size: 22px;
+    padding-bottom: 11px;
+  }
+  
+  .alert-md .alert-sub-title {
+    direction: rtl;
+    font-size: 16px;
+  }
+  
+  .alert-md .alert-button .button-inner {
+    font-size: large;
+  }
+  
+  .adminPage {
+    font-family: calibri;
+  }
+  
+  .adminPage .buttons {
+    float: left;
+  }
+  
+  .adminPage .tableTitle {
+    text-align: center;
+  }
+  
+  .adminPage .titleAdmin {
+    float: left;
+    font-weight: bold;
+  }
+  
+  .adminPage #customers {
+    font-family: calibri;
+    border-collapse: collapse;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  
+  .adminPage #customers td,
+  .adminPage #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .adminPage #customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .adminPage #customers tr:hover {
+    background-color: #ddd;
+  }
+  
+  .adminPage #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: right;
+    background-color: #939393;
+    color: white;
+  }
+  
+  .adminPage #customers td {
+    text-align: right;
+    font-family: calibri;
+  }
+  
+  .adminPage .tables {
+    text-align: -webkit-center;
+  }
+  
+  .adminPage button {
+    display: inline-block;
+    color: white;
+    background: cadetblue;
+    text-align: center;
+    padding: 10px 18px;
+    text-decoration: none;
+    margin: 5px 0px 0px 0px;
+    border-radius: 15px;
+  }
+  
+  .contactPage {
+    font-family: Calibri;
+    background-color: #fffbd6;
+    /* Style inputs */
+    /* Centered text */
+  }
+  
+  .contactPage .button {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #eca8a9;
+    border: solid black 0px;
+    cursor: pointer !important;
+    border-radius: 50px;
+    -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    color: #035445;
+  }
+  
+  .contactPage .button:hover {
+    background-color: #FCBE47;
+    color: white;
+  }
+  
+  .contactPage input[type=text],
+  .contactPage [type=number],
+  .contactPage select,
+  .contactPage textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    text-align: right;
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .contactPage input[type=number]::-webkit-inner-spin-button,
+  .contactPage input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .contactPage input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .contactPage input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  .contactPage .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+  
+  .contactPage .contact {
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A6%D7%95%D7%A8%20%D7%A7%D7%A9%D7%A8%20.png?alt=media&token=eefb71e3-4aac-4d1a-b7e3-5fdffbc1ac95);
+  }
+  
+  .radio-md .radio-checked {
+    border-color: #259262;
+  }
+  
+  .styleMoreContact {
+    color: #FCBE47;
+    font-weight: bold;
+    font-family: calibri;
+    display: block;
+  }
+  
+  .contact {
+    margin: 0px 20px 0px 20px;
+  }
+  
+  .modal.red {
+    color: red;
+  }
+  
+  ion-content.formCSS {
+    color: #FCBE47;
+    background-color: #035445;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-size: 40%;
+    font-weight: bold;
+    text-align: right;
+    font-family: calibri;
+    /* Style inputs */
+    /* Style the container/contact section */
+    /* Create two columns that float next to eachother */
+    /* Clear floats after the columns */
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  }
+  
+  ion-content.formCSS .titleForm {
+    float: right;
+    text-align: right;
+    color: #fffbd8;
+    font-weight: bold;
+    font: calibri;
+  }
+  
+  ion-content.formCSS .mainTitle {
+    float: center !important;
+    text-align: center !important;
+    color: #fffbd8;
+    font-weight: bold;
+    font: calibri;
+  }
+  
+  ion-content.formCSS * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  ion-content.formCSS .Assistant input[type=text] {
+    width: auto;
+  }
+  
+  ion-content.formCSS input[type=text],
+  ion-content.formCSS input[type=password],
+  ion-content.formCSS input[type=number],
+  ion-content.formCSS select,
+  ion-content.formCSS textarea {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    padding: 12px;
+    padding-left: 5px;
+    border: 1px solid #259262;
+    resize: vertical;
+    background-color: #259262;
+  }
+  
+  ion-content.formCSS input[type=number]::-webkit-inner-spin-button,
+  ion-content.formCSS input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  ion-content.formCSS input[type=submit] {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #af4c4c96;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  ion-content.formCSS .button {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #eca8a9;
+    border: solid black 0px;
+    cursor: pointer !important;
+    border-radius: 50px;
+    -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    color: #035445;
+  }
+  
+  ion-content.formCSS .button:hover {
+    background-color: #FCBE47;
+    color: white;
+  }
+  
+  ion-content.formCSS .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+  }
+  
+  ion-content.formCSS .column {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+    padding: 20px;
+  }
+  
+  ion-content.formCSS .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  @media screen and (max-width: 600px) {
+    ion-content.formCSS .column,
+    ion-content.formCSS input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+    ion-content.formCSS .range1 {
+      display: none;
+    }
+    ion-content.formCSS .range {
+      display: block !important;
+    }
+  }
+  
+  ion-content.formCSS .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+  }
+  
+  ion-content.formCSS .slider:hover {
+    opacity: 1;
+  }
+  
+  ion-content.formCSS .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #af4c4c96;
+    cursor: pointer;
+  }
+  
+  ion-content.formCSS .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #945151;
+    cursor: pointer;
+  }
+  
+  ion-content.formCSS .checkbox-icon {
+    background: #68836d;
+    border-radius: 4px;
+    --height: 25px;
+    --width: 25px;
+  }
+  
+  ion-content.formCSS .checkbox-checked {
+    background-color: #259262;
+    border-color: #8f8781;
+  }
+  
+  ion-content.formCSS .label-checked {
+    color: black;
+  }
+  
+  ion-content.formCSS .radio-icon {
+    background: #68836d;
+    --color: #035445 !important;
+    --height: 35px;
+    --width: 35px;
+  }
+  
+  ion-content.formCSS .radio-inner {
+    background-color: #FCBE47;
+  }
+  
+  ion-content.formCSS .text-input text-input-md {
+    float: right;
+    background-color: #ffffff54;
+  }
+  
+  ion-content.formCSS .addPerson {
+    direction: rtl;
+    font-family: calibri;
+  }
+  
+  @media screen and (max-width: 600px) {
+    ion-content.formCSS #imgae-form {
+      width: 17rem !important;
+    }
+  }
+  
+  ion-content.formCSS ::-webkit-input-placeholder {
+    color: #e2dede;
+  }
+  
+  ion-content.formCSS ::-moz-placeholder {
+    color: #e2dede;
+  }
+  
+  ion-content.formCSS ::-ms-input-placeholder {
+    color: #e2dede;
+  }
+  
+  ion-content.formCSS ::placeholder {
+    color: #e2dede;
+  }
+  
+  .homePage {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/background-homepage.jpg?alt=media&token=efc1c1e0-ee3f-47df-a763-331f4aad97e9");
+    /* Add a black background color to the top navigation */
+    /* Style the links inside the navigation bar */
+    /* Change the color of links on hover */
+    /* Hide the link that should open and close the topnav on small screens */
+    /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+  }
+  
+  .homePage .item.item-trns {
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+  }
+  
+  .homePage body {
+    margin: 0;
+  }
+  
+  @media screen and (min-width: 601px) {
+    .homePage .wrapper {
+      position: relative;
+      max-width: 501px;
+      max-height: 388px;
+      width: 501px;
+      height: 388px;
+    }
+    .homePage .p1 {
+      top: 5%;
+      color: #08144A;
+      font-size: 20px;
+      left: 20%;
+      right: 5%;
+      padding: 0.25em 1.25em;
+      position: absolute;
+      font-family: Calibri;
+      width: 450px;
+    }
+    .homePage .video-col {
+      min-width: 420px;
+      min-height: 335px;
+      width: auto;
+      height: auto;
+      place-content: center;
+    }
+    .homePage .video {
+      width: 100%;
+      height: 100%;
+      place-content: center;
+    }
+  }
+  
+  @media screen and (max-width: 599px) and (min-width: 438px) {
+    .homePage .wrapper {
+      position: relative;
+      max-width: 501px;
+      max-height: 388px;
+      width: 501px;
+      height: 388px;
+    }
+    .homePage .p1 {
+      top: 5%;
+      color: #08144A;
+      font-size: 20px;
+      left: 20%;
+      right: 5%;
+      padding: 0.25em 1.25em;
+      position: absolute;
+      font-family: Calibri;
+      width: 450px;
+    }
+    .homePage .video-col {
+      min-width: 420px;
+      min-height: 335px;
+      width: auto;
+      height: auto;
+      place-content: center;
+    }
+    .homePage .video {
+      width: 100%;
+      height: 100%;
+      place-content: center;
+    }
+  }
+  
+  @media screen and (max-width: 437px) {
+    .homePage .wrapper {
+      position: relative;
+      min-width: 250px;
+      min-height: 200px;
+      width: auto;
+      height: auto;
+    }
+    .homePage .p1 {
+      color: #08144A;
+      font-size: 3.9vw;
+      padding: 0.25em 2em;
+      position: absolute;
+      font-family: Calibri;
+    }
+    .homePage .video-col {
+      min-width: 200px;
+      width: auto;
+      height: auto;
+      place-content: center;
+      min-height: 300px;
+    }
+    .homePage .video {
+      width: 100%;
+      height: 100%;
+      place-content: center;
+    }
+  }
+  
+  .homePage .HomePagetitle {
+    color: #17017c;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: Calibri;
+    text-align: center;
+  }
+  
+  .homePage .toolbar-content-md {
+    background: #ff5824 !important;
+    height: 53px;
+  }
+  
+  .homePage .toolbar-md {
+    padding: 0px 0px 0px 0px !important;
+    min-height: 0px !important;
+  }
+  
+  .homePage .navbarHome {
+    direction: rtl;
+    height: 53px;
+    background-color: #ff5824;
+    padding: 0px 0px 0px 0px !important;
+    width: calc(100% - 0px);
+    white-space: nowrap;
+    display: inline-block;
+    overflow: visible;
+    text-align: -webkit-center;
+  }
+  
+  .homePage .homePageText {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+  
+  .homePage #navbarHome {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .homePage .downHomePage {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .homePage ion-buttons {
+    direction: rtl;
+  }
+  
+  .homePage .navbarButton {
+    background: #ff5828;
+    text-align: center;
+    text-decoration: none;
+    border: 3px solid #fdbb4b00;
+    padding: 0 10px;
+    color: #FFFBD8;
+    -webkit-transition: color 0.4s ease 0s;
+    transition: color 0.4s ease 0s;
+    font-family: calibri;
+    font-size: 22px !important;
+    -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0px rgba(0, 0, 0, 0.2), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
+  }
+  
+  .homePage .button-md:hover:not(.disable-hover) {
+    color: #08144a !important;
+    background-color: #ff5828;
+  }
+  
+  .homePage .button {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    display: inline-block;
+    background-color: #ff5824;
+    border: solid black 0px;
+    cursor: pointer !important;
+    font-family: Calibri;
+    -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s !important;
+    transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    color: #FFFBD8;
+    padding: 0 1rem;
+    top: 10%;
+  }
+  
+  .homePage .button-inner {
+    font-family: Calibri;
+  }
+  
+  .homePage .homedetails {
+    direction: rtl;
+  }
+  
+  .homePage .homePageText {
+    position: absolute;
+    color: #08144A;
+    top: 45%;
+    left: 60%;
+    text-align: initial;
+    -webkit-transform: translate(-45%, -45%);
+    transform: translate(-45%, -45%);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 501px;
+    height: 388px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    font-family: calibri;
+    padding: 0px 10px 0px 10px;
+  }
+  
+  .homePage .greenButton {
+    margin: 0px 5px 0px 0px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #259262;
+    border: solid black 0px;
+    cursor: pointer !important;
+    border-radius: 50px;
+    -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .homePage .redButton {
+    margin: 0px 0px 0px 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #ff5828;
+    border: solid black 0px;
+    cursor: pointer !important;
+    border-radius: 50px;
+    -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    color: white;
+  }
+  
+  .homePage .greenButton:hover:not(.disable-hover) {
+    color: #08144a !important;
+    background-color: #259262;
+  }
+  
+  .homePage .twobuttons {
+    place-content: center;
+  }
+  
+  .homePage .pics {
+    width: 100%;
+    height: 100%;
+    border: 5px solid white;
+  }
+  
+  .homePage .slides {
+    height: 100%;
+  }
+  
+  .homePage .swiper-pagination-bullet-active {
+    background-color: #ff5828;
+    padding: inherit;
+  }
+  
+  .homePage .swiper-pagination-bullet {
+    background-color: #ff5828;
+    padding: inherit;
+  }
+  
+  .homePage .topnav {
+    background: #ff5824 !important;
+    overflow: hidden;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    direction: rtl;
+  }
+  
+  .homePage .icon {
+    float: right;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    direction: rtl;
+  }
+  
+  .homePage .topnav a:hover {
+    color: #08144a;
+  }
+  
+  .homePage .topnav .icon {
+    display: none;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .homePage .topnav a {
+      display: none;
+    }
+    .homePage .topnav a.icon {
+      float: right;
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .homePage .topnav.responsive {
+      position: relative;
+      text-align: -webkit-center;
+    }
+    .homePage .topnav.responsive .icon {
+      position: absolute;
+      text-align: -webkit-center;
+      right: 0;
+      top: 0;
+    }
+    .homePage .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+    .homePage .coverImg {
+      min-height: 95px !important;
+    }
+  }
+  
+  .homePage ion-col.thin-col {
+    margin-right: 0px;
+    width: 450px;
+  }
+  
+  .homePage .imgnew {
+    width: 50rem;
+    border: 36px solid #fffbdc;
+    margin: 30px;
+    padding: 12rem;
+    -o-border-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=20c8d863-602a-45b8-8d84-4ba1fc1eab26") 110 round;
+    border-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%98%D7%A7%D7%A1%D7%98%20%D7%93%D7%A3%20%D7%91%D7%99%D7%AA.png?alt=media&token=20c8d863-602a-45b8-8d84-4ba1fc1eab26") 110 round;
+    background: #fffbdc;
+    border-image-outset: 3rem;
+  }
+  
+  .login-page {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 40%;
+    font-family: calibri;
+    background-color: #08144a;
+    color: #FCBE47;
+  }
+  
+  .login-page .titleLogin {
+    font-size: xx-large;
+    font-weight: bold;
+  }
+  
+  .login-page * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .login-page input[type=text],
+  .login-page input[type=password],
+  .login-page input[type=number],
+  .login-page select,
+  .login-page textarea {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    padding: 12px;
+    border: 1px solid #307cc1;
+    resize: vertical;
+    background-color: #307cc1;
+  }
+  
+  .login-page input[type=submit] {
+    background-color: #af4c4c96;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: -webkit-center;
+    margin: 0px 8px;
+  }
+  
+  .login-page input[type=submit]:hover {
+    background-color: #945151;
+  }
+  
+  .login-page .button {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #eca8a9;
+    border: solid black 0px;
+    cursor: pointer !important;
+    border-radius: 50px;
+    -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    color: #035445;
+  }
+  
+  .login-page .button:hover {
+    background-color: #FCBE47;
+    color: white;
+  }
+  
+  .login-page {
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 40%;
+    background-color: #08144a;
+    color: #FCBE47;
+  }
+  
+  .login-page .titleLogin {
+    font-size: xx-large;
+    font-weight: bold;
+  }
+  
+  .login-page * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .login-page input[type=text],
+  .login-page input[type=password],
+  .login-page input[type=number],
+  .login-page select,
+  .login-page textarea {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    padding: 12px;
+    border: 1px solid #307cc1;
+    resize: vertical;
+    background-color: #307cc1;
+  }
+  
+  .login-page .button {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: #eca8a9;
+    border: solid black 0px;
+    cursor: pointer !important;
+    border-radius: 50px;
+    -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+    -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+    color: #035445;
+  }
+  
+  .login-page .button:hover {
+    background-color: #FCBE47;
+    color: white;
+  }
+  
+>>>>>>> 9a85eaf5d310e73e0b1d746417af16ce7ae67642
