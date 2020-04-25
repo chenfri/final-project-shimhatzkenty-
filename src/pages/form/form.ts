@@ -232,7 +232,7 @@ export class Form
  
 
   legalID(numberID) {
-    var tot = 0;
+    var temp = 0;
     var ID =new String(numberID)
 
     while (ID.length < 9) 
@@ -250,10 +250,10 @@ export class Form
                   y =String(x)
                   x=Number(y.charAt(0))+Number(y.charAt(1))
                 }
-          tot += x;
+          temp += x;
         }
     
-    if ((tot+Number(ID.charAt(8)))%10 == 0) {
+    if ((temp+Number(ID.charAt(8)))%10 == 0) {
        console.log("OK");
       return true;
     } 
