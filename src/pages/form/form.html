@@ -94,6 +94,8 @@ background-attachment: fixed !important;">
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
                                <ionic-selectable item-content 
+                                    [canClear]="true"
+                                    clearButtonText="נקה"
                                     [(ngModel)]="selectedNH" 
                                     name="name" 
                                     [items]="neighborhoods" 
