@@ -94,6 +94,8 @@ background-attachment: fixed !important;">
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
                                <ionic-selectable item-content 
+                                    [canClear]="true"
+                                    clearButtonText="נקה"
                                     [(ngModel)]="selectedNH" 
                                     name="name" 
                                     [items]="neighborhoods" 
@@ -148,7 +150,7 @@ background-attachment: fixed !important;">
                     </ion-col>
                 </ion-col> -->
 
-                <ion-row class="range" style="   display: none;">
+                <!-- <ion-row class="range" style="   display: none;">
                     <ion-col>
                         <ion-col *ngIf="!user.elderly" style="direction: ltr;">
                             <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
@@ -160,7 +162,7 @@ background-attachment: fixed !important;">
                 </label>
                         </ion-col>
                     </ion-col>
-                </ion-row>
+                </ion-row> -->
             </ion-row>
 
 

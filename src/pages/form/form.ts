@@ -266,9 +266,18 @@ export class Form
     return phoneRe.test(digits);
   }
   
+ 
+
   legalID(numberID) {
-    var tot = 0;
+    var temp = 0;
     var ID =new String(numberID)
+
+    while (ID.length < 9) 
+        ID = "0" + ID;
+
+    console.log(ID)
+
+
     for (var i=0; i<8; i++)
         {
           var y;
@@ -278,10 +287,10 @@ export class Form
                   y =String(x)
                   x=Number(y.charAt(0))+Number(y.charAt(1))
                 }
-          tot += x;
+          temp += x;
         }
     
-    if ((tot+Number(ID.charAt(8)))%10 == 0) {
+    if ((temp+Number(ID.charAt(8)))%10 == 0) {
        console.log("OK");
       return true;
     } 
@@ -291,6 +300,7 @@ export class Form
   }
   }
 
+  
 
   //check that all user inputs are legal
   check_field_value()

@@ -25,7 +25,7 @@ export class PopoverPage {
   // public dayOfMeeting_ = new Array();neighborhoods_= new Array();
 
  
-  public familyMember: any[]; gender: any[] ; musicStyle: any[]
+  public familyMember: any[]; gender: any[] ; musicStyle: any[]; address: any[];
   public language: any[] ; meetingWith: any[] ;musical_instrument: any[]
   public dayOfMeeting: any[] ; organization: any[] ; neighborhoods: any[]
   public hobbies: any[] ; time: any[] ; numOfMeeting: any[]; hours: any[];
@@ -46,7 +46,6 @@ export class PopoverPage {
    this.user.id = null
    this.user.contact = null
    this.user.description = null
-   // this.user.range = 0
    this.user.age = null
    this.user.dateTime = null
    this.familyMember = null
@@ -64,6 +63,7 @@ export class PopoverPage {
    this.hours = this.array.hours
    this.place = this.array.place
    this.gender = this.array.gender
+   
    this.musicStyle = this.array.musicStyle
    this.language = this.array.language
    this.meetingWith = this.array.meetingWith
@@ -110,9 +110,12 @@ export class PopoverPage {
       this.numOfMeeting = result.data().num_of_meetings
       this.hours = result.data().hours
       this.gender = result.data().gender
-      this.user.city = result.data().city
-      this.user.street = result.data().street
-      this.selectedNH = result.data().neighborhood
+      this.address = result.data().address
+      console.log(this.address)
+      this.user.dateTime = result.data().dateTime
+      // this.user.city = result.data().city
+      // this.user.street = result.data().street
+      // this.selectedNH = result.data().neighborhood
       this.user.hideMusic = result.data().hideMusic
       this.selectedFav = result.data().favoriteNegibrhood
       // this.getSpeciesfromDB(this.hobbies)
