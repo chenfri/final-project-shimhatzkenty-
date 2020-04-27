@@ -103,44 +103,44 @@ export class Form
       this.getData_fromFirebaseVol();
     }
   
-    this.send_email()
+   // this.send_email()
   }
 
 
-  send_email(){
+  // send_email(){
 
-    const mailjet = require ('node-mailjet')
-    .connect('fbb59eb741c07100d2c2b56d5d586014', 'bbc13feb1d433ffcbbcaaf83014f4c38')
-    const request = mailjet
-    .post("send", {'version': 'v3.1'})
-    .request({
-      "Messages":[
-        {
-          "From": {
-            "Email": "chenfriedman93@gmail.com",
-            "Name": "chen"
-          },
-          "To": [
-            {
-              "Email": "chenfriedman93@gmail.com",
-              "Name": "chen"
-            }
-          ],
-          "Subject": "Greetings from Mailjet.",
-          "TextPart": "My first Mailjet email",
-          "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
-        }
-      ]
-    })
-    request
-      .then((result) => {
-        console.log(result.body)
-      })
-      .catch((err) => {
-        console.log(err.statusCode)
-      })
+  //   const mailjet = require ('node-mailjet')
+  //   .connect('fbb59eb741c07100d2c2b56d5d586014', 'bbc13feb1d433ffcbbcaaf83014f4c38')
+  //   const request = mailjet
+  //   .post("send", {'version': 'v3.1'})
+  //   .request({
+  //     "Messages":[
+  //       {
+  //         "From": {
+  //           "Email": "chenfriedman93@gmail.com",
+  //           "Name": "chen"
+  //         },
+  //         "To": [
+  //           {
+  //             "Email": "chenfriedman93@gmail.com",
+  //             "Name": "chen"
+  //           }
+  //         ],
+  //         "Subject": "Greetings from Mailjet.",
+  //         "TextPart": "My first Mailjet email",
+  //         "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+  //       }
+  //     ]
+  //   })
+  //   request
+  //     .then((result) => {
+  //       console.log(result.body)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.statusCode)
+  //     })
     
-  }
+  // }
 
 
   async registry()

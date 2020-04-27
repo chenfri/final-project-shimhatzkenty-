@@ -29,7 +29,6 @@
         "@ionic-native/splash-screen": "~4.20.0",
         "@ionic-native/status-bar": "~4.20.0",
         "@ionic/storage": "2.2.0",
-        "@sendgrid/mail": "^7.0.1",
         "@swimlane/ngx-datatable": "^16.0.2",
         "@types/papaparse": "^5.0.2",
         "angularfire2": "^5.2.3",
