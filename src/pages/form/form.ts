@@ -17,6 +17,7 @@ import { ModalPage } from '../modal/modal';
 @Component({
   selector: 'page-form',
   templateUrl: 'form.html',
+ 
 })
 
 export class Form 
@@ -101,7 +102,49 @@ export class Form
       this.user.hideForm = true
       this.getData_fromFirebaseVol();
     }
+  
+  //  this.send_email()
+  }
 
+
+  send_email(){
+
+    const mailjet = require ('node-mailjet')
+    .connect('fbb59eb741c07100d2c2b56d5d586014', 'bbc13feb1d433ffcbbcaaf83014f4c38')
+    const request = mailjet
+    .post("send", {'version': 'v3.1'})
+    .request({
+      "Messages":[
+        {
+          "From": {
+            "Email": "chenfriedman93@gmail.com",
+            "Name": "chen"
+          },
+          "To": [
+            {
+              "Email": "chenfriedman93@gmail.com",
+              "Name": "chen"
+            }
+          ],
+          "Subject": "Greetings from Mailjet.",
+          "TextPart": "My first Mailjet email",
+          "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+          "CustomID": "AppGettingStartedTest",
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+          
+        }
+      ]
+    })
+    request
+      .then((result) => {
+        console.log(result.body)
+      })
+      .catch((err) => {
+        console.log(err.statusCode)
+      })
     
   }
 
@@ -603,14 +646,17 @@ export class Form
 
   arrangeAddress()
   {
-    let temp = "לא צויין"
+    let temp = ""
     if(this.selectedNH != null)
       temp = this.selectedNH.species + ", "
     if(this.user.street != null)
       temp += this.user.street + ", "
     if (this.user.city != null)
       temp += " " + this.user.city
-    
+      
+    if(temp == "")
+      temp = "לא צויין"
+
     this.fixedAddress =  temp
   }
 

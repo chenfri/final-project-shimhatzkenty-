@@ -42,22 +42,21 @@
 
         <table id="customers">
             <tr>
-                <!-- <th>מחק משתמש</th> -->
+                <th>מחק משתמש</th>
                 <th>תאריך הרשמה</th>
                 <th>כתובת</th>
                 <th>טלפון</th>
                 <th>שם מלא</th>
             </tr>
             <tr *ngFor="let value of userV">
-                <!-- <td><button (click)="deleteVolunteerUser(value[4])">[x]</button></td> -->
+                <td><button (click)="deleteVolunteerUser(value[4])">[x]</button></td>
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
                 <td>0{{value[1]}}</td>
                 <td>
                     <button ion-button icon-only (click)="openPopover($event, value[4])">
                          <ion-icon name="more"></ion-icon>
-                    </button>
-                    {{value[0]}}
+                    </button> {{value[0]}}
                 </td>
             </tr>
         </table><br><br>

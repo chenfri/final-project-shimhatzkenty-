@@ -101,6 +101,17 @@ export class adminPage
   }
  
 
+  // modal for 'more details' on the users
+  async openPopover(event , uid)
+  {
+    console.log('uid: ',uid)
+    let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid});
+    popover.present({
+      ev: event
+    });
+  }
+
+
   deleteMessage(item)
   {
       const db = firebase.firestore();
@@ -121,25 +132,24 @@ export class adminPage
     });
   }
 
-    click_home()
-    {
-      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
-    }
 
-    add_AdminUser()
-    {
-      this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
-    }
+  click_home()
+  {
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+  }
 
 
-  // ------------------------------- function not in used --------------------------------------
+  add_AdminUser()
+  {
+    this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+  }
+
 
   deleteElderlyUser(item)
   {
     this.deleteUserFromFirebase(item, 'ElderlyUsers')
-    
   }
-  
+
 
   deleteVolunteerUser(item)
   {
@@ -147,132 +157,62 @@ export class adminPage
   }
  
 
-  
-  CheckWhichOrganization(id)
-  {
-    const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(id).get()
-    .then(result => {
-      if (!result.exists) return
-      this.organizations = result.data().organization;
-        
-      for (let i = 0; i < this.organizations.length; i++) {
-            this.organizationName = this.organizations[i].species;
-            console.log("organization.func :  " + this.organizationName)
-
-          }
-      }    
-      )
-  }
-
-
   deleteUserFromFirebase(item, collectionName)
   {
-
     let array = [] ,student = [], orgs = [], k = 0 , j = 0  , l = 0     
     const db = firebase.firestore();
     
     let alert = this.alertCtrl.create({
-      title: 'אזהרה',
-      subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את המשתמש?' ,
-      buttons: [
-        {
-          text: 'לא',
-          handler: () => {
-            console.log('no clicked');
-          }
-        },
-        {
-          text: 'כן',
-          role: 'cancel',
-          handler: () => {
-            console.log('yes clicked');
-            const db = firebase.firestore();
-              
-            db.collection(collectionName).doc(item).delete().then(function()
-            {
-              console.log("Document successfully deleted!");
-      
-              db.collection(collectionName).get().then(res => { res.forEach(i => {
-                if(i.data().student == true) //if student
-                {
-                  console.log("a")
-                  student[j] =
-                  [ i.data().fullName,
-                    i.data().phone,
-                    i.data().id,
-                    i.id
-                  ]
-                  j++;
-                } 
-
-                else if(i.data().behalf == true ) //if organization
-                {
-                  console.log("b")
-                  this.CheckWhichOrganization(i.id);
-                  
-                  setTimeout(() =>
-                  {     
-                    console.log("organization:  " + this.organization)
-                    if(this.organization != null)
-                    {
-                      orgs[l] = 
-                      [
-                        i.data().fullName,
-                        i.data().phone,
-                        i.data().contact,
-                        this.organization,
-                        i.id,
-                      ]
-                      l++;
-                    }
-                  }, 500); 
-                }
-                 array[k] = // regular details
-                [ i.data().fullName,
-                  i.data().phone,
-                  i.data().address,
-                  i.id]
-                  k++})}).catch(error => {console.log(error)})
-
-
-            }).catch(function(error) {
-              console.error("Error removing document: ", error);
-            });
+    title: 'אזהרה',
+    subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את המשתמש?' ,
+    buttons: [
+    {
+      text: 'כן',
+      role: 'cancel',
+      handler: () => {
+      console.log('yes clicked');
+      const db = firebase.firestore();
             
-            console.log(array)
+      db.collection(collectionName).doc(item).delete().then(function()
+      {
+        console.log("Document successfully deleted!");
 
-            if(collectionName === 'ElderlyUsers')
-            {
-              this.userE = array
-              if(orgs != undefined || orgs != null)
-              {
-                console.log("orgs ",orgs)
-                this.organizationEledry = orgs
-              }
-            }
-            else
-            {
-              this.userV = array
-              if(student != undefined || student != null)
-              {
-                console.log("student " ,student)
-                this.userStudent = student
-              }
-            }    
-          }
+        db.collection(collectionName).get().then(res => { res.forEach(i => {
+        if(i.data().student == true) //get all students document
+        {
+          student[j] =
+          [ i.data().fullName,
+            i.data().phone,
+              i.data().id,
+              i.id ]
+            j++;
+        } 
+            array[k] = // get all volunteer users document
+            [ i.data().fullName,
+            i.data().phone,
+            i.data().address,
+            i.id]
+            k++})}).catch(error => {console.log(error)})
+
+
+      }).catch(function(error) {
+        console.error("Error removing document: ", error);
+      });
+          
+      this.userV = array
+      if(student != undefined || student != null)
+        this.userStudent = student          
+    }
+      },
+      {
+        text: 'לא',
+        handler: () => {
+          console.log('no clicked');
         }
-      ]
-    });
+      }
+    ]
+  });
     alert.present();
   }
-
-  async openPopover(event , uid){
-    console.log('uid: ',uid)
-    let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid});
-    popover.present({
-      ev: event
-    });
-}
 
 }
