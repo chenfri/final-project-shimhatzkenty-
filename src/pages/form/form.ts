@@ -103,7 +103,7 @@ export class Form
       this.getData_fromFirebaseVol();
     }
   
-  //  this.send_email()
+    this.send_email()
   }
 
 
@@ -129,12 +129,6 @@ export class Form
           "Subject": "Greetings from Mailjet.",
           "TextPart": "My first Mailjet email",
           "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
-          "CustomID": "AppGettingStartedTest",
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-          
         }
       ]
     })
@@ -653,7 +647,7 @@ export class Form
       temp += this.user.street + ", "
     if (this.user.city != null)
       temp += " " + this.user.city
-      
+
     if(temp == "")
       temp = "לא צויין"
 

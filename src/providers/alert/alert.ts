@@ -309,8 +309,8 @@ export class AlertProvider
   error_emailIsAllreadyExist()
   {
     let alert = this.alertCtrl.create({
-      title: 'שגיאה',
-      subTitle:'כתובת הדוא"ל כבר קיימת המערכת',
+      title: 'כתובת הדוא"ל כבר קיימת במערכת',
+      subTitle:'יש לבצע התחברות למערכת עם כתובת דוא"ל וסיסמא',
       buttons: ['אישור']
     });
     alert.present();
