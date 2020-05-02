@@ -102,10 +102,10 @@ export class adminPage
  
 
   // modal for 'more details' on the users
-  async openPopover(event , uid)
+  async openPopover(event , uid, userType)
   {
     console.log('uid: ',uid)
-    let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid});
+    let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid ,'userType': userType });
     popover.present({
       ev: event
     });

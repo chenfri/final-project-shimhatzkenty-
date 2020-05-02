@@ -1,4 +1,5 @@
 .adminPage {
+    background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/marble-background.webp?alt=media&token=98fbb916-1c30-4f2f-a0a0-1be15e441d65");
     font-family: calibri;
     .buttons {
         float: left;
@@ -23,6 +24,9 @@
     }
     #customers tr:nth-child(even) {
         background-color: #f2f2f2;
+    }
+    #customers tr:nth-child(odd) {
+        background-color: #ffffff;
     }
     #customers tr:hover {
         background-color: #ddd;
@@ -51,7 +55,8 @@
         margin: 5px 0px 0px 0px;
         border-radius: 15px;
     }
-    .info-button{
-        // background: white !important;
+    .ion-ios-information-circle-outline:before {
+        color: cadetblue;
+        font-weight: bolder;
     }
 }
