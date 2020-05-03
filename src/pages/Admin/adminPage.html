@@ -33,7 +33,11 @@
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
                 <td>{{value[1]}}</td>
-                <td>{{value[0]}}</td>
+                <td>
+                    <a class="info-button" (click)="openPopover($event, value[6], 'elderly')">
+                        <ion-icon name="ios-information-circle-outline"></ion-icon> 
+                    </a> 
+               {{value[0]}}</td>
             </tr>
         </table><br><br>
 
@@ -54,9 +58,9 @@
                 <td>{{value[2]}}</td>
                 <td>0{{value[1]}}</td>
                 <td>
-                    <button class="info-button" ion-button icon-only (click)="openPopover($event, value[4])">
-                         <ion-icon name="more"></ion-icon> 
-                    </button> {{value[0]}}
+                    <a class="info-button" (click)="openPopover($event, value[4], 'volunteer')">
+                        <ion-icon name="ios-information-circle-outline"></ion-icon> 
+                    </a> {{value[0]}}
                 </td>
             </tr>
         </table><br><br>
