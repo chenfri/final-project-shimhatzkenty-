@@ -184,14 +184,17 @@ export class adminPage
           [ i.data().fullName,
             i.data().phone,
               i.data().id,
+              i.data().college,
+              i.data().dateTime,
               i.id ]
             j++;
         } 
             array[k] = // get all volunteer users document
-            [ i.data().fullName,
-            i.data().phone,
-            i.data().address,
-            i.id]
+            [  i.data().fullName,
+              i.data().phone,
+              i.data().address,
+              i.data().dateTime,
+              i.id]
             k++})}).catch(error => {console.log(error)})
 
 
