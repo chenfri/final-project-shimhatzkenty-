@@ -43,7 +43,19 @@ export class HomePage
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
+
+
+    //this code is for call sendEmail from backend (firebase Functions)
+    // let sendEmail = firebase.functions().httpsCallable('sendEmail');
+    // sendEmail({text: "messageText"}).then(function(result) {
+    //   let sanitizedMessage = result.data.text;
+    // }).catch(function(error) {
+    //   let code = error.code;
+    //   let message = error.message;
+    //   let details = error.details;
+    // });
   }
+
 
 
 scrollToBottom() {
