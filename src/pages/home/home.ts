@@ -142,18 +142,22 @@ scrollToBottom() {
   get_data_for_admin()
   {
     let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
-    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = []
+    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = [] , tmpPhone = ""
    
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
+    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { 
+      if(i.data().contact != null)
+      tmpPhone = "0" +i.data().contact
+      elderly[k] =
       [ i.data().fullName,
         i.data().phone,
         i.data().address,
         i.data().nameAssistant,
-        i.data().contact,
+        tmpPhone,
         i.data().dateTime,
         i.id]
-        k++})}).catch(error => {console.log(error)})
+        k++
+        tmpPhone =""})}).catch(error => {console.log(error)})
 
     
 

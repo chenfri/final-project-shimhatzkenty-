@@ -32,19 +32,19 @@
                 <td>{{value[4]}}</td>
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
-                <td>{{value[1]}}</td>
+                <td>0{{value[1]}}</td>
                 <td>
                     <a class="info-button" (click)="openPopover($event, value[6], 'elderly')">
-                        <ion-icon name="ios-information-circle-outline"></ion-icon> 
-                    </a> 
-               {{value[0]}}</td>
+                        <ion-icon name="ios-information-circle-outline"></ion-icon>
+                    </a>
+                    {{value[0]}}</td>
             </tr>
         </table><br><br>
 
         <h4 class="tableTitle">:מתנדבים שנרשמו</h4>
         <button type="submit" (click)="csvFile(userV, 'volunteer' ,false)">ייצוא טבלת מתנדבים לאקסל</button><br><br>
 
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <th>מחק משתמש</th>
                 <th>תאריך הרשמה</th>
@@ -59,7 +59,7 @@
                 <td>0{{value[1]}}</td>
                 <td>
                     <a class="info-button" (click)="openPopover($event, value[4], 'volunteer')">
-                        <ion-icon name="ios-information-circle-outline"></ion-icon> 
+                        <ion-icon name="ios-information-circle-outline"></ion-icon>
                     </a> {{value[0]}}
                 </td>
             </tr>
@@ -67,7 +67,7 @@
 
         <h4 class="tableTitle">:סטודנטים שנרשמו</h4>
         <button type="submit" (click)="csvFile(userStudent , 'student', false)">ייצוא טבלת סטודנטים לאקסל</button><br><br>
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <th>מוסד אקדמי</th>
                 <th>תעודת זהות</th>
@@ -84,7 +84,7 @@
 
         <h4 class="tableTitle">:קשישים שנרשמו דרך יד שרה</h4>
         <button type="submit" (click)="csvFile(organizationEledry['יד שרה'], 'organization' ,true)">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <th>שם הארגון</th>
                 <th>פלאפון איש קשר</th>
@@ -104,7 +104,7 @@
 
         <h4 class="tableTitle">:קשישים שנרשמו דרך מלבב</h4>
         <button type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization', true)">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <th>שם הארגון</th>
                 <th>פלאפון איש קשר</th>
@@ -125,7 +125,7 @@
 
         <h4 class="tableTitle">:קשישים שנרשמו דרך עזר מציון</h4>
         <button type="submit" (click)="csvFile(organizationEledry['עזר מציון'] ,'organization' ,true)">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <th>שם הארגון</th>
                 <th>פלאפון איש קשר</th>
@@ -146,7 +146,7 @@
 
         <h4 class="tableTitle">:קשישים שנרשמו דרך ארגונים אחרים</h4>
         <button type="submit" (click)="csvFile(organizationEledry['אחר'] ,'organization' ,true)">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <th>שם הארגון</th>
                 <th>פלאפון איש קשר</th>
@@ -164,7 +164,7 @@
         </table><br><br>
 
         <h4 class="tableTitle">הודעות</h4>
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <th>מחק הודעה</th>
                 <th>טלפון</th>
@@ -176,7 +176,7 @@
             <tr *ngFor="let value of messages">
                 <td><button (click)="deleteMessage(value.id)">[x]</button></td>
                 <td>{{value.data.message}}</td>
-                <td>{{value.data.phoneNumber}}</td>
+                <td>0{{value.data.phoneNumber}}</td>
                 <td>{{value.data.fullName}}</td>
             </tr>
         </table>
