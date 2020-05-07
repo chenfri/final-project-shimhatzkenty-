@@ -17,7 +17,8 @@
         color: red;
     }
     
-    // .description textarea {  //only for android app 
+    // .description textarea {
+    //     //only for android app 
     //     padding: 0px !important;
     // }
     ion-content.formCSS {
@@ -198,4 +199,8 @@
          ::placeholder {
             color: rgb(226, 222, 222);
         }
+        // .label_android {
+        //     //only for android app
+        //     font-size: 12px;
+        // }
     }
