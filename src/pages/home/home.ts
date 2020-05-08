@@ -192,14 +192,23 @@ scrollToBottom() {
         j++})}).catch(error => {console.log(error)})
 
 
-
-    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{
+      
+    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>
+  {
+      var ID = new String(i.data().id)
+      if(String(i.data().id).length < 9)
+      {
+        var ID = new String(i.data().id)
+        while (ID.length < 9) 
+          ID = "0" + ID;
+      }
+       
       if(i.data().student == true)
       {
         students[t] =
         [ i.data().fullName,
           i.data().phone,
-          i.data().id,
+          ID,
           i.data().college,
           i.data().dateTime,
           i.id

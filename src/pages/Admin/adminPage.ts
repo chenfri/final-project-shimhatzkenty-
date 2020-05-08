@@ -27,6 +27,7 @@ export class adminPage
   headerRow: any[] = []
   public organizations: any[]
 
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public alertCtrl: AlertController , public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
   {
@@ -38,10 +39,6 @@ export class adminPage
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
  
-    console.log(this.organizationEledry)
-    //console.log("volunteer ", this.userV)
-   // console.log("userE ", this.userE)
-
   }
 
 
@@ -101,10 +98,10 @@ export class adminPage
   }
  
 
-  // modal for 'more details' on the users
+  // modal for get 'more details' about the users
   async openPopover(event , uid, userType)
   {
-    console.log('uid: ',uid)
+    //console.log('uid: ',uid)
     let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid ,'userType': userType });
     popover.present({
       ev: event
@@ -116,17 +113,18 @@ export class adminPage
   {
       const db = firebase.firestore();
       let message =[] ,l = 0 
-      db.collection('message').doc(item).delete().then(() =>{
+      db.collection('message').doc(item).delete().then(() =>
+      {
         this.alert.showAlert_deleteMessage()
         console.log("Document successfully deleted!");
         
-      db.collection('message').get().then(res => {res.forEach(i =>{message[l]={
-        data: i.data() ,
-        id : i.id }
-        l++})}).catch(error => {console.log(error)})
-        this.messages = message
-        console.log(this.messages)
-    
+        db.collection('message').get().then(res => {res.forEach(i =>{message[l] = {
+          data: i.data() ,
+          id : i.id }
+          l++})}).catch(error => {console.log(error)})
+          this.messages = message
+          console.log(this.messages)
+      
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
