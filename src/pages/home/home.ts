@@ -54,6 +54,16 @@ export class HomePage
     //   let message = error.message;
     //   let details = error.details;
     // });
+
+
+    //   let sendSms = firebase.functions().httpsCallable('sendSms1');
+    //   sendSms({text: "messageText"}).then(function(result) {
+    //   let sanitizedMessage = result.data.text;
+    // }).catch(function(error) {
+    //   let code = error.code;
+    //   let message = error.message;
+    //   let details = error.details;
+    // });
   }
 
 
