@@ -2,8 +2,16 @@
     background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/marble-background.webp?alt=media&token=98fbb916-1c30-4f2f-a0a0-1be15e441d65");
     font-family: calibri;
     .buttons {
-        float: left;
+        display: inline-block;
+        color: white;
+        background: cadetblue;
+        text-align: center;
+        padding: 10px 18px;
+        text-decoration: none;
+        margin: 5px 0px 0px 0px;
+        border-radius: 15px;
     }
+  
     .tableTitle {
         text-align: center;
     }
@@ -45,15 +53,11 @@
     .tables {
         text-align: -webkit-center;
     }
-    button {
-        display: inline-block;
-        color: white;
-        background: cadetblue;
-        text-align: center;
-        padding: 10px 18px;
-        text-decoration: none;
-        margin: 5px 0px 0px 0px;
-        border-radius: 15px;
+    
+
+    .ion-radio {
+        --color	:red;
+        --color-checked: #75D154;
     }
     .ion-ios-information-circle-outline:before {
         color: cadetblue;

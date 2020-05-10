@@ -30,5 +30,6 @@ export interface User
 
     hideForm: boolean,
     hideMusic: boolean,
+    match: boolean
 }
 

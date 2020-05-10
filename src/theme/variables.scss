@@ -38,10 +38,27 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  adminpagebutton: #5f9ea0
 );
 
+:root {
+  --ion-color-adminpagebutton: #5f9ea0;
+  --ion-color-adminpagebutton-rgb: 95,158,160;
+  --ion-color-adminpagebutton-contrast: #000000;
+  --ion-color-adminpagebutton-contrast-rgb: 0,0,0;
+  --ion-color-adminpagebutton-shade: #548b8d;
+  --ion-color-adminpagebutton-tint: #6fa8aa;
+}
 
+.ion-color-adminpagebutton {
+  --ion-color-base: var(--ion-color-adminpagebutton);
+  --ion-color-base-rgb: var(--ion-color-adminpagebutton-rgb);
+  --ion-color-contrast: var(--ion-color-adminpagebutton-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-adminpagebutton-contrast-rgb);
+  --ion-color-shade: var(--ion-color-adminpagebutton-shade);
+  --ion-color-tint: var(--ion-color-adminpagebutton-tint);
+}
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

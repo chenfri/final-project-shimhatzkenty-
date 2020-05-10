@@ -26,6 +26,9 @@ export class adminPage
   csvData: any[] = []
   headerRow: any[] = []
   public organizations: any[]
+  public matchPeople: any[]
+  public matchE: any;
+  public matchV: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public alertCtrl: AlertController , public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
@@ -38,7 +41,10 @@ export class adminPage
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
  
-    console.log(this.organizationEledry)
+
+    
+
+    console.log(this.userV)
     //console.log("volunteer ", this.userV)
    // console.log("userE ", this.userE)
 
@@ -218,4 +224,51 @@ export class adminPage
     alert.present();
   }
 
+  elderlyRadioClicked(numElderly){
+
+    this.matchE = this.userE[numElderly][6]; 
+    this.userE[numElderly][8] = true;
+
+    for(var i=0 ; i<this.userE.length; i++)
+        if(numElderly!=i)
+          this.userE[i][8] = false;
+
+
+    console.log("idEled ",this.matchE)
+    console.log(this.userE)
+  }
+  
+  volunteerRadioClicked(numVolunteer){
+    this.matchV = this.userV[numVolunteer][4]; 
+    this.userV[numVolunteer][6] = true;
+
+    for(var i=0 ; i<this.userV.length; i++)
+        if(numVolunteer!=i)
+          this.userV[i][6] = false;
+
+
+    console.log("idVol ",this.matchV)
+    console.log(this.userV)
+
+  }
+
+  matching(){
+   this.matchPeople = [this.matchE ,this.matchV]
+
+   this.matchE = null;
+   this.matchV = null;
+
+   for(var i=0 ; i<this.userE.length; i++)
+      this.userE[i][8] = false;
+
+   for(var i=0 ; i<this.userV.length; i++)
+      this.userV[i][6] = false;
+
+
+   console.log(this.matchPeople)   
+   console.log(this.matchE)
+   console.log(this.matchV)
+
+
+  }
 }

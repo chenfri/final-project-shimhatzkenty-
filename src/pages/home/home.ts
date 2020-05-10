@@ -134,13 +134,16 @@ scrollToBottom() {
    
     const db = firebase.firestore();
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
-      [ i.data().fullName,
+      [ 
+        i.data().fullName,
         i.data().phone,
         i.data().address,
         i.data().nameAssistant,
         i.data().contact,
         i.data().dateTime,
-        i.id]
+        i.id,
+        k,
+        i.data().match=false]
         k++})}).catch(error => {console.log(error)})
 
     
@@ -167,11 +170,14 @@ scrollToBottom() {
 
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
       volunteer[j] =
-      [ i.data().fullName,
+      [
+        i.data().fullName,
         i.data().phone,
         i.data().address,
         i.data().dateTime,
-        i.id
+        i.id,
+        j,
+        i.data().match=false
       ]
         j++})}).catch(error => {console.log(error)})
 
