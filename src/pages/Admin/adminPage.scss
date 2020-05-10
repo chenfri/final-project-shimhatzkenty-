@@ -63,4 +63,45 @@
         color: cadetblue;
         font-weight: bolder;
     }
+
+    @media screen and (max-width: 600px) {
+        table {
+            width: 390px;
+        }
+        #customers th,
+        #customers td {
+            padding: 4px !important;
+        }
+        #customers tr {
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
+        }
+    }
+    @media screen and (max-width: 400px) {
+        table {
+            width: 300px;
+        }
+        #customers th,
+        #customers td {
+            padding: 4px !important;
+        }
+        #customers tr {
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
+        }
+    }
+    @media screen and (max-width: 340px) {
+        table {
+            width: 250px;
+        }
+        #customers th,
+        #customers td {
+            padding: 4px !important;
+            font-size: 8px;
+        }
+        #customers tr {
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
+        }
+    }
 }

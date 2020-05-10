@@ -93,17 +93,7 @@ background-attachment: fixed !important;">
                     <ion-row>
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
-                               <ionic-selectable item-content 
-                                    [canClear]="true"
-                                    clearButtonText="נקה"
-                                    [(ngModel)]="selectedNH" 
-                                    name="name" 
-                                    [items]="neighborhoods" 
-                                    itemValueField="id" 
-                                    itemTextField="species" 
-                                    [canSearch]="true" 
-                                    searchplaceholder="חיפוש"
-                                    (onChange)="select_neighborhood($event)">
+                            <ionic-selectable item-content [canClear]="true" clearButtonText="נקה" [(ngModel)]="selectedNH" name="name" [items]="neighborhoods" itemValueField="id" itemTextField="species" [canSearch]="true" searchplaceholder="חיפוש" (onChange)="select_neighborhood($event)">
                                 <ng-template ionicSelectableCloseButtonTemplate>
                                     <ion-icon name="close-circle" style="font-size: 24px; color: white;"></ion-icon>
                                 </ng-template>
@@ -139,8 +129,8 @@ background-attachment: fixed !important;">
                     </ion-row>
                 </ion-col>
 
-               <ion-col class="range1"></ion-col> 
-                    <!--  <ion-col *ngIf="!user.elderly" style="direction: ltr;">
+                <ion-col class="range1"></ion-col>
+                <!--  <ion-col *ngIf="!user.elderly" style="direction: ltr;">
                         <label style="float: right;">:מרחק נסיעה מקסימלי בק"מ</label><br>
                         <label style="color:white;float: right;">הזז/י את הקובייה ימינה לסמן את המרחק הרצוי מביתך </label>
                         <label style="float: right; width: 100%;" *ngIf="!user.elderly">
@@ -200,7 +190,7 @@ background-attachment: fixed !important;">
                 <!-------------------------------- just for elderly ------------------------------------------->
                 <ion-col *ngIf="user.elderly">
                     <ion-item no-lines style="background-color:#ffffff00">
-                        <ion-label style="color:#FCBE47;font-style: calibri;text-align: right; font-weight:bold;"> אני ממלא את הטופס עבור מישהו אחר</ion-label>
+                        <ion-label class="label_android" style="color:#FCBE47;font-style: calibri;text-align: right; font-weight:bold;"> אני ממלא את הטופס עבור מישהו אחר</ion-label>
                         <ion-checkbox item-right [checked]="user.onBehalf" (click)="onbehalf()"></ion-checkbox>
                     </ion-item>
 
@@ -371,7 +361,7 @@ background-attachment: fixed !important;">
                             </ion-item>
                         </ion-list>
                     </ion-col>
-                    
+
                     <!-------------------------------- just for volunteer -------------------------------------------->
 
                     <ion-col *ngIf="!user.elderly && !user.student"><br>
@@ -400,17 +390,7 @@ background-attachment: fixed !important;">
                         <br><br>
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
-                            <ionic-selectable item-content 
-                                [canClear]="true"
-                                clearButtonText="נקה"
-                                addButtonText="בחר"
-                                [(ngModel)]="selectedFav"
-                                name="nameN" 
-                                [isMultiple]="true" 
-                                [items]="neighborhoods" 
-                                itemTextField="species"
-                                [canSearch]="true" 
-                                (onChange)="selectVol_neighborhood($event)">
+                            <ionic-selectable item-content [canClear]="true" clearButtonText="נקה" addButtonText="בחר" [(ngModel)]="selectedFav" name="nameN" [isMultiple]="true" [items]="neighborhoods" itemTextField="species" [canSearch]="true" (onChange)="selectVol_neighborhood($event)">
                                 <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
                                     <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'primary' : null">
                                     </ion-icon>

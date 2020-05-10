@@ -43,7 +43,29 @@ export class HomePage
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
+
+
+    //this code is for call sendEmail from backend (firebase Functions)
+    // let sendEmail = firebase.functions().httpsCallable('sendEmail');
+    // sendEmail({text: "messageText"}).then(function(result) {
+    //   let sanitizedMessage = result.data.text;
+    // }).catch(function(error) {
+    //   let code = error.code;
+    //   let message = error.message;
+    //   let details = error.details;
+    // });
+
+
+    //   let sendSms = firebase.functions().httpsCallable('sendSms1');
+    //   sendSms({text: "messageText"}).then(function(result) {
+    //   let sanitizedMessage = result.data.text;
+    // }).catch(function(error) {
+    //   let code = error.code;
+    //   let message = error.message;
+    //   let details = error.details;
+    // });
   }
+
 
 
 scrollToBottom() {
@@ -130,16 +152,18 @@ scrollToBottom() {
   get_data_for_admin()
   {
     let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
-    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = []
+    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = [] , tmpPhone = ""
    
     const db = firebase.firestore();
-    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { elderly[k] =
-      [ 
-        i.data().fullName,
+    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { 
+      if(i.data().contact != null)
+      tmpPhone = "0" +i.data().contact
+      elderly[k] =
+      [ i.data().fullName,
         i.data().phone,
         i.data().address,
         i.data().nameAssistant,
-        i.data().contact,
+        tmpPhone,
         i.data().dateTime,
         i.id,
         k,
@@ -182,14 +206,23 @@ scrollToBottom() {
         j++})}).catch(error => {console.log(error)})
 
 
-
-    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{
+      
+    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>
+  {
+      var ID = new String(i.data().id)
+      if(String(i.data().id).length < 9)
+      {
+        var ID = new String(i.data().id)
+        while (ID.length < 9) 
+          ID = "0" + ID;
+      }
+       
       if(i.data().student == true)
       {
         students[t] =
         [ i.data().fullName,
           i.data().phone,
-          i.data().id,
+          ID,
           i.data().college,
           i.data().dateTime,
           i.id

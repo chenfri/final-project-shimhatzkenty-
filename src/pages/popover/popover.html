@@ -1,99 +1,120 @@
-
- <ion-list style="direction:rtl;">
-  <ion-list-header>     מידע נוסף על {{this.user.fullName}}</ion-list-header>
-
-
-  <ion-item><ion-label>שם מלא: {{this.user.fullName}}</ion-label></ion-item>
-  <ion-item><ion-label>פלאפון: {{this.user.phone}}</ion-label></ion-item>
-  <ion-item><ion-label>אימייל: {{this.user.email }}</ion-label></ion-item>
-  <ion-item *ngIf="this.volunteer"><ion-label>גיל: {{this.user.age }}</ion-label></ion-item>
-  <ion-item *ngIf="this.volunteer"><ion-label>תעודת זהות: {{ this.user.id }}</ion-label></ion-item>
-  <ion-item *ngIf="this.volunteer && this.gender ==1 "><ion-label>מין: נקבה</ion-label></ion-item>
-  <ion-item *ngIf="this.volunteer && this.gender ==2 "><ion-label >מין: זכר</ion-label></ion-item>
-  <ion-item *ngIf="this.volunteer && this.gender ==3 "><ion-label>מין: לא צויין</ion-label></ion-item>
-  <ion-item><ion-label>כתובת: {{ this.address}}</ion-label></ion-item>
-  <ion-item *ngIf="this.volunteer && this.user.student "><ion-label> סטודנט/ית במכללת {{ this.user.college }}</ion-label></ion-item>
-  <ion-item><ion-label>נרשם בתאריך: {{this.user.dateTime}}</ion-label></ion-item>
-
-  <ion-item>
-    <ion-row>תחומי עיניין ותחביבים:</ion-row>
-    <ion-row *ngFor="let value of this.hobbies">
-      <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
-    </ion-row>
-  </ion-item>
-
-  <ion-item>
-    <ion-row > שפות:</ion-row >
-    <ion-row   *ngFor="let value of this.language ">
-      <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
-    </ion-row  >
-  </ion-item>
-
-  <ion-item>
-      <ion-row> ימים מועדפים למפגש:</ion-row>
-      <ion-row *ngFor="let value of this.dayOfMeeting">
-        <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
-      </ion-row>
-  </ion-item>
-  
-<ion-item *ngIf= "this.user.hideMusic">
-  <ion-row> סגנון מוזיקלי מועדף:</ion-row>
-  <ion-row *ngFor="let value of this.musicStyle">
-    <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
-  </ion-row>
-</ion-item>
-
-  <ion-item *ngIf= "this.user.hideMusic && this.volunteer">
-    <ion-row> כלי נגינה:</ion-row>
-    <ion-row *ngFor="let value of this.musical_instrument ">
-      <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
-    </ion-row>
- </ion-item>
-  
-  <ion-item>מעוניין להיפגש עם:
-    <ion-row *ngIf=" this.meetingWith  == 1">אין העדפה</ion-row>
-    <ion-row *ngIf="this.meetingWith  == 2">נשים בלבד</ion-row>
-    <ion-row *ngIf="this.meetingWith  == 3">גברים בלבד</ion-row>
-  </ion-item> 
+<ion-list style="direction:rtl;">
+    <ion-list-header> מידע נוסף על {{this.user.fullName}}</ion-list-header>
 
 
- <ion-item>
-    <ion-row>שעות מועדפות:</ion-row>
-    <ion-row *ngFor="let value of this.hours ">
-      <ion-row *ngIf="value.currentValue">{{ value.species }}</ion-row>
-    </ion-row>
-  </ion-item>
+    <ion-item>
+        <ion-label>שם מלא: {{this.user.fullName}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>פלאפון: 0{{this.user.phone}}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>אימייל: {{this.user.email }}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="this.volunteer">
+        <ion-label>גיל: {{this.user.age }}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="this.volunteer">
+        <ion-label>תעודת זהות: {{ this.user.id }}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="this.volunteer && this.gender ==1 ">
+        <ion-label>מין: נקבה</ion-label>
+    </ion-item>
+    <ion-item *ngIf="this.volunteer && this.gender ==2 ">
+        <ion-label>מין: זכר</ion-label>
+    </ion-item>
+    <ion-item *ngIf="this.volunteer && this.gender ==3 ">
+        <ion-label>מין: לא צויין</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>כתובת: {{ this.address}}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="this.volunteer && this.user.student ">
+        <ion-label> סטודנט/ית במכללת {{ this.user.college }}</ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>נרשם בתאריך: {{this.user.dateTime}}</ion-label>
+    </ion-item>
 
-  <ion-item *ngIf="this.volunteer">
-      <ion-row  >שכונות מועדפות להתנדבות:</ion-row>
-      <ion-row *ngFor="let value of this.selectedFav">
-        <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
-      </ion-row>
-  </ion-item>
+    <ion-item>
+        <ion-row>תחומי עיניין ותחביבים:</ion-row>
+        <ion-row *ngFor="let value of this.hobbies">
+            <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
+        </ion-row>
+    </ion-item>
 
-  <ion-item *ngIf="!this.volunteer && this.user.onBehalf">
-    פרטים על ממלא הטופס עבור הקשיש:
-    <ion-row>שם: {{ this.user.nameAssistant }}</ion-row>
-    <ion-row>פלאפון: {{ this.user.contact }}</ion-row>
-    <ion-row *ngIf = "this.relationship != null && this.relationship == 1 ">הקרבה לקשיש: בעל</ion-row>   
-    <ion-row *ngIf = "this.relationship != null && this.relationship == 2 ">הקרבה לקשיש: אישה</ion-row>   
-    <ion-row *ngIf = "this.relationship != null && this.relationship == 3 ">הקרבה לקשיש: בן/בת</ion-row>   
-    <ion-row *ngIf = "this.relationship != null && this.relationship == 4 ">הקרבה לקשיש: נכד</ion-row>   
-    <ion-row *ngIf = "this.relationship != null && this.relationship == 5 ">הקרבה לקשיש: עובד סוציאלי</ion-row>   
-    <ion-row *ngIf = "this.relationship != null && this.relationship == 6 ">הקרבה לקשיש: רכז קהילתי</ion-row>   
-    <ion-row *ngIf = "this.relationship != null && this.relationship == 7 ">סוג הקרבה לקשיש: {{this.user.relationName}}</ion-row>   
+    <ion-item>
+        <ion-row> שפות:</ion-row>
+        <ion-row *ngFor="let value of this.language ">
+            <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
+        </ion-row>
+    </ion-item>
 
-    <ion-row *ngIf = "this.orgi != null && this.orgi == 1 ">שם האירגון: יד שרה </ion-row>   
-    <ion-row *ngIf = "this.orgi != null && this.orgi == 2 ">שם האירגון: מלב"ב </ion-row>   
-    <ion-row *ngIf = "this.orgi != null && this.orgi == 3 ">שם האירגון: עזר מציון </ion-row>   
-    <ion-row *ngIf = "this.orgi != null && this.orgi == 4 ">שם האירגון:  {{this.user.orgName}}</ion-row>   
-  </ion-item>
+    <ion-item>
+        <ion-row> ימים מועדפים למפגש:</ion-row>
+        <ion-row *ngFor="let value of this.dayOfMeeting">
+            <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
+        </ion-row>
+    </ion-item>
 
-  <ion-item *ngIf="!this.volunteer && this.user.description!=null">
-    <ion-row  >קצת על הקשיש:</ion-row  >
-    <ion-row  > {{this.user.description}}</ion-row  >
+    <ion-item *ngIf="this.user.hideMusic">
+        <ion-row> סגנון מוזיקלי מועדף:</ion-row>
+        <ion-row *ngFor="let value of this.musicStyle">
+            <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
+        </ion-row>
+    </ion-item>
 
-  </ion-item>
+    <ion-item *ngIf="this.user.hideMusic && this.volunteer">
+        <ion-row> כלי נגינה:</ion-row>
+        <ion-row *ngFor="let value of this.musical_instrument ">
+            <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
+        </ion-row>
+    </ion-item>
 
-  
+    <ion-item>מעוניין להיפגש עם:
+        <ion-row *ngIf=" this.meetingWith  == 1">אין העדפה</ion-row>
+        <ion-row *ngIf="this.meetingWith  == 2">נשים בלבד</ion-row>
+        <ion-row *ngIf="this.meetingWith  == 3">גברים בלבד</ion-row>
+    </ion-item>
+
+
+    <ion-item>
+        <ion-row>שעות מועדפות:</ion-row>
+        <ion-row *ngFor="let value of this.hours ">
+            <ion-row *ngIf="value.currentValue">{{ value.species }}</ion-row>
+        </ion-row>
+    </ion-item>
+
+    <ion-item *ngIf="this.volunteer">
+        <ion-row>שכונות מועדפות להתנדבות:</ion-row>
+        <ion-row *ngFor="let value of this.selectedFav">
+            <ion-col *ngIf="value.currentValue">{{ value.species }}</ion-col>
+        </ion-row>
+    </ion-item>
+
+    <ion-item *ngIf="!this.volunteer && this.user.onBehalf">
+        פרטים על ממלא הטופס עבור הקשיש:
+        <ion-row>שם: {{ this.user.nameAssistant }}</ion-row>
+        <ion-row>פלאפון: {{ this.user.contact }}</ion-row>
+        <ion-row *ngIf="this.relationship != null && this.relationship == 1 ">הקרבה לקשיש: בעל</ion-row>
+        <ion-row *ngIf="this.relationship != null && this.relationship == 2 ">הקרבה לקשיש: אישה</ion-row>
+        <ion-row *ngIf="this.relationship != null && this.relationship == 3 ">הקרבה לקשיש: בן/בת</ion-row>
+        <ion-row *ngIf="this.relationship != null && this.relationship == 4 ">הקרבה לקשיש: נכד</ion-row>
+        <ion-row *ngIf="this.relationship != null && this.relationship == 5 ">הקרבה לקשיש: עובד סוציאלי</ion-row>
+        <ion-row *ngIf="this.relationship != null && this.relationship == 6 ">הקרבה לקשיש: רכז קהילתי</ion-row>
+        <ion-row *ngIf="this.relationship != null && this.relationship == 7 ">סוג הקרבה לקשיש: {{this.user.relationName}}</ion-row>
+
+        <ion-row *ngIf="this.orgi != null && this.orgi == 1 ">שם האירגון: יד שרה </ion-row>
+        <ion-row *ngIf="this.orgi != null && this.orgi == 2 ">שם האירגון: מלב"ב </ion-row>
+        <ion-row *ngIf="this.orgi != null && this.orgi == 3 ">שם האירגון: עזר מציון </ion-row>
+        <ion-row *ngIf="this.orgi != null && this.orgi == 4 ">שם האירגון: {{this.user.orgName}}</ion-row>
+    </ion-item>
+
+    <ion-item *ngIf="!this.volunteer && this.user.description!=null">
+        <ion-row>קצת על הקשיש:</ion-row>
+        <ion-row> {{this.user.description}}</ion-row>
+
+    </ion-item>
+
+
 </ion-list>

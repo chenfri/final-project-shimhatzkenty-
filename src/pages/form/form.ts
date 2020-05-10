@@ -103,45 +103,10 @@ export class Form
       this.user.hideForm = true
       this.getData_fromFirebaseVol();
     }
-  
-   // this.send_email()
+
   }
 
 
-  // send_email(){
-
-  //   const mailjet = require ('node-mailjet')
-  //   .connect('fbb59eb741c07100d2c2b56d5d586014', 'bbc13feb1d433ffcbbcaaf83014f4c38')
-  //   const request = mailjet
-  //   .post("send", {'version': 'v3.1'})
-  //   .request({
-  //     "Messages":[
-  //       {
-  //         "From": {
-  //           "Email": "chenfriedman93@gmail.com",
-  //           "Name": "chen"
-  //         },
-  //         "To": [
-  //           {
-  //             "Email": "chenfriedman93@gmail.com",
-  //             "Name": "chen"
-  //           }
-  //         ],
-  //         "Subject": "Greetings from Mailjet.",
-  //         "TextPart": "My first Mailjet email",
-  //         "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
-  //       }
-  //     ]
-  //   })
-  //   request
-  //     .then((result) => {
-  //       console.log(result.body)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.statusCode)
-  //     })
-    
-  // }
 
 
   async registry()
@@ -269,36 +234,36 @@ export class Form
   
  
 
-  legalID(numberID) {
+  legalID(numberID)
+  {
     var temp = 0;
-    var ID =new String(numberID)
+    var ID = new String(numberID)
 
     while (ID.length < 9) 
         ID = "0" + ID;
 
-    console.log(ID)
 
-
-    for (var i=0; i<8; i++)
+    for (var i = 0; i < 8; i++)
+    {
+      var y;
+      var x = (((i%2) + 1) * Number(ID.charAt(i)));
+      
+        if (x > 9)
         {
-          var y;
-            var x = (((i%2)+1)*Number(ID.charAt(i)));
-            if (x > 9)
-                {
-                  y =String(x)
-                  x=Number(y.charAt(0))+Number(y.charAt(1))
-                }
-          temp += x;
+          y = String(x)
+          x = Number(y.charAt(0)) + Number(y.charAt(1))
         }
+      temp += x;
+    }
     
-    if ((temp+Number(ID.charAt(8)))%10 == 0) {
-       console.log("OK");
+    if ((temp + Number(ID.charAt(8))) % 10 == 0) {
+       console.log("ID IS OK");
       return true;
     } 
     else {
-      console.log("NOT OK")
+      console.log("ID IS NOT OK")
       return false;
-  }
+    }
   }
 
   
@@ -315,7 +280,7 @@ export class Form
     phone = temp.concat("",phone);
     contact = temp.concat("",contact);
 
-    this.checkIfPhoneExist() 
+    //this.checkIfPhoneExist() 
 
     setTimeout(() => 
     {
@@ -335,15 +300,15 @@ export class Form
         flag = 1;
       }
 
-      else if (returnValue.phoneExist == 1 && !this.user.loggedIn) {
-        this.alert.error_phoneIsAllreadyExist()
-        flag = 1;
-      }
+      // else if (returnValue.phoneExist == 1 && !this.user.loggedIn) {
+      //   this.alert.error_phoneIsAllreadyExist()
+      //   flag = 1;
+      // }
 
-      else if (returnValue.phoneExist == 2) {
-        this.alert.error_phoneIsAllreadyExist()
-        flag = 1;
-      }
+      // else if (returnValue.phoneExist == 2) {
+      //   this.alert.error_phoneIsAllreadyExist()
+      //   flag = 1;
+      // }
   
       else if (!this.user.elderly && (this.user.id == null || !this.legalID(String(this.user.id))))
       {
