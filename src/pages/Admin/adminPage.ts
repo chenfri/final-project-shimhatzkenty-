@@ -42,12 +42,8 @@ export class adminPage
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
  
-
-   
+    console.log(this.userE)
     console.log(this.userV)
-    //console.log("volunteer ", this.userV)
-   // console.log("userE ", this.userE)
-
   }
 
 
@@ -110,7 +106,6 @@ export class adminPage
   // modal for get 'more details' about the users
   async openPopover(event , uid, userType)
   {
-    //console.log('uid: ',uid)
     let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid ,'userType': userType });
     popover.present({
       ev: event
@@ -253,7 +248,8 @@ export class adminPage
 
   }
 
-  matching(){
+  manual_matching()
+  {
    this.matchPeople = [this.matchE ,this.matchV]
 
    this.matchE = null;
@@ -269,7 +265,118 @@ export class adminPage
    console.log(this.matchPeople)   
    console.log(this.matchE)
    console.log(this.matchV)
+  }
 
 
+
+  matchingAlgorithm()
+  {
+    const db = firebase.firestore();
+    for(let i = 0; i < this.userV.length; i++)
+    {
+      let arrMatch = [] , j = 0 
+      for(let l = 0; l < this.userE.length; l++)
+      {
+        let grade = 0;
+        if(this.userV[i][13] == this.userE[l][15])
+          grade +=1
+        grade += this.checkMatchArr(this.userV[i][8], this.userE[l][10]) //days
+       // console.log("after days ", grade)
+        grade += this.checkMatchArr(this.userV[i][9], this.userE[l][11]) //hobbies
+       // console.log("after hobbies ", grade)
+        grade += this.checkMatchArr(this.userV[i][10], this.userE[l][12]) //hours
+     //   console.log("after hours ", grade)
+        grade += this.checkMatchArr(this.userV[i][11], this.userE[l][13]) //language
+      //  console.log("after language ", grade)
+        grade += this.checkMatchArr(this.userV[i][12], this.userE[l][14]) //musicStyle
+
+      console.log("totle grade is: ", grade)
+      let temp = {"grade": grade, "id": this.userE[l][6]}
+      if(j < 3)
+      {
+        //insert temp to arrMatch with sorting way
+        this.sortArr(arrMatch, j , temp , grade)
+        j++;
+      }
+      else // check if the grade need to inserted to arrMatch
+        this.update_gradesArr(arrMatch, grade, temp)
+        
+    }
+    console.log(arrMatch)
+    db.collection('volunteerUsers').doc(this.userV[i][4]).update(
+      {
+        arrMatch: arrMatch
+      }).catch((error) => {console.log(error)})
+      
+    }
+  } 
+
+
+  //the method check if the volunteer and the eldery chose the same options in the form
+  checkMatchArr(arrV, arrE)
+  {
+    let grade = 0
+      for(let i = 0 ; i < arrV.length; i++)
+      {
+        if(arrV[i].currentValue && arrE[i].currentValue)
+          grade+= 1
+      }
+    return grade;
+  }
+
+
+  update_gradesArr(arr, grade, temp)
+  {
+      if(grade >= arr[0].grade)
+      {
+        arr[2] = arr[1]
+        arr[1] = arr[0]
+        arr[0] = temp
+      }
+      else if(grade <= arr[1].grade && grade >= arr[2].grade)
+      arr[2] = temp
+
+      else if(grade < arr[0].grade && grade >= arr[1].grade)
+      {
+        arr[2] = arr[1]
+        arr[1] = temp
+      }
+      return arr
+  }
+
+
+  // sort arr[3] of grades
+  sortArr(arrMatch, j , temp , grade)
+  {
+    if(j == 0)
+    arrMatch[0] = temp
+    else if(j == 1)
+    {
+      if(grade > arrMatch[0].grade)
+      {
+        arrMatch[1] = arrMatch[0]
+        arrMatch[0] = temp
+      }
+      else(grade < arrMatch[0].grade)
+        arrMatch[1] = temp
+
+    }
+
+    else if (j == 2)
+    {
+      if(grade >= arrMatch[0].grade)
+      {
+        arrMatch[2] = arrMatch[1]
+        arrMatch[1] = arrMatch[0]
+        arrMatch[0] = temp
+      }
+      else if(grade < arrMatch[0].grade && grade >= arrMatch[1].grade)
+      {
+        arrMatch[2] = arrMatch[1]
+        arrMatch[1] = temp
+      }
+      else
+        arrMatch[2] = temp
+    }
   }
 }

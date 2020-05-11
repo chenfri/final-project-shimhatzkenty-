@@ -557,7 +557,7 @@ export class Form
         this.init_arrays()
         this.navCtrl.setRoot(HomePage ,{'login':this.user.loggedIn})
       }).catch((error) => {
-        console.log
+        console.log(error)
       })
   }
 
@@ -674,7 +674,7 @@ export class Form
         this.init_arrays()
         this.navCtrl.setRoot(HomePage)
       }).catch((error) => {
-        console.log
+        console.log(error)
       })
   }
 
