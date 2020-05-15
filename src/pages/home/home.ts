@@ -174,7 +174,8 @@ scrollToBottom() {
         i.data().hours,
         i.data().language,
         i.data().musicStyle,
-        i.data().meetingWith]
+        i.data().meetingWith,
+        i.data().matching]
         k++})}).catch(error => {console.log(error)})
 
     

@@ -268,8 +268,34 @@ export class adminPage
   }
 
 
+//the method saved the match in 'matching' fileld in elderly and voolunteer document
+  matchingAlgorithm(arrMatch, db ,i)
+  {
+    for(let k = 0; k < 3; k++)
+    {
+      if(this.userE[arrMatch[k].index][16] == null)
+      {
+        let elderID = arrMatch[k].id
+        this.userE[arrMatch[k].index][16] = this.userV[i][4]
+        db.collection('ElderlyUsers').doc(elderID).update(
+          {
+            matching: this.userV[i][4]
+          }).catch((error) => {console.log(error)})
+    
+    
+        db.collection('volunteerUsers').doc(this.userV[i][4]).update(
+          {
+            arrMatch: arrMatch,
+            matching: elderID
+          }).catch((error) => {console.log(error)})
+        break;
+      }
+    }
+  }
 
-  matchingAlgorithm()
+
+  //the method find the matches for all voolunteer and save it in 'arrMatch'
+  findMatches()
   {
     const db = firebase.firestore();
     for(let i = 0; i < this.userV.length; i++)
@@ -290,8 +316,8 @@ export class adminPage
       //  console.log("after language ", grade)
         grade += this.checkMatchArr(this.userV[i][12], this.userE[l][14]) //musicStyle
 
-      console.log("totle grade is: ", grade)
-      let temp = {"grade": grade, "id": this.userE[l][6]}
+   //   console.log("totle grade is: ", grade)
+      let temp = {"grade": grade, "id": this.userE[l][6], index: l}
       if(j < 3)
       {
         //insert temp to arrMatch with sorting way
@@ -300,13 +326,10 @@ export class adminPage
       }
       else // check if the grade need to inserted to arrMatch
         this.update_gradesArr(arrMatch, grade, temp)
-        
     }
-    console.log(arrMatch)
-    db.collection('volunteerUsers').doc(this.userV[i][4]).update(
-      {
-        arrMatch: arrMatch
-      }).catch((error) => {console.log(error)})
+
+    //   console.log(arrMatch)
+    this.matchingAlgorithm(arrMatch, db ,i)
       
     }
   } 
@@ -325,6 +348,7 @@ export class adminPage
   }
 
 
+  //insert new grade to array in sort way
   update_gradesArr(arr, grade, temp)
   {
       if(grade >= arr[0].grade)
@@ -345,11 +369,12 @@ export class adminPage
   }
 
 
-  // sort arr[3] of grades
+  // The method puts the first three grades in an sort way
   sortArr(arrMatch, j , temp , grade)
   {
     if(j == 0)
-    arrMatch[0] = temp
+      arrMatch[0] = temp
+
     else if(j == 1)
     {
       if(grade > arrMatch[0].grade)
@@ -357,9 +382,8 @@ export class adminPage
         arrMatch[1] = arrMatch[0]
         arrMatch[0] = temp
       }
-      else(grade < arrMatch[0].grade)
+      else if(grade <= arrMatch[0].grade)
         arrMatch[1] = temp
-
     }
 
     else if (j == 2)
@@ -375,8 +399,9 @@ export class adminPage
         arrMatch[2] = arrMatch[1]
         arrMatch[1] = temp
       }
-      else
+      else 
         arrMatch[2] = temp
     }
   }
+  
 }
