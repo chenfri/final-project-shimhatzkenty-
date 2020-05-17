@@ -251,7 +251,15 @@ export class adminPage
   manual_matching()
   {
    this.matchPeople = [this.matchE ,this.matchV]
-
+   const db = firebase.firestore();    
+   
+   db.collection("ElderlyUsers").doc(this.matchE).update({
+      match: this.matchV
+   }) 
+   db.collection("ElderlyUsers").doc(this.matchV).update({
+      match: this.matchE
+   }) 
+    
    this.matchE = null;
    this.matchV = null;
 

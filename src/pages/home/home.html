@@ -13,6 +13,7 @@
         <a class="navbarButton" ion-button *ngIf="!user.Admin && !user.loggedIn" (click)="volunteer_form()">הרשם כמתנדב</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin && user.loggedIn" (click)="volunteer_form()">עריכת פרטים אישיים</a>
         <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" get_data_for_admin()">מאגר נרשמים ודוחות</a >
+        <a class="navbarButton" ion-button *ngIf="user.Admin" (click)="matchPage()">צפייה בהתאמות</a >
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="scrollToBottom()">גלריה</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</a>
         <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="logout()">התנתק</a >

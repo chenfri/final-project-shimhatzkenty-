@@ -12,6 +12,7 @@ import {Observable} from 'rxjs/Observable'
 import {Functions} from '../../providers/functions'
 import { Slides } from 'ionic-angular';
 import { Arrays } from '../../providers/arrays'
+import { MatchPage} from '../match/match';
 
 @Component({
   selector: 'page-home',
@@ -109,6 +110,9 @@ scrollToBottom() {
     var x = document.getElementById("topNav");
     x.className = "topnav";
     this.navCtrl.push(contactPage, {'login': this.user.loggedIn })
+  }
+  matchPage() {
+    this.navCtrl.push(MatchPage , {'login': this.user.loggedIn })
   }
   
 
