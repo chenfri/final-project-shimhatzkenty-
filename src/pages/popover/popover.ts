@@ -19,11 +19,6 @@ import { Arrays } from '../../providers/arrays'
 export class PopoverPage {
   user = {} as User;
 
-  // public hobbies_ = new Array(); hours_ = new Array();organization_= new Array() ; gender_ = new Array();
-  // public meetingWith_ = new Array(); numOfMeeting_ = new Array();  relationship_= new Array() ; 
-  // public place_= new Array(); musicStyle_ = new Array(); language_ = new Array(); 
-  // public dayOfMeeting_ = new Array();neighborhoods_= new Array();
-
  
   public familyMember: any[]; gender: any[] ; musicStyle: any[]; address: any[];
   public language: any[] ; meetingWith: any[] ;musical_instrument: any[]
@@ -93,17 +88,22 @@ export class PopoverPage {
     this.viewCtrl.dismiss();
   }
 
-  getDataFromFirebase(uid, userType){
-    if(userType == "volunteer"){
+  getDataFromFirebase(uid, userType)
+  {
+    if(userType == "volunteer")
+    {
       this.getData_fromFirebaseVol(uid);
       this.volunteer= true;
     }
-    else if(userType == "elderly"){
+
+    else if(userType == "elderly")
+    {
       this.volunteer = false;
       this.getData_fromFirebaseElderlyUsers(uid);
     }
 
   }
+  
 
   getData_fromFirebaseVol(uid)
   {

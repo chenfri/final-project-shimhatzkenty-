@@ -50,6 +50,8 @@ export class Form
     this.user.volunteer = this.params.get('volunteer')
 
     //update variables
+    this.user.matching = null
+    this.user.email = null
     this.selectedFav = null
     this.selectedNH = null
     this.user.orgName = null
@@ -290,7 +292,7 @@ export class Form
           flag = 1;
       }
   
-      else if (typeof (this.user.email) === "undefined" || !this.validateEmail(this.user.email)) {
+      else if (!this.user.elderly && (typeof (this.user.email) == null || !this.validateEmail(this.user.email))) {
         this.alert.error_illegalEmail()
         flag = 1;
       }
@@ -557,7 +559,7 @@ export class Form
         this.init_arrays()
         this.navCtrl.setRoot(HomePage ,{'login':this.user.loggedIn})
       }).catch((error) => {
-        console.log
+        console.log(error)
       })
   }
 
@@ -643,6 +645,7 @@ export class Form
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc().set(
       {
+        matching: this.user.matching,
         fullName: this.user.fullName,
         address: this.fixedAddress,
         city: this.user.city,
@@ -674,7 +677,7 @@ export class Form
         this.init_arrays()
         this.navCtrl.setRoot(HomePage)
       }).catch((error) => {
-        console.log
+        console.log(error)
       })
   }
 

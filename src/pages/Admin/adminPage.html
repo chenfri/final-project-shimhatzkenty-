@@ -13,9 +13,11 @@
         </ion-row>
     </ion-grid> <br><br>
 
+    <button class="buttons" type="submit" (click)="findMatches()">הפעל את אלגוריתם ההתאמה</button>
+
     <div class="tables">
         <h4 class="tableTitle">:קשישים שנרשמו</h4>
-        <button  class="buttons" type="submit" (click)="csvFile(userE ,'eledry', false)">ייצוא טבלת קשישים לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry', false)">ייצוא טבלת קשישים לאקסל</button><br><br>
         <table id="customers">
             <tr>
                 <!-- <th>מחק משתמש</th> -->
@@ -35,19 +37,19 @@
                 <td>{{value[2]}}</td>
                 <td>0{{value[1]}}</td>
                 <td>
-                    <a class="info-button" (click)="openPopover($event, value[6], 'elderly')">
-                        <ion-icon name="ios-information-circle-outline"></ion-icon> 
-                    </a> 
+                    <a class="info-button" (openPopoverclick)="openPopover($event, value[6], 'elderly')">
+                        <ion-icon name="ios-information-circle-outline"></ion-icon>
+                    </a>
                     {{value[0]}}
-               </td>
-               <td style="text-align: center;">
-                     <ion-radio [checked]="value[8]" (click)="elderlyRadioClicked(value[7])" color="adminpagebutton"></ion-radio>
+                </td>
+                <td style="text-align: center;">
+                    <ion-radio [checked]="value[8]" (click)="elderlyRadioClicked(value[7])" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
         </table><br><br>
 
         <h4 class="tableTitle">:מתנדבים שנרשמו</h4>
-        <button  class="buttons" type="submit" (click)="csvFile(userV, 'volunteer' ,false)">ייצוא טבלת מתנדבים לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer' ,false)">ייצוא טבלת מתנדבים לאקסל</button><br><br>
 
         <table id="customers" class="table-style">
             <tr>
@@ -70,11 +72,11 @@
                 </td>
                 <td style="text-align: center;">
                     <ion-radio [checked]="value[6]" (click)="volunteerRadioClicked(value[5])" color="adminpagebutton"></ion-radio>
-                </td>            
+                </td>
             </tr>
         </table><br><br>
 
-        <button  class="buttons" type="submit" (click)="matching()"> בצע התאמה ידנית</button>
+        <button class="buttons" type="submit" (click)="manual_matching()"> בצע התאמה ידנית</button>
 
 
         <h4 class="tableTitle">:סטודנטים שנרשמו</h4>
@@ -115,7 +117,7 @@
 
 
         <h4 class="tableTitle">:קשישים שנרשמו דרך מלבב</h4>
-        <button   class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization', true)">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization', true)">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
                 <th>שם הארגון</th>
@@ -136,7 +138,7 @@
 
 
         <h4 class="tableTitle">:קשישים שנרשמו דרך עזר מציון</h4>
-        <button   class="buttons" type="submit" (click)="csvFile(organizationEledry['עזר מציון'] ,'organization' ,true)">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(organizationEledry['עזר מציון'] ,'organization' ,true)">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
                 <th>שם הארגון</th>
@@ -157,7 +159,7 @@
 
 
         <h4 class="tableTitle">:קשישים שנרשמו דרך ארגונים אחרים</h4>
-        <button   class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] ,'organization' ,true)">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] ,'organization' ,true)">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
                 <th>שם הארגון</th>

@@ -171,7 +171,15 @@ scrollToBottom() {
         i.data().dateTime,
         i.id,
         k,
-        i.data().match=false]
+        i.data().match=false,
+        i.data().gender,
+        i.data().dayOfMeeting,
+        i.data().hobbies,
+        i.data().hours,
+        i.data().language,
+        i.data().musicStyle,
+        i.data().meetingWith,
+        i.data().matching]
         k++})}).catch(error => {console.log(error)})
 
     
@@ -205,7 +213,14 @@ scrollToBottom() {
         i.data().dateTime,
         i.id,
         j,
-        i.data().match=false
+        i.data().match=false,
+        i.data().gender,
+        i.data().dayOfMeeting,
+        i.data().hobbies,
+        i.data().hours,
+        i.data().language,
+        i.data().musicStyle,
+        i.data().meetingWith
       ]
         j++})}).catch(error => {console.log(error)})
 
@@ -244,7 +259,7 @@ scrollToBottom() {
 
     setTimeout(() =>
     {
-      console.log("organizationEledry ",organizationEledry)
+      //console.log("organizationEledry ",organizationEledry)
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
       this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
       'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
