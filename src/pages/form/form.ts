@@ -70,7 +70,7 @@ export class Form
     this.user.student = false
     this.user.onBehalf = false
     this.user.numOfAssistant = 0
-    this.user.match = false
+    this.user.match = 0
     this.orgi = null
     this.gender_ = null
     this.meetingWith_ = null
