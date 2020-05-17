@@ -57,13 +57,17 @@ exports.DeleteVolunteerUsers = functions.firestore
     });
 
 
-// Sends email via HTTP. Can be called from frontend code. 
+// Sends email via HTTP - sendgrid
 exports.sendEmail = functions.https.onCall(async(data, context) => {
     const msg = {
         to: 'chenfriedman93@gmail.com',
         from: 'simhatzkenty@gmail.com',
-        subject: "Hello from",
-        text: "Hi,\n Test email from simhatZkenty"
+        subject: "נמצאה לך התאמה במיזם שמחת זקנתי!",
+        text: "שלום " + data.name + ",\nרצינו לעדכן אותך שמצאנו לך התאמה :)\n" +
+            "לפרטים נוספים לחץ/י על הקישור ובצע/י התחברות עם כתובת המייל והסיסמה שלך\n" +
+            "bit.ly/2WDBZTZ\n\n" +
+            "תודה על שיתוף הפעולה,\n" +
+            "שמחת שמחת זקנתי"
     };
 
     await sgMail.send(msg);

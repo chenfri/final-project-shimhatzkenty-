@@ -255,7 +255,6 @@ scrollToBottom() {
 
     setTimeout(() =>
     {
-      //console.log("organizationEledry ",organizationEledry)
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
       this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
       'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
@@ -292,105 +291,4 @@ scrollToBottom() {
   
     }
   }
-  
-  //------------------------ function not in used ----------------------------------------
- 
- // remember the last user who logged in and save it on login - only on android
- autoLogin()
- {
-   let uid
-   const db = firebase.firestore();
-   var adminLogin = false
-   if(!this.user.Admin)
-   {
-       firebase.auth().onAuthStateChanged(function(user)
-       {
-         if (user) {
-           uid = firebase.auth().currentUser.uid
-           console.log("uid: "+uid)
-         }
-       else 
-           console.log("not logged in")
-     });
-     
-
-     setTimeout(() =>
-     {
-       if(uid != undefined)
-       {
-          db.collection('Admin').doc(uid).get() //check if the  last user was logged in is admin
-          .then(result =>{if(result.exists) {
-           adminLogin = true
-            this.user.loggedIn = false
-            console.log("admin ", this.user.Admin)
-          }}).catch(error => console.log(error))
-            
-       setTimeout(() =>
-       {
-         if(!adminLogin)
-         {
-           //get elderly document for know email and password
-           db.collection('ElderlyUsers').doc(uid).get()
-           .then(result =>{
-           if (result.exists)
-           {
-             console.log("doc1 exist")
-             this.user.loggedIn = result.data().loggedIn;  
-             this.user.email =  result.data().email
-             this.user.password = result.data().password
-             this.user.elderly = true
-             this.user.loggedIn = true
-           }
-           else //get volunteer document for know email and password
-           {
-             db.collection('volunteerUsers').doc(uid).get()
-             .then(result =>{
-               if (result.exists)
-               {
-                 console.log("doc2 exist")
-                 this.user.loggedIn = result.data().loggedIn;  
-                 this.user.email =  result.data().email
-                 this.user.password = result.data().password
-                 this.user.volunteer = true
-                 this.user.loggedIn = true
-                 console.log("email ", this.user.email)
-               }
-               firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success vol login"))
-            
-             }).catch(error => console.log(error))
-           }
-             
-             firebase.auth().signInWithEmailAndPassword(this.user.email ,this.user.password).then(() =>console.log("success elder login"))
-
-       }).catch(error => console.log(error))
-     } },1500)
-    }
- 
-   }, 2500);
-   }
- }
-
-
-CheckWhichOrganization(id)
-{
-  const db = firebase.firestore();
-  db.collection('ElderlyUsers').doc(id).get()
-  .then(result => {
-    if (!result.exists) return
-    this.organizations = result.data().organization;
-      
-    for (let i = 0; i < this.organizations.length; i++) {
-        if(this.organizations[i].currentValue){
-          this.organization = this.organizations[i].species;
-          console.log("organization.func :  " + this.organization)
-          break;
-
-        }
-    }    
-    console.log("organizations ",this.organizations)
-  
-    })
-}
-
-
 }

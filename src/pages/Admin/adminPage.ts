@@ -267,32 +267,7 @@ export class adminPage
    console.log(this.matchV)
   }
 
-
-//the method saved the match in 'matching' fileld in elderly and voolunteer document
-  matchingAlgorithm(arrMatch, db ,i)
-  {
-    for(let k = 0; k < 3; k++)
-    {
-      if(this.userE[arrMatch[k].index][16] == null)
-      {
-        let elderID = arrMatch[k].id
-        this.userE[arrMatch[k].index][16] = this.userV[i][4]
-        db.collection('ElderlyUsers').doc(elderID).update(
-          {
-            matching: this.userV[i][4]
-          }).catch((error) => {console.log(error)})
-    
-    
-        db.collection('volunteerUsers').doc(this.userV[i][4]).update(
-          {
-            arrMatch: arrMatch,
-            matching: elderID
-          }).catch((error) => {console.log(error)})
-        break;
-      }
-    }
-  }
-
+  // --------------------------------- Matching ----------------------------------------
 
   //the method find the matches for all voolunteer and save it in 'arrMatch'
   findMatches()
@@ -329,10 +304,58 @@ export class adminPage
     }
 
     //   console.log(arrMatch)
-    this.matchingAlgorithm(arrMatch, db ,i)
-      
+    this.matchingAlgorithm(arrMatch, db ,i)    
+    }
+
+    // console.log(this.userE)
+    for(let i = 0 ; i < this.userE.length; i++)
+    {
+      if(this.userE[i][16] != null)
+        this.sendEmails(this.userE[i][16][2])
     }
   } 
+
+
+
+   //this code is for call sendEmail from backend (firebase Functions)
+  sendEmails(name)
+  {
+    let sendEmail = firebase.functions().httpsCallable('sendEmail');
+    sendEmail({name: name}).then(function(result) {
+      console.log("success calling sendEmail - ", result.data)
+    }).catch(function(error) {
+      console.log("error from calling sendEmail functions - ", error.message ,error.code)
+    });
+  }
+
+
+
+  //the method saved the match in 'matching' fileld in elderly and voolunteer document
+  matchingAlgorithm(arrMatch, db ,i)
+  {
+    for(let k = 0; k < 3; k++)
+    {
+      if(this.userE[arrMatch[k].index][16][1] < arrMatch[k].grade)
+      {
+        let elderID = arrMatch[k].id
+        console.log(this.userV[i][0])
+        this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade, this.userV[i][0]]
+
+        db.collection('ElderlyUsers').doc(elderID).update(
+          {
+            matching:[this.userV[i][4], arrMatch[k].grade] 
+          }).catch((error) => {console.log(error)})
+    
+    
+        db.collection('volunteerUsers').doc(this.userV[i][4]).update(
+          {
+            arrMatch: arrMatch,
+            matching: elderID
+          }).catch((error) => {console.log(error)})
+        break;
+      }
+    }
+  }
 
 
   //the method check if the volunteer and the eldery chose the same options in the form
