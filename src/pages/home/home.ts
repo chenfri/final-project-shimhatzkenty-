@@ -45,26 +45,6 @@ export class HomePage
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
 
-
-    //this code is for call sendEmail from backend (firebase Functions)
-    // let sendEmail = firebase.functions().httpsCallable('sendEmail');
-    // sendEmail({text: "messageText"}).then(function(result) {
-    //   let sanitizedMessage = result.data.text;
-    // }).catch(function(error) {
-    //   let code = error.code;
-    //   let message = error.message;
-    //   let details = error.details;
-    // });
-
-
-    //   let sendSms = firebase.functions().httpsCallable('sendSms1');
-    //   sendSms({text: "messageText"}).then(function(result) {
-    //   let sanitizedMessage = result.data.text;
-    // }).catch(function(error) {
-    //   let code = error.code;
-    //   let message = error.message;
-    //   let details = error.details;
-    // });
   }
 
 
@@ -179,7 +159,8 @@ scrollToBottom() {
         i.data().language,
         i.data().musicStyle,
         i.data().meetingWith,
-        i.data().matching]
+        i.data().matching,
+        i.data().email]
         k++})}).catch(error => {console.log(error)})
 
     
@@ -220,7 +201,8 @@ scrollToBottom() {
         i.data().hours,
         i.data().language,
         i.data().musicStyle,
-        i.data().meetingWith
+        i.data().meetingWith,
+        i.data().email
       ]
         j++})}).catch(error => {console.log(error)})
 

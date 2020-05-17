@@ -17,17 +17,17 @@ admin.initializeApp();
 
 
 
-// exports.sendSms = functions.https.onCall(async(data, context) => {
-//     const textMessage = {
-//         body: "test sms",
-//         to: "+972508591865", // Text to this number
-//         from: twilioNumber // From a valid Twilio number
-//     }
+exports.sendSms = functions.https.onCall(async(data, context) => {
+    const textMessage = {
+        body: "test sms",
+        to: "+972508591865", // Text to this number
+        from: '4250508591865' // From a valid Twilio number
+    }
 
-//     return client.messages.create(textMessage).then(message => console.log(message.sid, 'success'))
-//         .catch(err => console.log(err))
+    return client.messages.create(textMessage).then(message => console.log(message.sid, 'success'))
+        .catch(err => console.log(err))
 
-// })
+})
 
 
 // exports.sendSms1 = functions.https.onCall(async(data, context) => {
@@ -60,14 +60,10 @@ exports.DeleteVolunteerUsers = functions.firestore
 // Sends email via HTTP - sendgrid
 exports.sendEmail = functions.https.onCall(async(data, context) => {
     const msg = {
-        to: 'chenfriedman93@gmail.com',
+        to: data.email,
         from: 'simhatzkenty@gmail.com',
-        subject: "נמצאה לך התאמה במיזם שמחת זקנתי!",
-        text: "שלום " + data.name + ",\nרצינו לעדכן אותך שמצאנו לך התאמה :)\n" +
-            "לפרטים נוספים לחץ/י על הקישור ובצע/י התחברות עם כתובת המייל והסיסמה שלך\n" +
-            "bit.ly/2WDBZTZ\n\n" +
-            "תודה על שיתוף הפעולה,\n" +
-            "שמחת שמחת זקנתי"
+        subject: data.subject,
+        text: data.text
     };
 
     await sgMail.send(msg);
