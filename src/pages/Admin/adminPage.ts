@@ -45,6 +45,7 @@ export class adminPage
  
     console.log(this.userE)
     console.log(this.userV)
+    //this.sendSMS("+972508591865", "חן")
   }
 
 
@@ -331,6 +332,7 @@ export class adminPage
         this.sendEmailsVoolunteer(this.userE[i][16][2], "chenfriedman93@gmail.com")
         //if(this.userE[i][17] != null)
         this.sendEmailsElder(this.userE[i][3], this.userE[i][0], "chenfriedman93@gmail.com")
+        //this.sendSMS(this.userE[i][16][3], this.userE[i][16][2])
       }
     }
   } 
@@ -380,13 +382,13 @@ export class adminPage
 
 
   //this code is call sendSms (firebase Functions) from backend
-  sendSMS(name)
+  sendSMS(number , name)
   {
     let sendEmail = firebase.functions().httpsCallable('sendSms');
-    sendEmail({name: name}).then(function(result) {
-      console.log("success calling sendEmail - ", result.data)
+    sendEmail({number: number , name: name}).then(function(result) {
+      console.log("success calling sendSms1 - ", result.data)
     }).catch(function(error) {
-      console.log("error from calling sendSms functions - ", error.message ,error.code)
+      console.log("error from calling sendSms1 functions - ", error.message ,error.code)
     });
   }
 
@@ -400,7 +402,7 @@ export class adminPage
       {
         let elderID = arrMatch[k].id
         console.log(this.userV[i][0])
-        this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade, this.userV[i][0]]
+        this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade, this.userV[i][0], this.userV[i][1]]
 
         db.collection('ElderlyUsers').doc(elderID).update(
           {
