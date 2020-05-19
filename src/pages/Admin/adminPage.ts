@@ -8,6 +8,7 @@ import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import {Functions} from '../../providers/functions';
 import { PopoverPage } from '../popover/popover';
+import { EmailValidator } from '@angular/forms';
 
 @Component({
   selector: 'adminPage',
@@ -44,6 +45,7 @@ export class adminPage
  
     console.log(this.userE)
     console.log(this.userV)
+    //this.sendSMS("+972508591865", "חן")
   }
 
 
@@ -220,33 +222,40 @@ export class adminPage
     alert.present();
   }
 
-  elderlyRadioClicked(numElderly){
+
+
+  elderlyRadioClicked(numElderly)
+  {
 
     this.matchE = this.userE[numElderly][6]; 
     this.userE[numElderly][8] = true;
 
-    for(var i=0 ; i<this.userE.length; i++)
-        if(numElderly!=i)
+    for(var i=0 ; i < this.userE.length; i++)
+        if(numElderly != i)
           this.userE[i][8] = false;
 
-
-    console.log("idEled ",this.matchE)
-    console.log(this.userE)
+    // console.log("idEled ",this.matchE)
+    // console.log(this.userE)
   }
+
+
   
-  volunteerRadioClicked(numVolunteer){
+  volunteerRadioClicked(numVolunteer)
+  {
     this.matchV = this.userV[numVolunteer][4]; 
     this.userV[numVolunteer][6] = true;
 
-    for(var i=0 ; i<this.userV.length; i++)
-        if(numVolunteer!=i)
+    for(var i=0 ; i <this.userV.length; i++)
+        if(numVolunteer != i)
           this.userV[i][6] = false;
 
-
-    console.log("idVol ",this.matchV)
-    console.log(this.userV)
-
+    // console.log("idVol ",this.matchV)
+    // console.log(this.userV)
   }
+
+
+  // --------------------------------- Matching ----------------------------------------
+
 
   manual_matching()
   {
@@ -270,36 +279,11 @@ export class adminPage
       this.userV[i][6] = false;
 
 
-   console.log(this.matchPeople)   
-   console.log(this.matchE)
-   console.log(this.matchV)
+  //  console.log(this.matchPeople)   
+  //  console.log(this.matchE)
+  //  console.log(this.matchV)
   }
 
-
-//the method saved the match in 'matching' fileld in elderly and voolunteer document
-  matchingAlgorithm(arrMatch, db ,i)
-  {
-    for(let k = 0; k < 3; k++)
-    {
-      if(this.userE[arrMatch[k].index][16] == null)
-      {
-        let elderID = arrMatch[k].id
-        this.userE[arrMatch[k].index][16] = this.userV[i][4]
-        db.collection('ElderlyUsers').doc(elderID).update(
-          {
-            matching: this.userV[i][4]
-          }).catch((error) => {console.log(error)})
-    
-    
-        db.collection('volunteerUsers').doc(this.userV[i][4]).update(
-          {
-            arrMatch: arrMatch,
-            matching: elderID
-          }).catch((error) => {console.log(error)})
-        break;
-      }
-    }
-  }
 
 
   //the method find the matches for all voolunteer and save it in 'arrMatch'
@@ -337,10 +321,104 @@ export class adminPage
     }
 
     //   console.log(arrMatch)
-    this.matchingAlgorithm(arrMatch, db ,i)
-      
+    this.matchingAlgorithm(arrMatch, db ,i)    
+    }
+
+    // console.log(this.userE)
+    for(let i = 0 ; i < this.userE.length; i++)
+    {
+      if(this.userE[i][16] != null)
+      {
+        this.sendEmailsVoolunteer(this.userE[i][16][2], "chenfriedman93@gmail.com")
+        //if(this.userE[i][17] != null)
+        this.sendEmailsElder(this.userE[i][3], this.userE[i][0], "chenfriedman93@gmail.com")
+        //this.sendSMS(this.userE[i][16][3], this.userE[i][16][2])
+      }
     }
   } 
+
+
+
+   //this code is call sendEmail (firebase Functions) from backend 
+  sendEmailsVoolunteer(username, email)
+  {
+    let text = "שלום "+ username +",\nרצינו לעדכן אותך שמצאנו לך התאמה :)\n" +
+    "לפרטים נוספים לחץ/י על הקישור ובצע/י התחברות עם כתובת המייל והסיסמה שלך\n" +
+    "bit.ly/2WDBZTZ\n\n" +
+    "תודה על שיתוף הפעולה,\n" +
+    "שמחת שמחת זקנתי"
+
+    let subject =  "נמצאה לך התאמה באתר שמחת זקנתי!"
+
+    let sendEmail = firebase.functions().httpsCallable('sendEmail');
+    sendEmail({email: email, subject: subject, text: text}).then(function(result) {
+      console.log("success calling sendEmail - ", result.data)
+    }).catch(function(error) {
+      console.log("error from calling sendEmail functions - ", error.message ,error.code)
+    });
+  }
+
+
+
+  //this code is call sendEmail (firebase Functions) from backend 
+  sendEmailsElder(username , nameE, email)
+  {
+
+    let text = "שלום "+ username +",\nרצינו לעדכן אותך שנמצאה התאמה עבור אזרח ותיק שרשמת באתר שלנו - " +nameE +"\n"+
+    "בימים הקרובים יצרו עמכם קשר\n\n"+
+    "בברכה,\n"+
+    "צוות שמחת זקנתי"
+
+    let subject =  "נמצאה התאמה באתר שמחת זקנתי!"
+
+    let sendEmail = firebase.functions().httpsCallable('sendEmail');
+    sendEmail({email: email, subject: subject, text: text}).then(function(result) {
+      console.log("success calling sendEmail - ", result.data)
+    }).catch(function(error) {
+      console.log("error from calling sendEmail functions - ", error.message ,error.code)
+    });
+  }
+
+
+
+  //this code is call sendSms (firebase Functions) from backend
+  sendSMS(number , name)
+  {
+    let sendEmail = firebase.functions().httpsCallable('sendSms');
+    sendEmail({number: number , name: name}).then(function(result) {
+      console.log("success calling sendSms1 - ", result.data)
+    }).catch(function(error) {
+      console.log("error from calling sendSms1 functions - ", error.message ,error.code)
+    });
+  }
+
+
+  //the method saved the match in 'matching' fileld in elderly and voolunteer document
+  matchingAlgorithm(arrMatch, db ,i)
+  {
+    for(let k = 0; k < 3; k++)
+    {
+      if(this.userE[arrMatch[k].index][16][1] < arrMatch[k].grade)
+      {
+        let elderID = arrMatch[k].id
+        console.log(this.userV[i][0])
+        this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade, this.userV[i][0], this.userV[i][1]]
+
+        db.collection('ElderlyUsers').doc(elderID).update(
+          {
+            matching:[this.userV[i][4], arrMatch[k].grade] 
+          }).catch((error) => {console.log(error)})
+    
+    
+        db.collection('volunteerUsers').doc(this.userV[i][4]).update(
+          {
+            arrMatch: arrMatch,
+            matching: elderID
+          }).catch((error) => {console.log(error)})
+        break;
+      }
+    }
+  }
 
 
   //the method check if the volunteer and the eldery chose the same options in the form
