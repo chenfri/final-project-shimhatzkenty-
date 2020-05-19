@@ -111,9 +111,9 @@ scrollToBottom() {
     x.className = "topnav";
     this.navCtrl.push(contactPage, {'login': this.user.loggedIn })
   }
-  matchPage() {
-    this.navCtrl.push(MatchPage , {'login': this.user.loggedIn })
-  }
+  // matchPage() {
+  //   this.navCtrl.push(MatchPage , {'admin': this.user.Admin, 'login': this.user.loggedIn })
+  // }
   
 
   login(){
@@ -153,7 +153,7 @@ scrollToBottom() {
     }
 
 
-  get_data_for_admin()
+  get_data_for_admin(whichPage)
   {
     let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
     let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = [] , tmpPhone = ""
@@ -179,7 +179,8 @@ scrollToBottom() {
         i.data().language,
         i.data().musicStyle,
         i.data().meetingWith,
-        i.data().matching]
+        i.data().matching
+      ]
         k++})}).catch(error => {console.log(error)})
 
     
@@ -261,9 +262,16 @@ scrollToBottom() {
     {
       //console.log("organizationEledry ",organizationEledry)
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
-      this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
-      'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
-      'organizationEledry': groupbyOrg});
+      if(whichPage==1){
+          this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
+          'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
+          'organizationEledry': groupbyOrg});
+      }
+      else if(whichPage==2){
+        this.navCtrl.push(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
+           'login': this.user.loggedIn, 'admin': this.user.Admin});
+      }
+     
         }, 1000);
   } 
 

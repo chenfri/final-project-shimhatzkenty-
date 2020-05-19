@@ -1,3 +1,27 @@
-page-match {
+.page-match {
+    background: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/marble-background.webp?alt=media&token=98fbb916-1c30-4f2f-a0a0-1be15e441d65");
+    font-family: calibri;
+    .buttons {
+        display: inline-block;
+        color: white;
+        background: cadetblue;
+        text-align: center;
+        padding: 10px 18px;
+        text-decoration: none;
+        margin: 5px 0px 0px 0px;
+        border-radius: 15px;
+    }
+    .titleAdmin {
+        float: left;
+        font-weight: bold;
+    }
 
+    .insideCard{
+        width: 30%;
+    }
+    .outsideCard{
+        // width: 50%;
+        background-color: #5f9ea087;
+    }
+  
 }

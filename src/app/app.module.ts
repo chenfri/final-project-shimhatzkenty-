@@ -59,6 +59,7 @@ export const firebaseConfig = {
     FormsModule,  
     BrowserModule,
     SelectSearchableModule,
+    IonicModule,
     IonicModule.forRoot(MyApp),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
