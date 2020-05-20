@@ -13,22 +13,22 @@
     </ion-grid> <br><br>  
 
 
-      <section text-center margin-bottom>
+      <section *ngIf="user.Admin" text-center margin-bottom>
         <ion-icon name="person"></ion-icon>
-        <h1 style="font-size:1.4em" no-margin>,שלום <br>
-          מר מנהל כללי</h1>
+        <h1  style="font-size:1.4em" no-margin>,שלום <br>
+            מר מנהל כללי</h1>
       </section>
 
 
       <ion-grid>
         <ion-row>
-          <ion-col col-6 *ngFor="let value of userE ; let i = index" >
-            <ion-item style="background: #ffffff00;" > 
-            <ion-card *ngIf = "value[16][0]" class="outsideCard" text-center padding color="info-color"> 
-              <ion-card-header>
+          <ion-col col-6 *ngFor="let value of userE ; let i = index"  >
+            <ion-item *ngIf="(value[16][0] == IDlogged && !user.Admin) || (user.Admin && value[16][0])" style="background: #ffffff00;" > 
+            <ion-card  class="outsideCard" text-center padding color="info-color"> 
+              <!-- <ion-card-header> -->
                   <!-- <ion-icon name="person"></ion-icon> -->
-                  <ion-card-title>התאמה</ion-card-title>
-              </ion-card-header>
+                  <ion-card-title class= "textStyle">התאמה</ion-card-title>
+              <!-- </ion-card-header> -->
 
               <ion-row style="justify-content: center;">
               <ion-col class="insideCard">
@@ -39,7 +39,6 @@
                   <img *ngIf = "value[9]==2" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2FElderly-men.png?alt=media&token=f33cc453-3e43-4962-aaa1-de9fde4ddf50" />
 
                   <ion-card-header>
-                    <!-- <ion-icon name="person"></ion-icon> -->
                     <ion-card-title  text-wrap>{{value[0]}} </ion-card-title>
                   </ion-card-header>
                   <ion-card-content  text-wrap>
@@ -84,10 +83,10 @@
 
               </ion-card>
             </ion-col>
-              <ion-col class="insideCard"   >
-              <ion-card  text-center padding color="info-color">
+              <ion-col class="insideCard" *ngIf="user.Admin"   >
+              <ion-card   text-center padding color="info-color">
 
-                <ion-item  style=" text-align: -webkit-center;">
+                <ion-item style=" text-align: -webkit-center;">
                   
                   <img *ngIf="userV[numbers[i]][7]==1" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20women.png?alt=media&token=f31aaad6-ee85-47de-8370-3bca2241b155" />
                   <img *ngIf="userV[numbers[i]][7]==2" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20men.png?alt=media&token=54bc0512-5082-4eb6-bea2-a1d98582220b" />
@@ -139,8 +138,15 @@
             </ion-col>
             </ion-row>
               <ion-row style ="justify-content: center;">
+                <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value[6])">אשר התאמה</button>
+                <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value[6])">אשר ביצוע מפגש</button>
+                <!-- <button *ngIf="!user.Admin && acceptedMatch" class="buttons" type="submit" (click)="acceptedMeeting(value[6])">אשר ביצוע מפגש</button> -->
+                <br><br>
                 <button  class="buttons" type="submit" (click)="deleteMatch(value[6])">ביטול התאמה</button>
-              </ion-row>
+
+              </ion-row>                
+              <ion-row class= "textStyle" *ngIf="!user.Admin && this.user.status==4" >התקיים מפגש</ion-row>
+
             </ion-card>
 
           </ion-item>

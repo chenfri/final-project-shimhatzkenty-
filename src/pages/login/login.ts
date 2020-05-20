@@ -43,7 +43,7 @@ export class LoginPage
             {
             if(result.exists)
                 this.user.Admin = true;
-                this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+                this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin , 'IDlogged':firebase.auth().currentUser.uid}); 
             })
         }).catch(error => { 
           if(error.code == "auth/user-not-found")

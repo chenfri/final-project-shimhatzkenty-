@@ -30,6 +30,7 @@ export class HomePage
   devicePlatform: boolean
   organization: any;
   public organizations: any[]
+  IDlogged : any;
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
         public auth: AngularFireAuth, public func:Functions, public array:Arrays)
@@ -44,6 +45,9 @@ export class HomePage
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
+
+    this.IDlogged = this.params.get('IDlogged')
+
 
   }
 
@@ -82,7 +86,7 @@ scrollToBottom() {
     var x = document.getElementById("topNav");
     x.className = "topnav";
     this.navCtrl.setRoot(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
-     'login':this.user.loggedIn});
+     'login':this.user.loggedIn });
   }
 
 
@@ -249,7 +253,7 @@ scrollToBottom() {
       }
       else if(whichPage==2){
         this.navCtrl.push(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
-           'login': this.user.loggedIn, 'admin': this.user.Admin});
+           'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged});
       }
      
         }, 1000);
