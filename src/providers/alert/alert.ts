@@ -18,6 +18,27 @@ export class AlertProvider
   }
 
 
+  showError_manual_matching()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה!',
+      subTitle: 'חובה לבחור מתנדב אחד ואזרח ותיק אחד כדי לבצע התאמה ידנית',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
+  success_manual_matching()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'ההתאמה הידנית הוגדרה בהצלחה!',
+      subTitle: 'נשלחו הודעות למשתמשים',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
   showAlertUpdateDetails()
   {
     let alert = this.alertCtrl.create({

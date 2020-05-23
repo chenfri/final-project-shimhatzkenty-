@@ -14,8 +14,27 @@
     </ion-grid> <br><br>
 
     <button class="buttons" type="submit" (click)="findMatches()">הפעל את אלגוריתם ההתאמה</button>
-
+    <button class="buttons" type="submit" (click)="manual_matching()"> בצע התאמה ידנית</button>
     <div class="tables">
+
+        <h4 class="tableTitle">הודעות</h4>
+        <table id="customers" class="table-style">
+            <tr>
+                <th>מחק הודעה</th>
+                <th>טלפון</th>
+                <th>הודעה</th>
+                <th>שם מלא</th>
+            </tr>
+
+
+            <tr *ngFor="let value of messages">
+                <td><button class="buttons" (click)="deleteMessage(value.id)">[x]</button></td>
+                <td>{{value.data.message}}</td>
+                <td>0{{value.data.phoneNumber}}</td>
+                <td>{{value.data.fullName}}</td>
+            </tr>
+        </table><br><br>
+
         <h4 class="tableTitle">:קשישים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry', false)">ייצוא טבלת קשישים לאקסל</button><br><br>
         <table id="customers">
@@ -76,8 +95,6 @@
             </tr>
         </table><br><br>
 
-        <button class="buttons" type="submit" (click)="manual_matching()"> בצע התאמה ידנית</button>
-
 
         <h4 class="tableTitle">:סטודנטים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userStudent , 'student', false)">ייצוא טבלת סטודנטים לאקסל</button><br><br>
@@ -96,104 +113,88 @@
             </tr>
         </table> <br><br>
 
-        <h4 class="tableTitle">:קשישים שנרשמו דרך יד שרה</h4>
-        <button class="buttons" type="submit" (click)="csvFile(organizationEledry['יד שרה'], 'organization' ,true)">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
-        <table id="customers" class="table-style">
-            <tr>
-                <th>שם הארגון</th>
-                <th>פלאפון איש קשר</th>
-                <th>שם איש קשר</th>
-                <th>טלפון קשיש</th>
-                <th>שם מלא</th>
-            </tr>
-            <tr *ngFor="let value of organizationEledry['יד שרה']">
-                <td>{{value.id}}</td>
-                <td>0{{value.phoneA}}</td>
-                <td>{{value.assistName}}</td>
-                <td>0{{value.phoneE}}</td>
-                <td>{{value.name}}</td>
-            </tr>
-        </table><br><br>
+        <div *ngIf="organizationEledry['יד שרה'] != undefined">
+            <h4 class="tableTitle ">:קשישים שנרשמו דרך יד שרה</h4>
+            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'יד שרה'], 'organization' ,true) ">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
+            <table id="customers" class="table-style">
+                <tr>
+                    <th>שם הארגון</th>
+                    <th>פלאפון איש קשר</th>
+                    <th>שם איש קשר</th>
+                    <th>טלפון קשיש</th>
+                    <th>שם מלא</th>
+                </tr>
+                <tr *ngFor="let value of organizationEledry[ 'יד שרה'] ">
+                    <td>{{value.id}}</td>
+                    <td>0{{value.phoneA}}</td>
+                    <td>{{value.assistName}}</td>
+                    <td>0{{value.phoneE}}</td>
+                    <td>{{value.name}}</td>
+                </tr>
+            </table><br><br>
+        </div>
 
+        <div *ngIf="organizationEledry[ 'מלבב'] != undefined">
+            <h4 class="tableTitle">:קשישים שנרשמו דרך מלבב</h4>
+            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization', true)">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
+            <table id="customers" class="table-style">
+                <tr>
+                    <th>שם הארגון</th>
+                    <th>פלאפון איש קשר</th>
+                    <th>שם איש קשר</th>
+                    <th>טלפון קשיש</th>
+                    <th>שם מלא</th>
+                </tr>
+                <tr *ngFor="let value of organizationEledry['מלבב']">
+                    <td>{{value.id}}</td>
+                    <td>0{{value.phoneA}}</td>
+                    <td>{{value.assistName}}</td>
+                    <td>0{{value.phoneE}}</td>
+                    <td>{{value.name}}</td>
+                </tr>
+            </table><br><br>
+        </div>
 
-        <h4 class="tableTitle">:קשישים שנרשמו דרך מלבב</h4>
-        <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization', true)">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
-        <table id="customers" class="table-style">
-            <tr>
-                <th>שם הארגון</th>
-                <th>פלאפון איש קשר</th>
-                <th>שם איש קשר</th>
-                <th>טלפון קשיש</th>
-                <th>שם מלא</th>
-            </tr>
-            <tr *ngFor="let value of organizationEledry['מלבב']">
-                <td>{{value.id}}</td>
-                <td>0{{value.phoneA}}</td>
-                <td>{{value.assistName}}</td>
-                <td>0{{value.phoneE}}</td>
-                <td>{{value.name}}</td>
-            </tr>
-        </table><br><br>
+        <div *ngIf="organizationEledry['עזר מציון'] != undefined">
+            <h4 class="tableTitle ">:קשישים שנרשמו דרך עזר מציון</h4>
+            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'עזר מציון'] , 'organization' ,true) ">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
+            <table id="customers " class="table-style ">
+                <tr>
+                    <th>שם הארגון</th>
+                    <th>פלאפון איש קשר</th>
+                    <th>שם איש קשר</th>
+                    <th>טלפון קשיש</th>
+                    <th>שם מלא</th>
+                </tr>
+                <tr *ngFor="let value of organizationEledry[ 'עזר מציון'] ">
+                    <td>{{value.id}}</td>
+                    <td>0{{value.phoneA}}</td>
+                    <td>{{value.assistName}}</td>
+                    <td>0{{value.phoneE}}</td>
+                    <td>{{value.name}}</td>
+                </tr>
+            </table><br><br>
+        </div>
 
-
-
-        <h4 class="tableTitle">:קשישים שנרשמו דרך עזר מציון</h4>
-        <button class="buttons" type="submit" (click)="csvFile(organizationEledry['עזר מציון'] ,'organization' ,true)">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
-        <table id="customers" class="table-style">
-            <tr>
-                <th>שם הארגון</th>
-                <th>פלאפון איש קשר</th>
-                <th>שם איש קשר</th>
-                <th>טלפון קשיש</th>
-                <th>שם מלא</th>
-            </tr>
-            <tr *ngFor="let value of organizationEledry['עזר מציון']">
-                <td>{{value.id}}</td>
-                <td>0{{value.phoneA}}</td>
-                <td>{{value.assistName}}</td>
-                <td>0{{value.phoneE}}</td>
-                <td>{{value.name}}</td>
-            </tr>
-        </table><br><br>
-
-
-
-        <h4 class="tableTitle">:קשישים שנרשמו דרך ארגונים אחרים</h4>
-        <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] ,'organization' ,true)">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
-        <table id="customers" class="table-style">
-            <tr>
-                <th>שם הארגון</th>
-                <th>פלאפון איש קשר</th>
-                <th>שם איש קשר</th>
-                <th>טלפון קשיש</th>
-                <th>שם מלא</th>
-            </tr>
-            <tr *ngFor="let value of organizationEledry['אחר']">
-                <td>{{value.id}}</td>
-                <td>0{{value.phoneA}}</td>
-                <td>{{value.assistName}}</td>
-                <td>0{{value.phoneE}}</td>
-                <td>{{value.name}}</td>
-            </tr>
-        </table><br><br>
-
-        <h4 class="tableTitle">הודעות</h4>
-        <table id="customers" class="table-style">
-            <tr>
-                <th>מחק הודעה</th>
-                <th>טלפון</th>
-                <th>הודעה</th>
-                <th>שם מלא</th>
-            </tr>
-
-
-            <tr *ngFor="let value of messages">
-                <td><button (click)="deleteMessage(value.id)">[x]</button></td>
-                <td>{{value.data.message}}</td>
-                <td>0{{value.data.phoneNumber}}</td>
-                <td>{{value.data.fullName}}</td>
-            </tr>
-        </table>
+        <div *ngIf="organizationEledry['אחר'] != undefined">
+            <h4 class="tableTitle ">:קשישים שנרשמו דרך ארגונים אחרים</h4>
+            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] , 'organization' ,true) ">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
+            <table id="customers" class="table-style">
+                <tr>
+                    <th>שם הארגון</th>
+                    <th>פלאפון איש קשר</th>
+                    <th>שם איש קשר</th>
+                    <th>טלפון קשיש</th>
+                    <th>שם מלא</th>
+                </tr>
+                <tr *ngFor="let value of organizationEledry['אחר'] ">
+                    <td>{{value.id}}</td>
+                    <td>0{{value.phoneA}}</td>
+                    <td>{{value.assistName}}</td>
+                    <td>0{{value.phoneE}}</td>
+                    <td>{{value.name}}</td>
+                </tr>
+            </table><br><br></div>
     </div>
 
     <br><br><br><br><br><br>

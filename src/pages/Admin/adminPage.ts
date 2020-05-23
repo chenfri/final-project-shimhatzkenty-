@@ -8,7 +8,7 @@ import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import {Functions} from '../../providers/functions';
 import { PopoverPage } from '../popover/popover';
-import { EmailValidator } from '@angular/forms';
+
 
 @Component({
   selector: 'adminPage',
@@ -27,13 +27,13 @@ export class adminPage
   csvData: any[] = []
   headerRow: any[] = []
   public organizations: any[]
-  public matchPeople: any[]
   public matchE: any;
   public matchV: any;
+  public date: any;
 
   
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  public alertCtrl: AlertController , public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
+  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
+     public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
   {
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
@@ -42,13 +42,18 @@ export class adminPage
     this.userStudent = this.navParams.get('students');
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
- 
+
+    this.matchE = null;
+    this.matchV = null;
+    this.date = new Date().toISOString().substring(0, 10);
+
     console.log(this.userE)
     console.log(this.userV)
     //this.sendSMS("+972508591865", "חן")
   }
 
 
+  //create excel file with the rellevant data
   csvFile(array , type , arrType)
   {
     let tmp= []
@@ -73,8 +78,6 @@ export class adminPage
     if(type == "organization")
       this.headerRow = ["שם", "פלאפון הקשיש" ,"שם איש קשר","פלאפון איש קשר" , "שם האירגון"]
 
-    console.log(tmp)
-
     let csv = papa.unparse({
       fields: this.headerRow,
       data: tmp
@@ -84,6 +87,7 @@ export class adminPage
   }
 
 
+  //download excel file
   downloadCSV(csv, type)
   { 
     var blob = new Blob(["\ufeff", csv]);
@@ -119,22 +123,47 @@ export class adminPage
   {
       const db = firebase.firestore();
       let message =[] ,l = 0 
-      db.collection('message').doc(item).delete().then(() =>
-      {
-        this.alert.showAlert_deleteMessage()
-        console.log("Document successfully deleted!");
-        
-        db.collection('message').get().then(res => {res.forEach(i =>{message[l] = {
-          data: i.data() ,
-          id : i.id }
-          l++})}).catch(error => {console.log(error)})
-          this.messages = message
-          console.log(this.messages)
-      
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
-    });
+
+
+      let alert = this.alertCtrl.create({
+        title: 'אזהרה',
+        subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את ההודעה?' ,
+        buttons: [
+        {
+          text: 'כן',
+          role: 'cancel',
+          handler: () => {
+          const db = firebase.firestore();
+                
+          db.collection('message').doc(item).delete().then(() =>
+          {
+            this.alert.showAlert_deleteMessage()
+            console.log("Document successfully deleted!");
+            
+            db.collection('message').get().then(res => {res.forEach(i =>{message[l] = {
+              data: i.data() ,
+              id : i.id }
+              l++})}).catch(error => {console.log(error)})
+              this.messages = message
+              console.log(this.messages)
+          
+        }).catch(function(error) {
+            console.error("Error removing document: ", error);
+        });
+                   
+        }
+          },
+          {
+            text: 'לא',
+            handler: () => {
+              console.log('no clicked');
+            }
+          }
+        ]
+      });
+        alert.present();
   }
+
 
 
   click_home()
@@ -226,31 +255,35 @@ export class adminPage
 
   elderlyRadioClicked(numElderly)
   {
-
-    this.matchE = this.userE[numElderly][6]; 
+    this.matchE = this.userE[numElderly][6];
     this.userE[numElderly][8] = true;
 
-    for(var i=0 ; i < this.userE.length; i++)
+    for(var i = 0 ; i < this.userE.length; i++)
         if(numElderly != i)
           this.userE[i][8] = false;
-
-    // console.log("idEled ",this.matchE)
-    // console.log(this.userE)
   }
 
 
   
   volunteerRadioClicked(numVolunteer)
   {
-    this.matchV = this.userV[numVolunteer][4]; 
+    this.matchV = this.userV[numVolunteer][4]
     this.userV[numVolunteer][6] = true;
 
     for(var i=0 ; i <this.userV.length; i++)
         if(numVolunteer != i)
           this.userV[i][6] = false;
+  }
 
-    // console.log("idVol ",this.matchV)
-    // console.log(this.userV)
+
+  //the method gets 2 date and return the deffrence between them
+  DiffrenceDates(d1, d2)
+  {
+    const date1 = new Date(d1);
+    const date2 = new Date(d2);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    console.log(diffDays + " days");
   }
 
 
@@ -259,34 +292,49 @@ export class adminPage
 
   manual_matching()
   {
-   this.matchPeople = [this.matchE ,this.matchV]
-   const db = firebase.firestore();    
+    const db = firebase.firestore();    
    
-   db.collection("ElderlyUsers").doc(this.matchE).update({
-      match: this.matchV
-   }) 
-   db.collection("ElderlyUsers").doc(this.matchV).update({
-      match: this.matchE
-   }) 
-    
-   this.matchE = null;
-   this.matchV = null;
+    if(this.matchE == null || this.matchV == null)
+      this.alert.showError_manual_matching()
 
-   for(var i=0 ; i<this.userE.length; i++)
-      this.userE[i][8] = false;
-
-   for(var i=0 ; i<this.userV.length; i++)
-      this.userV[i][6] = false;
+    else
+    {
+      db.collection("ElderlyUsers").doc(this.matchE).update({
+          matching: [this.matchV,"manual" ,this.date]
+      }) 
+      db.collection("volunteerUsers").doc(this.matchV).update({
+          matching: [this.matchE]
+      }) 
 
 
-  //  console.log(this.matchPeople)   
-  //  console.log(this.matchE)
-  //  console.log(this.matchV)
+      this.matchE, this.matchV = null;
+      let indexE, indexV = 0;
+
+      for(var i = 0 ; i < this.userE.length; i++){
+        if(this.userE[i][8]){
+          this.userE[i][8] = false;
+          indexE = i
+          break}
+      }
+
+      for(var i = 0 ; i <this.userV.length; i++){
+        if(this.userV[i][6]){
+          indexV = i
+          this.userV[i][6] = false
+          break}
+      }
+
+      this.sendEmailsVolunteer(this.userV[indexE][0], "chenfriedman93@gmail.com")
+      this.sendEmailsElder(this.userE[indexE][3], this.userE[indexE][0], "chenfriedman93@gmail.com")
+      //this.sendSMS(this.userV[indexE][1], this.userV[indexE][0])
+      this.alert.success_manual_matching()
+    }
+
   }
 
 
 
-  //the method find the matches for all voolunteer and save it in 'arrMatch'
+  //the method find the matches for all volunteer and save it in 'arrMatch'
   findMatches()
   {
     const db = firebase.firestore();
@@ -302,6 +350,7 @@ export class adminPage
        // console.log("after days ", grade)
         grade += this.checkMatchArr(this.userV[i][9], this.userE[l][11]) //hobbies
        // console.log("after hobbies ", grade)
+        grade += this.checkMatchArr(this.userV[i][12], this.userE[l][14]) //music style
         grade += this.checkMatchArr(this.userV[i][10], this.userE[l][12]) //hours
      //   console.log("after hours ", grade)
         grade += this.checkMatchArr(this.userV[i][11], this.userE[l][13]) //language
@@ -324,23 +373,62 @@ export class adminPage
     this.matchingAlgorithm(arrMatch, db ,i)    
     }
 
-    // console.log(this.userE)
-    for(let i = 0 ; i < this.userE.length; i++)
+    for(let k = 0; k < this.userE.length; k++) //update the best 'matching' for volunteer
     {
-      if(this.userE[i][16] != null)
+      console.log(this.userE[k][16])
+      let idV = this.userE[k][16][0]
+
+      db.collection('volunteerUsers').doc(idV).update(
       {
-        this.sendEmailsVoolunteer(this.userE[i][16][2], "chenfriedman93@gmail.com")
-        //if(this.userE[i][17] != null)
-        this.sendEmailsElder(this.userE[i][3], this.userE[i][0], "chenfriedman93@gmail.com")
-        //this.sendSMS(this.userE[i][16][3], this.userE[i][16][2])
-      }
+        matching: this.userE[k][6]
+      }).catch((error) => {console.log(error)})
     }
+
+    // console.log(this.userE)
+    // for(let i = 0 ; i < this.userE.length; i++)
+    // {
+    //   if(this.userE[i][16] != null)
+    //   {
+    //     this.sendEmailsVolunteer(this.userE[i][16][2], "chenfriedman93@gmail.com")
+    //     //if(this.userE[i][17] != null)
+    //     this.sendEmailsElder(this.userE[i][3], this.userE[i][0], "chenfriedman93@gmail.com")
+    //     //this.sendSMS(this.userE[i][16][3], this.userE[i][16][2])
+    //   }
+    // }
   } 
 
 
 
+  
+  //the method saved the match in 'matching' fileld in elderly and volunteer document
+  matchingAlgorithm(arrMatch, db ,i)
+  {
+    for(let k = 0; k < 3; k++)
+    {
+      if(this.userE[arrMatch[k].index][16][1] < arrMatch[k].grade)
+      {
+        let elderID = arrMatch[k].id
+        this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade, this.userV[i][0], this.userV[i][1]]
+
+        db.collection('ElderlyUsers').doc(elderID).update(
+          {
+            matching:[this.userV[i][4], arrMatch[k].grade, this.date] 
+          }).catch((error) => {console.log(error)})
+    
+    
+        db.collection('volunteerUsers').doc(this.userV[i][4]).update(
+          {
+            arrMatch: arrMatch,
+          }).catch((error) => {console.log(error)})
+        break;
+      }
+    }
+  }
+
+
+
    //this code is call sendEmail (firebase Functions) from backend 
-  sendEmailsVoolunteer(username, email)
+  sendEmailsVolunteer(username, email)
   {
     let text = "שלום "+ username +",\nרצינו לעדכן אותך שמצאנו לך התאמה :)\n" +
     "לפרטים נוספים לחץ/י על הקישור ובצע/י התחברות עם כתובת המייל והסיסמה שלך\n" +
@@ -364,10 +452,14 @@ export class adminPage
   sendEmailsElder(username , nameE, email)
   {
 
-    let text = "שלום "+ username +",\nרצינו לעדכן אותך שנמצאה התאמה עבור אזרח ותיק שרשמת באתר שלנו - " +nameE +"\n"+
-    "בימים הקרובים יצרו עמכם קשר\n\n"+
-    "בברכה,\n"+
-    "צוות שמחת זקנתי"
+    let text = "שלום "+ username +",\n";
+    if(username != nameE)
+      text +="רצינו לעדכן אותך שנמצאה התאמה עבור אזרח ותיק שרשמת באתר שלנו - " +nameE +"\n"+
+      "בימים הקרובים יצרו עמכם קשר\n\n"
+    else
+      text += "רצינו לעדכן אותך שנמצאה עבורך התאמה :) \nבימים הקרובים יצרו עימך קשר,\n\n"
+
+    text +="בברכה,\nצוות שמחת זקנתי"
 
     let subject =  "נמצאה התאמה באתר שמחת זקנתי!"
 
@@ -392,33 +484,6 @@ export class adminPage
     });
   }
 
-
-  //the method saved the match in 'matching' fileld in elderly and voolunteer document
-  matchingAlgorithm(arrMatch, db ,i)
-  {
-    for(let k = 0; k < 3; k++)
-    {
-      if(this.userE[arrMatch[k].index][16][1] < arrMatch[k].grade)
-      {
-        let elderID = arrMatch[k].id
-        console.log(this.userV[i][0])
-        this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade, this.userV[i][0], this.userV[i][1]]
-
-        db.collection('ElderlyUsers').doc(elderID).update(
-          {
-            matching:[this.userV[i][4], arrMatch[k].grade] 
-          }).catch((error) => {console.log(error)})
-    
-    
-        db.collection('volunteerUsers').doc(this.userV[i][4]).update(
-          {
-            arrMatch: arrMatch,
-            matching: elderID
-          }).catch((error) => {console.log(error)})
-        break;
-      }
-    }
-  }
 
 
   //the method check if the volunteer and the eldery chose the same options in the form
