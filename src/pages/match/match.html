@@ -22,9 +22,9 @@
 
       <ion-grid>
         <ion-row>
-          <ion-col col-6 *ngFor="let value of userE ; let i = index"  >
-            <ion-item *ngIf="(value[16][0] == IDlogged && !user.Admin) || (user.Admin && value[16][0])" style="background: #ffffff00;" > 
-            <ion-card  class="outsideCard" text-center padding color="info-color"> 
+          <ion-col col-6 *ngFor="let value of userE ; let i = index" >
+            <ion-item *ngIf="(value[16][0] == IDlogged && !user.Admin && numbers[i]!= -1 )|| (user.Admin && value[16][0] && numbers[i]!= -1) ; else elseBlock" style="background: #ffffff00;" > 
+            <ion-card  class="outsideCard"  showMatch="true"  text-center padding color="info-color"> 
               <!-- <ion-card-header> -->
                   <!-- <ion-icon name="person"></ion-icon> -->
                   <ion-card-title class= "textStyle">התאמה</ion-card-title>
@@ -150,11 +150,12 @@
             </ion-card>
 
           </ion-item>
-          
+
           </ion-col>
     
         </ion-row>
        
       </ion-grid>
+      <!-- <div *ngIf="!showMatch">אין התאמה</div> -->
 
 </ion-content>

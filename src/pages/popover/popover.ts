@@ -73,6 +73,7 @@ export class PopoverPage {
    this.neighborhoods = this.array.neighborhoods
    this.relationship = this.array.relationship
 
+   console.log("POPOVER")
 
   this.uid = this.navParams.get('uid');
   this.userType = this.navParams.get('userType');

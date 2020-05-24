@@ -18,6 +18,7 @@ export class MatchPage {
   public numbers = new Array(); 
   IDlogged:any;
   acceptedMatch : boolean;
+  showMatch:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
     this.user.loggedIn = this.navParams.get('login');
@@ -36,7 +37,10 @@ export class MatchPage {
     console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
                 this.userE , this.userV  )
 
-    // console.log( 'userE[1][16] ' ,this.userE[1][16][0] , 'userE[1][16][0]' ,this.userE[1][16][0])
+    console.log( 'userE[1][16] ' ,this.userE[1][16][0] , 'userE[1][16][0]' ,this.userE[1][16][0])
+
+    this.showMatch = false
+
 
     this.getVolunteerNumbers();
 
@@ -59,14 +63,20 @@ export class MatchPage {
       
       for(var i=0; i<this.userE.length;i++){
         var volID = this.userE[i][16][0];
-
+        var push = false;
         for(var j=0 ; j<this.userV.length;j++){
-
           var index = this.userV[j][4].localeCompare(volID)
+
           if(this.userV[j][4].localeCompare(volID) == 0){
               this.numbers.push(this.userV[j][5]); 
-        }   
-        }
+              push = true;
+          }
+        
+        } 
+        if(push == false)   {
+            console.log("ENTER")
+            this.numbers.push(-1); 
+          }
       }
   
   
