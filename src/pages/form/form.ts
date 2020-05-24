@@ -50,35 +50,15 @@ export class Form
     this.user.volunteer = this.params.get('volunteer')
 
     //update variables
-    this.user.matching = null
-    this.user.email = null
-    this.selectedFav = null
-    this.selectedNH = null
-    this.user.orgName = null
-    this.user.street = null
-    this.user.city = null
-    this.user.nameAssistant = null
-    this.user.relationName = null
-    this.user.college = null
-    this.user.id = null
-    this.user.contact = null
-    this.user.description = null
-    // this.user.range = 0
-    this.user.age = null
-    this.user.dateTime = null
-    this.familyMember = null
-    this.user.fullName = null
-    this.user.hideMusic = false
-    this.user.student = false
-    this.user.onBehalf = false
+    this.user.email, this.selectedFav, this.selectedNH = null
+    this.user.orgName, this.user.street, this.user.city, this.user.nameAssistant = null
+    this.user.relationName, this.user.college, this.user.id, this.user.contact = null
+    this.user.age, this.user.dateTime, this.familyMember, this.user.fullName = null
+    this.orgi, this.gender_, this.meetingWith_, this.numOfMeeting_, this.relationship_ = null
+    this.hours, this.user.description = null
+    this.user.hideMusic, this.user.student, this.user.onBehalf = false
     this.user.numOfAssistant = 0
-    this.user.match = 0
-    this.orgi = null
-    this.gender_ = null
-    this.meetingWith_ = null
-    this.numOfMeeting_ = null
-    this.relationship_ = null
-    this.hours = null
+    
 
     this.hobbies = this.array.hobbies
     // this.time = this.array.time
@@ -547,8 +527,7 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
-        hideMusic: this.user.hideMusic,
-        match: this.user.match
+        hideMusic: this.user.hideMusic
       })
       .then(() => {
         if(this.user.loggedIn)
@@ -645,7 +624,7 @@ export class Form
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc().set(
       {
-        matching: this.user.matching,
+        matching:["", 0],
         fullName: this.user.fullName,
         address: this.fixedAddress,
         city: this.user.city,
@@ -669,8 +648,7 @@ export class Form
         language: this.language,
         dayOfMeeting: this.dayOfMeeting,
         hours: this.hours,
-        familyMember: this.familyMember,
-        match: this.user.match
+        familyMember: this.familyMember
       })
       .then(() => {
         this.alert.showAlertSuccess();
