@@ -53,6 +53,10 @@ export class Arrays {
         'species': 'מופעי ליצנות',
         'currentValue': false
       }
+      // ,{
+      //   'species': 'שיחת זום/ ווטסאפ',
+      //   'currentValue': false
+      // }
     ];
 
 

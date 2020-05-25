@@ -307,9 +307,6 @@ export class adminPage
           matching: [this.matchE]
       }) 
 
-        console.log( [this.matchV,"manual" ,this.date])
-
-      this.matchE, this.matchV = null;
       let indexE, indexV = 0;
 
       for(var i = 0 ; i < this.userE.length; i++){
@@ -319,7 +316,7 @@ export class adminPage
           indexE = i
           break}
       }
-
+   
       for(var i = 0 ; i <this.userV.length; i++){
         if(this.userV[i][6]){
           indexV = i
@@ -327,6 +324,7 @@ export class adminPage
           break}
       }
 
+      this.matchE, this.matchV = null;
      // this.sendEmailsVolunteer(this.userV[indexE][0], "chenfriedman93@gmail.com")
      // this.sendEmailsElder(this.userE[indexE][3], this.userE[indexE][0], "chenfriedman93@gmail.com")
       //this.sendSMS(this.userV[indexE][1], this.userV[indexE][0])

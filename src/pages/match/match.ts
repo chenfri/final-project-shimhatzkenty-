@@ -26,6 +26,7 @@ export class MatchPage {
     this.userE = this.navParams.get('elderly');
     this.userV = this.navParams.get('volunteer');
     this.IDlogged = this.navParams.get('IDlogged');
+    console.log(this.userE)
 
     if(!this.user.Admin)
       this.statusManagement();
