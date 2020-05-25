@@ -297,8 +297,9 @@ export class adminPage
           matching: [this.matchV, "manual", this.date]
       }) .catch((error) => {console.log(error)})
       db.collection("volunteerUsers").doc(this.matchV).update({
-          matching: [this.matchE]
-      }) .catch((error) => {console.log(error)})
+          matching: [this.matchE],
+          status: 1
+      }) 
 
       let indexE, indexV = 0;
 
@@ -306,6 +307,7 @@ export class adminPage
         if(this.userE[i][8]){
           this.userE[i][16] = [this.matchV, "manual" ,this.date]
           this.userE[i][8] = false;
+      
           indexE = i
           break}
       }

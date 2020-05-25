@@ -212,7 +212,8 @@ scrollToBottom() {
         i.data().language,
         i.data().musicStyle,
         i.data().meetingWith,
-        i.data().email
+        i.data().email,
+        i.data().status
       ]
         j++})}).catch(error => {console.log(error)})
 

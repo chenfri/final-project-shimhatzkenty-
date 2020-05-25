@@ -136,7 +136,36 @@
                 </ion-item>
 
             </ion-col>
+            </ion-row>
+              <ion-row style ="justify-content: center;">
+                <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value[6] , 0)">אשר התאמה</button>
+                <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value[6], 0)">אשר ביצוע מפגש</button>
+                <!-- <button *ngIf="!user.Admin && acceptedMatch" class="buttons" type="submit" (click)="acceptedMeeting(value[6])">אשר ביצוע מפגש</button> -->
+                <br><br>
+                <button  class="buttons" type="submit" (click)="deleteMatch(value[6])">ביטול התאמה</button>
+                <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="!user.admin && cancelText">
 
+                  <label>נשמח לדעת את סיבת הדחייה </label><br>
+                  <ion-textarea cols="40" rows="10" class="description" text-right type="text"  [(ngModel)]="cancelDescription"></ion-textarea>
+              </ion-grid>
+
+              </ion-row>                
+              <ion-row class= "textStyle" *ngIf="!user.Admin && this.user.status==4" >התקיים מפגש</ion-row>
+              <ion-row class= "textStyle" *ngIf="user.Admin && userV[numbers[i]][15] == 1" >התאמה עדיין לא אושרה</ion-row>
+              <button  *ngIf="user.Admin && userV[numbers[i]][15] == 1" class="buttons" type="submit" (click)="acceptMatch(value[6] , userV[numbers[i]][4])">אשר התאמה</button>
+              
+              <ion-row class= "textStyle" *ngIf="user.Admin && userV[numbers[i]][15] == 2" >ההתאמה אושרה</ion-row>
+              <button *ngIf="user.Admin && userV[numbers[i]][15] == 2" class="buttons" type="submit" (click)="acceptedMeeting(value[6] ,  userV[numbers[i]][4])">אשר ביצוע מפגש</button>
+              
+              <ion-row class= "textStyle" *ngIf="user.Admin && userV[numbers[i]][15] == 3" >התאמה נדחתה</ion-row>
+              <ion-row class= "textStyle" *ngIf="user.Admin && userV[numbers[i]][15] == 4" >התקיים מפגש</ion-row>
+
+            </ion-card>
+
+          </ion-item>
+
+          </ion-col>
+    
         </ion-row>
 
     </ion-grid>
