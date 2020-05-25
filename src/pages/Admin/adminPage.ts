@@ -301,11 +301,11 @@ export class adminPage
     else
     {
       db.collection("ElderlyUsers").doc(this.matchE).update({
-          matching: [this.matchV,"manual" ,this.date]
-      }) 
+          matching: [this.matchV, "manual", this.date]
+      }) .catch((error) => {console.log(error)})
       db.collection("volunteerUsers").doc(this.matchV).update({
           matching: [this.matchE]
-      }) 
+      }) .catch((error) => {console.log(error)})
 
       let indexE, indexV = 0;
 
