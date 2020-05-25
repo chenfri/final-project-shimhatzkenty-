@@ -19,6 +19,8 @@ export class MatchPage {
   IDlogged:any;
   acceptedMatch : boolean;
   showMatch:boolean;
+  cancelText: boolean;
+  cancelDescription: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
     this.user.loggedIn = this.navParams.get('login');
@@ -31,7 +33,7 @@ export class MatchPage {
     if(!this.user.Admin)
       this.statusManagement();
 
-    // this.acceptedMatch = false; 
+    this.cancelDescription = ""; 
 
     console.log('this.IDlogged', this.IDlogged)
 
@@ -41,7 +43,7 @@ export class MatchPage {
     console.log( 'userE[1][16] ' ,this.userE[1][16][0] , 'userE[1][16][0]' ,this.userE[1][16][0])
 
     this.showMatch = false
-
+    this.cancelText = false
 
     this.getVolunteerNumbers();
 
@@ -104,29 +106,43 @@ export class MatchPage {
     db.collection("volunteerUsers").doc(this.IDlogged).update({
       status: 3
    }) 
+   this.cancelText = true
     
   }
-  acceptMatch(idE){
+  acceptMatch(idE , idV){
     const db = firebase.firestore();       
     this.acceptedMatch = true;  
-    db.collection("volunteerUsers").doc(this.IDlogged).update({
+    if(idV==0){
+        db.collection("volunteerUsers").doc(this.IDlogged).update({
+          status: 2
+      }) 
+   }
+   else{
+    db.collection("volunteerUsers").doc(idV).update({
       status: 2
-   }) 
+  }) 
+   }
    db.collection("ElderlyUsers").doc(idE).update({
       status: 2
  }) 
 
    
   }
-  acceptedMeeting(idE){
+  acceptedMeeting(idE , idV){
     const db = firebase.firestore();       
-   
+    if(idV==0){
     db.collection("volunteerUsers").doc(this.IDlogged).update({
       status: 4
-   }) 
-   db.collection("ElderlyUsers").doc(idE).update({
+      }) 
+    }
+    else{
+      db.collection("volunteerUsers").doc(idV).update({
+        status: 4
+        }) 
+    }
+    db.collection("ElderlyUsers").doc(idE).update({
       status: 4
- }) 
+  }) 
   }
 
   
