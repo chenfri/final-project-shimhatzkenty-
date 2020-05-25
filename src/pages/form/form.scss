@@ -1,206 +1,213 @@
-    .radio-md .radio-checked {
-        border-color: #259262;
-    }
-    
-    .styleMoreContact {
-        color: #FCBE47;
-        font-weight: bold;
-        font-family: calibri;
-        display: block;
-    }
-    
-    .contact {
-        margin: 0px 20px 0px 20px;
-    }
-    
-    .modal.red {
-        color: red;
-    }
-    
-    // .description textarea {
-    //     //only for android app 
-    //     padding: 0px !important;
-    // }
-    ion-content.formCSS {
-        color: #FCBE47;
-        background-color: #035445;
-        // background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
-        background-repeat: no-repeat !important;
-        background-attachment: fixed !important;
-        // background-attachment: scroll;
-        // --background-attachment: fixed;
-        // --background-image: url('https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b');
-        background-size: 40%;
-        font-weight: bold;
+.radio-md .radio-checked {
+    border-color: #259262;
+}
+
+.styleMoreContact {
+    color: #FCBE47;
+    font-weight: bold;
+    font-family: calibri;
+    display: block;
+}
+
+.contact {
+    margin: 0px 20px 0px 20px;
+}
+
+.modal.red {
+    color: red;
+}
+
+// .description textarea {
+//     //only for android app 
+//     padding: 0px !important;
+// }
+ion-content.formCSS {
+    color: #FCBE47;
+    background-color: #035445;
+    // background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    // background-attachment: scroll;
+    // --background-attachment: fixed;
+    // --background-image: url('https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b');
+    background-size: 40%;
+    font-weight: bold;
+    text-align: right;
+    font-family: calibri;
+    .titleForm {
+        float: right;
         text-align: right;
-        font-family: calibri;
-        .titleForm {
-            float: right;
-            text-align: right;
-            color: #fffbd8;
-            font-weight: bold;
-            font: calibri;
-        }
-        .mainTitle {
-            float: center !important;
-            text-align: center !important;
-            color: #fffbd8;
-            font-weight: bold;
-            font: calibri;
-        }
-        * {
-            box-sizing: border-box;
-        }
-        .Assistant {
-            input[type=text] {
-                width: auto;
-            }
-        }
-        /* Style inputs */
-        input[type=text],
-        input[type=password],
-        input[type=number],
-        select,
-        textarea {
-            width: max-content;
-            padding: 12px;
-            padding-left: 5px; //remove for android
-            border: 1px solid #259262;
-            resize: vertical;
-            background-color: #259262;
-        }
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type=submit] {
-            width: fit-content;
-            background-color: #af4c4c96;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            cursor: pointer;
-        }
-        .button {
-            width: -webkit-fit-content;
-            width: -moz-fit-content;
-            width: fit-content;
-            background-color: #eca8a9;
-            border: solid black 0px;
-            cursor: pointer !important;
-            border-radius: 50px;
-            -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
-            transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
-            -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
-            box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
-            color: #035445;
-        }
-        .button:hover {
-            background-color: #FCBE47;
-            color: white;
-        }
-        /* Style the container/contact section */
-        .container {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 10px;
-        }
-        /* Create two columns that float next to eachother */
-        .column {
-            float: left;
-            width: 50%;
-            margin-top: 6px;
-            padding: 20px;
-        }
-        /* Clear floats after the columns */
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-        @media screen and (max-width: 600px) {
-            .column,
-            input[type=submit] {
-                width: 100%;
-                margin-top: 0;
-            }
-            .range1 {
-                display: none;
-            }
-            .range {
-                display: block !important;
-            }
-        }
-        .slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 25px;
-            background: #d3d3d3;
-            outline: none;
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-        .slider:hover {
-            opacity: 1;
-        }
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 25px;
-            height: 25px;
-            background: #af4c4c96;
-            cursor: pointer;
-        }
-        .slider::-moz-range-thumb {
-            width: 25px;
-            height: 25px;
-            background: #945151;
-            cursor: pointer;
-        }
-        .checkbox-icon {
-            background: #68836d;
-            border-radius: 4px;
-            --height: 25px;
-            --width: 25px;
-        }
-        .checkbox-checked {
-            background-color: #259262;
-            border-color: rgb(143, 135, 129);
-        }
-        .label-checked {
-            color: black;
-        }
-        .radio-icon {
-            background: #68836d;
-            --color: #035445 !important;
-            --height: 35px;
-            --width: 35px;
-        }
-        .radio-inner {
-            background-color: #FCBE47;
-        }
-        .text-input text-input-md {
-            float: right;
-            background-color: #ffffff54;
-        }
-        .addPerson {
-            direction: rtl;
-            font-family: calibri;
-        }
-        @media screen and (max-width: 600px) {
-            #imgae-form {
-                width: 17rem !important;
-                //    margin: -1.4rem 0rem 0rem -2rem;
-            }
-        }
-         ::placeholder {
-            color: rgb(226, 222, 222);
-        }
-        // .label_android {
-        //     //only for android app
-        //     font-size: 12px;
-        // }
+        color: #fffbd8;
+        font-weight: bold;
+        font: calibri;
     }
+    .mainTitle {
+        float: center !important;
+        text-align: center !important;
+        color: #fffbd8;
+        font-weight: bold;
+        font: calibri;
+    }
+    * {
+        box-sizing: border-box;
+    }
+    .Assistant {
+        input[type=text] {
+            width: auto;
+        }
+    }
+    /* Style inputs */
+    input[type=text],
+    input[type=password],
+    input[type=number],
+    select,
+    textarea {
+        width: max-content;
+        padding: 12px;
+        padding-left: 5px; //remove for android
+        border: 1px solid #259262;
+        resize: vertical;
+        background-color: #259262;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=submit] {
+        width: fit-content;
+        background-color: #af4c4c96;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+    }
+    .button {
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        background-color: #eca8a9;
+        border: solid black 0px;
+        cursor: pointer !important;
+        border-radius: 50px;
+        -webkit-transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+        transition: border-color 0.4s ease 0s, background-color 0.4s ease 0s;
+        -webkit-box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+        box-shadow: 0px 3px 0px 0px rgba(255, 140, 98, 0.35);
+        color: #035445;
+    }
+    .button:hover {
+        background-color: #FCBE47;
+        color: white;
+    }
+    /* Style the container/contact section */
+    .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 10px;
+    }
+    /* Create two columns that float next to eachother */
+    .column {
+        float: left;
+        width: 50%;
+        margin-top: 6px;
+        padding: 20px;
+    }
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+        .column,
+        input[type=submit] {
+            width: 100%;
+            margin-top: 0;
+        }
+        .range1 {
+            display: none;
+        }
+        .range {
+            display: block !important;
+        }
+        .label_behalf {
+            font-size: 14px !important;
+        }
+    }
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 25px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    .slider:hover {
+        opacity: 1;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #af4c4c96;
+        cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #945151;
+        cursor: pointer;
+    }
+    .checkbox-icon {
+        background: #68836d;
+        border-radius: 4px;
+        --height: 25px;
+        --width: 25px;
+    }
+    .checkbox-checked {
+        background-color: #259262;
+        border-color: rgb(143, 135, 129);
+    }
+    .label-checked {
+        color: black;
+    }
+    .radio-icon {
+        background: #68836d;
+        --color: #035445 !important;
+        --height: 35px;
+        --width: 35px;
+    }
+    .radio-inner {
+        background-color: #FCBE47;
+    }
+    .text-input text-input-md {
+        float: right;
+        background-color: #ffffff54;
+    }
+    .addPerson {
+        direction: rtl;
+        font-family: calibri;
+    }
+    @media screen and (max-width: 600px) {
+        #imgae-form {
+            width: 17rem !important;
+            //    margin: -1.4rem 0rem 0rem -2rem;
+        }
+    }
+     ::placeholder {
+        color: rgb(226, 222, 222);
+    }
+    .label_behalf {
+        // for android app 12px
+        font-size: 20px;
+    }
+    label {
+        //במקום 13.3333px
+        font-size: 16px;
+    }
+}

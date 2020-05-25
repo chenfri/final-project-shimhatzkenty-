@@ -191,7 +191,7 @@ background-attachment: fixed !important;">
                 <!-------------------------------- just for elderly ------------------------------------------->
                 <ion-col *ngIf="user.elderly">
                     <ion-item no-lines style="background-color:#ffffff00">
-                        <ion-label class="label_android" style="color:#FCBE47;font-style: calibri;text-align: right; font-weight:bold;"> אני ממלא את הטופס עבור מישהו אחר</ion-label>
+                        <ion-label class="label_behalf" style="color:#FCBE47;font-style: calibri;text-align: right; font-weight:bold; "> אני ממלא את הטופס עבור מישהו אחר</ion-label>
                         <ion-checkbox item-right [checked]="user.onBehalf" (click)="onbehalf()"></ion-checkbox>
                     </ion-item>
 
@@ -199,12 +199,12 @@ background-attachment: fixed !important;">
                     <div class="Assistant" *ngIf="user.onBehalf" style="background-color: #ffffff00;width: 80%; float: right;">
                         <ion-row style="direction: rtl;">
                             <ion-col>
-                                <label style="float: right;">שמך המלא</label><br>
+                                <label>שמך המלא</label><br>
                                 <input text-right type="text" name="nameAssistant" [(ngModel)]="user.nameAssistant">
                             </ion-col>
 
                             <ion-col>
-                                <label style="float: right;">מספר טלפון</label><br>
+                                <label>מספר טלפון</label><br>
                                 <input text-right type="number" name="phone" [(ngModel)]="user.contact">
                             </ion-col>
                         </ion-row>
