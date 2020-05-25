@@ -27,8 +27,8 @@ export class MatchPage {
     this.userV = this.navParams.get('volunteer');
     this.IDlogged = this.navParams.get('IDlogged');
 
-    
-    this.statusManagement();
+    if(!this.user.Admin)
+      this.statusManagement();
 
     // this.acceptedMatch = false; 
 
@@ -51,10 +51,12 @@ export class MatchPage {
     statusManagement(){
       const db = firebase.firestore();       
    
-      db.collection("volunteerUsers").doc(this.IDlogged).get().then(result => {
-        if (!result.exists) return
-        this.user.status = result.data().status
-      })
+      if(!this.user.status){
+        db.collection("volunteerUsers").doc(this.IDlogged).get().then(result => {
+          if (!result.exists) return
+          this.user.status = result.data().status
+        })
+      }
 
     }
 
