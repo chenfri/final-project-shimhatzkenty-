@@ -14,6 +14,7 @@
         <a class="navbarButton" ion-button *ngIf="!user.Admin && user.loggedIn" (click)="volunteer_form()">עריכת פרטים אישיים</a>
         <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" get_data_for_admin(1)">מאגר נרשמים ודוחות</a >
         <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="get_data_for_admin(2)">צפייה בהתאמות</a >
+        <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" add_AdminUser()">הוספת מנהל חדש</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="scrollToBottom()">גלריה</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</a>
         <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="logout()">התנתק</a >

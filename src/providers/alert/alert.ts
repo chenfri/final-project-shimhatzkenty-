@@ -7,11 +7,23 @@ export class AlertProvider
   constructor(public alertCtrl: AlertController) {
   }
 
+
   showAlertSuccess()
   {
     let alert = this.alertCtrl.create({
       title: 'בוצע',
       subTitle: 'הרשמתך נקלטה בהצלחה!',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
+  showAlertSuccessAdmin()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'ההרשמה נקלטה בהצלחה!',
       buttons: ['אישור']
     });
     alert.present();

@@ -13,6 +13,7 @@ import {Functions} from '../../providers/functions'
 import { Slides } from 'ionic-angular';
 import { Arrays } from '../../providers/arrays'
 import { MatchPage} from '../match/match';
+import { RegisterPage } from '../register/register';
 
 @Component({
   selector: 'page-home',
@@ -47,6 +48,13 @@ export class HomePage
     console.log(this.user.Admin)
 
     this.IDlogged = this.params.get('IDlogged')
+  }
+
+
+  
+  add_AdminUser()
+  {
+    this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
 

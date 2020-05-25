@@ -5,7 +5,6 @@ import * as papa from 'papaparse';
 import {AlertProvider} from '../../providers/alert/alert'
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
-import { RegisterPage } from '../register/register';
 import {Functions} from '../../providers/functions';
 import { PopoverPage } from '../popover/popover';
 
@@ -170,12 +169,6 @@ export class adminPage
   click_home()
   {
     this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
-  }
-
-
-  add_AdminUser()
-  {
-    this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
 

@@ -5,7 +5,6 @@ import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
 import {Functions} from '../../providers/functions'
 import {AlertProvider} from '../../providers/alert/alert'
-import {adminPage} from '../Admin/adminPage'
 
 @IonicPage()
 @Component({
@@ -34,11 +33,9 @@ export class RegisterPage
     let str =await this.func.registry(this.user.email, this.user.password)
     if(str == "sucsses")
     {
-      this.alert.showAlertSuccess();
- 
-    
+      this.alert.showAlertSuccessAdmin()
       const db = firebase.firestore();
-      console.log(firebase.auth().currentUser.uid)
+
       db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
       .then(()=> {console.log("added new admin")
       this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
