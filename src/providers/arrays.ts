@@ -21,10 +21,15 @@ export class Arrays {
 
     this.hobbies = [
       {
-        'species': 'מוסיקה / שירה',
+        'species': 'שיחת זום/ ווטסאפ',
         'currentValue': false
-      }, {
-        'species': 'שיחה',
+      },
+      {
+        'species': 'שיחת טלפון - אוזן קשבת',
+        'currentValue': false
+      },
+      {
+        'species': 'מוסיקה / שירה',
         'currentValue': false
       }, {
         'species': 'קריאה',
@@ -53,10 +58,6 @@ export class Arrays {
         'species': 'מופעי ליצנות',
         'currentValue': false
       }
-      // ,{
-      //   'species': 'שיחת זום/ ווטסאפ',
-      //   'currentValue': false
-      // }
     ];
 
 
@@ -218,7 +219,7 @@ export class Arrays {
     this.meetingWith = [
       {
         'species': 'אין העדפה',
-        'currentValue': false,
+        'currentValue': true,
         'id' : 1
       }, {
         'species': 'נשים בלבד',

@@ -48,6 +48,7 @@ export class MatchPage {
     this.getVolunteerNumbers();
 
     console.log('numbers' , this.numbers)
+    
 
     }
 
@@ -95,7 +96,7 @@ export class MatchPage {
     this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
-  deleteMatch(idE){
+  CancelMatch(idE){
     const db = firebase.firestore();    
 
 

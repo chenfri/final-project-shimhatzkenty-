@@ -47,8 +47,6 @@ export class HomePage
     console.log(this.user.Admin)
 
     this.IDlogged = this.params.get('IDlogged')
-
-
   }
 
 
