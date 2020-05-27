@@ -31,7 +31,7 @@ export class Form
   public place: any[] ; relationship: any[]
 
   public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; hours_ ; relationship_ ; selectedNH : any
-  public selectedFav : any ; fixedAddress : any
+  public selectedFav : any ; fixedAddress : any ; IDlogged:any
   public ifRegister = false; hideMoreContact = false; showOtherO = false
   public showOtherR = false ; showModal = false
 
@@ -48,6 +48,7 @@ export class Form
     this.user.loggedIn = this.params.get('login');
     this.user.elderly = this.params.get('elderly')
     this.user.volunteer = this.params.get('volunteer')
+    this.IDlogged = this.params.get('IDlogged')
 
     //update variables
     this.user.email, this.selectedFav, this.selectedNH = null
@@ -141,7 +142,7 @@ export class Form
     else
     {
       this.init_arrays()
-      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn})
+      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'IDlogged':firebase.auth().currentUser.uid})
     }
   }
 

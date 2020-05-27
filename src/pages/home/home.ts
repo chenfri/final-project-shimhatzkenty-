@@ -48,6 +48,7 @@ export class HomePage
     console.log(this.user.Admin)
 
     this.IDlogged = this.params.get('IDlogged')
+    console.log("IDlogged ", this.IDlogged)
   }
 
 
@@ -81,7 +82,7 @@ scrollToBottom() {
     var x = document.getElementById("topNav");
     x.className = "topnav";
     this.navCtrl.setRoot(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
-     'volunteer': this.user.volunteer,});
+     'volunteer': this.user.volunteer,'IDlogged':firebase.auth().currentUser.uid});
   }
 
   
@@ -92,7 +93,7 @@ scrollToBottom() {
     var x = document.getElementById("topNav");
     x.className = "topnav";
     this.navCtrl.setRoot(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
-     'login':this.user.loggedIn });
+     'login':this.user.loggedIn ,'IDlogged':firebase.auth().currentUser.uid});
   }
 
 
