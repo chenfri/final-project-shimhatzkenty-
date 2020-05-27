@@ -533,7 +533,8 @@ export class Form
         musicStyle: this.musicStyle,
         hideMusic: this.user.hideMusic,
         status: 0,
-        matching: null
+        matching: null,
+        rejected: null
       })
       .then(() => {
         if(this.user.loggedIn)

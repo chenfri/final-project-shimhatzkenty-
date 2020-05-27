@@ -328,6 +328,19 @@ export class adminPage
   }
 
 
+//check if the volunteer do not reject this eldely
+  findIfReject(arr , idE)
+  {
+    if(arr != null)
+    {
+      for(let i = 0 ; i < arr.length; i++){
+        if(arr[i] == idE)
+          return true;}
+    }
+      return false;
+  }
+
+
 
   matchingAlgorithm()
   {
@@ -340,15 +353,18 @@ export class adminPage
       for(let k = 0; k < 3; k++) //save the best match
       {
         let diff = 0;
-        if(this.userE[arrMatch[k].index][16][1] == "manual")
-          diff = this.DiffrenceDates(this.userE[arrMatch[k].index][16][2], this.date)
-
-        //if the current grade is bigger than the last or if pass 30 days
-        if(this.userE[arrMatch[k].index][16][1] < arrMatch[k].grade || diff > 30)
+        if(!this.findIfReject(this.userV[i][16] ,arrMatch[k].id))
         {
-          this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade , this.userV[i][0], this.userV[i][1]]
-          console.log( this.userE[arrMatch[k].index][16])
-          break;
+          if(this.userE[arrMatch[k].index][16][1] == "manual")
+            diff = this.DiffrenceDates(this.userE[arrMatch[k].index][16][2], this.date)
+
+          //if the current grade is bigger than the last or if pass 30 days
+          if(this.userE[arrMatch[k].index][16][1] < arrMatch[k].grade || diff > 30)
+          {
+            this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade , this.userV[i][0], this.userV[i][1]]
+            console.log( this.userE[arrMatch[k].index][16])
+            break;
+          }
         }
       }
     }

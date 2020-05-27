@@ -216,7 +216,8 @@ scrollToBottom() {
         i.data().musicStyle,
         i.data().meetingWith,
         i.data().email,
-        i.data().status
+        i.data().status,
+        i.data().rejected
       ]
         j++})}).catch(error => {console.log(error)})
 
@@ -256,12 +257,12 @@ scrollToBottom() {
     setTimeout(() =>
     {
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
-      if(whichPage==1){
+      if(whichPage == 1){
           this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
           'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
           'organizationEledry': groupbyOrg});
       }
-      else if(whichPage==2){
+      else if(whichPage == 2){
         this.navCtrl.push(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
            'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged});
       }

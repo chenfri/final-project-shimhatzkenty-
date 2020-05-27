@@ -137,7 +137,7 @@
                             <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value[6])">אשר התאמה</button>
                             <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value[6])">אשר ביצוע מפגש</button>
                             <br><br>
-                            <button class="buttons" type="submit" (click)="CancelMatch(value[6] , userV[numbers[i]][4])">ביטול התאמה</button>
+                            <button class="buttons" type="submit" (click)="CancelMatch(value[6] , userV[numbers[i]][4],numbers[i])">ביטול התאמה</button>
 
                         </ion-row>
                         <ion-row class="textStyle" *ngIf="!user.Admin && this.user.status==4">התקיים מפגש</ion-row>
