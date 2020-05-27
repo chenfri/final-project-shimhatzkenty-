@@ -73,95 +73,99 @@ export class MatchPage {
           this.user.status = result.data().status
         })
       }
-
     }
 
-    getVolunteerNumbers(){
-      this.numbers = [0]
-      for(var i=0; i<this.userE.length;i++){
-        
-        if(this.userE[i][16]){
-          
-          var volID = this.userE[i][16][0];
+  
 
+    getVolunteerNumbers()
+    {
+      this.numbers = [0]
+      for(var i = 0; i < this.userE.length; i++){
+        
+        if(this.userE[i][16])
+        {
+          var volID = this.userE[i][16][0];
           var push = false;
-          for(var j=0 ; j<this.userV.length;j++){
+
+          for(var j = 0 ; j < this.userV.length; j++){
             var index = this.userV[j][4].localeCompare(volID)
 
             if(this.userV[j][4].localeCompare(volID) == 0 ){
                 this.numbers.push(this.userV[j][5]); 
                 push = true;
             }
-          
           } 
         }
+
         if(push == false)   {
             console.log("ENTER")
             this.numbers.push(-1); 
           }
       }
-
-  
-  
   }
   
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MatchPage');
   }
+
+
   click_home()
   {
     this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
 
-  CancelMatch(idE){
+
+  CancelMatch(idE)
+  {
     const db = firebase.firestore();    
-
-
     db.collection("ElderlyUsers").doc(idE).update({
-       matching: null,
+       matching: ["",0],
        status: 0
     }) 
     db.collection("volunteerUsers").doc(this.IDlogged).update({
-      status: 3
-   }) 
+      status: 3}) 
+
    this.cancelText = true
-    
   }
-  acceptMatch(idE , idV){
+
+
+
+  acceptMatch(idE , idV)
+  {
     const db = firebase.firestore();       
     this.acceptedMatch = true;  
-    if(idV==0){
+    if(idV == 0)
         db.collection("volunteerUsers").doc(this.IDlogged).update({
           status: 2
       }) 
-   }
-   else{
+   
+   else
     db.collection("volunteerUsers").doc(idV).update({
       status: 2
   }) 
-   }
-   db.collection("ElderlyUsers").doc(idE).update({
-      status: 2
- }) 
-
    
+   db.collection("ElderlyUsers").doc(idE).update({
+      status: 2}) 
   }
-  acceptedMeeting(idE , idV){
+
+
+  acceptedMeeting(idE , idV)
+  {
     const db = firebase.firestore();       
-    if(idV==0){
+    if(idV == 0)
     db.collection("volunteerUsers").doc(this.IDlogged).update({
       status: 4
       }) 
-    }
-    else{
+
+    else
       db.collection("volunteerUsers").doc(idV).update({
         status: 4
         }) 
-    }
+    
     db.collection("ElderlyUsers").doc(idE).update({
-      status: 4
-  }) 
+      status: 4 }) 
   }
 
-  
 }
