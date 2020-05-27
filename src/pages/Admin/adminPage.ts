@@ -323,7 +323,7 @@ export class adminPage
      // this.sendEmailsVolunteer(this.userV[indexE][0], "chenfriedman93@gmail.com")
      // this.sendEmailsElder(this.userE[indexE][3], this.userE[indexE][0], "chenfriedman93@gmail.com")
       //this.sendSMS(this.userV[indexE][1], this.userV[indexE][0])
-      this.alert.success_manual_matching()
+      this.alert.showSuccessAlgorithm()
     }
   }
 
@@ -384,6 +384,8 @@ export class adminPage
     //     //this.sendSMS(this.userE[i][16][3], this.userE[i][16][2])
     //   }
     // }
+
+      this.alert.showSuccessAlgorithm();
   } 
 
 

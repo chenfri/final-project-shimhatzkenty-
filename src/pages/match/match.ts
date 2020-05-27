@@ -125,6 +125,7 @@ export class MatchPage {
        status: 0
     }) 
     db.collection("volunteerUsers").doc(this.IDlogged).update({
+      matching: null,
       status: 3}) 
 
    this.cancelText = true

@@ -30,6 +30,16 @@ export class AlertProvider
   }
 
 
+  showSuccessAlgorithm()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'האלגוריתם הופעל בהצלחה',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
   showError_manual_matching()
   {
     let alert = this.alertCtrl.create({
