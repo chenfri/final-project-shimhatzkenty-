@@ -31,7 +31,7 @@ export class Form
   public place: any[] ; relationship: any[]
 
   public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; hours_ ; relationship_ ; selectedNH : any
-  public selectedFav : any ; fixedAddress : any ; IDlogged:any
+  public selectedFav : any ; fixedAddress : any ; IDlogged:any ; matching: any
   public ifRegister = false; hideMoreContact = false; showOtherO = false
   public showOtherR = false ; showModal = false
 
@@ -49,6 +49,7 @@ export class Form
     this.user.elderly = this.params.get('elderly')
     this.user.volunteer = this.params.get('volunteer')
     this.IDlogged = this.params.get('IDlogged')
+    console.log(this.IDlogged )
 
     //update variables
     this.user.email, this.selectedFav, this.selectedNH = null
@@ -142,7 +143,7 @@ export class Form
     else
     {
       this.init_arrays()
-      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'IDlogged':firebase.auth().currentUser.uid})
+      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'IDlogged':this.IDlogged})
     }
   }
 
@@ -395,6 +396,8 @@ export class Form
 
       if (flag == 0)
       {
+        if(this.check_arrayVaule(this.meetingWith) == 1)
+          this.meetingWith[0] = true;
         if (this.user.fullName == null && this.user.elderly)
         this.user.fullName = 'חסוי'
 
@@ -529,7 +532,8 @@ export class Form
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
         hideMusic: this.user.hideMusic,
-        status: 0
+        status: 0,
+        matching: null
       })
       .then(() => {
         if(this.user.loggedIn)
@@ -580,6 +584,7 @@ export class Form
       this.radioClicked_fromDB(this.numOfMeeting, this.numOfMeeting_)
       this.radioClicked_fromDB(this.hours, this.hours_)
       this.radioClicked_fromDB(this.gender, this.gender_)
+      this.matching = result.data().matching
 
     }).catch(error => {console.log(error)})
  
@@ -693,7 +698,7 @@ export class Form
   CheckboxClicked1(item: any, arr)
   {
     this.CheckboxClicked(item, arr)
-    if(this.hobbies[0].currentValue)
+    if(this.hobbies[2].currentValue)
       this.user.hideMusic = true;
     else
     {

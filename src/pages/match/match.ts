@@ -25,32 +25,28 @@ export class MatchPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
+   
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
     this.userV = this.navParams.get('volunteer');
     this.IDlogged = this.navParams.get('IDlogged');
     console.log(this.userE)
+    console.log('this.IDlogged', this.IDlogged)
 
     if(!this.user.Admin)
       this.statusManagement();
 
     this.cancelDescription = ""; 
 
-    console.log('this.IDlogged', this.IDlogged)
-
     for(var i=0 ; i<this.userV.length;i++){
- 
-      if(this.IDlogged == this.userV[i][4]) {    
+       if(this.IDlogged == this.userV[i][4]) 
         this.nameLogged = this.userV[i][0];
-      }
+      
     }
     console.log("name" , this.nameLogged )
-
-
     console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
                 this.userE , this.userV  )
-
     console.log( 'userE[1][16] ' ,this.userE[1][16][0] , 'userE[1][16][0]' ,this.userE[1][16][0])
 
     this.showMatch = false
@@ -58,21 +54,21 @@ export class MatchPage {
 
     this.getVolunteerNumbers();
 
-
     console.log('numbers' , this.numbers)
     this.user.status = -1;
-
     }
 
-    statusManagement(){
+
+
+    statusManagement()
+    {
       const db = firebase.firestore();       
-   
-      if(!this.user.status){
+  
+      if(!this.user.status)
         db.collection("volunteerUsers").doc(this.IDlogged).get().then(result => {
           if (!result.exists) return
           this.user.status = result.data().status
         })
-      }
     }
 
   
@@ -87,13 +83,12 @@ export class MatchPage {
           var volID = this.userE[i][16][0];
           var push = false;
 
-          for(var j = 0 ; j < this.userV.length; j++){
+          for(var j = 0 ; j < this.userV.length; j++)
+          {
             var index = this.userV[j][4].localeCompare(volID)
-
             if(this.userV[j][4].localeCompare(volID) == 0 ){
                 this.numbers.push(this.userV[j][5]); 
-                push = true;
-            }
+                push = true;}
           } 
         }
 

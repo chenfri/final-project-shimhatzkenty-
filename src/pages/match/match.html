@@ -43,9 +43,15 @@
                                         </ion-card-header>
                                         <ion-card-content text-wrap>
                                             מספר פלאפון: 0{{value[1]}}
-                                            <br> <br> כתובת: {{value[2]}}
-                                            <br> <br>:שם המסייע {{value[3]}}
-                                            <br> <br>:ימים למפגש
+                                            <br> <br>
+                                            <div *ngIf="user.Admin">כתובת: {{value[2]}}
+                                                <br> <br></div>
+                                            <div *ngIf="value[3] != null">
+                                                שם איש קשר: {{value[3]}}
+                                                <br> <br></div>
+                                            <div *ngIf="value[4] != null">
+                                                פלאפון איש קשר: {{value[4]}}
+                                                <br> <br></div>:ימים למפגש
                                             <div *ngFor="let days of value[10]">
                                                 <div *ngIf="days.currentValue">{{ days.species }}</div>
                                             </div>
@@ -71,6 +77,9 @@
                                                 <div *ngIf=" value[15]   == 2">נשים בלבד</div>
                                                 <div *ngIf=" value[15]   == 3">גברים בלבד</div>
                                             </div>
+                                            <br><br>
+                                            <div *ngIf="value[18] !=null">:מידע נוסף<br>{{value[18]}}
+                                                <br><br></div>
                                         </ion-card-content>
                                     </ion-item>
 
@@ -89,8 +98,9 @@
                                         </ion-card-header>
                                         <ion-card-content text-wrap>
                                             מספר פלאפון: 0{{userV[numbers[i]][1]}}
-                                            <br> <br> כתובת: {{userV[numbers[i]][2]}}
-                                            <br> <br>:ימים למפגש
+                                            <br> <br>
+                                            <div *ngIf="user.Admin">כתובת: {{userV[numbers[i]][2]}}
+                                                <br> <br></div>:ימים למפגש
                                             <div *ngFor="let days of userV[numbers[i]][8]">
                                                 <div *ngIf="days.currentValue">{{ days.species }}</div>
                                             </div>
@@ -123,7 +133,7 @@
 
                             </ion-col>
                         </ion-row>
-                        <ion-row *ngIf="numbers[i]!=-1"  style="justify-content: center;">
+                        <ion-row *ngIf="numbers[i]!=-1" style="justify-content: center;">
                             <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value[6])">אשר התאמה</button>
                             <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value[6])">אשר ביצוע מפגש</button>
                             <br><br>

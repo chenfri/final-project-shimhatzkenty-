@@ -28,7 +28,7 @@
 
             <tr *ngFor="let value of messages">
                 <td><button class="buttons" (click)="deleteMessage(value.id)">[x]</button></td>
-                <td>{{value.data.message}}</td>
+                <td style="direction: rtl;">{{value.data.message}}</td>
                 <td>0{{value.data.phoneNumber}}</td>
                 <td>{{value.data.fullName}}</td>
             </tr>

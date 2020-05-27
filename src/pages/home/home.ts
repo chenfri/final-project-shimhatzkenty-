@@ -82,7 +82,7 @@ scrollToBottom() {
     var x = document.getElementById("topNav");
     x.className = "topnav";
     this.navCtrl.setRoot(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
-     'volunteer': this.user.volunteer,'IDlogged':firebase.auth().currentUser.uid});
+     'volunteer': this.user.volunteer,'IDlogged':this.IDlogged});
   }
 
   
@@ -90,10 +90,11 @@ scrollToBottom() {
   {
     this.user.elderly = false;
     this.user.volunteer = true;
+
     var x = document.getElementById("topNav");
     x.className = "topnav";
     this.navCtrl.setRoot(Form, {'elderly':this.user.elderly,'volunteer': this.user.volunteer,
-     'login':this.user.loggedIn ,'IDlogged':firebase.auth().currentUser.uid});
+     'login':this.user.loggedIn ,'IDlogged':this.IDlogged});
   }
 
 
@@ -147,7 +148,7 @@ scrollToBottom() {
   get_data_for_admin(whichPage)
   {
     let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
-    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = [] , tmpPhone = ""
+    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = [] , tmpPhone = null
    
     const db = firebase.firestore();
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { 
@@ -171,7 +172,8 @@ scrollToBottom() {
         i.data().musicStyle,
         i.data().meetingWith,
         i.data().matching,
-        i.data().email]
+        i.data().email,
+        i.data().description]
         k++})}).catch(error => {console.log(error)})
 
     

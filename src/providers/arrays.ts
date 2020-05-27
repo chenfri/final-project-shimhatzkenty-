@@ -219,7 +219,7 @@ export class Arrays {
     this.meetingWith = [
       {
         'species': 'אין העדפה',
-        'currentValue': true,
+        'currentValue': false,
         'id' : 1
       }, {
         'species': 'נשים בלבד',
