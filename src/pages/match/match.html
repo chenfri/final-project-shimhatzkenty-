@@ -121,11 +121,11 @@
 
                             </ion-col>
                         </ion-row>
-                        <ion-row style="justify-content: center;">
+                        <ion-row *ngIf="numbers[i]!=-1"  style="justify-content: center;">
                             <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value[6])">אשר התאמה</button>
                             <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value[6])">אשר ביצוע מפגש</button>
                             <br><br>
-                            <button class="buttons" type="submit" (click)="CancelMatch(value[6])">ביטול התאמה</button>
+                            <button class="buttons" type="submit" (click)="CancelMatch(value[6] , userV[numbers[i]][4])">ביטול התאמה</button>
 
                         </ion-row>
                         <ion-row class="textStyle" *ngIf="!user.Admin && this.user.status==4">התקיים מפגש</ion-row>
@@ -137,8 +137,8 @@
                             <br><br>
                             <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="!user.admin && cancelText">
 
-                                <label>נשמח לדעת את סיבת הדחייה </label><br>
-                                <ion-textarea class="description" text-right type="text" [(ngModel)]="cancelDescription"></ion-textarea>
+                                <!-- <label>נשמח לדעת את סיבת הדחייה </label><br>
+                                <ion-textarea class="description" text-right type="text" [(ngModel)]="cancelDescription"></ion-textarea> -->
                             </ion-grid>
 
                         </ion-row>
