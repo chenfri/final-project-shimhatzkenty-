@@ -117,16 +117,17 @@ export class MatchPage {
   }
 
 
-  CancelMatch(idE)
+  CancelMatch(idE,idV)
   {
     const db = firebase.firestore();    
     db.collection("ElderlyUsers").doc(idE).update({
        matching: ["",0],
        status: 0
     }) 
-    db.collection("volunteerUsers").doc(this.IDlogged).update({
+    db.collection("volunteerUsers").doc(idV).update({
       matching: null,
-      status: 3}) 
+      status: 3
+    }) 
 
    this.cancelText = true
   }
