@@ -21,6 +21,8 @@ export class MatchPage {
   showMatch:boolean;
   cancelText: boolean;
   cancelDescription: string;
+  nameLogged: string;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
     this.user.loggedIn = this.navParams.get('login');
@@ -37,6 +39,15 @@ export class MatchPage {
 
     console.log('this.IDlogged', this.IDlogged)
 
+    for(var i=0 ; i<this.userV.length;i++){
+ 
+      if(this.IDlogged == this.userV[i][4]) {    
+        this.nameLogged = this.userV[i][0];
+      }
+    }
+    console.log("name" , this.nameLogged )
+
+
     console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
                 this.userE , this.userV  )
 
@@ -47,8 +58,9 @@ export class MatchPage {
 
     this.getVolunteerNumbers();
 
+
     console.log('numbers' , this.numbers)
-    
+    this.user.status = -1;
 
     }
 
@@ -65,25 +77,30 @@ export class MatchPage {
     }
 
     getVolunteerNumbers(){
-
-      
+      this.numbers = [0]
       for(var i=0; i<this.userE.length;i++){
-        var volID = this.userE[i][16][0];
-        var push = false;
-        for(var j=0 ; j<this.userV.length;j++){
-          var index = this.userV[j][4].localeCompare(volID)
-
-          if(this.userV[j][4].localeCompare(volID) == 0){
-              this.numbers.push(this.userV[j][5]); 
-              push = true;
-          }
         
-        } 
+        if(this.userE[i][16]){
+          
+          var volID = this.userE[i][16][0];
+
+          var push = false;
+          for(var j=0 ; j<this.userV.length;j++){
+            var index = this.userV[j][4].localeCompare(volID)
+
+            if(this.userV[j][4].localeCompare(volID) == 0 ){
+                this.numbers.push(this.userV[j][5]); 
+                push = true;
+            }
+          
+          } 
+        }
         if(push == false)   {
             console.log("ENTER")
             this.numbers.push(-1); 
           }
       }
+
   
   
   }

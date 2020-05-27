@@ -527,7 +527,8 @@ export class Form
         dayOfMeeting: this.dayOfMeeting,
         musical_instrument: this.musical_instrument,
         musicStyle: this.musicStyle,
-        hideMusic: this.user.hideMusic
+        hideMusic: this.user.hideMusic,
+        status: 0
       })
       .then(() => {
         if(this.user.loggedIn)
