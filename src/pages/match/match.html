@@ -21,7 +21,7 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6 *ngFor="let value of userE ; let i = index">
-                <ion-item *ngIf="(value[16]!=null && value[16][0] == IDlogged && !user.Admin && numbers[i]!= -1 )|| (value[16]!=null && user.Admin && numbers[i]!= -1) ; else elseBlock" style="background: #ffffff00;">
+                <ion-item *ngIf="(value[16]!=null && value[16][0]!= '' && value[16][0] == IDlogged && !user.Admin && numbers[i]!= -1 )|| ( value[16][0] != '' && value[16]!=null && user.Admin && numbers[i]!= -1) ; else elseBlock" style="background: #ffffff00;">
                     <ion-card class="outsideCard" showMatch="true" text-center padding color="info-color">
                         <!-- <ion-card-header> -->
              
@@ -80,7 +80,7 @@
                                     <ion-item style=" text-align: -webkit-center;" *ngIf="numbers[i]!= -1">
 
                                       
-                                          <img *ngIf=" userV[numbers[i]][7]==1" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20women.png?alt=media&token=f31aaad6-ee85-47de-8370-3bca2241b155" />
+                                        <img *ngIf=" userV[numbers[i]][7]==1" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20women.png?alt=media&token=f31aaad6-ee85-47de-8370-3bca2241b155" />
                                         <img *ngIf=" userV[numbers[i]][7]==2" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20men.png?alt=media&token=54bc0512-5082-4eb6-bea2-a1d98582220b" />
                                         <ion-card-header>
                                             <ion-card-title text-wrap>{{userV[numbers[i]][0]}}</ion-card-title>
@@ -138,7 +138,7 @@
                 <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="!user.admin && cancelText">
 
                   <label>נשמח לדעת את סיבת הדחייה </label><br>
-                  <ion-textarea cols="40" rows="10" class="description" text-right type="text"  [(ngModel)]="cancelDescription"></ion-textarea>
+                  <ion-textarea  class="description" text-right type="text"  [(ngModel)]="cancelDescription"></ion-textarea>
               </ion-grid>
 
               </ion-row>                
