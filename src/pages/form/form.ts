@@ -52,15 +52,15 @@ export class Form
     console.log(this.IDlogged )
 
     //update variables
-    this.user.email, this.selectedFav, this.selectedNH = null
-    this.user.orgName, this.user.street, this.user.city, this.user.nameAssistant = null
-    this.user.relationName, this.user.college, this.user.id, this.user.contact = null
-    this.user.age, this.user.dateTime, this.familyMember, this.user.fullName = null
-    this.orgi, this.gender_, this.meetingWith_, this.numOfMeeting_, this.relationship_ = null
-    this.hours, this.user.description = null
-    this.user.hideMusic, this.user.student, this.user.onBehalf = false
-    this.user.numOfAssistant = 0
-    
+    this.user.email = null ;this.selectedFav = null; this.selectedNH = null
+    this.user.orgName = null; this.user.street = null ; this.user.nameAssistant = null
+    this.user.relationName = null; this.user.college = null; this.user.id = null
+    this.user.contact = null; this.user.age = null; this.user.dateTime = null
+    this.familyMember = null; this.user.fullName = null; this.orgi = null
+    this.gender_ = null; this.meetingWith_ = null; this.numOfMeeting_ = null
+    this.relationship_ = null; this.hours = null; this.user.city = null
+    this.user.description = null; this.user.hideMusic = false
+    this.user.student = false; this.user.onBehalf = false ; this.user.numOfAssistant = 0
 
     this.hobbies = this.array.hobbies
     // this.time = this.array.time

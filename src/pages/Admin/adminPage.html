@@ -35,7 +35,7 @@
         </table><br><br>
 
         <h4 class="tableTitle">:קשישים שנרשמו</h4>
-        <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry', false)">ייצוא טבלת קשישים לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry')">ייצוא טבלת קשישים לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
                 <!-- <th>מחק משתמש</th> -->
@@ -48,26 +48,26 @@
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userE">
-                <!-- <td><button (click)="deleteElderlyUser(value[4])">[x]</button></td> -->
-                <td>{{value[5]}}</td>
-                <td>{{value[4]}}</td>
-                <td>{{value[3]}}</td>
-                <td>{{value[2]}}</td>
-                <td>0{{value[1]}}</td>
+                <!-- <td><button (click)="deleteElderlyUser(value.docID)">[x]</button></td> -->
+                <td>{{value.date}}</td>
+                <td>{{value.contact}}</td>
+                <td>{{value.nameAssistant}}</td>
+                <td>{{value.address}}</td>
+                <td>0{{value.phone}}</td>
                 <td>
-                    <a class="info-button" (click)="openPopover($event, value[6], 'elderly')">
+                    <a class="info-button" (click)="openPopover($event, value.docID, 'elderly')">
                         <ion-icon name="ios-information-circle-outline"></ion-icon>
                     </a>
-                    {{value[0]}}
+                    {{value.name}}
                 </td>
                 <td style="text-align: center;" class="hidePhone">
-                    <ion-radio [checked]="value[8]" (click)="elderlyRadioClicked(value[7])" color="adminpagebutton"></ion-radio>
+                    <ion-radio [checked]="value.manualM" (click)="elderlyRadioClicked(value.index)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
         </table><br><br>
 
         <h4 class="tableTitle">:מתנדבים שנרשמו</h4>
-        <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer' ,false)">ייצוא טבלת מתנדבים לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
 
         <table id="customers" class="table-style">
             <tr>
@@ -79,24 +79,24 @@
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userV">
-                <td><button class="buttons del" (click)="deleteVolunteerUser(value[4])">[x]</button></td>
-                <td>{{value[3]}}</td>
-                <td>{{value[2]}}</td>
-                <td>0{{value[1]}}</td>
+                <td><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
+                <td>{{value.date}}</td>
+                <td>{{value.address}}</td>
+                <td>0{{value.phone}}</td>
                 <td>
-                    <a class="info-button" (click)="openPopover($event, value[4], 'volunteer')">
+                    <a class="info-button" (click)="openPopover($event, value.docID, 'volunteer')">
                         <ion-icon name="ios-information-circle-outline"></ion-icon>
-                    </a> {{value[0]}}
+                    </a> {{value.name}}
                 </td>
                 <td style="text-align: center;" class="hidePhone">
-                    <ion-radio [checked]="value[6]" (click)="volunteerRadioClicked(value[5])" color="adminpagebutton"></ion-radio>
+                    <ion-radio [checked]="value.manualM" (click)="volunteerRadioClicked(value.index)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
         </table><br><br>
 
 
         <h4 class="tableTitle">:סטודנטים שנרשמו</h4>
-        <button class="buttons" type="submit" (click)="csvFile(userStudent , 'student', false)">ייצוא טבלת סטודנטים לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(userStudent , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
                 <th>מוסד אקדמי</th>
@@ -105,16 +105,16 @@
                 <th>שם מלא</th>
             </tr>
             <tr *ngFor="let value of userStudent">
-                <td>{{value[3]}}</td>
-                <td>{{value[2]}}</td>
-                <td>0{{value[1]}}</td>
-                <td>{{value[0]}}</td>
+                <td>{{value.college}}</td>
+                <td>{{value.id}}</td>
+                <td>0{{value.phone}}</td>
+                <td>{{value.name}}</td>
             </tr>
         </table> <br><br>
 
         <div *ngIf="organizationEledry['יד שרה'] != undefined">
             <h4 class="tableTitle ">:קשישים שנרשמו דרך יד שרה</h4>
-            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'יד שרה'], 'organization' ,true) ">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
+            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'יד שרה'], 'organization') ">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
             <table id="customers" class="table-style">
                 <tr>
                     <th>שם הארגון</th>
@@ -135,7 +135,7 @@
 
         <div *ngIf="organizationEledry[ 'מלבב'] != undefined">
             <h4 class="tableTitle">:קשישים שנרשמו דרך מלבב</h4>
-            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization', true)">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
+            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization')">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
             <table id="customers" class="table-style">
                 <tr>
                     <th>שם הארגון</th>
@@ -156,7 +156,7 @@
 
         <div *ngIf="organizationEledry['עזר מציון'] != undefined">
             <h4 class="tableTitle ">:קשישים שנרשמו דרך עזר מציון</h4>
-            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'עזר מציון'] , 'organization' ,true) ">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
+            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'עזר מציון'] , 'organization') ">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
             <table id="customers " class="table-style ">
                 <tr>
                     <th>שם הארגון</th>
@@ -177,7 +177,7 @@
 
         <div *ngIf="organizationEledry['אחר'] != undefined">
             <h4 class="tableTitle ">:קשישים שנרשמו דרך ארגונים אחרים</h4>
-            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] , 'organization' ,true) ">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
+            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] , 'organization') ">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
             <table id="customers" class="table-style">
                 <tr>
                     <th>שם הארגון</th>

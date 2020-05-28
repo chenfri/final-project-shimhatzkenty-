@@ -1,3 +1,4 @@
+const matchingFunct = require('../src/pages/Admin/adminPage.ts');
 const functions = require('firebase-functions');
 const admin = require("firebase-admin");
 const sgMail = require('@sendgrid/mail');
@@ -55,6 +56,15 @@ exports.sendEmail = functions.https.onCall(async(data, context) => {
 
 
 
+
+exports.RunMatching = functions.https.onCall(async(data, context) => {
+    firebase.functions().httpsCallable(matchingFunct.matchingAlgorithm);
+
+
+});
+
+
+
 // ---------------------------  not in used -------------------------------
 
 //exports.sendSms1 = functions.https.onCall(async(data, context) => {
@@ -83,30 +93,3 @@ exports.sendEmail = functions.https.onCall(async(data, context) => {
 //             .then(() => console.log("deleted userID", userUID))
 //             .catch(error => console.error("failed to delete userID ", userUID, "err", error));
 //     });
-
-
-
-
-// exports.firestoreEmail = functions.firestore.document('volunteerUsers/{userUID}')
-//     .onCreate(event => {
-//         const userUID = event.params
-//         const db = admin.firestore()
-//         return db.collection("volunteerUsers").doc("" + userUID).get()
-//             .then(doc => {
-//                 console.log(doc.data());
-//                 const msg = {
-//                     to: 'chenfriedman93@gmail.com',
-//                     from: 'simhatzkenty@gmail.com',
-//                     subject: 'test',
-//                     text: 'test',
-//                     html: '<strong>שלום, נמצאה לך התאמה!</strong>'
-//                 };
-//                 return sgMail.send(msg).then(
-//                     console.log('Message sent')
-//                 ).catch((error) => {
-//                     console.log(error.response.body)
-//                         // console.log(error.response.body.errors[0].message)
-//                 })
-//             })
-//             .then(console.log("the msg is send")).catch(err => { console.log(err) })
-//     })

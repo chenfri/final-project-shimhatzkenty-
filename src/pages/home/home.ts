@@ -49,6 +49,26 @@ export class HomePage
 
     this.IDlogged = this.params.get('IDlogged')
     console.log("IDlogged ", this.IDlogged)
+
+
+    // var myArray = [{
+    //   name: "Joe Blow",
+    //   date: "2020-05-20"
+    // }, {
+    //   name: "Sam Snead",
+    //   date: "2020-05-19"
+    // }, {
+    //   name: "John Smith",
+    //   date: "2020-05-18"
+    // }];
+    
+    // myArray.sort(function compare(a, b) {
+    //   var dateA = new Date(a.date);
+    //   var dateB = new Date(b.date);
+    //   return dateA.getTime() - dateB.getTime();
+    // });
+    
+    // console.log(myArray);
   }
 
 
@@ -152,28 +172,29 @@ scrollToBottom() {
    
     const db = firebase.firestore();
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { 
+      tmpPhone = null
       if(i.data().contact != null)
-      tmpPhone = "0" +i.data().contact
+        tmpPhone = "0" +i.data().contact
       elderly[k] =
-      [ i.data().fullName,
-        i.data().phone,
-        i.data().address,
-        i.data().nameAssistant,
-        tmpPhone,
-        i.data().dateTime,
-        i.id,
-        k,
-        false,
-        i.data().gender,
-        i.data().dayOfMeeting,
-        i.data().hobbies,
-        i.data().hours,
-        i.data().language,
-        i.data().musicStyle,
-        i.data().meetingWith,
-        i.data().matching,
-        i.data().email,
-        i.data().description]
+       {name: i.data().fullName,
+        phone: i.data().phone,
+        address: i.data().address,
+        nameAssistant: i.data().nameAssistant,
+        contact: tmpPhone,
+        date: i.data().dateTime,
+        docID: i.id,
+        index: k,
+        manualM: false,
+        gender: i.data().gender,
+        dayOfMeeting: i.data().dayOfMeeting,
+        hobbies: i.data().hobbies,
+        hours: i.data().hours,
+        language: i.data().language,
+        musicStyle: i.data().musicStyle,
+        meetingWith: i.data().meetingWith,
+        matching: i.data().matching,
+        email: i.data().email,
+        description: i.data().description}
         k++})}).catch(error => {console.log(error)})
 
     
@@ -200,28 +221,34 @@ scrollToBottom() {
 
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
       volunteer[j] =
-      [
-        i.data().fullName,
-        i.data().phone,
-        i.data().address,
-        i.data().dateTime,
-        i.id,
-        j,
-        false,
-        i.data().gender,
-        i.data().dayOfMeeting,
-        i.data().hobbies,
-        i.data().hours,
-        i.data().language,
-        i.data().musicStyle,
-        i.data().meetingWith,
-        i.data().email,
-        i.data().status,
-        i.data().rejected
-      ]
+      {
+        name: i.data().fullName,
+        phone: i.data().phone,
+        address: i.data().address,
+        date: i.data().dateTime,
+        docID: i.id,
+        index: j,
+        manualM: false,
+        gender: i.data().gender,
+        dayOfMeeting: i.data().dayOfMeeting,
+        hobbies: i.data().hobbies,
+        hours: i.data().hours,
+        language: i.data().language,
+        musicStyle: i.data().musicStyle,
+        meetingWith: i.data().meetingWith,
+        email: i.data().email,
+        status: i.data().status,
+        rejected: i.data().rejected
+      }
         j++})}).catch(error => {console.log(error)})
-
-
+s
+        // volunteer.sort(function compare(a, b) {
+        //   var dateA = new Date(a.date);
+        //   var dateB = new Date(b.date);
+        //   return dateA.getTime() - dateB.getTime();
+        // });
+        
+        // console.log(volunteer);
       
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>
   {
@@ -236,13 +263,14 @@ scrollToBottom() {
       if(i.data().student == true)
       {
         students[t] =
-        [ i.data().fullName,
-          i.data().phone,
-          ID,
-          i.data().college,
-          i.data().dateTime,
-          i.id
-        ]
+        {
+          name: i.data().fullName,
+          phone: i.data().phone,
+          id: ID,
+          college: i.data().college,
+          date: i.data().dateTime,
+          codID: i.id
+        }
         t++;
       } 
     })})  .catch(error => {console.log(error)})

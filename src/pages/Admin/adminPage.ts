@@ -53,7 +53,7 @@ export class adminPage
 
 
   //create excel file with the rellevant data
-  csvFile(array , type , arrType)
+  csvFile(array , type)
   {
     let tmp= []
 
@@ -61,21 +61,32 @@ export class adminPage
     {
       for(let i = 0 ; i < array.length ; i++)
       {
-        if(arrType)
+        if(type == "organization")
+        {
+          this.headerRow = ["שם", "פלאפון הקשיש" ,"שם איש קשר","פלאפון איש קשר" , "שם האירגון"]
           tmp[i] = [array[i].name, array[i].phoneE, array[i].assistName, array[i].phoneA, array[i].id]  
-        else  
-          tmp[i] = array[i]
+        }
+
+        if(type == "eledry")
+        {
+          this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
+          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].nameAssistant,
+          array[i].contact, array[i].date]  
+        }
+
+        if(type == "volunteer")
+        {
+          this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
+          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].date]  
+        }
+
+        if(type == "student") {
+          this.headerRow = ["שם" , "פלאפון", "תעודת זהות","מוסד אקדמי"]
+          tmp[i] = [array[i].name, array[i].phone, array[i].id, array[i].college]
+        }
+     
       }
     }
-
-    if(type == "eledry")
-      this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
-    if(type == "volunteer")
-      this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
-    if(type == "student") 
-      this.headerRow = ["שם" , "פלאפון", "תעודת זהות","מוסד אקדמי"]
-    if(type == "organization")
-      this.headerRow = ["שם", "פלאפון הקשיש" ,"שם איש קשר","פלאפון איש קשר" , "שם האירגון"]
 
     let csv = papa.unparse({
       fields: this.headerRow,
@@ -249,24 +260,25 @@ export class adminPage
 
   elderlyRadioClicked(numElderly)
   {
-    this.matchE = this.userE[numElderly][6];
-    this.userE[numElderly][8] = true;
+    console.log(numElderly)
+    this.matchE = this.userE[numElderly].docID;
+    this.userE[numElderly].manualM = true;
 
     for(var i = 0 ; i < this.userE.length; i++)
         if(numElderly != i)
-          this.userE[i][8] = false;
+          this.userE[i].manualM = false;
   }
 
 
   
   volunteerRadioClicked(numVolunteer)
   {
-    this.matchV = this.userV[numVolunteer][4]
-    this.userV[numVolunteer][6] = true;
+    this.matchV = this.userV[numVolunteer].docID
+    this.userV[numVolunteer].manualM= true;
 
-    for(var i=0 ; i <this.userV.length; i++)
+    for(var i = 0 ; i <this.userV.length; i++)
         if(numVolunteer != i)
-          this.userV[i][6] = false;
+          this.userV[i].manualM = false;
   }
 
 
@@ -287,7 +299,8 @@ export class adminPage
   manual_matching()
   {
     const db = firebase.firestore();    
-   
+    let indexE = 0, indexV = 0;
+
     if(this.matchE == null || this.matchV == null)
       this.alert.showError_manual_matching()
 
@@ -301,28 +314,26 @@ export class adminPage
           status: 1
       }) 
 
-      let indexE, indexV = 0;
-
       for(var i = 0 ; i < this.userE.length; i++){
-        if(this.userE[i][8]){
-          this.userE[i][16] = [this.matchV, "manual" ,this.date]
-          this.userE[i][8] = false;
+        if(this.userE[i].manualM){
+          this.userE[i].matching = [this.matchV, "manual" ,this.date]
+          this.userE[i].manualM = false;
       
           indexE = i
-          break}
+          break }
       }
    
       for(var i = 0 ; i <this.userV.length; i++){
-        if(this.userV[i][6]){
+        if(this.userV[i].manualM){
           indexV = i
-          this.userV[i][6] = false
+          this.userV[i].manualM = false
           break}
       }
 
       this.matchE, this.matchV = null;
-     // this.sendEmailsVolunteer(this.userV[indexE][0], "chenfriedman93@gmail.com")
-     // this.sendEmailsElder(this.userE[indexE][3], this.userE[indexE][0], "chenfriedman93@gmail.com")
-      //this.sendSMS(this.userV[indexE][1], this.userV[indexE][0])
+     // this.sendEmailsVolunteer(this.userV[indexE].name, "chenfriedman93@gmail.com")
+     // this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, "chenfriedman93@gmail.com")
+      //this.sendSMS(this.userV[indexE].phone, this.userV[indexE].name)
       this.alert.showSuccessAlgorithm()
     }
   }
@@ -353,16 +364,17 @@ export class adminPage
       for(let k = 0; k < 3; k++) //save the best match
       {
         let diff = 0;
-        if(!this.findIfReject(this.userV[i][16] ,arrMatch[k].id))
+        if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
         {
-          if(this.userE[arrMatch[k].index][16][1] == "manual")
-            diff = this.DiffrenceDates(this.userE[arrMatch[k].index][16][2], this.date)
+          if(this.userE[arrMatch[k].index].matching[1] == "manual")
+            diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching[2], this.date)
 
           //if the current grade is bigger than the last or if pass 30 days
-          if(this.userE[arrMatch[k].index][16][1] < arrMatch[k].grade || diff > 30)
+          if(this.userE[arrMatch[k].index].matching[1] < arrMatch[k].grade || diff > 30)
           {
-            this.userE[arrMatch[k].index][16] = [this.userV[i][4], arrMatch[k].grade , this.userV[i][0], this.userV[i][1]]
-            console.log( this.userE[arrMatch[k].index][16])
+            this.userE[arrMatch[k].index].matching = [this.userV[i].docID, arrMatch[k].grade ,
+             this.userV[i].name, this.userV[i].phone]
+            console.log( this.userE[arrMatch[k].index].matching)
             break;
           }
         }
@@ -371,20 +383,20 @@ export class adminPage
 
     for(let k = 0; k < this.userE.length; k++) //update the best 'matching' in documents
     {
-      if(this.userE[k][16][0] != "") //if 'matching' is empty and no found match
+      if(this.userE[k].matching[0] != "") //if 'matching' is empty and no found match
       {
-        console.log(this.userE[k][16])
-        let idV = this.userE[k][16][0]
+        console.log(this.userE[k].matching)
+        let idV = this.userE[k].matching[0]
 
-          db.collection('ElderlyUsers').doc(this.userE[k][6]).update(
+          db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
             {
-              matching:[this.userE[k][16][0], this.userE[k][16][1]] 
+              matching:[this.userE[k].matching[0], this.userE[k].matching[1]] 
             }).catch((error) => {console.log(error)})
       
       
         db.collection('volunteerUsers').doc(idV).update(
         {
-          matching: this.userE[k][6]
+          matching: this.userE[k].docID
         }).catch((error) => {console.log(error)})
       }
     }
@@ -392,12 +404,12 @@ export class adminPage
   
     // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
     // {
-    //   if(this.userE[k][16][0] != "")
+    //   if(this.userE[k].matching[0] != "")
     //   {
-    //     this.sendEmailsVolunteer(this.userE[i][16][2], "chenfriedman93@gmail.com")
-    //     //if(this.userE[i][17] != null)
-    //     this.sendEmailsElder(this.userE[i][3], this.userE[i][0], "chenfriedman93@gmail.com")
-    //     //this.sendSMS(this.userE[i][16][3], this.userE[i][16][2])
+    //     this.sendEmailsVolunteer(this.userE[i].matching[2], "chenfriedman93@gmail.com")
+    //     //if(this.userE[i].email != null)
+    //     this.sendEmailsElder(this.userE[i][3], this.userE[i].name, "chenfriedman93@gmail.com")
+    //     //this.sendSMS(this.userE[i][16][3], this.userE[i].matching[2])
     //   }
     // }
 
@@ -412,21 +424,20 @@ export class adminPage
       for(let l = 0; l < this.userE.length; l++)
       {
         let grade = 0;
-        if(this.userV[i][13] == this.userE[l][15])
+        if(this.userV[i].meetingWith == this.userE[l].meetingWith)
           grade +=1
-        grade += this.checkMatchArr(this.userV[i][8], this.userE[l][10]) //days
+        grade += this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting) //days
       // console.log("after days ", grade)
-        grade += this.checkMatchArr(this.userV[i][9], this.userE[l][11]) //hobbies
+        grade += this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies) //hobbies
       // console.log("after hobbies ", grade)
-        grade += this.checkMatchArr(this.userV[i][12], this.userE[l][14]) //music style
-        grade += this.checkMatchArr(this.userV[i][10], this.userE[l][12]) //hours
+        grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
+        grade += this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
     //   console.log("after hours ", grade)
-        grade += this.checkMatchArr(this.userV[i][11], this.userE[l][13]) //language
+        grade += this.checkMatchArr(this.userV[i].language, this.userE[l].language) //language
       //  console.log("after language ", grade)
-        grade += this.checkMatchArr(this.userV[i][12], this.userE[l][14]) //musicStyle
-
+    
   //   console.log("totle grade is: ", grade)
-      let temp = {"grade": grade, "id": this.userE[l][6], index: l}
+      let temp = {"grade": grade, "id": this.userE[l].docID, index: l}
       if(j < 3)
       {
         //insert temp to arrMatch with sorting way
