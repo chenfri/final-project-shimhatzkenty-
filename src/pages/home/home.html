@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <div class="topnav" id="topNav">
+        <a class="navbarButton" ion-button *ngIf="!user.loggedIn" (click)="login()">התחברות</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin && !user.loggedIn" (click)="elderly_form()">רישום לאזרח הותיק</a >    
         <a class="navbarButton" ion-button *ngIf="!user.Admin && !user.loggedIn" (click)="volunteer_form()">הרשם כמתנדב</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin && user.loggedIn" (click)="volunteer_form()">עריכת פרטים אישיים</a>
@@ -18,7 +19,6 @@
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="scrollToBottom()">גלריה</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin" (click)="contactPage()">צור קשר</a>
         <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="logout()">התנתק</a >
-        <a class="navbarButton" ion-button *ngIf="!user.loggedIn" (click)="login()">התחברות</a>
         <a class="icon" (click)="hamburger_Navbar()">
             <i class="fa fa-bars"></i>
         </a>

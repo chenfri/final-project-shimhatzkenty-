@@ -42,13 +42,13 @@ export class MatchPage {
     this.cancelDescription = ""; 
 
     for(var i = 0 ; i < this.userV.length; i++){
-       if(this.IDlogged == this.userV[i][4]) 
-        this.nameLogged = this.userV[i][0];}
+       if(this.IDlogged == this.userV[i].docID) 
+        this.nameLogged = this.userV[i].name;}
 
     console.log("name" , this.nameLogged )
     console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
                 this.userE , this.userV  )
-    console.log( 'userE[1][16] ' ,this.userE[1][16][0] , 'userE[1][16][0]' ,this.userE[1][16][0])
+    console.log( 'userE[1].matching ' ,this.userE[1].matching[0] , 'userE[1].matching[0]' ,this.userE[1].matching[0])
 
     this.showMatch = false
     this.cancelText = false
@@ -79,16 +79,16 @@ getVolunteerNumbers()
   //this.numbers = [0]
   for(var i = 0; i < this.userE.length; i++){
     
-    if(this.userE[i][16])
+    if(this.userE[i].matching)
     {
-      var volID = this.userE[i][16][0];
+      var volID = this.userE[i].matching[0];
       var push = false;
 
       for(var j = 0 ; j < this.userV.length; j++)
       {
-        var index = this.userV[j][4].localeCompare(volID)
-        if(this.userV[j][4].localeCompare(volID) == 0 ){
-            this.numbers.push(this.userV[j][5]); 
+        var index = this.userV[j].docID.localeCompare(volID)
+        if(this.userV[j].docID.localeCompare(volID) == 0 ){
+            this.numbers.push(this.userV[j].index); 
             push = true;}
       } 
     }
@@ -129,14 +129,14 @@ CancelMatch(idE, idV ,i)
       if(this.user.Admin == false && this.user.loggedIn)
         idV = firebase.auth().currentUser.uid
     
-      this.rejArr = this.userV[i][16]
+      this.rejArr = this.userV[i].matching
       console.log(this.rejArr)
       if(this.rejArr != null)
         this.rejArr =[...this.rejArr, idE]
       else
         this.rejArr =[idE]
         console.log(this.rejArr)
-      this.userV[i][16] = this.rejArr
+      this.userV[i].matching = this.rejArr
       const db = firebase.firestore();    
       db.collection("ElderlyUsers").doc(idE).update({
           matching: ["",0],

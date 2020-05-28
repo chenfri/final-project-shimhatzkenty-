@@ -241,7 +241,7 @@ scrollToBottom() {
         rejected: i.data().rejected
       }
         j++})}).catch(error => {console.log(error)})
-s
+
         // volunteer.sort(function compare(a, b) {
         //   var dateA = new Date(a.date);
         //   var dateB = new Date(b.date);
