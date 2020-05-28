@@ -17,17 +17,17 @@
     <div class="tables">
 
         <h4 class="tableTitle">הודעות</h4>
-        <table id="customers" class="table-style">
+        <table id="customers" class="message">
             <tr>
                 <th>מחק הודעה</th>
-                <th>טלפון</th>
                 <th>הודעה</th>
+                <th>טלפון</th>
                 <th>שם מלא</th>
             </tr>
 
 
             <tr *ngFor="let value of messages">
-                <td><button class="buttons" (click)="deleteMessage(value.id)">[x]</button></td>
+                <td><button class="buttons del" (click)="deleteMessage(value.id)">[x]</button></td>
                 <td style="direction: rtl;">{{value.data.message}}</td>
                 <td>0{{value.data.phoneNumber}}</td>
                 <td>{{value.data.fullName}}</td>
@@ -36,7 +36,7 @@
 
         <h4 class="tableTitle">:קשישים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry', false)">ייצוא טבלת קשישים לאקסל</button><br><br>
-        <table id="customers">
+        <table id="customers" class="table-style">
             <tr>
                 <!-- <th>מחק משתמש</th> -->
                 <th>תאריך הרשמה</th>
@@ -45,7 +45,7 @@
                 <th>כתובת</th>
                 <th>טלפון</th>
                 <th>שם מלא</th>
-                <th>בחר להתאמה</th>
+                <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userE">
                 <!-- <td><button (click)="deleteElderlyUser(value[4])">[x]</button></td> -->
@@ -60,7 +60,7 @@
                     </a>
                     {{value[0]}}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center;" class="hidePhone">
                     <ion-radio [checked]="value[8]" (click)="elderlyRadioClicked(value[7])" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
@@ -76,19 +76,19 @@
                 <th>כתובת</th>
                 <th>טלפון</th>
                 <th>שם מלא</th>
-                <th>בחר להתאמה</th>
+                <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userV">
-                <td><button class="buttons" (click)="deleteVolunteerUser(value[4])">[x]</button></td>
+                <td><button class="buttons del" (click)="deleteVolunteerUser(value[4])">[x]</button></td>
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
-                <td>{{value[1]}}</td>
+                <td>0{{value[1]}}</td>
                 <td>
                     <a class="info-button" (click)="openPopover($event, value[4], 'volunteer')">
                         <ion-icon name="ios-information-circle-outline"></ion-icon>
                     </a> {{value[0]}}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center;" class="hidePhone">
                     <ion-radio [checked]="value[6]" (click)="volunteerRadioClicked(value[5])" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
@@ -107,7 +107,7 @@
             <tr *ngFor="let value of userStudent">
                 <td>{{value[3]}}</td>
                 <td>{{value[2]}}</td>
-                <td>{{value[1]}}</td>
+                <td>0{{value[1]}}</td>
                 <td>{{value[0]}}</td>
             </tr>
         </table> <br><br>

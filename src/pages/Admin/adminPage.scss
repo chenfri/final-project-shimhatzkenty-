@@ -11,7 +11,6 @@
         margin: 5px 0px 0px 0px;
         border-radius: 15px;
     }
-  
     .tableTitle {
         text-align: center;
     }
@@ -53,20 +52,20 @@
     .tables {
         text-align: -webkit-center;
     }
-    
-
     .ion-radio {
-        --color	:red;
+        --color: red;
         --color-checked: #75D154;
     }
     .ion-ios-information-circle-outline:before {
         color: cadetblue;
         font-weight: bolder;
     }
-
     @media screen and (max-width: 600px) {
-        table {
-            width: 390px;
+        .hidePhone {
+            display: none !important;
+        }
+        .tables table {
+            width: 95% !important;
         }
         #customers th,
         #customers td {
@@ -77,31 +76,13 @@
             padding-bottom: 4px !important;
         }
     }
-    @media screen and (max-width: 400px) {
-        table {
-            width: 300px;
-        }
-        #customers th,
-        #customers td {
-            padding: 4px !important;
-        }
-        #customers tr {
-            padding-top: 4px !important;
-            padding-bottom: 4px !important;
-        }
+    .tables table {
+        width: 65%;
     }
-    @media screen and (max-width: 340px) {
-        table {
-            width: 250px;
-        }
-        #customers th,
-        #customers td {
-            padding: 4px !important;
-            font-size: 8px;
-        }
-        #customers tr {
-            padding-top: 4px !important;
-            padding-bottom: 4px !important;
-        }
+    // .tables .buttons {
+    //     padding: 6px 18px !important;
+    // }
+    button.buttons.del {
+        padding: 6px 18px !important;
     }
 }
