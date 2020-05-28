@@ -49,7 +49,7 @@
             </tr>
             <tr *ngFor="let value of userE">
                 <!-- <td><button (click)="deleteElderlyUser(value.docID)">[x]</button></td> -->
-                <td>{{value.date}}</td>
+                <td>{{value.dateTime}}</td>
                 <td>{{value.contact}}</td>
                 <td>{{value.nameAssistant}}</td>
                 <td>{{value.address}}</td>
@@ -80,7 +80,7 @@
             </tr>
             <tr *ngFor="let value of userV">
                 <td><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
-                <td>{{value.date}}</td>
+                <td>{{value.dateTime}}</td>
                 <td>{{value.address}}</td>
                 <td>0{{value.phone}}</td>
                 <td>

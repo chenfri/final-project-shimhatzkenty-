@@ -51,16 +51,16 @@ export class HomePage
     console.log("IDlogged ", this.IDlogged)
 
 
-    // var myArray = [{
-    //   name: "Joe Blow",
-    //   date: "2020-05-20"
-    // }, {
-    //   name: "Sam Snead",
-    //   date: "2020-05-19"
-    // }, {
-    //   name: "John Smith",
-    //   date: "2020-05-18"
-    // }];
+    var myArray = [{
+      name: "Joe Blow",
+      date: "2020-05-20"
+    }, {
+      name: "Sam Snead",
+      date: "2020-05-19"
+    }, {
+      name: "John Smith",
+      date: "2020-05-18"
+    }];
     
     // myArray.sort(function compare(a, b) {
     //   var dateA = new Date(a.date);
@@ -181,7 +181,8 @@ scrollToBottom() {
         address: i.data().address,
         nameAssistant: i.data().nameAssistant,
         contact: tmpPhone,
-        date: i.data().dateTime,
+        dateTime: i.data().dateTime,
+        date: i.data().date,
         docID: i.id,
         index: k,
         manualM: false,
@@ -225,7 +226,8 @@ scrollToBottom() {
         name: i.data().fullName,
         phone: i.data().phone,
         address: i.data().address,
-        date: i.data().dateTime,
+        dateTime: i.data().dateTime,
+        date: i.data().date,
         docID: i.id,
         index: j,
         manualM: false,
@@ -242,13 +244,6 @@ scrollToBottom() {
       }
         j++})}).catch(error => {console.log(error)})
 
-        // volunteer.sort(function compare(a, b) {
-        //   var dateA = new Date(a.date);
-        //   var dateB = new Date(b.date);
-        //   return dateA.getTime() - dateB.getTime();
-        // });
-        
-        // console.log(volunteer);
       
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>
   {

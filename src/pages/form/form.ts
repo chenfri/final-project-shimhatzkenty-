@@ -33,7 +33,7 @@ export class Form
   public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; hours_ ; relationship_ ; selectedNH : any
   public selectedFav : any ; fixedAddress : any ; IDlogged:any ; matching: any
   public ifRegister = false; hideMoreContact = false; showOtherO = false
-  public showOtherR = false ; showModal = false
+  public showOtherR = false ; showModal = false ; date: any
 
 
   temp_familyMember = new Array(3) ;name_familyMember = new Array(3)
@@ -59,7 +59,7 @@ export class Form
     this.familyMember = null; this.user.fullName = null; this.orgi = null
     this.gender_ = null; this.meetingWith_ = null; this.numOfMeeting_ = null
     this.relationship_ = null; this.hours = null; this.user.city = null
-    this.user.description = null; this.user.hideMusic = false
+    this.user.description = null; this.user.hideMusic = false , this.date = null
     this.user.student = false; this.user.onBehalf = false ; this.user.numOfAssistant = 0
 
     this.hobbies = this.array.hobbies
@@ -524,6 +524,7 @@ export class Form
         hours: this.hours,
         meetingWith: this.meetingWith_,
         dateTime : this.user.dateTime ,
+        date: this.date,
         gender: this.gender_,
         language: this.language,
         hobbies: this.hobbies,
@@ -594,11 +595,11 @@ export class Form
 
   arrangeDate()
   {
-    this.user.dateTime = new Date().toISOString().substring(0, 10);
+    this.date = new Date().toISOString().substring(0, 10);
 
     let temp2 = "";
-    temp2= this.user.dateTime[8] +this.user.dateTime[9] + "-" +this.user.dateTime[5] +this.user.dateTime[6]
-          +"-"+ this.user.dateTime[0] +this.user.dateTime[1]+this.user.dateTime[2] +this.user.dateTime[3];
+    temp2= this.date[8] + this.date[9] + "-" +this.date[5] + this.date[6] + "-" + this.date[0] +
+     this.date[1]+this.date[2] + this.date[3];
     
     this.user.dateTime = temp2;
   }
@@ -648,6 +649,7 @@ export class Form
         orgName: this.user.orgName,
         contact: this.user.contact,
         dateTime : this.user.dateTime ,
+        date: this.date,
         description: this.user.description,
         meetingWith: this.meetingWith_,
         relationship: this.relationship_,

@@ -49,8 +49,23 @@ export class adminPage
     console.log(this.userE)
     console.log(this.userV)
     //this.sendSMS("+972508591865", "חן")
+
+    this.sortArrByDates(this.userV)
+    this.sortArrByDates(this.userE)
   }
 
+
+  sortArrByDates(arr)
+  {
+    arr.sort(function(a,b){
+      var da = new Date(a.date).getTime();
+      var db = new Date(b.date).getTime();
+      
+      return da < db ? 1 : da > db ? -1 : 0
+    });
+    
+    console.log(arr);
+  }
 
   //create excel file with the rellevant data
   csvFile(array , type)
@@ -71,13 +86,13 @@ export class adminPage
         {
           this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
           tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].nameAssistant,
-          array[i].contact, array[i].date]  
+          array[i].contact, array[i].dateTime]  
         }
 
         if(type == "volunteer")
         {
           this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
-          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].date]  
+          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].dateTime]  
         }
 
         if(type == "student") {
