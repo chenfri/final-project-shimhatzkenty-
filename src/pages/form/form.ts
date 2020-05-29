@@ -64,6 +64,7 @@ export class Form
 
     this.hobbies = this.array.hobbies
     // this.time = this.array.time
+    this.user.comments = null
     this.numOfMeeting = this.array.numOfMeeting
     this.hours = this.array.hours
     this.place = this.array.place
@@ -255,7 +256,6 @@ export class Form
   //check that all user inputs are legal
   check_field_value()
   {
-    
     let flag = 0;
     //convert the phone to string for do more checks
     let phone =  String(this.user.phone);
@@ -313,6 +313,13 @@ export class Form
         this.alert.showError_behalf();
          flag = 1;
       }
+
+      else if (this.user.onBehalf && this.user.email == null)
+     {
+      this.alert.error_illegalEmail()
+        flag = 1;
+     }
+ 
   
       else if(this.user.onBehalf && (this.relationship == null && this.orgi == null))
       { 
@@ -437,6 +444,7 @@ export class Form
     else
     {
       this.user.onBehalf = false;
+      this.user.contact = null;
       this.user.nameAssistant = null;
       this.user.relationName = null;  
     }
@@ -535,7 +543,8 @@ export class Form
         hideMusic: this.user.hideMusic,
         status: 0,
         matching: null,
-        rejected: null
+        rejected: null,
+        adminComments: this.user.comments
       })
       .then(() => {
         if(this.user.loggedIn)
@@ -586,7 +595,7 @@ export class Form
       this.radioClicked_fromDB(this.numOfMeeting, this.numOfMeeting_)
       this.radioClicked_fromDB(this.hours, this.hours_)
       this.radioClicked_fromDB(this.gender, this.gender_)
-      this.matching = result.data().matching
+      // this.matching = result.data().matching
 
     }).catch(error => {console.log(error)})
  
@@ -658,7 +667,8 @@ export class Form
         language: this.language,
         dayOfMeeting: this.dayOfMeeting,
         hours: this.hours,
-        familyMember: this.familyMember
+        familyMember: this.familyMember,
+        adminComments: this.user.comments
       })
       .then(() => {
         this.alert.showAlertSuccess();

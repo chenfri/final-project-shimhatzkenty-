@@ -56,7 +56,8 @@ background-attachment: fixed !important;">
 
                 <ion-col>
                     <ion-row>
-                        <label *ngIf="user.elderly">כתובת דוא"ל (לא חובה)</label>
+                        <label *ngIf="user.elderly && !user.onBehalf">כתובת דוא"ל (לא חובה)</label>
+                        <label *ngIf="user.elderly && user.onBehalf">כתובת דוא"ל</label>
                         <label *ngIf="!user.elderly">כתובת דוא"ל</label>
                     </ion-row>
                     <ion-row>

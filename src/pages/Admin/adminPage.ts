@@ -29,11 +29,13 @@ export class adminPage
   public matchE: any;
   public matchV: any;
   public date: any;
+  public adminComments: any;
 
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
      public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
   {
+
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
@@ -52,6 +54,19 @@ export class adminPage
 
     this.sortArrByDates(this.userV)
     this.sortArrByDates(this.userE)
+  }
+
+
+  save_comments(arr, collection)
+  {
+    const db = firebase.firestore();
+    for(let i = 0; i < arr.length; i++)
+    {
+      if(arr[i].commentTmp != arr[i].adminComments) // save only if the comment was change
+          db.collection(collection).doc(arr[i].docID).update({
+          adminComments: arr[i].adminComments
+          }) .catch((error) => {console.log(error)})
+    }
   }
 
 

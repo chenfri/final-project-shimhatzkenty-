@@ -31,5 +31,6 @@ export interface User
     hideForm: boolean,
     hideMusic: boolean,
     status: number
+    comments: string
 }
 

@@ -195,7 +195,9 @@ scrollToBottom() {
         meetingWith: i.data().meetingWith,
         matching: i.data().matching,
         email: i.data().email,
-        description: i.data().description}
+        description: i.data().description,
+        adminComments: i.data().adminComments,
+        commentsTmp: i.data().adminComments}
         k++})}).catch(error => {console.log(error)})
 
     
@@ -240,7 +242,9 @@ scrollToBottom() {
         meetingWith: i.data().meetingWith,
         email: i.data().email,
         status: i.data().status,
-        rejected: i.data().rejected
+        rejected: i.data().rejected,
+        adminComments: i.data().adminComments,
+        commentsTmp: i.data().adminComments
       }
         j++})}).catch(error => {console.log(error)})
 
