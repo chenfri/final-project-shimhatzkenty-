@@ -29,11 +29,13 @@ export class adminPage
   public matchE: any;
   public matchV: any;
   public date: any;
+  public adminComments: any;
 
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
      public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
   {
+
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
@@ -49,8 +51,36 @@ export class adminPage
     console.log(this.userE)
     console.log(this.userV)
     //this.sendSMS("+972508591865", "חן")
+
+    this.sortArrByDates(this.userV)
+    this.sortArrByDates(this.userE)
   }
 
+
+  save_comments(arr, collection)
+  {
+    const db = firebase.firestore();
+    for(let i = 0; i < arr.length; i++)
+    {
+      if(arr[i].commentTmp != arr[i].adminComments) // save only if the comment was change
+          db.collection(collection).doc(arr[i].docID).update({
+          adminComments: arr[i].adminComments
+          }) .catch((error) => {console.log(error)})
+    }
+  }
+
+
+  sortArrByDates(arr)
+  {
+    arr.sort(function(a,b){
+      var da = new Date(a.date).getTime();
+      var db = new Date(b.date).getTime();
+      
+      return da < db ? 1 : da > db ? -1 : 0
+    });
+    
+    console.log(arr);
+  }
 
   //create excel file with the rellevant data
   csvFile(array , type)
@@ -71,13 +101,13 @@ export class adminPage
         {
           this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
           tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].nameAssistant,
-          array[i].contact, array[i].date]  
+          array[i].contact, array[i].dateTime]  
         }
 
         if(type == "volunteer")
         {
           this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
-          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].date]  
+          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].dateTime]  
         }
 
         if(type == "student") {

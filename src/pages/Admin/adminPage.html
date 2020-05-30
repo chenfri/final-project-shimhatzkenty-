@@ -39,6 +39,7 @@
         <table id="customers" class="table-style">
             <tr>
                 <!-- <th>מחק משתמש</th> -->
+                <th class="hidePhone">הערות</th>
                 <th>תאריך הרשמה</th>
                 <th>פלאפון איש קשר</th>
                 <th>שם איש קשר</th>
@@ -49,7 +50,10 @@
             </tr>
             <tr *ngFor="let value of userE">
                 <!-- <td><button (click)="deleteElderlyUser(value.docID)">[x]</button></td> -->
-                <td>{{value.date}}</td>
+                <td class="hidePhone">
+                    <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
+                </td>
+                <td>{{value.dateTime}}</td>
                 <td>{{value.contact}}</td>
                 <td>{{value.nameAssistant}}</td>
                 <td>{{value.address}}</td>
@@ -66,12 +70,15 @@
             </tr>
         </table><br><br>
 
+        <button class="buttons" type="submit" (click)="save_comments(this.userE, 'ElderlyUsers')">שמירת הערות</button>
+
         <h4 class="tableTitle">:מתנדבים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
 
         <table id="customers" class="table-style">
             <tr>
                 <th>מחק משתמש</th>
+                <th class="hidePhone">הערות</th>
                 <th>תאריך הרשמה</th>
                 <th>כתובת</th>
                 <th>טלפון</th>
@@ -80,7 +87,10 @@
             </tr>
             <tr *ngFor="let value of userV">
                 <td><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
-                <td>{{value.date}}</td>
+                <td class="hidePhone">
+                    <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
+                </td>
+                <td>{{value.dateTime}}</td>
                 <td>{{value.address}}</td>
                 <td>0{{value.phone}}</td>
                 <td>
@@ -94,6 +104,7 @@
             </tr>
         </table><br><br>
 
+        <button class="buttons" type="submit" (click)="save_comments(this.userV, 'volunteerUsers')">שמירת הערות</button>
 
         <h4 class="tableTitle">:סטודנטים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userStudent , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>

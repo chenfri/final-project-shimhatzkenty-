@@ -33,7 +33,7 @@ export class Form
   public orgi ; gender_ ; meetingWith_ ; numOfMeeting_ ; hours_ ; relationship_ ; selectedNH : any
   public selectedFav : any ; fixedAddress : any ; IDlogged:any ; matching: any
   public ifRegister = false; hideMoreContact = false; showOtherO = false
-  public showOtherR = false ; showModal = false
+  public showOtherR = false ; showModal = false ; date: any
 
 
   temp_familyMember = new Array(3) ;name_familyMember = new Array(3)
@@ -59,11 +59,12 @@ export class Form
     this.familyMember = null; this.user.fullName = null; this.orgi = null
     this.gender_ = null; this.meetingWith_ = null; this.numOfMeeting_ = null
     this.relationship_ = null; this.hours = null; this.user.city = null
-    this.user.description = null; this.user.hideMusic = false
+    this.user.description = null; this.user.hideMusic = false , this.date = null
     this.user.student = false; this.user.onBehalf = false ; this.user.numOfAssistant = 0
 
     this.hobbies = this.array.hobbies
     // this.time = this.array.time
+    this.user.comments = null
     this.numOfMeeting = this.array.numOfMeeting
     this.hours = this.array.hours
     this.place = this.array.place
@@ -255,7 +256,6 @@ export class Form
   //check that all user inputs are legal
   check_field_value()
   {
-    
     let flag = 0;
     //convert the phone to string for do more checks
     let phone =  String(this.user.phone);
@@ -313,6 +313,13 @@ export class Form
         this.alert.showError_behalf();
          flag = 1;
       }
+
+      else if (this.user.onBehalf && this.user.email == null)
+     {
+      this.alert.error_illegalEmail()
+        flag = 1;
+     }
+ 
   
       else if(this.user.onBehalf && (this.relationship == null && this.orgi == null))
       { 
@@ -437,6 +444,7 @@ export class Form
     else
     {
       this.user.onBehalf = false;
+      this.user.contact = null;
       this.user.nameAssistant = null;
       this.user.relationName = null;  
     }
@@ -524,6 +532,7 @@ export class Form
         hours: this.hours,
         meetingWith: this.meetingWith_,
         dateTime : this.user.dateTime ,
+        date: this.date,
         gender: this.gender_,
         language: this.language,
         hobbies: this.hobbies,
@@ -534,7 +543,8 @@ export class Form
         hideMusic: this.user.hideMusic,
         status: 0,
         matching: null,
-        rejected: null
+        rejected: null,
+        adminComments: this.user.comments
       })
       .then(() => {
         if(this.user.loggedIn)
@@ -585,7 +595,7 @@ export class Form
       this.radioClicked_fromDB(this.numOfMeeting, this.numOfMeeting_)
       this.radioClicked_fromDB(this.hours, this.hours_)
       this.radioClicked_fromDB(this.gender, this.gender_)
-      this.matching = result.data().matching
+      // this.matching = result.data().matching
 
     }).catch(error => {console.log(error)})
  
@@ -594,11 +604,11 @@ export class Form
 
   arrangeDate()
   {
-    this.user.dateTime = new Date().toISOString().substring(0, 10);
+    this.date = new Date().toISOString().substring(0, 10);
 
     let temp2 = "";
-    temp2= this.user.dateTime[8] +this.user.dateTime[9] + "-" +this.user.dateTime[5] +this.user.dateTime[6]
-          +"-"+ this.user.dateTime[0] +this.user.dateTime[1]+this.user.dateTime[2] +this.user.dateTime[3];
+    temp2= this.date[8] + this.date[9] + "-" +this.date[5] + this.date[6] + "-" + this.date[0] +
+     this.date[1]+this.date[2] + this.date[3];
     
     this.user.dateTime = temp2;
   }
@@ -648,6 +658,7 @@ export class Form
         orgName: this.user.orgName,
         contact: this.user.contact,
         dateTime : this.user.dateTime ,
+        date: this.date,
         description: this.user.description,
         meetingWith: this.meetingWith_,
         relationship: this.relationship_,
@@ -656,7 +667,8 @@ export class Form
         language: this.language,
         dayOfMeeting: this.dayOfMeeting,
         hours: this.hours,
-        familyMember: this.familyMember
+        familyMember: this.familyMember,
+        adminComments: this.user.comments
       })
       .then(() => {
         this.alert.showAlertSuccess();
