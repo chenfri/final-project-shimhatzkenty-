@@ -135,13 +135,13 @@
                         </ion-row>
                         
 
-                        <ion-row style="direction: rtl;" *ngIf="numbers[i]!=-1"  style="justify-content: center;">
+                        <div style="direction: rtl; background-color: #ffffff00;" *ngIf="numbers[i]!=-1"  style="justify-content: center;">
 
                             <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1" >התאמה עדיין לא אושרה</ion-row>
 
                             <button *ngIf="user.Admin && this.userV[numbers[i]].status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
                             <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
-                            
+
                             <ion-row class="textStyle" *ngIf="this.user.status==2">ההתאמה אושרה</ion-row>
 
                             <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,  userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
@@ -152,19 +152,19 @@
                             <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row> 
                             <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
 
-                            <button  class="buttons" type="submit" (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
-
+                            <button  class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 " (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
+                            
                             <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="!user.Admin && cancelText">
                                 <ion-item>
                                     <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
                                     <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
                                 </ion-item>
-                                <button ion-button *ngIf="user.Admin" style="align-self: center;" (click)="saveDescription(user.description ,userV[numbers[i]].docID)">שמירת סיבת ביטול</button>
-                                <button ion-button *ngIf="!user.Admin" style="align-self: center;" (click)="saveDescription(user.description , 0)">שמירת סיבת ביטול</button>
+                                <button class="buttons" *ngIf="user.Admin"  (click)="saveDescription(user.description ,userV[numbers[i]].docID)">שמירת סיבת ביטול</button>
+                                <button class="buttons" *ngIf="!user.Admin" (click)="saveDescription(user.description , 0)">שמירת סיבת ביטול</button>
 
                                 
                             </ion-grid>
-                        </ion-row>
+                        </div>
                     </ion-card>
 
                 </ion-item>
