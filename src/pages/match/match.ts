@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage,ViewController, NavController, NavParams, AlertController} from 'ionic-angular';
+import { IonicPage,ViewController, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { User } from '../../module/User';
 import firebase from 'firebase';
+import { AlertController} from 'ionic-angular';
 
 
 @IonicPage()
@@ -22,11 +23,10 @@ export class MatchPage {
   cancelText: boolean;
   cancelDescription: string;
   nameLogged: string;
+  cancellationReason: boolean;
   rejArr :any[]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController, public alertCtrl: AlertController) { 
-   
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
@@ -36,18 +36,27 @@ export class MatchPage {
     console.log(this.userV)
     console.log('this.IDlogged', this.IDlogged)
 
-    if(!this.user.Admin)
-      this.statusManagement();
+    this.user.status = -1;
+    this.statusManagement();
+console.log('this.statusManagement(): ', this.user.status)
 
-    this.cancelDescription = ""; 
+    this.cancelDescription = null; 
+    this.acceptedMatch = false;
 
-    for(var i = 0 ; i < this.userV.length; i++){
-       if(this.IDlogged == this.userV[i].docID) 
-        this.nameLogged = this.userV[i].name;}
+    console.log('this.IDlogged', this.IDlogged)
 
+    for(var i=0 ; i<this.userV.length;i++){
+ 
+      if(this.IDlogged == this.userV[i].docID) {    
+        this.nameLogged = this.userV[i].name;;
+      }
+    }
     console.log("name" , this.nameLogged )
+
+
     console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
                 this.userE , this.userV  )
+
     console.log( 'userE[1].matching ' ,this.userE[1].matching[0] , 'userE[1].matching[0]' ,this.userE[1].matching[0])
 
     this.showMatch = false
@@ -55,67 +64,68 @@ export class MatchPage {
 
     this.getVolunteerNumbers();
 
+
     console.log('numbers' , this.numbers)
-    this.user.status = -1;
+  
+
     }
 
+    statusManagement(){
+      const db = firebase.firestore();       
+   
+      // if(!this.user.status){
+        db.collection("volunteerUsers").doc(this.IDlogged).get().then(result => {
+          if (!result.exists) return
+          this.user.status  = result.data().status
+        }).catch(error => {console.log(error)})
+      // }
+            console.log(this.IDlogged)
+            console.log("status: " , this.user.status)
 
-
-  statusManagement()
-  {
-    const db = firebase.firestore();       
-
-    if(!this.user.status)
-      db.collection("volunteerUsers").doc(this.IDlogged).get().then(result => {
-        if (!result.exists) return
-        this.user.status = result.data().status
-      })
-  }
+    }
 
   
 
-getVolunteerNumbers()
-{
-  //this.numbers = [0]
-  for(var i = 0; i < this.userE.length; i++){
-    
-    if(this.userE[i].matching)
+    getVolunteerNumbers()
     {
-      var volID = this.userE[i].matching[0];
-      var push = false;
+      // this.numbers = [0]
+      for(var i = 0; i < this.userE.length; i++){
+        
+        if(this.userE[i].matching)
+        {
+          var volID = this.userE[i].matching[0];
+          var push = false;
 
-      for(var j = 0 ; j < this.userV.length; j++)
-      {
-        var index = this.userV[j].docID.localeCompare(volID)
-        if(this.userV[j].docID.localeCompare(volID) == 0 ){
-            this.numbers.push(this.userV[j].index); 
-            push = true;}
-      } 
-    }
+          for(var j = 0 ; j < this.userV.length; j++){
+            var index = this.userV[j].docID.localeCompare(volID)           
+              if(this.userV[j].docID.localeCompare(volID) == 0 ){
+              this.numbers.push(this.userV[j].index); 
+                push = true;
+              }
+            
+          } 
+        }
 
-    if(push == false)   {
-        console.log("ENTER")
-        this.numbers.push(-1); 
+        if(push == false)   {
+            console.log("ENTER")
+            this.numbers.push(-1); 
+          }
       }
   }
-}
+  
 
 
-
-ionViewDidLoad() {
-  console.log('ionViewDidLoad MatchPage');
-}
-
-
-click_home()
-{
-  this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
-}
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad MatchPage');
+  }
 
 
-
-CancelMatch(idE, idV ,i)
-{
+  click_home()
+  {
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+  }
+  CancelMatch(idE, idV ,i)
+  {
 
   let alert = this.alertCtrl.create({
     title: 'אזהרה',
@@ -129,6 +139,8 @@ CancelMatch(idE, idV ,i)
       if(this.user.Admin == false && this.user.loggedIn)
         idV = firebase.auth().currentUser.uid
     
+        console.log('i: ',i )
+
       this.rejArr = this.userV[i].matching
       console.log(this.rejArr)
       if(this.rejArr != null)
@@ -162,44 +174,78 @@ CancelMatch(idE, idV ,i)
     ]
   });
     alert.present();
+  
+    this.cancelText = true;
+    this.userV[i].status = 3   
 }
+  
 
 
 
-acceptMatch(idE , idV)
-{
-  const db = firebase.firestore();       
-  this.acceptedMatch = true;  
-  if(idV == 0)
-      db.collection("volunteerUsers").doc(this.IDlogged).update({
+  acceptMatch(idE , idV, i)
+  {
+    const db = firebase.firestore();       
+    this.acceptedMatch = true;  
+    if(idV == 0)
+        db.collection("volunteerUsers").doc(this.IDlogged).update({
+          status: 2
+    }) 
+    else{
+      db.collection("volunteerUsers").doc(idV).update({
         status: 2
+      }) 
+    }
+   
+   db.collection("ElderlyUsers").doc(idE).update({
+      status: 2
     }) 
-  
-  else
-  db.collection("volunteerUsers").doc(idV).update({
-    status: 2
-}) 
-  
-  db.collection("ElderlyUsers").doc(idE).update({
-    status: 2}) 
-}
+    this.user.status=2;
+    this.userV[i].status = 2
+  }
 
+  saveDescription(description, idV){
+    console.log('saveDescription', this.cancelDescription)
+    const db = firebase.firestore(); 
 
-acceptedMeeting(idE , idV)
-{
-  const db = firebase.firestore();       
-  if(idV == 0)
-  db.collection("volunteerUsers").doc(this.IDlogged).update({
-    status: 4
-    }) 
+    if(idV==0){
+        db.collection("volunteerUsers").doc(this.IDlogged).update({
+          cancelDescription: this.cancelDescription
+        }) 
+    }
+    else{
+      db.collection("volunteerUsers").doc(idV).update({
+        cancelDescription: this.cancelDescription
+      }) 
+    }
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'סיבת הביטול נשמרה!',
+      buttons: ['אישור']
+    });
+    alert.present();
 
-  else
-    db.collection("volunteerUsers").doc(idV).update({
+    this.cancelText = false;
+    this.cancellationReason = true;
+  }
+
+  acceptedMeeting(idE , idV, i)
+  {
+    const db = firebase.firestore();       
+    if(idV == 0)
+    db.collection("volunteerUsers").doc(this.IDlogged).update({
       status: 4
       }) 
-  
-  db.collection("ElderlyUsers").doc(idE).update({
-    status: 4 }) 
-}
+
+    else{
+      db.collection("volunteerUsers").doc(idV).update({
+        status: 4
+        }) 
+    }
+    db.collection("ElderlyUsers").doc(idE).update({
+      status: 4 }) 
+
+      this.user.status=4;   
+      this.userV[i].status = 4   
+   }
 
 }

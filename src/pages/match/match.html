@@ -133,37 +133,38 @@
 
                             </ion-col>
                         </ion-row>
-                        <ion-row *ngIf="numbers[i]!=-1" style="justify-content: center;">
-                            <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID)">אשר התאמה</button>
-                            <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID)">אשר ביצוע מפגש</button>
-                            <br><br>
-                            <button class="buttons" type="submit" (click)="CancelMatch(value.docID , userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
+                        
 
-                        </ion-row>
-                        <ion-row class="textStyle" *ngIf="!user.Admin && this.user.status==4">התקיים מפגש</ion-row>
+                        <ion-row style="direction: rtl;" *ngIf="numbers[i]!=-1"  style="justify-content: center;">
 
-                        <ion-row *ngIf="numbers[i]!= -1" style="justify-content: center;">
-                            <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0)">אשר התאמה</button>
-                            <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0)">אשר ביצוע מפגש</button>
-                            <!-- <button *ngIf="!user.Admin && acceptedMatch" class="buttons" type="submit" (click)="acceptedMeeting(value.docID)">אשר ביצוע מפגש</button> -->
-                            <br><br>
-                            <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="!user.admin && cancelText">
+                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1" >התאמה עדיין לא אושרה</ion-row>
 
-                                <!-- <label>נשמח לדעת את סיבת הדחייה </label><br>
-                                <ion-textarea class="description" text-right type="text" [(ngModel)]="cancelDescription"></ion-textarea> -->
+                            <button *ngIf="user.Admin && this.userV[numbers[i]].status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
+                            <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
+                            
+                            <ion-row class="textStyle" *ngIf="this.user.status==2">ההתאמה אושרה</ion-row>
+
+                            <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,  userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
+                            <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0,numbers[i])">אשר ביצוע מפגש</button>
+
+                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">התקיים מפגש</ion-row>
+
+                            <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row> 
+                            <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
+
+                            <button  class="buttons" type="submit" (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
+
+                            <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="!user.Admin && cancelText">
+                                <ion-item>
+                                    <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
+                                    <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
+                                </ion-item>
+                                <button ion-button *ngIf="user.Admin" style="align-self: center;" (click)="saveDescription(user.description ,userV[numbers[i]].docID)">שמירת סיבת ביטול</button>
+                                <button ion-button *ngIf="!user.Admin" style="align-self: center;" (click)="saveDescription(user.description , 0)">שמירת סיבת ביטול</button>
+
+                                
                             </ion-grid>
-
                         </ion-row>
-                        <ion-row class="textStyle" *ngIf="numbers[i]!= -1 && !user.Admin && this.user.status==4">התקיים מפגש</ion-row>
-                        <ion-row class="textStyle" *ngIf="numbers[i]!= -1 && userV[numbers[i]].status != null && user.Admin && userV[numbers[i]].status == 1">התאמה עדיין לא אושרה</ion-row>
-                        <button *ngIf="numbers[i]!= -1 && userV[numbers[i]].status != null && user.Admin && userV[numbers[i]].status== 1" class="buttons" type="submit" (click)="acceptMatch(value.docID , userV[numbers[i]].docID)">אשר התאמה</button>
-
-                        <ion-row class="textStyle" *ngIf="numbers[i]!= -1 && userV[numbers[i]].status != null && user.Admin && userV[numbers[i]].status == 2">ההתאמה אושרה</ion-row>
-                        <button *ngIf="numbers[i]!= -1 && userV[numbers[i]].status != null && user.Admin && userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID ,  userV[numbers[i]].docID)">אשר ביצוע מפגש</button>
-
-                        <ion-row class="textStyle" *ngIf="numbers[i]!= -1 && userV[numbers[i]].status != null && user.Admin && userV[numbers[i]].status == 3">התאמה נדחתה</ion-row>
-                        <ion-row class="textStyle" *ngIf="numbers[i]!= -1 && userV[numbers[i]].status != null && user.Admin && userV[numbers[i]].status == 4">התקיים מפגש</ion-row>
-
                     </ion-card>
 
                 </ion-item>
