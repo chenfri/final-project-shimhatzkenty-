@@ -14,6 +14,7 @@ import { Slides } from 'ionic-angular';
 import { Arrays } from '../../providers/arrays'
 import { MatchPage} from '../match/match';
 import { RegisterPage } from '../register/register';
+import { ReportMatchesPage } from '../report-matches/report-matches';
 
 @Component({
   selector: 'page-home',
@@ -51,6 +52,7 @@ export class HomePage
 
   }
 
+<<<<<<< HEAD
 
 //for calling 'get_data_for_admin' function from adminPage
   ngOnInit() {
@@ -59,6 +61,26 @@ export class HomePage
 
   ngOnDestroy (){
     this.event.unsubscribe('operateFunc')
+=======
+    // var myArray = [{
+    //   name: "Joe Blow",
+    //   date: "2020-05-20"
+    // }, {
+    //   name: "Sam Snead",
+    //   date: "2020-05-19"
+    // }, {
+    //   name: "John Smith",
+    //   date: "2020-05-18"
+    // }];
+    
+    // myArray.sort(function compare(a, b) {
+    //   var dateA = new Date(a.date);
+    //   var dateB = new Date(b.date);
+    //   return dateA.getTime() - dateB.getTime();
+    // });
+    
+    // console.log(myArray);
+>>>>>>> 746c60d71275716156ff1341fe5cbaa7979104fd
   }
 
 
@@ -170,8 +192,7 @@ scrollToBottom() {
         address: i.data().address,
         nameAssistant: i.data().nameAssistant,
         contact: tmpPhone,
-        dateTime: i.data().dateTime,
-        date: i.data().date,
+        date: i.data().dateTime,
         docID: i.id,
         index: k,
         manualM: false,
@@ -184,9 +205,7 @@ scrollToBottom() {
         meetingWith: i.data().meetingWith,
         matching: i.data().matching,
         email: i.data().email,
-        description: i.data().description,
-        adminComments: i.data().adminComments,
-        commentsTmp: i.data().adminComments}
+        description: i.data().description}
         k++})}).catch(error => {console.log(error)})
 
     
@@ -225,8 +244,7 @@ scrollToBottom() {
         name: i.data().fullName,
         phone: i.data().phone,
         address: i.data().address,
-        dateTime: i.data().dateTime,
-        date: i.data().date,
+        date: i.data().dateTime,
         docID: i.id,
         index: j,
         manualM: false,
@@ -240,14 +258,13 @@ scrollToBottom() {
         email: i.data().email,
         status: i.data().status,
         rejected: i.data().rejected,
-        adminComments: i.data().adminComments,
-        commentsTmp: i.data().adminComments,
-        student:i.data().student,
         id: id,
         college: i.data().college,
+        student: i.data().student
       }
         j++})}).catch(error => {console.log(error)})
 
+        
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
         data: i.data() ,
@@ -267,8 +284,16 @@ scrollToBottom() {
         this.navCtrl.push(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
            'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged});
       }
+      else{
+           this.navCtrl.push(ReportMatchesPage, {'elderly': elderly, 'volunteer': volunteer,
+           'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged}); 
+
+      }
      
-        }, 1000);
+    
+      }
+     
+        , 1000);
   } 
 
 

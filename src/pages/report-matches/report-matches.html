@@ -1,0 +1,77 @@
+<ion-content class="page-report-matches">
+
+  <ion-grid >
+
+      <ion-row>
+          <ion-col>
+              <button class="buttons" type="submit" (click)="click_home()">חזרה לדף הבית</button>
+          </ion-col>
+          <ion-col>
+              <h2 class="titleAdmin">דוחות עבור התאמות</h2>
+          </ion-col>
+      </ion-row>
+  </ion-grid> <br><br>
+
+ 
+  <div class="tables">
+
+      <h4 class="tableTitle">התאמות שטרם אושרו</h4>
+      <table id="customers" class="message">
+          <tr>
+              <th>שם המתנדב</th>
+              <!-- <th>שם הקשיש</th> -->
+          </tr>
+
+
+          <tr style="direction: rtl;" *ngFor="let value of notConfirmedMatchesList">
+              <td >{{userV[value].name}}</td>
+              <!-- <td>{{value.data.fullName}}</td>  -->
+          </tr>
+      </table><br><br>
+
+      <h4 class="tableTitle">התאמות שאושרו</h4>
+      <table id="customers" class="message">
+          <tr>
+              <th>שם המתנדב</th>
+              <!-- <th>שם הקשיש</th> -->
+          </tr>
+
+
+          <tr style="direction: rtl;" *ngFor="let value of acceptedMatchesList">
+              <td >{{userV[value].name}}</td>
+              <!-- <td>{{value.data.fullName}}</td>  -->
+          </tr>
+      </table><br><br>
+
+      <h4 class="tableTitle">פגישות שהתקיימו</h4>
+      <table id="customers" class="message">
+          <tr>
+              <th>שם המתנדב</th>
+              <!-- <th>שם הקשיש</th> -->
+          </tr>
+
+
+          <tr style="direction: rtl;" *ngFor="let value of meetingList">
+              <td >{{userV[value].name}}</td>
+              <!-- <td>{{value.data.fullName}}</td>  -->
+          </tr>
+      </table><br><br>
+
+      <h4 class="tableTitle">התאמות שנדחו</h4>
+      <table id="customers" class="message">
+          <tr>
+              <th>שם המתנדב</th>
+              <!-- <th>שם הקשיש</th> -->
+          </tr>
+
+
+          <tr style="direction: rtl;" *ngFor="let value of RejectedMatch">
+              <td >{{userV[value].name}}</td>
+              <!-- <td>{{value.data.fullName}}</td>  -->
+          </tr>
+      </table><br><br>
+     
+  </div>
+
+  <br><br><br><br><br><br>
+</ion-content>
