@@ -7,7 +7,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { MyApp } from './app.component';
 
-import { MatchPage} from '../pages/match/match'
+import { MatchPage} from '../pages/match/match';
+import { ReportMatchesPage } from '../pages/report-matches/report-matches';
 import { Form } from '../pages/form/form';
 import { HomePage } from '../pages/home/home';
 import {RegisterPage} from '../pages/register/register'
@@ -53,7 +54,8 @@ export const firebaseConfig = {
     adminPage,
     ModalPage,
     MatchPage,
-    PopoverPage
+    PopoverPage,
+    ReportMatchesPage
   ],
   imports: [ 
     FormsModule,  
@@ -79,7 +81,8 @@ export const firebaseConfig = {
     adminPage,
     ModalPage,
     PopoverPage,
-    MatchPage
+    MatchPage,
+    ReportMatchesPage
   ],
   providers: [
     StatusBar,
