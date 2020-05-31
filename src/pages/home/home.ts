@@ -52,7 +52,6 @@ export class HomePage
 
   }
 
-<<<<<<< HEAD
 
 //for calling 'get_data_for_admin' function from adminPage
   ngOnInit() {
@@ -61,26 +60,6 @@ export class HomePage
 
   ngOnDestroy (){
     this.event.unsubscribe('operateFunc')
-=======
-    // var myArray = [{
-    //   name: "Joe Blow",
-    //   date: "2020-05-20"
-    // }, {
-    //   name: "Sam Snead",
-    //   date: "2020-05-19"
-    // }, {
-    //   name: "John Smith",
-    //   date: "2020-05-18"
-    // }];
-    
-    // myArray.sort(function compare(a, b) {
-    //   var dateA = new Date(a.date);
-    //   var dateB = new Date(b.date);
-    //   return dateA.getTime() - dateB.getTime();
-    // });
-    
-    // console.log(myArray);
->>>>>>> 746c60d71275716156ff1341fe5cbaa7979104fd
   }
 
 
@@ -264,7 +243,7 @@ scrollToBottom() {
       }
         j++})}).catch(error => {console.log(error)})
 
-        
+
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
         data: i.data() ,
