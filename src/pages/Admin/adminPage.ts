@@ -1,4 +1,4 @@
-import { NavController,NavParams, AlertController, PopoverController} from 'ionic-angular';
+import { NavController,NavParams, AlertController, PopoverController ,Events} from 'ionic-angular';
 import { Component } from '@angular/core';
 import firebase from 'firebase';
 import * as papa from 'papaparse';
@@ -20,7 +20,6 @@ export class adminPage
   organizationName: any;
   userE : any[]
   userV : any[]
-  userStudent : any[]
   organizationEledry : any[]
   messages : any[]
   csvData: any[] = []
@@ -30,30 +29,28 @@ export class adminPage
   public matchV: any;
   public date: any;
   public adminComments: any;
-
+ 
+ 
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
-     public alert: AlertProvider, public func: Functions , public popoverCtrl: PopoverController) 
+     public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController) 
   {
-
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
     this.userV = this.navParams.get('volunteer');
-    this.userStudent = this.navParams.get('students');
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
-
+   
     this.matchE = null;
     this.matchV = null;
     this.date = new Date().toISOString().substring(0, 10);
     this.DiffrenceDates("2020-05-24" , "2020-06-23")
-    console.log(this.userE)
-    console.log(this.userV)
     //this.sendSMS("+972508591865", "חן")
 
     this.sortArrByDates(this.userV)
     this.sortArrByDates(this.userE)
+
   }
 
 
@@ -82,10 +79,11 @@ export class adminPage
     console.log(arr);
   }
 
+
   //create excel file with the rellevant data
   csvFile(array , type)
   {
-    let tmp= []
+    let tmp= [] ; let j = 0 
 
     if(array != null || array != undefined)
     {
@@ -112,7 +110,9 @@ export class adminPage
 
         if(type == "student") {
           this.headerRow = ["שם" , "פלאפון", "תעודת זהות","מוסד אקדמי"]
-          tmp[i] = [array[i].name, array[i].phone, array[i].id, array[i].college]
+          if(array[i].student){
+            tmp[j] = [array[i].name, array[i].phone, array[i].id, array[i].college]
+            j++}
         }
      
       }
@@ -162,10 +162,6 @@ export class adminPage
 
   deleteMessage(item)
   {
-      const db = firebase.firestore();
-      let message =[] ,l = 0 
-
-
       let alert = this.alertCtrl.create({
         title: 'אזהרה',
         subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את ההודעה?' ,
@@ -174,26 +170,16 @@ export class adminPage
           text: 'כן',
           role: 'cancel',
           handler: () => {
-          const db = firebase.firestore();
-                
-          db.collection('message').doc(item).delete().then(() =>
-          {
-            this.alert.showAlert_deleteMessage()
-            console.log("Document successfully deleted!");
-            
-            db.collection('message').get().then(res => {res.forEach(i =>{message[l] = {
-              data: i.data() ,
-              id : i.id }
-              l++})}).catch(error => {console.log(error)})
-              this.messages = message
-              console.log(this.messages)
-          
-        }).catch(function(error) {
-            console.error("Error removing document: ", error);
-        });
-                   
-        }
-          },
+              const db = firebase.firestore();
+                    
+              db.collection('message').doc(item).delete().then(() =>
+              {
+                this.event.publish('operateFunc', "1")    
+                console.log("Document successfully deleted!");
+               // this.alert.showAlert_deleteMessage()
+            }).catch((error) => console.error("Error removing document: ", error));         
+          }
+        },
           {
             text: 'לא',
             handler: () => {
@@ -213,23 +199,10 @@ export class adminPage
   }
 
 
+
   deleteElderlyUser(item)
   {
-    this.deleteUserFromFirebase(item, 'ElderlyUsers')
-  }
-
-
-  deleteVolunteerUser(item)
-  {
-    this.deleteUserFromFirebase(item, 'volunteerUsers')
-  }
- 
-
-  deleteUserFromFirebase(item, collectionName)
-  {
-    let array = [] ,student = [], orgs = [], k = 0 , j = 0  , l = 0     
-    const db = firebase.firestore();
-    
+   
     let alert = this.alertCtrl.create({
     title: 'אזהרה',
     subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את המשתמש?' ,
@@ -238,42 +211,48 @@ export class adminPage
       text: 'כן',
       role: 'cancel',
       handler: () => {
-      console.log('yes clicked');
-      const db = firebase.firestore();
-            
-      db.collection(collectionName).doc(item).delete().then(function()
+          console.log('yes clicked');
+          const db = firebase.firestore();
+
+          db.collection("ElderlyUsers").doc(item).delete().then(() =>
+          {
+            this.event.publish('operateFunc', "1")    
+            console.log("Document successfully deleted!")
+          }).catch((error) => console.error("Error removing document: ", error)); 
+        }
+      },
       {
-        console.log("Document successfully deleted!");
+        text: 'לא',
+        handler: () => {
+          console.log('no clicked');
+        }
+      }
+    ]
+  });
+    alert.present();
+  }
 
-        db.collection(collectionName).get().then(res => { res.forEach(i => {
-        if(i.data().student == true) //get all students document
+
+  deleteVolunteerUser(item)
+  {  
+    let alert = this.alertCtrl.create({
+    title: 'אזהרה',
+    subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את המשתמש?' ,
+    buttons: [
+    {
+      text: 'כן',
+      role: 'cancel',
+      handler: () => {
+        console.log('yes clicked');
+        const db = firebase.firestore();
+              
+        db.collection("volunteerUsers").doc(item).delete().then(() =>
         {
-          student[j] =
-          [ i.data().fullName,
-            i.data().phone,
-              i.data().id,
-              i.data().college,
-              i.data().dateTime,
-              i.id ]
-            j++;
-        } 
-            array[k] = // get all volunteer users document
-            [  i.data().fullName,
-              i.data().phone,
-              i.data().address,
-              i.data().dateTime,
-              i.id]
-            k++})}).catch(error => {console.log(error)})
+          this.event.publish('operateFunc', "1")    
+          console.log("Document successfully deleted!");
 
-
-      }).catch(function(error) {
-        console.error("Error removing document: ", error);
-      });
-          
-      this.userV = array
-      if(student != undefined || student != null)
-        this.userStudent = student          
-    }
+        }).catch((error) => console.error("Error removing document: ", error));
+      }
       },
       {
         text: 'לא',

@@ -38,7 +38,7 @@
         <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry')">ייצוא טבלת קשישים לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
-                <!-- <th>מחק משתמש</th> -->
+                <th class="hidePhone">מחק משתמש</th>
                 <th class="hidePhone">הערות</th>
                 <th>תאריך הרשמה</th>
                 <th>פלאפון איש קשר</th>
@@ -49,7 +49,7 @@
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userE">
-                <!-- <td><button (click)="deleteElderlyUser(value.docID)">[x]</button></td> -->
+                <td class="hidePhone"><button class="buttons del" (click)="deleteElderlyUser(value.docID)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
                 </td>
@@ -70,15 +70,16 @@
             </tr>
         </table><br><br>
 
-        <button class="buttons" type="submit" (click)="save_comments(this.userE, 'ElderlyUsers')">שמירת הערות</button>
+        <button class="buttons hidePhone" type="submit" (click)="save_comments(userE, 'ElderlyUsers')">שמירת הערות</button>
 
         <h4 class="tableTitle">:מתנדבים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
 
         <table id="customers" class="table-style">
             <tr>
-                <th>מחק משתמש</th>
+                <th class="hidePhone">מחק משתמש</th>
                 <th class="hidePhone">הערות</th>
+                <th>סטודנט</th>
                 <th>תאריך הרשמה</th>
                 <th>כתובת</th>
                 <th>טלפון</th>
@@ -86,9 +87,13 @@
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userV">
-                <td><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
+                <td class="hidePhone"><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
+                </td>
+                <td>
+                    <div *ngIf="value.student">כן</div>
+                    <div *ngIf="!value.student">לא</div>
                 </td>
                 <td>{{value.dateTime}}</td>
                 <td>{{value.address}}</td>
@@ -104,10 +109,10 @@
             </tr>
         </table><br><br>
 
-        <button class="buttons" type="submit" (click)="save_comments(this.userV, 'volunteerUsers')">שמירת הערות</button>
-
+        <button class="buttons hidePhone" type="submit" (click)="save_comments(userV, 'volunteerUsers')">שמירת הערות</button>
+        <br><br>
         <h4 class="tableTitle">:סטודנטים שנרשמו</h4>
-        <button class="buttons" type="submit" (click)="csvFile(userStudent , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
+        <button class="buttons" type="submit" (click)="csvFile(userV , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
                 <th>מוסד אקדמי</th>
@@ -115,11 +120,11 @@
                 <th>טלפון</th>
                 <th>שם מלא</th>
             </tr>
-            <tr *ngFor="let value of userStudent">
-                <td>{{value.college}}</td>
-                <td>{{value.id}}</td>
-                <td>0{{value.phone}}</td>
-                <td>{{value.name}}</td>
+            <tr *ngFor="let value of userV">
+                <td *ngIf="value.student">{{value.college}}</td>
+                <td *ngIf="value.student">{{value.id}}</td>
+                <td *ngIf="value.student">0{{value.phone}}</td>
+                <td *ngIf="value.student">{{value.name}}</td>
             </tr>
         </table> <br><br>
 

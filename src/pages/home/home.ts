@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController ,NavParams, Content } from 'ionic-angular';
+import {NavController ,NavParams, Content ,Events} from 'ionic-angular';
 import {adminPage} from '../Admin/adminPage';
 import {Form} from '../form/form';
 import {contactPage} from '../contactPage/contactPage'
@@ -34,9 +34,8 @@ export class HomePage
   IDlogged : any;
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
-        public auth: AngularFireAuth, public func:Functions, public array:Arrays)
+        public auth: AngularFireAuth, public func:Functions, public array:Arrays, private event: Events)
   {
-
     console.log("if login:")
     this.user.loggedIn = this.params.get('login');
     if(this.user.loggedIn == undefined)
@@ -50,29 +49,19 @@ export class HomePage
     this.IDlogged = this.params.get('IDlogged')
     console.log("IDlogged ", this.IDlogged)
 
-
-    var myArray = [{
-      name: "Joe Blow",
-      date: "2020-05-20"
-    }, {
-      name: "Sam Snead",
-      date: "2020-05-19"
-    }, {
-      name: "John Smith",
-      date: "2020-05-18"
-    }];
-    
-    // myArray.sort(function compare(a, b) {
-    //   var dateA = new Date(a.date);
-    //   var dateB = new Date(b.date);
-    //   return dateA.getTime() - dateB.getTime();
-    // });
-    
-    // console.log(myArray);
   }
 
 
-  
+//for calling 'get_data_for_admin' function from adminPage
+  ngOnInit() {
+    this.event.subscribe('operateFunc', (i)=> {this.get_data_for_admin(i)})
+  }
+
+  ngOnDestroy (){
+    this.event.unsubscribe('operateFunc')
+  }
+
+
   add_AdminUser()
   {
     this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
@@ -167,10 +156,10 @@ scrollToBottom() {
 
   get_data_for_admin(whichPage)
   {
-    let elderly = [] , volunteer = [] , messages = [] , students=[] , organizationEledry=[]
-    let k = 0 , l = 0 , j = 0 , t=0 , v=0 , groupbyOrg = [] , tmpPhone = null
-   
+    let elderly = [] , volunteer = [] , messages = [] , organizationEledry=[]
+    let k = 0 , l = 0 , j = 0 , v = 0 , groupbyOrg = [] , tmpPhone = null
     const db = firebase.firestore();
+
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { 
       tmpPhone = null
       if(i.data().contact != null)
@@ -201,10 +190,9 @@ scrollToBottom() {
         k++})}).catch(error => {console.log(error)})
 
     
-
-    db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
-      if(i.data().behalf == true )
-      {
+      db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
+        if(i.data().behalf == true )
+        {
             if(i.data().orgi != null)
             {
               let orgName = this.findOrgNameByID(i.data().orgi)
@@ -217,12 +205,21 @@ scrollToBottom() {
                 }        
               v++;
           }
-      }
+       }
       })}).catch(error => {console.log(error)})
    
 
 
     db.collection('volunteerUsers').get().then(res => {res.forEach(i =>{ 
+
+      var id = new String(i.data().id)
+      if(String(i.data().id).length < 9)
+      {
+        var id = new String(i.data().id)
+        while (id.length < 9) 
+          id = "0" + id;
+      }
+       
       volunteer[j] =
       {
         name: i.data().fullName,
@@ -244,35 +241,12 @@ scrollToBottom() {
         status: i.data().status,
         rejected: i.data().rejected,
         adminComments: i.data().adminComments,
-        commentsTmp: i.data().adminComments
+        commentsTmp: i.data().adminComments,
+        student:i.data().student,
+        id: id,
+        college: i.data().college,
       }
         j++})}).catch(error => {console.log(error)})
-
-      
-    db.collection('volunteerUsers').get().then(res => {res.forEach(i =>
-  {
-      var ID = new String(i.data().id)
-      if(String(i.data().id).length < 9)
-      {
-        var ID = new String(i.data().id)
-        while (ID.length < 9) 
-          ID = "0" + ID;
-      }
-       
-      if(i.data().student == true)
-      {
-        students[t] =
-        {
-          name: i.data().fullName,
-          phone: i.data().phone,
-          id: ID,
-          college: i.data().college,
-          date: i.data().dateTime,
-          codID: i.id
-        }
-        t++;
-      } 
-    })})  .catch(error => {console.log(error)})
 
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
@@ -286,7 +260,7 @@ scrollToBottom() {
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
       if(whichPage == 1){
           this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
-          'messages': messages ,'students': students, 'login': this.user.loggedIn, 'admin': this.user.Admin,
+          'messages': messages ,'login': this.user.loggedIn, 'admin': this.user.Admin,
           'organizationEledry': groupbyOrg});
       }
       else if(whichPage == 2){
@@ -311,6 +285,8 @@ scrollToBottom() {
   goToSlide() {
     this.slides.slideTo(2, 500);
   }
+
+
 
 
   hamburgerNavbar() {
