@@ -5,7 +5,6 @@ import * as papa from 'papaparse';
 import {AlertProvider} from '../../providers/alert/alert'
 import { User } from '../../module/User'
 import { HomePage } from '../home/home';
-import {Functions} from '../../providers/functions';
 import { PopoverPage } from '../popover/popover';
 
 
@@ -316,7 +315,8 @@ export class adminPage
     else
     {
       db.collection("ElderlyUsers").doc(this.matchE).update({
-          matching: [this.matchV, "manual", this.date]
+          matching: [this.matchV, "manual", this.date],
+          status: 1
       }) .catch((error) => {console.log(error)})
       db.collection("volunteerUsers").doc(this.matchV).update({
           matching: [this.matchE],
@@ -354,7 +354,7 @@ export class adminPage
     if(arr != null)
     {
       for(let i = 0 ; i < arr.length; i++){
-        if(arr[i] == idE)
+        if(arr[i].id == idE)
           return true;}
     }
       return false;
@@ -399,7 +399,8 @@ export class adminPage
 
           db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
             {
-              matching:[this.userE[k].matching[0], this.userE[k].matching[1]] 
+              matching:[this.userE[k].matching[0], this.userE[k].matching[1]] ,
+              status: 1
             }).catch((error) => {console.log(error)})
       
       

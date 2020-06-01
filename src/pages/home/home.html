@@ -38,14 +38,14 @@
                 </ion-row>
 
                 <ion-row class="twobuttons">
-                    <button ion-button class="redButton" *ngIf="!user.Admin" (click)="volunteer_form()">מתנדב</button>
-                    <button ion-button class="greenButton" *ngIf="!user.Admin && !user.loggedIn" (click)="elderly_form()">אזרח הותיק</button>
+                    <button ion-button class="redButton" *ngIf="!user.loggedIn" (click)=" volunteer_form() ">מתנדב</button>
+                    <button ion-button class="greenButton " *ngIf="!user.loggedIn " (click)="elderly_form() ">אזרח הותיק</button>
                 </ion-row>
 
             </ion-col>
 
-            <ion-col class="video-col">
-                <iframe class="video" src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1">
+            <ion-col class="video-col ">
+                <iframe class="video " src="https://www.youtube.com/embed/lbGyb5EfzPY?autoplay=1&mute=1 ">
                 </iframe>
             </ion-col>
 
@@ -53,31 +53,31 @@
     </ion-grid>
 
     <ion-grid>
-        <ion-row style="background-color: #ff562b; color:#ff562b">a</ion-row>
+        <ion-row style="background-color: #ff562b; color:#ff562b ">a</ion-row>
         <ion-row>
-            <ion-col size="auto">
+            <ion-col size="auto ">
 
-                <ion-slides #slides scrollbar="true" slidesPerView="2" autoplay="1000" loop="true" speed="600" class="slides">
+                <ion-slides #slides scrollbar="true " slidesPerView="2 " autoplay="1000 " loop="true " speed="600 " class="slides ">
                     <ion-slide>
-                        <img class=" pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimgae7.jpg?alt=media&token=df3f2194-93b0-4a9a-9667-b109a46ef707 ">
+                        <img class=" pics " src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimgae7.jpg?alt=media&token=df3f2194-93b0-4a9a-9667-b109a46ef707 ">
                     </ion-slide>
                     <ion-slide>
-                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery1.jpg?alt=media&token=6b05cdc4-dfe9-48aa-bc90-dbf57f09d13d ">
+                        <img class="pics " src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery1.jpg?alt=media&token=6b05cdc4-dfe9-48aa-bc90-dbf57f09d13d ">
                     </ion-slide>
                     <ion-slide>
-                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery2.jpg?alt=media&token=001127f4-351b-46e4-8a7a-9066f2f49e0b ">
+                        <img class="pics " src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery2.jpg?alt=media&token=001127f4-351b-46e4-8a7a-9066f2f49e0b ">
                     </ion-slide>
                     <ion-slide>
-                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery6.jpeg?alt=media&token=393426b0-b911-449c-ab9a-a3f90ffc827e ">
+                        <img class="pics " src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery6.jpeg?alt=media&token=393426b0-b911-449c-ab9a-a3f90ffc827e ">
                     </ion-slide>
                     <ion-slide>
-                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery3.jpeg?alt=media&token=535a5ebe-d50f-4ed8-83f8-8c1a180c48ad ">
+                        <img class="pics " src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fgallery3.jpeg?alt=media&token=535a5ebe-d50f-4ed8-83f8-8c1a180c48ad ">
                     </ion-slide>
                     <ion-slide>
-                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimage8.jpg?alt=media&token=313b17ee-c12f-46dc-a115-3481f1593ff1 ">
+                        <img class="pics " src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimage8.jpg?alt=media&token=313b17ee-c12f-46dc-a115-3481f1593ff1 ">
                     </ion-slide>
                     <ion-slide>
-                        <img class="pics" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimage9.jpg?alt=media&token=74523d1e-06d0-4e09-8bd7-ab4639421e23 ">
+                        <img class="pics " src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/galleryPics%2Fimage9.jpg?alt=media&token=74523d1e-06d0-4e09-8bd7-ab4639421e23 ">
                     </ion-slide>
                 </ion-slides>
 
