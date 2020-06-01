@@ -184,7 +184,9 @@ scrollToBottom() {
         meetingWith: i.data().meetingWith,
         matching: i.data().matching,
         email: i.data().email,
-        description: i.data().description}
+        description: i.data().description,
+        status: i.data().status
+      }
         k++})}).catch(error => {console.log(error)})
 
     
