@@ -169,9 +169,10 @@ scrollToBottom() {
        {name: i.data().fullName,
         phone: i.data().phone,
         address: i.data().address,
+        date: i.data().date,
         nameAssistant: i.data().nameAssistant,
         contact: tmpPhone,
-        date: i.data().dateTime,
+        dateTime: i.data().dateTime,
         docID: i.id,
         index: k,
         manualM: false,
@@ -185,8 +186,9 @@ scrollToBottom() {
         matching: i.data().matching,
         email: i.data().email,
         description: i.data().description,
-        status: i.data().status
-      }
+        status: i.data().status,
+        adminComments: i.data().adminComments
+        }
         k++})}).catch(error => {console.log(error)})
 
     
@@ -225,7 +227,8 @@ scrollToBottom() {
         name: i.data().fullName,
         phone: i.data().phone,
         address: i.data().address,
-        date: i.data().dateTime,
+        dateTime: i.data().dateTime,
+        date: i.data().date,
         docID: i.id,
         index: j,
         manualM: false,
@@ -241,7 +244,8 @@ scrollToBottom() {
         rejected: i.data().rejected,
         id: id,
         college: i.data().college,
-        student: i.data().student
+        student: i.data().student,
+        adminComments: i.data().adminComments
       }
         j++})}).catch(error => {console.log(error)})
 
