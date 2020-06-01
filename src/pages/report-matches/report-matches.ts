@@ -60,7 +60,7 @@ export class ReportMatchesPage {
     console.log('acceptedMatchesList: ', this.acceptedMatchesList)
     console.log('meetingList: ', this.MeetingList)
     console.log('RejectedMatch: ',this.RejectedMatch)
- 
+ }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReportMatchesPage');
