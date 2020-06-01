@@ -1,3 +1,4 @@
+const event = require('ionic-angular')
 const matchingFunct = require('../src/pages/Admin/adminPage.ts');
 const functions = require('firebase-functions');
 const admin = require("firebase-admin");
@@ -58,9 +59,7 @@ exports.sendEmail = functions.https.onCall(async(data, context) => {
 
 
 exports.RunMatching = functions.https.onCall(async(data, context) => {
-    firebase.functions().httpsCallable(matchingFunct.matchingAlgorithm);
-
-
+    return event.publish('operateFunc', "1")
 });
 
 

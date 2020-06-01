@@ -38,7 +38,7 @@ export class MatchPage {
 
     this.user.status = -1;
     this.statusManagement();
-console.log('this.statusManagement(): ', this.user.status)
+    console.log('this.statusManagement(): ', this.user.status)
 
     this.cancelDescription = null; 
     this.acceptedMatch = false;
@@ -47,28 +47,23 @@ console.log('this.statusManagement(): ', this.user.status)
 
     for(var i=0 ; i<this.userV.length;i++){
  
-      if(this.IDlogged == this.userV[i].docID) {    
+      if(this.IDlogged == this.userV[i].docID)     
         this.nameLogged = this.userV[i].name;;
-      }
     }
+
     console.log("name" , this.nameLogged )
-
-
     console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
                 this.userE , this.userV  )
-
     console.log( 'userE[1].matching ' ,this.userE[1].matching[0] , 'userE[1].matching[0]' ,this.userE[1].matching[0])
 
     this.showMatch = false
     this.cancelText = false
 
     this.getVolunteerNumbers();
-
-
     console.log('numbers' , this.numbers)
-  
-
     }
+
+
 
     statusManagement(){
       const db = firebase.firestore();       
@@ -81,37 +76,34 @@ console.log('this.statusManagement(): ', this.user.status)
       // }
             console.log(this.IDlogged)
             console.log("status: " , this.user.status)
-
     }
 
   
 
-    getVolunteerNumbers()
+  getVolunteerNumbers()
+  {
+   
+    for(var i = 0; i < this.userE.length; i++)
     {
-      // this.numbers = [0]
-      for(var i = 0; i < this.userE.length; i++){
-        
-        if(this.userE[i].matching)
+      if(this.userE[i].matching)
+      {
+        var volID = this.userE[i].matching[0];
+        var push = false;
+
+        for(var j = 0 ; j < this.userV.length; j++)
         {
-          var volID = this.userE[i].matching[0];
-          var push = false;
-
-          for(var j = 0 ; j < this.userV.length; j++){
-            var index = this.userV[j].docID.localeCompare(volID)           
-              if(this.userV[j].docID.localeCompare(volID) == 0 ){
-              this.numbers.push(this.userV[j].index); 
-                push = true;
-              }
-            
-          } 
-        }
-
-        if(push == false)   {
-            console.log("ENTER")
-            this.numbers.push(-1); 
-          }
+          var index = this.userV[j].docID.localeCompare(volID)           
+            if(this.userV[j].docID.localeCompare(volID) == 0 ){
+            this.numbers.push(this.userV[j].index); 
+              push = true; }
+        } 
       }
-  }
+
+      if(push == false){
+          console.log("ENTER")
+          this.numbers.push(-1); }
+    }
+}
   
 
 
@@ -124,6 +116,9 @@ console.log('this.statusManagement(): ', this.user.status)
   {
     this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
   }
+
+
+
   CancelMatch(idE, idV ,i)
   {
 
@@ -138,16 +133,15 @@ console.log('this.statusManagement(): ', this.user.status)
       console.log('yes clicked');
       if(this.user.Admin == false && this.user.loggedIn)
         idV = firebase.auth().currentUser.uid
-    
-        console.log('i: ',i )
 
-      this.rejArr = this.userV[i].matching
-      console.log(this.rejArr)
+      this.rejArr = this.userV[i].rejected
+
       if(this.rejArr != null)
-        this.rejArr =[...this.rejArr, idE]
+        this.rejArr =[...this.rejArr,{id: idE, reason: this.cancelDescription}]
       else
-        this.rejArr =[idE]
+        this.rejArr =[{id: idE, reason: this.cancelDescription}]
         console.log(this.rejArr)
+
       this.userV[i].matching = this.rejArr
       const db = firebase.firestore();    
       db.collection("ElderlyUsers").doc(idE).update({
@@ -203,15 +197,18 @@ console.log('this.statusManagement(): ', this.user.status)
     this.userV[i].status = 2
   }
 
-  saveDescription(description, idV){
+
+
+  saveDescription(description, idV)
+  {
     console.log('saveDescription', this.cancelDescription)
     const db = firebase.firestore(); 
 
-    if(idV==0){
+    if(idV == 0)
         db.collection("volunteerUsers").doc(this.IDlogged).update({
           cancelDescription: this.cancelDescription
         }) 
-    }
+    
     else{
       db.collection("volunteerUsers").doc(idV).update({
         cancelDescription: this.cancelDescription
@@ -227,6 +224,8 @@ console.log('this.statusManagement(): ', this.user.status)
     this.cancelText = false;
     this.cancellationReason = true;
   }
+
+
 
   acceptedMeeting(idE , idV, i)
   {
