@@ -19,13 +19,17 @@
       <table id="customers" class="message">
           <tr>
               <th>שם המתנדב</th>
-              <!-- <th>שם הקשיש</th> -->
+              <th>שם הקשיש</th>
+              <th>ציון התאמה</th>
           </tr>
 
 
           <tr style="direction: rtl;" *ngFor="let value of notConfirmedMatchesList">
-              <td >{{userV[value].name}}</td>
-              <!-- <td>{{value.data.fullName}}</td>  -->
+              <td >{{value.volIdDoc}}</td>
+              <td >{{value.elderlyIdDoc}}</td>
+              <td >{{value.grade}}</td>
+
+
           </tr>
       </table><br><br>
 
@@ -33,13 +37,17 @@
       <table id="customers" class="message">
           <tr>
               <th>שם המתנדב</th>
-              <!-- <th>שם הקשיש</th> -->
+              <th>שם הקשיש</th>
+              <th>ציון התאמה</th>
+
           </tr>
 
 
           <tr style="direction: rtl;" *ngFor="let value of acceptedMatchesList">
-              <td >{{userV[value].name}}</td>
-              <!-- <td>{{value.data.fullName}}</td>  -->
+              <td >{{value.volIdDoc}}</td>
+              <td >{{value.elderlyIdDoc}}</td>
+              <td >{{value.grade}}</td>
+
           </tr>
       </table><br><br>
 
@@ -47,13 +55,17 @@
       <table id="customers" class="message">
           <tr>
               <th>שם המתנדב</th>
-              <!-- <th>שם הקשיש</th> -->
+              <th>שם הקשיש</th>
+              <th>ציון התאמה</th>
+
           </tr>
 
 
-          <tr style="direction: rtl;" *ngFor="let value of meetingList">
-              <td >{{userV[value].name}}</td>
-              <!-- <td>{{value.data.fullName}}</td>  -->
+          <tr style="direction: rtl;" *ngFor="let value of MeetingList">
+            <td >{{value.volIdDoc}}</td>
+            <td >{{value.elderlyIdDoc}}</td>
+            <td >{{value.grade}}</td>
+
           </tr>
       </table><br><br>
 
@@ -61,13 +73,17 @@
       <table id="customers" class="message">
           <tr>
               <th>שם המתנדב</th>
-              <!-- <th>שם הקשיש</th> -->
+              <th>שם הקשיש</th>
+              <th>ציון התאמה</th>
+
           </tr>
 
 
           <tr style="direction: rtl;" *ngFor="let value of RejectedMatch">
-              <td >{{userV[value].name}}</td>
-              <!-- <td>{{value.data.fullName}}</td>  -->
+            <td >{{value.volIdDoc}}</td>
+            <td >{{value.elderlyIdDoc}}</td>
+            <td >{{value.grade}}</td>
+
           </tr>
       </table><br><br>
      
