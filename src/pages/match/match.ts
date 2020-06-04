@@ -36,9 +36,9 @@ export class MatchPage {
     console.log(this.userV)
     console.log('this.IDlogged', this.IDlogged)
 
-    this.user.status = -1;
-    this.statusManagement();
-    console.log('this.statusManagement(): ', this.user.status)
+    // this.user.status = -1;
+    // this.statusManagement();
+    // console.log('this.statusManagement(): ', this.user.status)
 
     this.cancelDescription = null; 
     this.acceptedMatch = false;
@@ -131,29 +131,6 @@ export class MatchPage {
       role: 'cancel',
       handler: () => {
       console.log('yes clicked');
-      if(this.user.Admin == false && this.user.loggedIn)
-        idV = firebase.auth().currentUser.uid
-
-      this.rejArr = this.userV[i].rejected
-
-      if(this.rejArr != null)
-        this.rejArr =[...this.rejArr,{id: idE, reason: this.cancelDescription}]
-      else
-        this.rejArr =[{id: idE, reason: this.cancelDescription}]
-        console.log(this.rejArr)
-
-      this.userV[i].matching = this.rejArr
-      const db = firebase.firestore();    
-      db.collection("ElderlyUsers").doc(idE).update({
-          matching: ["",0],
-          status: 0
-      }).catch(error => {console.log(error)}) 
-    
-      db.collection("volunteerUsers").doc(idV).update({
-        matching: null,
-        rejected:this.rejArr,
-        status: 3
-      }).catch(error => {console.log(error)}) 
     
       this.cancelText = true        
       this.rejArr = null
@@ -174,6 +151,40 @@ export class MatchPage {
 }
   
 
+saveDescription(description, idE, idV ,i)
+{
+  console.log('saveDescription', this.cancelDescription)
+  const db = firebase.firestore(); 
+
+  if(this.user.Admin == false && this.user.loggedIn)
+      idV = firebase.auth().currentUser.uid
+
+  let alert = this.alertCtrl.create({
+    title: 'בוצע',
+    subTitle: 'סיבת הביטול נשמרה!',
+    buttons: ['אישור']
+  });
+  
+  alert.present();
+
+  this.rejArr = this.userV[i].rejected
+
+  if(this.rejArr != null)
+    this.rejArr =[...this.rejArr,{id: idE, reason: this.cancelDescription}]
+  else
+    this.rejArr =[{id: idE, reason: this.cancelDescription}]
+    console.log(this.rejArr)
+
+  this.userV[i].rejected = this.rejArr = this.rejArr
+
+  db.collection("volunteerUsers").doc(idV).update({
+    rejected:this.rejArr,
+  }).catch(error => {console.log(error)}) 
+
+
+  this.cancelText = false;
+  this.cancellationReason = true;
+}
 
 
   acceptMatch(idE , idV, i)
@@ -195,35 +206,12 @@ export class MatchPage {
     }) 
     this.user.status=2;
     this.userV[i].status = 2
-  }
 
-
-
-  saveDescription(description, idV)
-  {
-    console.log('saveDescription', this.cancelDescription)
-    const db = firebase.firestore(); 
-
-    if(idV == 0)
-        db.collection("volunteerUsers").doc(this.IDlogged).update({
-          cancelDescription: this.cancelDescription
-        }) 
     
-    else{
-      db.collection("volunteerUsers").doc(idV).update({
-        cancelDescription: this.cancelDescription
-      }) 
-    }
-    let alert = this.alertCtrl.create({
-      title: 'בוצע',
-      subTitle: 'סיבת הביטול נשמרה!',
-      buttons: ['אישור']
-    });
-    alert.present();
-
-    this.cancelText = false;
-    this.cancellationReason = true;
   }
+
+
+
 
 
 
@@ -245,6 +233,8 @@ export class MatchPage {
 
       this.user.status=4;   
       this.userV[i].status = 4   
+
+      
    }
 
 }

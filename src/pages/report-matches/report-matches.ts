@@ -4,6 +4,7 @@ import { User } from '../../module/User';
 import { HomePage } from '../home/home';
 import firebase from 'firebase';
 import { PopoverPage } from '../popover/popover';
+import { combineAll } from 'rxjs/operator/combineAll';
 
 /**
  * Generated class for the ReportMatchesPage page.
@@ -26,8 +27,7 @@ export class ReportMatchesPage {
   notConfirmedMatchesList: { elderlyIdDoc: any,volIdDoc: any }[] =[] ;
   acceptedMatchesList: { elderlyIdDoc: any,volIdDoc: any }[] =[] ;
   MeetingList: { elderlyIdDoc: any,volIdDoc: any }[] =[] ;
-  RejectedMatch: { elderlyIdDoc: any,volIdDoc: any ,cancelDescription: any}[] =[] ;
-
+  RejectedMatch: {volName: any,  volIdDoc: any,  elderlyName: any,  elderlyIdDoc: any,  reason: any}[] =[] ;
   IDlogged:any;
 
   
@@ -62,7 +62,28 @@ export class ReportMatchesPage {
     var volIdDoc:string;
     var k = 0 ;
     var description = "";
+    var elderlyName , volName;
 
+    //handle rejected list
+    for(var iV=0 ; iV<this.userV.length;iV++){
+      if(this.userV[iV].rejected != null){
+        console.log("ENTERI")
+        volName = this.userV[iV].name
+        console.log('volName', volName)
+        this.userV[iV].rejected.forEach(element => {
+          for(var iE=0 ; iE<this.userE.length ; iE++){
+            if(element.id == this.userE[iE].docID){
+
+              this.RejectedMatch.push(
+              {
+                    volName: volName,
+                    volIdDoc: this.userV[iV].docID,
+                    elderlyName: this.userE[iE].name,
+                    elderlyIdDoc: this.userE[iE].docID,
+                    reason: element.reason
+              })
+            } }});}
+    }
     for(var iE=0 ; iE<this.userE.length ; iE++){
       if(this.userE[iE].matching[0] != ""){
         volIdDoc = this.userE[iE].matching[0];
@@ -78,29 +99,15 @@ export class ReportMatchesPage {
       
             else if(this.userV[iV].status == 2)
               this.acceptedMatchesList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index  })
-       
-            else if(this.userV[iV].status == 3){
-              db.collection("volunteerUsers").doc(this.userV[iV].docID).get().then(result => {
-                if (!result.exists) return
-                description = result.data().cancelDescription;
-              }).catch(error => {console.log(error)})
-              this.RejectedMatch.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index , cancelDescription: description})
-              console.log("cancelDescription" , description)
-            }
+
             else if(this.userV[iV].status == 4)
               this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index  })
          
           }
-          else if(this.userV[iV].status == 3){
-            db.collection("volunteerUsers").doc(this.userV[iV].docID).get().then(result => {
-              if (!result.exists) return
-              description = result.data().cancelDescription;
-            }).catch(error => {console.log(error)})
-            this.RejectedMatch.push({elderlyIdDoc: this.userV[iV].rejected[0] ,volIdDoc: this.userV[iV].index , cancelDescription: description})
-            console.log("cancelDescription" , description)
-          }
+        
 
-        }
+       
+       
 
         if(this.userE[iE].status == 0)
           this.matchesNotFoundList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: 0 })
@@ -108,14 +115,20 @@ export class ReportMatchesPage {
 
       }
     }
-   
+   } 
+
+            // console.log('this.RejectedMatchTemp ',this.RejectedMatchTemp )
+
+          console.log('this.RejectedMatch ',this.RejectedMatch)
+    
+
 
   }  
     // modal for get 'more details' about the users
     async openPopover(event , uid, userType)
     {
       console.log("openPopover")
-      let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid ,'userType': userType });
+      let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid ,'userType': userType },{cssClass: 'custom-popover'});
       popover.present({
         ev: event
       });

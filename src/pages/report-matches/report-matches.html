@@ -116,20 +116,25 @@
           </tr>
 
 
-          <tr style="direction: rtl;" *ngFor="let value of RejectedMatch">
+          <tr style="direction: rtl;" *ngFor="let value of RejectedMatch; let i=index">
             <td >
-              <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
+              <a class="info-button" (click)="openPopover($event, value.volIdDoc, 'volunteer')">
                  <ion-icon name="ios-information-circle-outline"></ion-icon>
               </a>
-                {{userV[value.volIdDoc].name}}
+                {{value.volName}}
             </td>
             <td >
-              <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
+              <a class="info-button" (click)="openPopover($event, value.elderlyIdDoc, 'elderly')">
                 <ion-icon name="ios-information-circle-outline"></ion-icon>
               </a>
-               {{userE[value.elderlyIdDoc].name}}
+               {{value.elderlyName}}
             </td>
-            <td>{{value.cancelDescription}}</td>
+            <td   *ngIf="value.reason !=null">
+              {{value.reason}}
+            </td>
+            <td *ngIf="value.reason ==null">
+             איו פירוט סיבה 
+            </td>
           </tr>
       </table><br><br>
      

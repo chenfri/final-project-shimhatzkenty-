@@ -38,9 +38,9 @@
                                         <img *ngIf="value.gender == 1" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2FElderly-women.png?alt=media&token=59ae802e-3080-42a0-87ff-02b69b16b05d" />
                                         <img *ngIf="value.gender == 2" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2FElderly-men.png?alt=media&token=f33cc453-3e43-4962-aaa1-de9fde4ddf50" />
 
-                                        <ion-card-header>
+                                        <!-- <ion-card-header> -->
                                             <ion-card-title text-wrap>{{value.name}} </ion-card-title>
-                                        </ion-card-header>
+                                        <!-- </ion-card-header> -->
                                         <ion-card-content text-wrap>
                                             מספר פלאפון: 0{{value.phone}}
                                             <br> <br>
@@ -93,9 +93,9 @@
 
                                         <img *ngIf=" userV[numbers[i]].gender == 1" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20women.png?alt=media&token=f31aaad6-ee85-47de-8370-3bca2241b155" />
                                         <img *ngIf=" userV[numbers[i]].gender == 2" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20men.png?alt=media&token=54bc0512-5082-4eb6-bea2-a1d98582220b" />
-                                        <ion-card-header>
+                                        <!-- <ion-card-header> -->
                                             <ion-card-title text-wrap>{{userV[numbers[i]].name}}</ion-card-title>
-                                        </ion-card-header>
+                                        <!-- </ion-card-header> -->
                                         <ion-card-content text-wrap>
                                             מספר פלאפון: 0{{userV[numbers[i]].phone}}
                                             <br> <br>
@@ -154,13 +154,13 @@
 
                             <button  class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 " (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
                             
-                            <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="!user.Admin && cancelText">
+                            <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf=" cancelText">
                                 <ion-item>
                                     <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
                                     <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
                                 </ion-item>
-                                <button class="buttons" *ngIf="user.Admin"  (click)="saveDescription(user.description ,userV[numbers[i]].docID)">שמירת סיבת ביטול</button>
-                                <button class="buttons" *ngIf="!user.Admin" (click)="saveDescription(user.description , 0)">שמירת סיבת ביטול</button>
+                                <button class="buttons" (click)="saveDescription(user.description , value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת ביטול</button>
+                                <!-- <button class="buttons" (click)="saveDescription(user.description , 0)">שמירת סיבת ביטול</button> -->
 
                                 
                             </ion-grid>
