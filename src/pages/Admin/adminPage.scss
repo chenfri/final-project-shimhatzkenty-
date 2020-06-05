@@ -11,17 +11,14 @@
         margin: 5px 0px 0px 0px;
         border-radius: 15px;
     }
-    .tableTitle {
+    .titles {
         text-align: center;
-    }
-    .titleAdmin {
-        float: left;
         font-weight: bold;
     }
     #customers {
         font-family: calibri;
         border-collapse: collapse;
-        //width: 80%;
+        margin-bottom: 7rem;
         align-items: center;
     }
     #customers td,

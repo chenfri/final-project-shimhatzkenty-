@@ -53,7 +53,14 @@ export class adminPage
   }
 
 
-  save_comments(arr, collection)
+  saveConnemnts()
+  {
+    this.save_AdminComments(this.userV, "volunteerUsers")
+    this.save_AdminComments(this.userE, "ElderlyUsers")
+  }
+
+
+  save_AdminComments(arr, collection)
   {
     const db = firebase.firestore();
     for(let i = 0; i < arr.length; i++)

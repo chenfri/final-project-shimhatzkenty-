@@ -3,21 +3,35 @@
     <ion-grid class="adminHeader">
 
         <ion-row>
-            <ion-col>
+            <ion-col style="text-align: left; ">
                 <button class="buttons" type="submit" (click)="click_home()">חזרה לדף הבית</button>
-            </ion-col>
-            <ion-col>
-                <h2 class="titleAdmin">דף ניהול</h2>
+                <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button>
             </ion-col>
         </ion-row>
+        <ion-row>
+            <ion-col>
+                <h1 class="titles" style="text-decoration: underline;">דף ניהול</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col style="text-align: center;">
+                <h4 style="color: red; font-weight: bold;">.אני מתחייב בזאת לשמור על המידע והפרטים המופיעים באתר באופן חסוי ולעשות בהם שימוש בהתאם למטרת המיזם בלבד</h4>
+            </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+            <ion-col style="text-align: right;">
+                <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button>
+                <button class="buttons" type="submit" (click)="manual_matching()"> בצע התאמה ידנית</button>
+            </ion-col>
+        </ion-row> -->
     </ion-grid> <br><br>
 
-    <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button>
-    <button class="buttons" type="submit" (click)="manual_matching()"> בצע התאמה ידנית</button>
+
 
     <div class="tables">
 
-        <h4 class="tableTitle">הודעות</h4>
+        <h4 class="titles">:הודעות</h4>
         <table id="customers" class="message">
             <tr>
                 <th>מחק הודעה</th>
@@ -33,9 +47,13 @@
                 <td>0{{value.data.phoneNumber}}</td>
                 <td>{{value.data.fullName}}</td>
             </tr>
-        </table><br><br>
+        </table>
 
-        <h4 class="tableTitle">:קשישים שנרשמו</h4>
+
+        <button class="buttons hidePhone" type="submit" style="margin-bottom: 3rem;" (click)="manual_matching()"> בצע התאמה ידנית</button>
+        <button class="buttons hidePhone" type="submit" (click)="saveConnemnts()">שמירת הערות</button>
+
+        <h4 class="titles">:קשישים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry')">ייצוא טבלת קשישים לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
@@ -69,11 +87,10 @@
                     <ion-radio [checked]="value.manualM" (click)="elderlyRadioClicked(value.index)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
-        </table><br><br>
+        </table>
 
-        <button class="buttons hidePhone" type="submit" (click)="save_comments(userE, 'ElderlyUsers')">שמירת הערות</button>
 
-        <h4 class="tableTitle">:מתנדבים שנרשמו</h4>
+        <h4 class="titles">:מתנדבים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
 
         <table id="customers" class="table-style">
@@ -108,11 +125,9 @@
                     <ion-radio [checked]="value.manualM" (click)="volunteerRadioClicked(value.index)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
-        </table><br><br>
+        </table>
 
-        <button class="buttons hidePhone" type="submit" (click)="save_comments(userV, 'volunteerUsers')">שמירת הערות</button>
-        <br><br>
-        <h4 class="tableTitle">:סטודנטים שנרשמו</h4>
+        <h4 class="titles">:סטודנטים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userV , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
         <table id="customers" class="table-style">
             <tr>
@@ -127,11 +142,11 @@
                 <td *ngIf="value.student">0{{value.phone}}</td>
                 <td *ngIf="value.student">{{value.name}}</td>
             </tr>
-        </table> <br><br>
+        </table>
 
         <div *ngIf="organizationEledry['יד שרה'] != undefined">
-            <h4 class="tableTitle ">:קשישים שנרשמו דרך יד שרה</h4>
-            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'יד שרה'], 'organization') ">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
+            <h4 class="titles ">:קשישים שנרשמו דרך יד שרה</h4>
+            <button class="buttons" type="submit" (click)="csvFile(organizationEledry[ 'יד שרה'], 'organization') ">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
             <table id="customers" class="table-style">
                 <tr>
                     <th>שם הארגון</th>
@@ -147,11 +162,11 @@
                     <td>0{{value.phoneE}}</td>
                     <td>{{value.name}}</td>
                 </tr>
-            </table><br><br>
+            </table>
         </div>
 
         <div *ngIf="organizationEledry[ 'מלבב'] != undefined">
-            <h4 class="tableTitle">:קשישים שנרשמו דרך מלבב</h4>
+            <h4 class="titles">:קשישים שנרשמו דרך מלבב</h4>
             <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization')">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
             <table id="customers" class="table-style">
                 <tr>
@@ -168,13 +183,13 @@
                     <td>0{{value.phoneE}}</td>
                     <td>{{value.name}}</td>
                 </tr>
-            </table><br><br>
+            </table>
         </div>
 
         <div *ngIf="organizationEledry['עזר מציון'] != undefined">
-            <h4 class="tableTitle ">:קשישים שנרשמו דרך עזר מציון</h4>
+            <h4 class="titles ">:קשישים שנרשמו דרך עזר מציון</h4>
             <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'עזר מציון'] , 'organization') ">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
-            <table id="customers " class="table-style ">
+            <table id="customers " class="table-style">
                 <tr>
                     <th>שם הארגון</th>
                     <th>פלאפון איש קשר</th>
@@ -189,11 +204,11 @@
                     <td>0{{value.phoneE}}</td>
                     <td>{{value.name}}</td>
                 </tr>
-            </table><br><br>
+            </table>
         </div>
 
         <div *ngIf="organizationEledry['אחר'] != undefined">
-            <h4 class="tableTitle ">:קשישים שנרשמו דרך ארגונים אחרים</h4>
+            <h4 class="titles ">:קשישים שנרשמו דרך ארגונים אחרים</h4>
             <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] , 'organization') ">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
             <table id="customers" class="table-style">
                 <tr>
@@ -210,7 +225,8 @@
                     <td>0{{value.phoneE}}</td>
                     <td>{{value.name}}</td>
                 </tr>
-            </table><br><br></div>
+            </table>
+        </div>
     </div>
 
     <br><br><br><br><br><br>
