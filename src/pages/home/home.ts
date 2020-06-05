@@ -78,7 +78,7 @@ scrollToBottom() {
 
 
   ngAfterViewInit() {
-   // this.slides.onlyExternal = true;   //to do not touch on the slides
+    this.slides.onlyExternal = true;   //for can't touch on slides
     this.slides.autoplayDisableOnInteraction = false;
     this.slides.freeMode = true;
     this.slides.autoplay = 1000;

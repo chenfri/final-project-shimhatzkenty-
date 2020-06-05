@@ -95,12 +95,13 @@ background-attachment: fixed !important;">
                     <ion-row>
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
-                            <ionic-selectable item-content [canClear]="true" clearButtonText="נקה" [(ngModel)]="selectedNH" name="name" [items]="neighborhoods" itemValueField="id" itemTextField="species" [canSearch]="true" searchplaceholder="חיפוש" (onChange)="select_neighborhood($event)">
+                            <ionic-selectable item-content [canClear]="true" clearButtonText="נקה" [(ngModel)]="selectedNH" name="name" [items]="neighborhoods" itemValueField="id" itemTextField="species" [canSearch]="true" searchFailText="לא נמצאו תוצאות" searchPlaceholder="חיפוש"
+                                (onChange)="select_neighborhood($event)">
                                 <ng-template ionicSelectableCloseButtonTemplate>
                                     <ion-icon name="close-circle" style="font-size: 24px; color: white;"></ion-icon>
                                 </ng-template>
                                 <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
-                                    <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'primary' : null">
+                                    <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'white' : null">
                                     </ion-icon>
                                 </ng-template>
                             </ionic-selectable>
@@ -206,7 +207,7 @@ background-attachment: fixed !important;">
 
                             <ion-col>
                                 <label>מספר טלפון</label><br>
-                                <input text-right type="number" name="phone" [(ngModel)]="user.contact">
+                                <input text-right type="number" name="phone1" [(ngModel)]="user.contact">
                             </ion-col>
                         </ion-row>
 
@@ -265,7 +266,7 @@ background-attachment: fixed !important;">
                                         <br><br>
                     
                                         <label style="float: right;">מספר טלפון</label><br>
-                                        <input text-right type="number" name="phone" [(ngModel)]="phone_familyMember[i]">
+                                        <input text-right type="number" name="phone2" [(ngModel)]="phone_familyMember[i]">
                                         <br><br>
                     
                                         <label style="float: right;">קרבה לקשיש</label><br>
@@ -392,10 +393,10 @@ background-attachment: fixed !important;">
                         <br><br>
                         <ion-item no-lines style="float: right;background-color:#259262;width: auto;">
                             <ion-label style="color:#FCBE47;font-style: calibri;">בחר שם שכונה</ion-label>
-                            <ionic-selectable item-content [canClear]="true" clearButtonText="נקה" addButtonText="בחר" [(ngModel)]="selectedFav" name="nameN" [isMultiple]="true" [items]="neighborhoods" itemTextField="species" [canSearch]="true" (onChange)="selectVol_neighborhood($event)">
-                                <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
-                                    <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'primary' : null">
-                                    </ion-icon>
+                            <ionic-selectable item-content [canClear]="true" searchPlaceholder="חיפוש" clearButtonText="נקה" confirmButtonText="בחר" searchFailText="לא נמצאו תוצאות" [(ngModel)]="selectedFav" name="nameN" [isMultiple]="true" [items]="neighborhoods" itemTextField="species"
+                                [canSearch]="true" (onChange)="selectVol_neighborhood($event)">
+                                <ng-template ionicSelectableCloseButtonTemplate>
+                                    <ion-icon name="close-circle" style="font-size: 24px; color: white;"></ion-icon>
                                 </ng-template>
                                 <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
                                     <ion-icon item-left [name]="isPortSelected ? 'checkbox-outline' : 'square-outline'" [color]="isPortSelected ? 'primary' : null">

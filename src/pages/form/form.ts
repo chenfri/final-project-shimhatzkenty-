@@ -42,14 +42,12 @@ export class Form
   
   constructor(public navCtrl: NavController, public params: NavParams,
           public alert: AlertProvider, public func:Functions , public array:Arrays,
-          public auth:AngularFireAuth, private http: HttpClient, private modal: ModalController)
-          
+          public auth:AngularFireAuth, private http: HttpClient, private modal: ModalController)      
     {
     this.user.loggedIn = this.params.get('login');
     this.user.elderly = this.params.get('elderly')
     this.user.volunteer = this.params.get('volunteer')
     this.IDlogged = this.params.get('IDlogged')
-    console.log(this.IDlogged )
 
     //update variables
     this.user.email = null ;this.selectedFav = null; this.selectedNH = null
@@ -63,7 +61,6 @@ export class Form
     this.user.student = false; this.user.onBehalf = false ; this.user.numOfAssistant = 0
 
     this.hobbies = this.array.hobbies
-    // this.time = this.array.time
     this.user.comments = null
     this.numOfMeeting = this.array.numOfMeeting
     this.hours = this.array.hours
@@ -93,7 +90,6 @@ export class Form
 
 
 
-
   async registry()
   {
     let a = ""
@@ -118,7 +114,7 @@ export class Form
           this.alert.error_illegalEmailOrPassword();
       }
     }
-    }
+  }
 
 
   async presentModal() {
@@ -190,7 +186,7 @@ export class Form
 
   validatePhoneNumber(phone)
   {
-    var phoneRe =  /^\(?(0[1-9]{1})\)?([0-9]{7})$/;
+    var phoneRe =  /^\(?(0[2,3,4,8,9]{1})\)?([0-9]{7})$/;
     var digits = phone.replace(/[-.]/g, "");
     return phoneRe.test(digits);
   }
@@ -204,7 +200,6 @@ export class Form
 
     while (ID.length < 9) 
         ID = "0" + ID;
-
 
     for (var i = 0; i < 8; i++)
     {
@@ -235,13 +230,8 @@ export class Form
   check_field_value()
   {
     let flag = 0;
-    //convert the phone to string for do more checks
-    let phone =  String(this.user.phone);
-    let contact = String(this.user.contact)
-    let temp = "0"
-    phone = temp.concat("",phone);
-    contact = temp.concat("",contact);
-
+    let phone =  "0" + this.user.phone;
+    let contact = "0" + this.user.contact
 
     setTimeout(() => 
     {
@@ -255,11 +245,19 @@ export class Form
         this.alert.error_illegalEmail()
         flag = 1;
       }
+
+      else if (this.user.onBehalf && this.user.email == null)
+      {
+       this.alert.error_illegalEmail()
+         flag = 1;
+      }
   
-      else if (typeof (this.user.phone) === "undefined" || !this.validateCellPhoneNumber(phone)) {
+      else if (typeof (this.user.phone) === "undefined" ||
+       (!this.validateCellPhoneNumber(phone) && !this.validatePhoneNumber(phone))) {
         this.alert.error_emptyPhone()
         flag = 1;
       }
+
   
       else if (!this.user.elderly && (this.user.id == null || !this.legalID(String(this.user.id))))
       {
@@ -272,8 +270,8 @@ export class Form
       //   this.alert.showError_address();
       //   flag = 1;
       // }
-  
-  
+
+ 
       else if (this.user.onBehalf && (this.user.nameAssistant == null || this.user.contact == null
          ||(!this.validateCellPhoneNumber(contact) && !this.validatePhoneNumber(contact))))
       {
@@ -281,14 +279,9 @@ export class Form
          flag = 1;
       }
 
-      else if (this.user.onBehalf && this.user.email == null)
-     {
-      this.alert.error_illegalEmail()
-        flag = 1;
-     }
- 
+
   
-      else if(this.user.onBehalf && (this.relationship == null && this.orgi == null))
+      else if(this.user.onBehalf && (this.relationship_ == null && this.orgi == null))
       { 
          this.alert.showError_relationship();
          flag = 1;
@@ -370,8 +363,8 @@ export class Form
 
       if (flag == 0)
       {
-        if(this.check_arrayVaule(this.meetingWith) == 1)
-          this.meetingWith[0] = true;
+        if(this.meetingWith_ == null)
+          this.meetingWith_ = 1
         if (this.user.fullName == null && this.user.elderly)
         this.user.fullName = 'חסוי'
 
@@ -385,6 +378,7 @@ export class Form
     }, 500);
   }
   
+
   add_familyMembers()
   {
     let size = this.phone_familyMember.length
@@ -405,16 +399,17 @@ export class Form
   //update the variables if someone fill the form behalf elderly
   onbehalf()
   {
-    if (this.user.onBehalf === false){
+    if (this.user.onBehalf === false)
       this.user.onBehalf = true;
-    }
     else
     {
       this.user.onBehalf = false;
       this.user.contact = null;
       this.user.nameAssistant = null;
-      this.user.relationName = null;  
+      this.user.relationName = null; 
+      this.familyMember = null 
     }
+
   }
 
   
@@ -478,7 +473,10 @@ export class Form
   add_data_to_firebase_Volunteer()
   {
     this.arrangeAddress();
-    this.arrangeDate();
+    //arrange date
+    this.date = new Date().toISOString().substring(0, 10);
+    this.user.dateTime = this.date[8] + this.date[9] + "-" +this.date[5] + this.date[6] + "-"
+      + this.date[0] + this.date[1]+this.date[2] + this.date[3];
 
     const db = firebase.firestore();
     db.collection('volunteerUsers').doc(firebase.auth().currentUser.uid).set(
@@ -562,22 +560,9 @@ export class Form
       this.radioClicked_fromDB(this.numOfMeeting, this.numOfMeeting_)
       this.radioClicked_fromDB(this.hours, this.hours_)
       this.radioClicked_fromDB(this.gender, this.gender_)
-      // this.matching = result.data().matching
 
     }).catch(error => {console.log(error)})
  
-  }
-
-
-  arrangeDate()
-  {
-    this.date = new Date().toISOString().substring(0, 10);
-
-    let temp2 = "";
-    temp2= this.date[8] + this.date[9] + "-" +this.date[5] + this.date[6] + "-" + this.date[0] +
-     this.date[1]+this.date[2] + this.date[3];
-    
-    this.user.dateTime = temp2;
   }
 
 
@@ -601,7 +586,10 @@ export class Form
   add_data_to_firebase_Elderly()
   {
     this.arrangeAddress();
-    this.arrangeDate();
+    //arrange date
+    this.date = new Date().toISOString().substring(0, 10);
+    this.user.dateTime = this.date[8] + this.date[9] + "-" +this.date[5] + this.date[6] + "-"
+     + this.date[0] + this.date[1]+this.date[2] + this.date[3];
     
     if(this.hideMoreContact)
       this.add_familyMembers();
@@ -692,7 +680,6 @@ export class Form
   //check which checkbox was clicked and update the array
   CheckboxClicked(item: any, arr)
   {
-    console.log(item)
     for (let i = 0; i < arr.length; i++)
     {
       if (arr[i] === item)
