@@ -253,6 +253,15 @@ export class AlertProvider
   }
 
   
+  error_emptyPassword()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: ' כדי לאפס סיסמה חובה למלא כתובת דוא"ל מהצורה <br> exapmle@example.com',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
   
   error_emailIsNotExist()
   {

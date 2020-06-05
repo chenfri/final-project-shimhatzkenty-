@@ -62,14 +62,16 @@ export class LoginPage
   resetPassword()
   { 
     if(this.user.email == "")
-      this.alert.error_emptyEmailOrPassword();
+      this.alert.error_emptyPassword();
     else
     {
-      this.alert.showAlert_forgetPassword()
-      return this.auth.auth.sendPasswordResetEmail(this.user.email) 
+      return this.auth.auth.sendPasswordResetEmail(this.user.email).then(() => {this.alert.showAlert_forgetPassword()}).
+      catch(error => { 
+        if(error.code == "auth/user-not-found")
+          this.alert.error_emailIsNotExist();
 
-    }
-      return this.auth.auth.sendPasswordResetEmail(this.user.email) 
+    })
+  }
   } 
 
 
@@ -78,24 +80,4 @@ export class LoginPage
     this.navCtrl.setRoot(HomePage)
   }
 
-
-  // -------------------------------- functionnot in used ----------------------------
-  
-  checkUserType(uid)
-  {
-    const db = firebase.firestore();
-    db.collection('ElderlyUsers').doc(uid).get()
-      .then(result =>{
-        if (result.exists)
-          this.user.elderly = true;
-        else
-        {
-          db.collection('volunteerUsers').doc(uid).get()
-          .then(result =>{
-            if (result.exists)
-              this.user.volunteer = true;  
-           }).catch(error => {console.log(error)})
-        }
-      }).catch(error => {console.log(error)})
-  }
 }
