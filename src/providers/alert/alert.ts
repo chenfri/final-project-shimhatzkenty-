@@ -375,7 +375,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'שים לב, יש למלא את כל השדות' ,
+      subTitle: 'שים לב, יש למלא את כל השדות ולמלא מספר תקין' ,
       buttons: ['אישור']
     });
     alert.present();

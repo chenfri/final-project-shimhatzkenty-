@@ -6,6 +6,7 @@ export interface User
     phone: string,
     street: string,
     city: string,
+    message: string,
     
     loggedIn: boolean,
     dateTime: string,

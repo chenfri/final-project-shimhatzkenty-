@@ -7,7 +7,7 @@ import { AlertProvider } from '../../providers/alert/alert'
 import { Arrays } from '../../providers/arrays'
 import {Functions} from '../../providers/functions'
 import { Component ,ViewChild} from '@angular/core';
-import {returnValue ,MyGlobal} from '../../module/global'
+import {MyGlobal} from '../../module/global'
 import {AngularFireAuth} from 'angularfire2/auth';
 import { HttpClient } from '@angular/common/http';
 import {SelectSearchableComponent} from 'ionic-select-searchable'
@@ -173,28 +173,6 @@ export class Form
   }
 
 
-  checkIfPhoneExist()
-  {
-    const db = firebase.firestore();
-    if (this.user.elderly)
-    {
-      db.collection('ElderlyUsers').get().then(res => { res.forEach(i => {
-        if(i.data().phone == this.user.phone)
-          returnValue.phoneExist = 2   
-          })}).catch(error => {console.log(error)}) 
-    }
-
-    else if (this.user.volunteer)
-    {
-        db.collection('volunteerUsers').get().then(res => { res.forEach(i => {
-          if(i.data().phone == this.user.phone)
-          returnValue.phoneExist = 1
-            })}).catch(error => {console.log(error)}) 
-    }
-
-    returnValue.phoneExist = 0
-  }
-
 
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -264,7 +242,6 @@ export class Form
     phone = temp.concat("",phone);
     contact = temp.concat("",contact);
 
-    //this.checkIfPhoneExist() 
 
     setTimeout(() => 
     {
@@ -283,16 +260,6 @@ export class Form
         this.alert.error_emptyPhone()
         flag = 1;
       }
-
-      // else if (returnValue.phoneExist == 1 && !this.user.loggedIn) {
-      //   this.alert.error_phoneIsAllreadyExist()
-      //   flag = 1;
-      // }
-
-      // else if (returnValue.phoneExist == 2) {
-      //   this.alert.error_phoneIsAllreadyExist()
-      //   flag = 1;
-      // }
   
       else if (!this.user.elderly && (this.user.id == null || !this.legalID(String(this.user.id))))
       {
