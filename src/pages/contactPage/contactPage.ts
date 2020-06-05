@@ -43,8 +43,12 @@ export class contactPage
   check_valid_fields()
   {
     if(this.msg.fullName === undefined || this.msg.phone === undefined 
-      || this.msg.message === undefined ||(!this.validatePhoneNumber("0" + this.msg.phone) && !this.validateCellPhoneNumber("0" + this.msg.phone)))
+      || this.msg.message === undefined)
        this.alert.showErrorMsg();
+
+    else if(!this.validatePhoneNumber("0" + this.msg.phone) && !this.validateCellPhoneNumber("0" + this.msg.phone))
+      this.alert.showErrorMsgPhone()
+      
     else
       this.add_data_to_firebase()
   }

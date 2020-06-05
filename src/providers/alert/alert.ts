@@ -364,7 +364,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'הפרטים נשמרו בהצלחה!',
-      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      subTitle: 'יש למלא את כל הטופס' ,
       buttons: ['אישור']
     });
     alert.present();
@@ -375,7 +375,18 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'שים לב, יש למלא את כל השדות ולמלא מספר תקין' ,
+      subTitle: 'יש למלא את כל השדות' ,
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
+  showErrorMsgPhone()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'יש למלא מספר פלאפון/ טלפון תקין' ,
       buttons: ['אישור']
     });
     alert.present();
@@ -385,7 +396,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'שגיאה',
-      subTitle: 'שים לב, יש למלא את כל הטופס' ,
+      subTitle: 'שימ/י לב, יש למלא את כל הטופס' ,
       buttons: ['אישור']
     });
     alert.present();
