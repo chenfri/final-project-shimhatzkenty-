@@ -16,6 +16,7 @@ export class contactPage
  {
   contactMessage = {} as contactMessage;
   user = {} as User
+  public dateTime: any
   
 
   constructor(public alert: AlertProvider ,public navCtrl: NavController , public params: NavParams)
@@ -23,6 +24,7 @@ export class contactPage
     this.user.loggedIn = this.params.get('login');
   }
 
+  
 
   check_valid_fields()
   {
@@ -34,14 +36,19 @@ export class contactPage
   }
 
 
+
   add_data_to_firebase()
   {
+    var date = new Date().toISOString().substring(0, 10);
+    this.dateTime = date[8] + date[9] + "-" + date[5] + date[6] + "-" + date[0] + date[1]+ date[2] + date[3];
+    
     const db = firebase.firestore();
     db.collection('message').doc().set(
       {
         fullName: this.contactMessage.fullName,
         phoneNumber: this.contactMessage.phoneNumber,
         message: this.contactMessage.message,
+        dateTime: this.dateTime
       
       })
       .then(() => {
@@ -50,6 +57,7 @@ export class contactPage
       }).catch((error)=> {
         console.log })
   }
+
 
 
   click_home()
