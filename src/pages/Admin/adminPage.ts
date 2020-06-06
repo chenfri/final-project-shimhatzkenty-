@@ -48,7 +48,9 @@ export class adminPage
     //this.sendSMS("+972508591865", "חן")
 
     this.sortArrByDates(this.userV)
+    console.log(this.userV);
     this.sortArrByDates(this.userE)
+    console.log(this.userE);
 
   }
 
@@ -81,8 +83,6 @@ export class adminPage
       
       return da < db ? 1 : da > db ? -1 : 0
     });
-    
-    console.log(arr);
   }
 
 
@@ -275,8 +275,8 @@ export class adminPage
 
   elderlyRadioClicked(numElderly)
   {
-    console.log(numElderly)
     this.matchE = this.userE[numElderly].docID;
+    console.log("idE: ",this.matchE)
     this.userE[numElderly].manualM = true;
 
     for(var i = 0 ; i < this.userE.length; i++)
@@ -289,6 +289,7 @@ export class adminPage
   volunteerRadioClicked(numVolunteer)
   {
     this.matchV = this.userV[numVolunteer].docID
+    console.log("idV: ",this.matchV)
     this.userV[numVolunteer].manualM= true;
 
     for(var i = 0 ; i <this.userV.length; i++)
@@ -310,11 +311,80 @@ export class adminPage
 
   // --------------------------------- Matching ----------------------------------------
 
+  //the function check if there is allready exist match for this volunteer
+  checkIfExistMacthVolunteer(numVolunteer)
+  {
+    console.log(numVolunteer)
+    if (this.userV[numVolunteer].matching != "")
+    {
+      let alert = this.alertCtrl.create({
+        title: 'למתנדב שבחרת כבר קיימת התאמה',
+        subTitle: 'האם את/ה רוצה להגדיר לו התאמה חדשה?' ,
+        buttons: [
+        {
+          text: 'כן',
+          role: 'cancel',
+          handler: () => {
+            console.log('yes clicked');
+            this.volunteerRadioClicked(numVolunteer)
+          }
+          },
+          {
+            text: 'לא',
+            handler: () => {
+              console.log('no clicked');
+            }
+          }
+        ]
+      });
+        alert.present();
+    }
+
+    else
+      this.volunteerRadioClicked(numVolunteer)
+  }
+
+
+
+  checkIfExistMacthElderly(numElderly)
+  {
+    console.log(numElderly)
+    if (this.userE[numElderly].matching[0] != "")
+    {
+      let alert = this.alertCtrl.create({
+        title: 'לאזרח הותיק שבחרת כבר קיימת התאמה',
+        subTitle: 'האם את/ה רוצה להגדיר לו התאמה חדשה?' ,
+        buttons: [
+        {
+          text: 'כן',
+          role: 'cancel',
+          handler: () => {
+            console.log('yes clicked');
+            this.elderlyRadioClicked(numElderly)
+          }
+          },
+          {
+            text: 'לא',
+            handler: () => {
+              console.log('no clicked');
+            }
+          }
+        ]
+      });
+        alert.present();
+    }
+    
+    else
+      this.elderlyRadioClicked(numElderly)
+
+  }
+
+
+
 
   manual_matching()
   {
     const db = firebase.firestore();    
-    let indexE = 0, indexV = 0;
 
     if(this.matchE == null || this.matchV == null)
       this.alert.showError_manual_matching()
@@ -330,6 +400,7 @@ export class adminPage
           status: 1
       }) 
 
+      let indexE = 0, indexV = 0;
       for(var i = 0 ; i < this.userE.length; i++){
         if(this.userE[i].manualM){
           this.userE[i].matching = [this.matchV, "manual" ,this.date]
@@ -350,7 +421,7 @@ export class adminPage
      // this.sendEmailsVolunteer(this.userV[indexE].name, "chenfriedman93@gmail.com")
      // this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, "chenfriedman93@gmail.com")
       //this.sendSMS(this.userV[indexE].phone, this.userV[indexE].name)
-      this.alert.showSuccessAlgorithm()
+      this.alert.showSuccessManual()
     }
   }
 
@@ -421,11 +492,11 @@ export class adminPage
   
     // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
     // {
-    //   if(this.userE[k].matching[0] != "")
+    //   if(this.userE[i].matching[0] != "")
     //   {
     //     this.sendEmailsVolunteer(this.userE[i].matching[2], "chenfriedman93@gmail.com")
-    //     //if(this.userE[i].email != null)
-    //     this.sendEmailsElder(this.userE[i][3], this.userE[i].name, "chenfriedman93@gmail.com")
+    //     if(this.userE[i].email != null)
+    //       this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].name, "chenfriedman93@gmail.com")
     //     //this.sendSMS(this.userE[i][16][3], this.userE[i].matching[2])
     //   }
     // }
@@ -444,16 +515,18 @@ export class adminPage
         if(this.userV[i].meetingWith == this.userE[l].meetingWith)
           grade +=1
         grade += this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting) //days
-      // console.log("after days ", grade)
+        console.log("after days ", grade)
+        console.log("i: ", i ," l: ",l)
         grade += this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies) //hobbies
-      // console.log("after hobbies ", grade)
+        console.log("after hobbies ", grade)
         grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
+        console.log("after music style ", grade)
         grade += this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
-    //   console.log("after hours ", grade)
+        console.log("after hours ", grade)
         grade += this.checkMatchArr(this.userV[i].language, this.userE[l].language) //language
-      //  console.log("after language ", grade)
+        console.log("after language ", grade)
     
-  //   console.log("totle grade is: ", grade)
+      console.log("totle grade is: ", grade)
       let temp = {"grade": grade, "id": this.userE[l].docID, index: l}
       if(j < 3)
       {
@@ -464,6 +537,7 @@ export class adminPage
       else // check if the grade need to inserted to arrMatch
         this.update_gradesArr(arrMatch, grade, temp)
     }
+    console.log("arrMatch :", arrMatch)
   }
 
 
@@ -496,8 +570,14 @@ export class adminPage
 
     let text = "שלום "+ username +",\n";
     if(username != nameE)
-      text +="רצינו לעדכן אותך שנמצאה התאמה עבור אזרח ותיק שרשמת באתר שלנו - " +nameE +"\n"+
-      "בימים הקרובים יצרו עמכם קשר\n\n"
+    {
+      text +="רצינו לעדכן אותך שנמצאה התאמה עבור אזרח ותיק שרשמת באתר שלנו"
+      if(nameE != "חסוי")
+        text += " - " + nameE;
+
+      text +=  "\nבימים הקרובים יצרו עמכם קשר\n\n"
+    }
+    
     else
       text += "רצינו לעדכן אותך שנמצאה עבורך התאמה :) \nבימים הקרובים יצרו עימך קשר,\n\n"
 

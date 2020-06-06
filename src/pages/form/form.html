@@ -356,11 +356,11 @@ background-attachment: fixed !important;">
             <ion-grid>
                 <ion-row style="direction: rtl;">
                     <ion-col><br>
-                        <h4 class="titleForm">שעות מועדפים למפגש</h4><br><br><br>
+                        <h4 class="titleForm">שעות מועדפות למפגש</h4><br><br><br>
                         <ion-list radio-group>
                             <ion-item no-lines *ngFor="let hour of hours" style="background-color:#ffffff00 ;color:#FCBE47;margin-bottom: -10px">
                                 <ion-label style="text-align: right;"> {{ hour.species }} </ion-label>
-                                <ion-checkbox [checked]="hour.currentValue" (click)="CheckboxClicked(hour, hours)"></ion-checkbox>
+                                <ion-checkbox [checked]="hour.currentValue" (click)="CheckboxClicked1(hour, hours)"></ion-checkbox>
                             </ion-item>
                         </ion-list>
                     </ion-col>

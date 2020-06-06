@@ -63,7 +63,7 @@
                 <th>שם מלא</th>
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
-            <tr *ngFor="let value of userE">
+            <tr *ngFor="let value of userE; let i = index">
                 <td class="hidePhone"><button class="buttons del" (click)="deleteElderlyUser(value.docID)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
@@ -80,7 +80,7 @@
                     {{value.name}}
                 </td>
                 <td style="text-align: center;" class="hidePhone">
-                    <ion-radio [checked]="value.manualM" (click)="elderlyRadioClicked(value.index)" color="adminpagebutton"></ion-radio>
+                    <ion-radio [checked]="value.manualM" (click)="checkIfExistMacthElderly(i)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
         </table>
@@ -100,7 +100,7 @@
                 <th>שם מלא</th>
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
-            <tr *ngFor="let value of userV">
+            <tr *ngFor="let value of userV; let i = index">
                 <td class="hidePhone"><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
@@ -118,14 +118,14 @@
                     </a> {{value.name}}
                 </td>
                 <td style="text-align: center;" class="hidePhone">
-                    <ion-radio [checked]="value.manualM" (click)="volunteerRadioClicked(value.index)" color="adminpagebutton"></ion-radio>
+                    <ion-radio [checked]="value.manualM" (click)="checkIfExistMacthVolunteer(i)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
         </table>
 
         <h4 class="titles">:סטודנטים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userV , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
-        <table id="customers" class="table-style">
+        <table id="customers" class="tableStyle table-style">
             <tr>
                 <th>מוסד אקדמי</th>
                 <th>תעודת זהות</th>

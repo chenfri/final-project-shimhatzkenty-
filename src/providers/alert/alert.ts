@@ -40,6 +40,20 @@ export class AlertProvider
     alert.present();
   }
 
+
+  
+  showSuccessManual()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'התאמה ידנית הוגדרה בהצלחה',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
+
   showError_manual_matching()
   {
     let alert = this.alertCtrl.create({

@@ -665,6 +665,7 @@ export class Form
 
   CheckboxClicked1(item: any, arr)
   {
+
     this.CheckboxClicked(item, arr)
     if(this.hobbies[2].currentValue)
       this.user.hideMusic = true;
@@ -674,6 +675,20 @@ export class Form
       this.cancelCheckBox(this.musical_instrument)
       this.user.hideMusic = false;
     }
+    
+
+    //for hours - of chose "כל שעה ביום"
+    if(this.hours[0].currentValue)
+    {
+      for(let i = 1 ; i < this.hours.length; i++)
+        this.hours[i].currentValue = true;
+    }
+    else if(!this.hours[0].currentValue)
+    {
+      for(let i = 1 ; i < this.hours.length; i++)
+        this.hours[i].currentValue = false;
+    }
+
   }
 
 

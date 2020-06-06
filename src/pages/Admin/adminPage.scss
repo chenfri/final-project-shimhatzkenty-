@@ -32,6 +32,9 @@
     #customers tr:nth-child(odd) {
         background-color: #ffffff;
     }
+    .tableStyle tr {
+        background-color: #ffffff !important;
+    }
     #customers tr:hover {
         background-color: #ddd;
     }
