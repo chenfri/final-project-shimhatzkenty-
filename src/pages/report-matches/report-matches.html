@@ -1,144 +1,149 @@
 <ion-content class="page-report-matches">
 
-  <ion-grid >
-
-      <ion-row>
-          <ion-col>
-              <button class="buttons" type="submit" (click)="click_home()">חזרה לדף הבית</button>
-          </ion-col>
-          <ion-col>
-              <h2 class="titleAdmin">דוחות עבור התאמות</h2>
-          </ion-col>
-      </ion-row>
-  </ion-grid> <br><br>
-
- 
-  <div class="tables">
-
-    <h4 class="tableTitle">קשישים שלא נמצאה להם התאמה</h4>
-      <table id="customers" class="tableD">
-          <tr>
-              <th>שם הקשיש</th>
-          </tr>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <button class="buttons" type="submit" (click)="click_home()">חזרה לדף הבית</button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <h1 class="tableTitle" style="text-decoration: underline;">דוחות עבור התאמות</h1>
+            </ion-col>
+        </ion-row>
+    </ion-grid> <br><br>
 
 
-          <tr style="direction: rtl;" *ngFor="let value of matchesNotFoundList">
-              <td >
-                <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
-                  <ion-icon name="ios-information-circle-outline"></ion-icon>
-                </a>
-                 {{userE[value.elderlyIdDoc].name}}
-              </td>
-          </tr>
-      </table><br><br>
+    <div class="tables">
 
-      <h4 class="tableTitle">התאמות שטרם אושרו</h4>
-      <table id="customers" class="tableD">
-          <tr>
-              <th>שם המתנדב</th>
-              <th>שם הקשיש</th>
-          </tr>
+        <div *ngIf="matchesNotFoundList.length > 0">
+            <h4 class="tableTitle">קשישים שלא נמצאה עבורם התאמה</h4>
+            <table id="customers" class="tableD">
+                <tr>
+                    <th>שם הקשיש</th>
+                </tr>
 
+                <tr style="direction: rtl;" *ngFor="let value of matchesNotFoundList">
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userE[value.elderlyIdDoc].name}}
+                    </td>
+                </tr>
+            </table><br><br>
+        </div>
 
-          <tr style="direction: rtl;" *ngFor="let value of notConfirmedMatchesList">
-              <td >
-                <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
-                   <ion-icon name="ios-information-circle-outline"></ion-icon>
-                </a>
-                  {{userV[value.volIdDoc].name}}
-              </td>
-              <td >
-                <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
-                  <ion-icon name="ios-information-circle-outline"></ion-icon>
-                </a>
-                 {{userE[value.elderlyIdDoc].name}}
-              </td>
-          </tr>
-      </table><br><br>
+        <div *ngIf="notConfirmedMatchesList.length > 0">
+            <h4 class="tableTitle">התאמות שטרם אושרו</h4>
+            <table id="customers" class="tableD">
+                <tr>
+                    <th>שם המתנדב</th>
+                    <th>שם הקשיש</th>
+                </tr>
 
-      <h4 class="tableTitle">התאמות שאושרו</h4>
-      <table id="customers" class="message">
-          <tr>
-              <th>שם המתנדב</th>
-              <th>שם הקשיש</th>
-
-          </tr>
-
-
-          <tr style="direction: rtl;" *ngFor="let value of acceptedMatchesList">
-            <td >
-              <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
-                 <ion-icon name="ios-information-circle-outline"></ion-icon>
-              </a>
-                {{userV[value.volIdDoc].name}}
-            </td>
-            <td >
-              <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
-                <ion-icon name="ios-information-circle-outline"></ion-icon>
-              </a>
-               {{userE[value.elderlyIdDoc].name}}
-            </td>
-
-          </tr>
-      </table><br><br>
-
-      <h4 class="tableTitle">פגישות שהתקיימו</h4>
-      <table id="customers" class="message">
-          <tr>
-              <th>שם המתנדב</th>
-              <th>שם הקשיש</th>
-
-          </tr>
+                <tr style="direction: rtl;" *ngFor="let value of notConfirmedMatchesList">
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userV[value.volIdDoc].name}}
+                    </td>
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userE[value.elderlyIdDoc].name}}
+                    </td>
+                </tr>
+            </table><br><br>
+        </div>
 
 
-          <tr style="direction: rtl;" *ngFor="let value of MeetingList">
-            <td >
-              <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
-                 <ion-icon name="ios-information-circle-outline"></ion-icon>
-              </a>
-                {{userV[value.volIdDoc].name}}
-            </td>
-            <td >
-              <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
-                <ion-icon name="ios-information-circle-outline"></ion-icon>
-              </a>
-               {{userE[value.elderlyIdDoc].name}}
-            </td>
-          </tr>
-      </table><br><br>
+        <div *ngIf="acceptedMatchesList.length > 0">
+            <h4 class="tableTitle">התאמות שאושרו</h4>
+            <table id="customers" class="message">
+                <tr>
+                    <th>שם המתנדב</th>
+                    <th>שם הקשיש</th>
+                </tr>
 
-      <h4 class="tableTitle">התאמות שנדחו</h4>
-      <table id="customers" class="message">
-          <tr>
-              <th>שם המתנדב</th>
-              <th>שם הקשיש</th>
-              <th>סיבת דחייה</th>
-          </tr>
+                <tr style="direction: rtl;" *ngFor="let value of acceptedMatchesList">
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userV[value.volIdDoc].name}}
+                    </td>
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userE[value.elderlyIdDoc].name}}
+                    </td>
+                </tr>
+            </table><br><br>
+        </div>
 
 
-          <tr style="direction: rtl;" *ngFor="let value of RejectedMatch; let i=index">
-            <td >
-              <a class="info-button" (click)="openPopover($event, value.volIdDoc, 'volunteer')">
-                 <ion-icon name="ios-information-circle-outline"></ion-icon>
-              </a>
-                {{value.volName}}
-            </td>
-            <td >
-              <a class="info-button" (click)="openPopover($event, value.elderlyIdDoc, 'elderly')">
-                <ion-icon name="ios-information-circle-outline"></ion-icon>
-              </a>
-               {{value.elderlyName}}
-            </td>
-            <td   *ngIf="value.reason !=null">
-              {{value.reason}}
-            </td>
-            <td *ngIf="value.reason ==null">
-             איו פירוט סיבה 
-            </td>
-          </tr>
-      </table><br><br>
-     
-  </div> 
+        <div *ngIf="MeetingList.length > 0">
+            <h4 class="tableTitle">מפגשים שהתקיימו</h4>
+            <table id="customers" class="message">
+                <tr>
+                    <th>שם המתנדב</th>
+                    <th>שם הקשיש</th>
+                </tr>
 
-  <br><br><br><br><br><br>
+                <tr style="direction: rtl;" *ngFor="let value of MeetingList">
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userV[value.volIdDoc].name}}
+                    </td>
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userE[value.elderlyIdDoc].name}}
+                    </td>
+                </tr>
+            </table><br><br></div>
+
+
+        <div *ngIf="RejectedMatch.length > 0">
+            <h4 class="tableTitle">התאמות שנדחו</h4>
+            <table id="customers" class="message">
+                <tr>
+                    <th>שם המתנדב</th>
+                    <th>שם הקשיש</th>
+                    <th>סיבת דחייה</th>
+                </tr>
+
+                <tr style="direction: rtl;" *ngFor="let value of RejectedMatch; let i=index">
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, value.volIdDoc, 'volunteer')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{value.volName}}
+                    </td>
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, value.elderlyIdDoc, 'elderly')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{value.elderlyName}}
+                    </td>
+                    <td *ngIf="value.reason !=null">
+                        {{value.reason}}
+                    </td>
+                    <td *ngIf="value.reason ==null">
+                        איו פירוט סיבה
+                    </td>
+                </tr>
+            </table><br><br>
+        </div>
+
+    </div>
+
+    <br><br><br><br><br><br>
 </ion-content>
