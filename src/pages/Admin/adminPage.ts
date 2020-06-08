@@ -461,7 +461,7 @@ export class adminPage
             if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade || diff > 30)
             {
               this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
-              nameV: this.userV[i].name, phoneV: this.userV[i].phone}
+              date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
               console.log(this.userE[arrMatch[k].index].matching)
               break;
             }
@@ -493,16 +493,16 @@ export class adminPage
     }
 
   
-    for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
-    {
-      if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 || this.userE[i].status != 4 ))
-      {
-        this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
-        // if(this.userE[i].email != null)
-        //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
-        //this.sendSMS(this.userE[i].matching.phoneV, this.userE[i].matching.name)
-      }
-    }
+    // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
+    // {
+    //   if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 || this.userE[i].status != 4 ))
+    //   {
+    //     this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
+    //     // if(this.userE[i].email != null)
+    //     //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
+    //     //this.sendSMS(this.userE[i].matching.phoneV, this.userE[i].matching.name)
+    //   }
+    // }
 
       this.alert.showSuccessAlgorithm();
   } 
