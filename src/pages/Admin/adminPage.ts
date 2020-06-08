@@ -44,7 +44,6 @@ export class adminPage
     this.matchE = null;
     this.matchV = null;
     this.date = new Date().toISOString().substring(0, 10);
-    this.DiffrenceDates("2020-05-24" , "2020-06-23")
     //this.sendSMS("+972508591865", "חן")
 
     this.sortArrByDates(this.userV)
@@ -445,39 +444,43 @@ export class adminPage
     const db = firebase.firestore();
     for(let i = 0; i < this.userV.length; i++)
     {
-      let arrMatch = [] , j = 0 
-      this.findMatches(i, j , arrMatch)
-
-      for(let k = 0; k < 3; k++) //save the best match
+      if(this.userV[i].status != 2 || this.userV[i].status != 4)
       {
-        let diff = 0;
-        if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
-        {
-          if(this.userE[arrMatch[k].index].matching[1] == "manual")
-            diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching[2], this.date)
+        let arrMatch = [] , j = 0 
+        this.findMatches(i, j , arrMatch)
 
-          //if the current grade is bigger than the last or if pass 30 days
-          if(this.userE[arrMatch[k].index].matching[1] < arrMatch[k].grade || diff > 30)
+        for(let k = 0; k < 3; k++) //save the best match
+        {
+          let diff = 0;
+          if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
           {
-            this.userE[arrMatch[k].index].matching = [this.userV[i].docID, arrMatch[k].grade ,
-             this.userV[i].name, this.userV[i].phone]
-            console.log( this.userE[arrMatch[k].index].matching)
-            break;
+            if(this.userE[arrMatch[k].index].matching[1] == "manual")
+              diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching[2], this.date)
+
+            //if the current grade is bigger than the last or if pass 30 days
+            if(this.userE[arrMatch[k].index].matching[1] < arrMatch[k].grade || diff > 30)
+            {
+              this.userE[arrMatch[k].index].matching = [this.userV[i].docID, arrMatch[k].grade ,
+              this.userV[i].name, this.userV[i].phone]
+              console.log( this.userE[arrMatch[k].index].matching)
+              break;
+            }
           }
         }
       }
     }
 
     for(let k = 0; k < this.userE.length; k++) //update the best 'matching' in documents
-    {
-      if(this.userE[k].matching[0] != "") //if 'matching' is empty and no found match
+    { 
+      //if 'matching' is empty and no found match or matching is confirm - status
+      if(this.userE[k].matching[0] != "" && (this.userE[k].status != 2 || this.userE[k].status != 4 ))
       {
         console.log(this.userE[k].matching)
         let idV = this.userE[k].matching[0]
 
           db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
             {
-              matching:[this.userE[k].matching[0], this.userE[k].matching[1]] ,
+              matching:[this.userE[k].matching[0], this.userE[k].matching[1], this.date] ,
               status: 1
             }).catch((error) => {console.log(error)})
       
@@ -492,7 +495,7 @@ export class adminPage
   
     // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
     // {
-    //   if(this.userE[i].matching[0] != "")
+    //   if(this.userE[i].matching[0] != "" && (this.userE[k].status != 2 || this.userE[k].status != 4 ))
     //   {
     //     this.sendEmailsVolunteer(this.userE[i].matching[2], "chenfriedman93@gmail.com")
     //     if(this.userE[i].email != null)
@@ -511,32 +514,35 @@ export class adminPage
   {
       for(let l = 0; l < this.userE.length; l++)
       {
-        let grade = 0;
-        if(this.userV[i].meetingWith == this.userE[l].meetingWith)
-          grade +=1
-        grade += this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting) //days
-        console.log("after days ", grade)
-        console.log("i: ", i ," l: ",l)
-        grade += this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies) //hobbies
-        console.log("after hobbies ", grade)
-        grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
-        console.log("after music style ", grade)
-        grade += this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
-        console.log("after hours ", grade)
-        grade += this.checkMatchArr(this.userV[i].language, this.userE[l].language) //language
-        console.log("after language ", grade)
-    
-      console.log("totle grade is: ", grade)
-      let temp = {"grade": grade, "id": this.userE[l].docID, index: l}
-      if(j < 3)
-      {
-        //insert temp to arrMatch with sorting way
-        this.sortArr(arrMatch, j , temp , grade)
-        j++;
+        if(this.userE[l].status != 2 || this.userE[l].status != 4)
+        {
+          let grade = 0;
+          if(this.userV[i].meetingWith == this.userE[l].meetingWith)
+            grade +=1
+          grade += this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting) //days
+          console.log("after days ", grade)
+          console.log("i: ", i ," l: ",l)
+          grade += this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies) //hobbies
+          console.log("after hobbies ", grade)
+          grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
+          console.log("after music style ", grade)
+          grade += this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
+          console.log("after hours ", grade)
+          grade += this.checkMatchArr(this.userV[i].language, this.userE[l].language) //language
+          console.log("after language ", grade)
+      
+        console.log("totle grade is: ", grade)
+        let temp = {"grade": grade, "id": this.userE[l].docID, index: l}
+        if(j < 3)
+        {
+          //insert temp to arrMatch with sorting way
+          this.sortArr(arrMatch, j , temp , grade)
+          j++;
+        }
+        else // check if the grade need to inserted to arrMatch
+          this.update_gradesArr(arrMatch, grade, temp)
       }
-      else // check if the grade need to inserted to arrMatch
-        this.update_gradesArr(arrMatch, grade, temp)
-    }
+  }
     console.log("arrMatch :", arrMatch)
   }
 
