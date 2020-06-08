@@ -395,7 +395,7 @@ export class adminPage
           status: 1
       }) .catch((error) => {console.log(error)})
       db.collection("volunteerUsers").doc(this.matchV).update({
-          matching: [this.matchE],
+          matching: this.matchE,
           status: 1
       }) 
 

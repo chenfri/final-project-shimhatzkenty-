@@ -73,10 +73,9 @@ export class MatchPage {
         } 
       }
 
-      if(push == false){
-          console.log("ENTER")
+      if(push == false)
           this.numbers.push(-1); }
-    }
+
 }
   
 
@@ -84,6 +83,23 @@ export class MatchPage {
   click_home()
   {
     this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+  }
+
+
+
+  findNewMatching(idV, idE)
+  {
+    const db = firebase.firestore(); 
+    db.collection("volunteerUsers").doc(idV).update({
+      matching: null,
+      status: 0,
+    }).catch(error => {console.log(error)}) 
+  
+  
+    db.collection("ElderlyUsers").doc(idE).update({
+      matching:{id: "", grade: 0, date: ""},
+      status: 0
+    }).catch(error => {console.log(error)}) 
   }
 
 
@@ -120,6 +136,7 @@ export class MatchPage {
 }
   
 
+
 saveDescription(description, idE, idV ,i)
 {
   console.log('saveDescription', this.cancelDescription)
@@ -147,13 +164,21 @@ saveDescription(description, idE, idV ,i)
   this.userV[i].rejected = this.rejArr = this.rejArr
 
   db.collection("volunteerUsers").doc(idV).update({
+    matching: null,
     rejected:this.rejArr,
+  }).catch(error => {console.log(error)}) 
+
+
+  db.collection("ElderlyUsers").doc(idE).update({
+    matching:{id: "", grade: 0, date: ""},
+    status: 0
   }).catch(error => {console.log(error)}) 
 
 
   this.cancelText = false;
   this.cancellationReason = true;
 }
+
 
 
   acceptMatch(idE , idV, i)

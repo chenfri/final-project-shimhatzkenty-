@@ -146,8 +146,8 @@
 
                             <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
                             <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0, numbers[i])">אשר ביצוע מפגש</button>
-
-                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">התקיים מפגש</ion-row>
+                            <button *ngIf="this.userV[numbers[i]].status == 4" class="buttons" (click)="findNewMatching(userV[numbers[i]].docID, userE[i].docID)">מצא לי התאמה חדשה</button>
+                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">המפגש התקיים {{value.matching.meetingDate}}</ion-row>
 
                             <ion-row *ngIf="this.userV[numbers[i]].status == 4">
                                 <ion-item>
@@ -160,9 +160,9 @@
                             <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row>
                             <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
 
-                            <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 " (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
+                            <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 &&this.userV[numbers[i]].status != 4" (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
 
-                            <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf=" cancelText">
+                            <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="cancelText">
                                 <ion-item>
                                     <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
                                     <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
