@@ -597,7 +597,7 @@ export class Form
     const db = firebase.firestore();
     db.collection('ElderlyUsers').doc().set(
       {
-        matching:["", 0],
+        matching:{id: "", grade: 0, date: ""},
         fullName: this.user.fullName,
         address: this.fixedAddress,
         city: this.user.city,

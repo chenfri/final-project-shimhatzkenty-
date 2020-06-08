@@ -54,7 +54,7 @@ export class MatchPage {
     console.log("name" , this.nameLogged )
     console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
                 this.userE , this.userV  )
-    console.log( 'userE[1].matching ' ,this.userE[1].matching[0] , 'userE[1].matching[0]' ,this.userE[1].matching[0])
+    console.log( 'userE[1].matching ' ,this.userE[1].matching.id , 'userE[1].matching.id' ,this.userE[1].matching.id)
 
     this.showMatch = false
     this.cancelText = false
@@ -87,7 +87,7 @@ export class MatchPage {
     {
       if(this.userE[i].matching)
       {
-        var volID = this.userE[i].matching[0];
+        var volID = this.userE[i].matching.id;
         var push = false;
 
         for(var j = 0 ; j < this.userV.length; j++)

@@ -85,8 +85,8 @@ export class ReportMatchesPage {
             } }});}
     }
     for(var iE=0 ; iE<this.userE.length ; iE++){
-      if(this.userE[iE].matching[0] != ""){
-        volIdDoc = this.userE[iE].matching[0];
+      if(this.userE[iE].matching.id != ""){
+        volIdDoc = this.userE[iE].matching.id;
 
         for(var iV=0 ; iV<this.userV.length;iV++){
           if(this.userV[iV].docID == volIdDoc){

@@ -50,6 +50,11 @@ export class HomePage
     this.IDlogged = this.params.get('IDlogged')
     console.log("IDlogged ", this.IDlogged)
 
+  //   const db = firebase.firestore();
+  //   db.collection("ElderlyUsers").doc("zeQRBGlTGgrQpIlDdyju").update({
+  //     matching: {id: "", grade:0, date: ""},
+  //     status: 1
+  // }) .catch((error) => {console.log(error)})
   }
 
 

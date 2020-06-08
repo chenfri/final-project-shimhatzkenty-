@@ -348,7 +348,7 @@ export class adminPage
   checkIfExistMacthElderly(numElderly)
   {
     console.log(numElderly)
-    if (this.userE[numElderly].matching[0] != "")
+    if (this.userE[numElderly].matching.id != "")
     {
       let alert = this.alertCtrl.create({
         title: 'לאזרח הותיק שבחרת כבר קיימת התאמה',
@@ -391,7 +391,7 @@ export class adminPage
     else
     {
       db.collection("ElderlyUsers").doc(this.matchE).update({
-          matching: [this.matchV, "manual", this.date],
+          matching: {id: this.matchV, grade:"manual", date: this.date},
           status: 1
       }) .catch((error) => {console.log(error)})
       db.collection("volunteerUsers").doc(this.matchV).update({
@@ -454,15 +454,15 @@ export class adminPage
           let diff = 0;
           if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
           {
-            if(this.userE[arrMatch[k].index].matching[1] == "manual")
-              diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching[2], this.date)
+            if(this.userE[arrMatch[k].index].matching.grade == "manual")
+              diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching.date, this.date)
 
             //if the current grade is bigger than the last or if pass 30 days
-            if(this.userE[arrMatch[k].index].matching[1] < arrMatch[k].grade || diff > 30)
+            if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade || diff > 30)
             {
-              this.userE[arrMatch[k].index].matching = [this.userV[i].docID, arrMatch[k].grade ,
-              this.userV[i].name, this.userV[i].phone]
-              console.log( this.userE[arrMatch[k].index].matching)
+              this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
+              nameV: this.userV[i].name, phoneV: this.userV[i].phone}
+              console.log(this.userE[arrMatch[k].index].matching)
               break;
             }
           }
@@ -473,14 +473,14 @@ export class adminPage
     for(let k = 0; k < this.userE.length; k++) //update the best 'matching' in documents
     { 
       //if 'matching' is empty and no found match or matching is confirm - status
-      if(this.userE[k].matching[0] != "" && (this.userE[k].status != 2 || this.userE[k].status != 4 ))
+      if(this.userE[k].matching.id != "" && (this.userE[k].status != 2 || this.userE[k].status != 4 ))
       {
         console.log(this.userE[k].matching)
-        let idV = this.userE[k].matching[0]
+        let idV = this.userE[k].matching.id
 
           db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
             {
-              matching:[this.userE[k].matching[0], this.userE[k].matching[1], this.date] ,
+              matching: this.userE[k].matching,
               status: 1
             }).catch((error) => {console.log(error)})
       
@@ -493,16 +493,16 @@ export class adminPage
     }
 
   
-    // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
-    // {
-    //   if(this.userE[i].matching[0] != "" && (this.userE[k].status != 2 || this.userE[k].status != 4 ))
-    //   {
-    //     this.sendEmailsVolunteer(this.userE[i].matching[2], "chenfriedman93@gmail.com")
-    //     if(this.userE[i].email != null)
-    //       this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].name, "chenfriedman93@gmail.com")
-    //     //this.sendSMS(this.userE[i][16][3], this.userE[i].matching[2])
-    //   }
-    // }
+    for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
+    {
+      if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 || this.userE[i].status != 4 ))
+      {
+        this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
+        // if(this.userE[i].email != null)
+        //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
+        //this.sendSMS(this.userE[i].matching.phoneV, this.userE[i].matching.name)
+      }
+    }
 
       this.alert.showSuccessAlgorithm();
   } 
@@ -520,18 +520,18 @@ export class adminPage
           if(this.userV[i].meetingWith == this.userE[l].meetingWith)
             grade +=1
           grade += this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting) //days
-          console.log("after days ", grade)
-          console.log("i: ", i ," l: ",l)
+          //console.log("after days ", grade)
+         // console.log("i: ", i ," l: ",l)
           grade += this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies) //hobbies
-          console.log("after hobbies ", grade)
+        // console.log("after hobbies ", grade)
           grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
-          console.log("after music style ", grade)
+         // console.log("after music style ", grade)
           grade += this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
-          console.log("after hours ", grade)
+         // console.log("after hours ", grade)
           grade += this.checkMatchArr(this.userV[i].language, this.userE[l].language) //language
-          console.log("after language ", grade)
+         // console.log("after language ", grade)
       
-        console.log("totle grade is: ", grade)
+       // console.log("totle grade is: ", grade)
         let temp = {"grade": grade, "id": this.userE[l].docID, index: l}
         if(j < 3)
         {
@@ -542,8 +542,8 @@ export class adminPage
         else // check if the grade need to inserted to arrMatch
           this.update_gradesArr(arrMatch, grade, temp)
       }
-  }
-    console.log("arrMatch :", arrMatch)
+    }
+   // console.log("arrMatch :", arrMatch)
   }
 
 
@@ -573,9 +573,14 @@ export class adminPage
   //this code is call sendEmail (firebase Functions) from backend 
   sendEmailsElder(username , nameE, email)
   {
+    let text = "שלום "
 
-    let text = "שלום "+ username +",\n";
-    if(username != nameE)
+    if(username != undefined)
+      text += username +",\n";   
+    else
+      text += nameE +",\n";
+
+    if(username != nameE && username != undefined)
     {
       text +="רצינו לעדכן אותך שנמצאה התאמה עבור אזרח ותיק שרשמת באתר שלנו"
       if(nameE != "חסוי")

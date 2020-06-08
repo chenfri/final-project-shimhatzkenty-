@@ -21,8 +21,8 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6 *ngFor="let value of userE ; let i = index">
-                <ion-item *ngIf="(value.matching!=null && value.matching[0]!= '' && value.matching[0] == IDlogged &&
-                 !user.Admin && numbers[i]!= -1 )|| ( value.matching[0] != '' && value.matching!=null && user.Admin &&
+                <ion-item *ngIf="(value.matching!=null && value.matching.id!= '' && value.matching.id == IDlogged &&
+                 !user.Admin && numbers[i]!= -1 )|| ( value.matching.id != '' && value.matching!=null && user.Admin &&
                   numbers[i]!= -1) ; else elseBlock" style="background: #ffffff00;">
                     <ion-card class="outsideCard" showMatch="true" text-center padding color="info-color">
                         <!-- <ion-card-header> -->
@@ -39,7 +39,7 @@
                                         <img *ngIf="value.gender == 2" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2FElderly-men.png?alt=media&token=f33cc453-3e43-4962-aaa1-de9fde4ddf50" />
 
                                         <!-- <ion-card-header> -->
-                                            <ion-card-title text-wrap>{{value.name}} </ion-card-title>
+                                        <ion-card-title text-wrap>{{value.name}} </ion-card-title>
                                         <!-- </ion-card-header> -->
                                         <ion-card-content text-wrap>
                                             מספר פלאפון: 0{{value.phone}}
@@ -94,7 +94,7 @@
                                         <img *ngIf=" userV[numbers[i]].gender == 1" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20women.png?alt=media&token=f31aaad6-ee85-47de-8370-3bca2241b155" />
                                         <img *ngIf=" userV[numbers[i]].gender == 2" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20men.png?alt=media&token=54bc0512-5082-4eb6-bea2-a1d98582220b" />
                                         <!-- <ion-card-header> -->
-                                            <ion-card-title text-wrap>{{userV[numbers[i]].name}}</ion-card-title>
+                                        <ion-card-title text-wrap>{{userV[numbers[i]].name}}</ion-card-title>
                                         <!-- </ion-card-header> -->
                                         <ion-card-content text-wrap>
                                             מספר פלאפון: 0{{userV[numbers[i]].phone}}
@@ -133,11 +133,11 @@
 
                             </ion-col>
                         </ion-row>
-                        
 
-                        <div style="direction: rtl; background-color: #ffffff00;" *ngIf="numbers[i]!=-1"  style="justify-content: center;">
 
-                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1" >התאמה עדיין לא אושרה</ion-row>
+                        <div style="direction: rtl; background-color: #ffffff00;" *ngIf="numbers[i]!=-1" style="justify-content: center;">
+
+                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1">התאמה עדיין לא אושרה</ion-row>
 
                             <button *ngIf="user.Admin && this.userV[numbers[i]].status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
                             <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
@@ -149,11 +149,11 @@
 
                             <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">התקיים מפגש</ion-row>
 
-                            <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row> 
+                            <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row>
                             <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
 
-                            <button  class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 " (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
-                            
+                            <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 " (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
+
                             <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf=" cancelText">
                                 <ion-item>
                                     <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
@@ -162,7 +162,7 @@
                                 <button class="buttons" (click)="saveDescription(user.description , value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת ביטול</button>
                                 <!-- <button class="buttons" (click)="saveDescription(user.description , 0)">שמירת סיבת ביטול</button> -->
 
-                                
+
                             </ion-grid>
                         </div>
                     </ion-card>
