@@ -28,6 +28,7 @@ export class adminPage
   public matchV: any;
   public date: any;
   public adminComments: any;
+  public studentArr :any[] = [];
  
  
   
@@ -51,6 +52,14 @@ export class adminPage
     this.sortArrByDates(this.userE)
     console.log(this.userE);
 
+    let j = 0;
+    for(let i = 0 ; i < this.userV.length; i++)
+    {
+      if(this.userV[i].student){
+        this.studentArr[j] = this.userV[i]
+        j++}
+    }
+      console.log(this.studentArr)
   }
 
 
@@ -493,16 +502,16 @@ export class adminPage
     }
 
   
-    // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
-    // {
-    //   if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 || this.userE[i].status != 4 ))
-    //   {
-    //     this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
-    //     // if(this.userE[i].email != null)
-    //     //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
-    //     //this.sendSMS(this.userE[i].matching.phoneV, this.userE[i].matching.name)
-    //   }
-    // }
+    for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
+    {
+      if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 || this.userE[i].status != 4 ))
+      {
+        this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
+        // if(this.userE[i].email != null)
+        //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
+        //this.sendSMS(this.userE[i].matching.phoneV, this.userE[i].matching.name)
+      }
+    }
 
       this.alert.showSuccessAlgorithm();
   } 
@@ -554,7 +563,7 @@ export class adminPage
   {
     let text = "שלום "+ username +",\nרצינו לעדכן אותך שמצאנו לך התאמה :)\n" +
     "לפרטים נוספים לחץ/י על הקישור ובצע/י התחברות עם כתובת המייל והסיסמה שלך\n" +
-    "bit.ly/2WDBZTZ\n\n" +
+    "לאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות' bit.ly/2WDBZTZ \n\n" +
     "תודה על שיתוף הפעולה,\n" +
     "שמחת שמחת זקנתי"
 

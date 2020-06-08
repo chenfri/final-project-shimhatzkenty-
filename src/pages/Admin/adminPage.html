@@ -125,18 +125,18 @@
 
         <h4 class="titles">:סטודנטים שנרשמו</h4>
         <button class="buttons" type="submit" (click)="csvFile(userV , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
-        <table id="customers" class="tableStyle table-style">
+        <table id="customers" class="table-style">
             <tr>
                 <th>מוסד אקדמי</th>
                 <th>תעודת זהות</th>
                 <th>טלפון</th>
                 <th>שם מלא</th>
             </tr>
-            <tr *ngFor="let value of userV">
-                <td *ngIf="value.student">{{value.college}}</td>
-                <td *ngIf="value.student">{{value.id}}</td>
-                <td *ngIf="value.student">0{{value.phone}}</td>
-                <td *ngIf="value.student">{{value.name}}</td>
+            <tr *ngFor="let value of studentArr">
+                <td>{{value.college}}</td>
+                <td>{{value.id}}</td>
+                <td>0{{value.phone}}</td>
+                <td>{{value.name}}</td>
             </tr>
         </table>
 
