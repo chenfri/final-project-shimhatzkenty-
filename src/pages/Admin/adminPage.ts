@@ -402,7 +402,7 @@ export class adminPage
       let indexE = 0, indexV = 0;
       for(var i = 0 ; i < this.userE.length; i++){
         if(this.userE[i].manualM){
-          this.userE[i].matching = [this.matchV, "manual" ,this.date]
+          this.userE[i].matching = {id: this.matchV, grade: "manual" ,date: this.date},
           this.userE[i].manualM = false;
       
           indexE = i
