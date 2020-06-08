@@ -25,6 +25,7 @@ export class MatchPage {
   nameLogged: string;
   cancellationReason: boolean;
   rejArr :any[]
+  meetingDate: any
 
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
     this.user.loggedIn = this.navParams.get('login');
@@ -34,55 +35,28 @@ export class MatchPage {
     this.IDlogged = this.navParams.get('IDlogged');
     console.log(this.userE)
     console.log(this.userV)
-    console.log('this.IDlogged', this.IDlogged)
 
-    // this.user.status = -1;
-    // this.statusManagement();
-    // console.log('this.statusManagement(): ', this.user.status)
-
+    this.meetingDate = null
     this.cancelDescription = null; 
     this.acceptedMatch = false;
+    this.showMatch = false
+    this.cancelText = false
 
-    console.log('this.IDlogged', this.IDlogged)
-
-    for(var i=0 ; i<this.userV.length;i++){
+    for(var i = 0 ; i < this.userV.length; i++){
  
       if(this.IDlogged == this.userV[i].docID)     
         this.nameLogged = this.userV[i].name;;
     }
 
-    console.log("name" , this.nameLogged )
-    console.log('admin: ', this.user.Admin , 'loggedIn: ', this.user.loggedIn ,
-                this.userE , this.userV  )
-    console.log( 'userE[1].matching ' ,this.userE[1].matching.id , 'userE[1].matching.id' ,this.userE[1].matching.id)
-
-    this.showMatch = false
-    this.cancelText = false
-
     this.getVolunteerNumbers();
     console.log('numbers' , this.numbers)
+
     }
 
 
-
-    statusManagement(){
-      const db = firebase.firestore();       
-   
-      // if(!this.user.status){
-        db.collection("volunteerUsers").doc(this.IDlogged).get().then(result => {
-          if (!result.exists) return
-          this.user.status  = result.data().status
-        }).catch(error => {console.log(error)})
-      // }
-            console.log(this.IDlogged)
-            console.log("status: " , this.user.status)
-    }
-
-  
 
   getVolunteerNumbers()
   {
-   
     for(var i = 0; i < this.userE.length; i++)
     {
       if(this.userE[i].matching)
@@ -105,11 +79,6 @@ export class MatchPage {
     }
 }
   
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MatchPage');
-  }
 
 
   click_home()
@@ -194,47 +163,53 @@ saveDescription(description, idE, idV ,i)
     if(idV == 0)
         db.collection("volunteerUsers").doc(this.IDlogged).update({
           status: 2
-    }) 
-    else{
+    }) .catch(error => console.log(error))
+
+    else
       db.collection("volunteerUsers").doc(idV).update({
         status: 2
-      }) 
-    }
+      }) .catch(error => console.log(error))
+    
    
    db.collection("ElderlyUsers").doc(idE).update({
       status: 2
-    }) 
+    }) .catch(error => console.log(error))
     this.user.status=2;
     this.userV[i].status = 2
-
-    
   }
 
 
-
-
+  saveTheDate(index)
+  {
+    let tmp = this.userE[index].matching
+    const db = firebase.firestore();
+    db.collection("ElderlyUsers").doc(this.userE[index].docID).update({
+        matching: {id: tmp.id, grade: tmp.grade ,date: tmp.date, nameV: tmp.nameV,
+           phoneV: tmp.phoneV, meetingDate: this.meetingDate}
+      }) .catch(error => console.log(error))
+  }
 
 
   acceptedMeeting(idE , idV, i)
   {
     const db = firebase.firestore();       
     if(idV == 0)
-    db.collection("volunteerUsers").doc(this.IDlogged).update({
-      status: 4
-      }) 
+      db.collection("volunteerUsers").doc(this.IDlogged).update({
+        status: 4
+      }) .catch(error => console.log(error))
 
-    else{
+    else
       db.collection("volunteerUsers").doc(idV).update({
         status: 4
-        }) 
-    }
-    db.collection("ElderlyUsers").doc(idE).update({
-      status: 4 }) 
-
-      this.user.status=4;   
-      this.userV[i].status = 4   
-
+      }).catch(error => console.log(error))
+    
       
+    db.collection("ElderlyUsers").doc(idE).update({
+      status: 4 
+     }).catch(error => console.log(error))
+
+      this.user.status = 4;   
+      this.userV[i].status = 4   
    }
 
 }

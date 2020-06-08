@@ -139,15 +139,23 @@
 
                             <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1">התאמה עדיין לא אושרה</ion-row>
 
-                            <button *ngIf="user.Admin && this.userV[numbers[i]].status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
-                            <button *ngIf="!user.Admin && this.user.status==1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
+                            <button *ngIf="user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
+                            <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
 
-                            <ion-row class="textStyle" *ngIf="this.user.status==2">ההתאמה אושרה</ion-row>
+                            <ion-row class="textStyle" *ngIf="this.user.status == 2">ההתאמה אושרה</ion-row>
 
-                            <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,  userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
-                            <button *ngIf="!user.Admin && this.user.status==2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0,numbers[i])">אשר ביצוע מפגש</button>
+                            <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
+                            <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0, numbers[i])">אשר ביצוע מפגש</button>
 
                             <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">התקיים מפגש</ion-row>
+
+                            <ion-row *ngIf="this.userV[numbers[i]].status == 4">
+                                <ion-item>
+                                    <ion-label></ion-label>
+                                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(i)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
+                                        [(ngModel)]="meetingDate">{{meetingDate}}</ion-datetime>
+                                </ion-item>
+                            </ion-row>
 
                             <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row>
                             <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>

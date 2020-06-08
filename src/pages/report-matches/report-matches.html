@@ -121,7 +121,7 @@
                 <tr>
                     <th>שם המתנדב</th>
                     <th>שם הקשיש</th>
-                    <th>תאריך מפגש אחרון</th>
+                    <th>תאריך המפגש</th>
                 </tr>
 
                 <tr style="direction: rtl;" *ngFor="let value of MeetingList">
@@ -138,7 +138,7 @@
                         {{userE[value.elderlyIdDoc].name}}
                     </td>
                     <td>
-
+                        {{userE[value.elderlyIdDoc].matching.meetingDate}}
                     </td>
                 </tr>
             </table><br><br></div>

@@ -37,6 +37,15 @@ export class ReportMatchesPage {
     for(let i = 0 ;i < this.userE.length ;i++)
     {
       let date = this.userE[i].matching.date
+
+      if(this.userE[i].matching.meetingDate)
+      {
+        let date2 = this.userE[i].matching.meetingDate
+        this.userE[i].matching.meetingDate = date2[8] + date2[9] + "-" + date2[5] + date2[6] + "-"
+        + date2[0] + date2[1]+ date2[2] + date2[3]
+      }
+  
+
       this.userE[i].matching.date = date[8] + date[9] + "-" + date[5] + date[6] + "-"
       + date[0] + date[1]+ date[2] + date[3];
     }
