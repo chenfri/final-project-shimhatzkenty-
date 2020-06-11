@@ -21,9 +21,8 @@
     <ion-grid>
         <ion-row>
             <ion-col col-6 *ngFor="let value of userE ; let i = index">
-                <ion-item *ngIf="(value.matching!=null && value.matching.id!= '' && value.matching.id == IDlogged &&
-                 !user.Admin && numbers[i]!= -1 )|| ( value.matching.id != '' && value.matching!=null && user.Admin &&
-                  numbers[i]!= -1) ; else elseBlock" style="background: #ffffff00;">
+                <ion-item *ngIf="(value.matching.id!= '' && value.matching.id == IDlogged )|| 
+                ( value.matching.id != '' && user.Admin) ; else elseBlock" style="background: #ffffff00;">
                     <ion-card class="outsideCard" showMatch="true" text-center padding color="info-color">
                         <!-- <ion-card-header> -->
 
@@ -151,9 +150,8 @@
 
                             <ion-row *ngIf="this.userV[numbers[i]].status == 4">
                                 <ion-item>
-                                    <ion-label></ion-label>
                                     <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(i)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
-                                        [(ngModel)]="meetingDate">{{meetingDate}}</ion-datetime>
+                                        [(ngModel)]="this.userE[i].matching.date">{{meetingDate}}</ion-datetime>
                                 </ion-item>
                             </ion-row>
 
