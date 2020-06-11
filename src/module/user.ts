@@ -28,10 +28,13 @@ export interface User
     elderly: boolean,
     volunteer:boolean,
     Admin: boolean,
+    organization: boolean,
 
     hideForm: boolean,
     hideMusic: boolean,
     status: number
     comments: string
+    
+
 }
 

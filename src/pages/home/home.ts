@@ -46,9 +46,13 @@ export class HomePage
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
-
+    
     this.IDlogged = this.params.get('IDlogged')
     console.log("IDlogged ", this.IDlogged)
+
+    console.log("if organization:")
+    this.user.organization = this.params.get('organization');
+    console.log(this.user.organization)
 
   //   const db = firebase.firestore();
   //   db.collection("ElderlyUsers").doc("zeQRBGlTGgrQpIlDdyju").update({
@@ -68,9 +72,9 @@ export class HomePage
   }
 
 
-  add_AdminUser()
+  add_AdminUser(whichPage)
   {
-    this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+    this.navCtrl.push(RegisterPage,{'login': this.user.loggedIn , 'admin': this.user.Admin , 'whichPage': whichPage}); 
   }
 
 
@@ -96,7 +100,7 @@ scrollToBottom() {
     this.user.volunteer = false;
     var x = document.getElementById("topNav");
     x.className = "topnav";
-    this.navCtrl.setRoot(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,
+    this.navCtrl.setRoot(Form, {'elderly':this.user.elderly, 'login':this.user.loggedIn,'organization': this.user.organization,
      'volunteer': this.user.volunteer,'IDlogged':this.IDlogged});
   }
 

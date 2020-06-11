@@ -21,6 +21,7 @@ export class LoginPage
   {
     this.user.loggedIn = false;
     this.user.Admin = false;
+    this.user.organization = false;
     this.user.elderly = false;
     this.user.volunteer = false;
 
@@ -44,6 +45,14 @@ export class LoginPage
             if(result.exists)
                 this.user.Admin = true;
                 this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin , 'IDlogged':firebase.auth().currentUser.uid}); 
+            })
+
+            db.collection('organizations').doc(firebase.auth().currentUser.uid).get()
+            .then(result =>
+            {
+            if(result.exists)
+                this.user.organization = true;
+                this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'organization': this.user.organization,'admin': this.user.Admin , 'IDlogged':firebase.auth().currentUser.uid}); 
             })
         }).catch(error => { 
           if(error.code == "auth/user-not-found")

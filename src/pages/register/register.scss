@@ -1,11 +1,11 @@
-.login-page {
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A2%D7%99%D7%A6%D7%95%D7%91.png?alt=media&token=edbf49e2-df25-4ef7-b640-59377785df0b");
+.RegisterPage{
+  
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    // background-position: center;
-    background-size: 40%;
+    background-attachment: fixed !important;
     background-color: #08144a;
     color: #FCBE47;
+    direction: rtl;
+
     .titleLogin {
         font-size: xx-large;
         font-weight: bold;

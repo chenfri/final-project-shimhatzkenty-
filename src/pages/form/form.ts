@@ -47,6 +47,7 @@ export class Form
     this.user.loggedIn = this.params.get('login');
     this.user.elderly = this.params.get('elderly')
     this.user.volunteer = this.params.get('volunteer')
+    this.user.organization = this.params.get('organization')
     this.IDlogged = this.params.get('IDlogged')
 
     //update variables
@@ -80,11 +81,16 @@ export class Form
     else
       this.user.hideForm = true
 
-    if (this.user.loggedIn)
+    if(this.user.loggedIn && this.user.organization)
+    {
+      this.get_data_fromFirebase_org()
+    }
+    else if (this.user.loggedIn)
     {
       this.user.hideForm = true
       this.getData_fromFirebaseVol();
     }
+    
 
   }
 
@@ -140,7 +146,7 @@ export class Form
     else
     {
       this.init_arrays()
-      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'IDlogged':this.IDlogged})
+      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'IDlogged':this.IDlogged , 'organization':this.user.organization})
     }
   }
 
@@ -526,6 +532,46 @@ export class Form
 
 
   
+  get_data_fromFirebase_org()
+  {
+    const db = firebase.firestore();
+
+    db.collection('organizations').doc(firebase.auth().currentUser.uid).get()
+    .then(result => {
+      if (!result.exists) return
+      this.user.email = result.data().email,
+      this.user.nameAssistant = result.data().contactName
+      this.user.contact = result.data().contactPhone
+      this.user.orgName = result.data().organizationName
+    
+      console.log('this.user.orgNameIN',this.user.orgName)
+
+    }).catch(error => {console.log(error)}).then(result =>{
+
+    console.log('this.user.orgName',this.user.orgName)
+
+    
+    this.array.organization.forEach(element => {
+     if(element.species == this.user.orgName){
+      console.log('element.species 1 :',element.species)
+
+      element.currentValue = true
+      this.user.onBehalf = true;
+     }
+     else if(element.species == 'אחר' && this.user.onBehalf == false ){
+      console.log('element.species 1 :',element.species)
+
+      element.currentValue = true
+      this.user.onBehalf = true;
+     }
+     
+   });
+   console.log('this.user.orgName',this.user.orgName)
+
+   console.log('this.array.organization',this.array.organization)
+  });
+  }
+
   
   getData_fromFirebaseVol()
   {

@@ -14,6 +14,11 @@ import {AlertProvider} from '../../providers/alert/alert'
 export class RegisterPage
 {
   user= {} as User;
+  whichPage:number;
+  contactName:string;
+  contactPhone:number;
+  organizationName:string;
+
 
   constructor(public alert: AlertProvider ,public navCtrl: NavController,
      public params: NavParams, public func: Functions) {
@@ -25,6 +30,10 @@ export class RegisterPage
     console.log("if admin:")
     this.user.Admin = this.params.get('admin');
     console.log(this.user.Admin)
+
+    console.log("whichPage:")
+    this.whichPage = this.params.get('whichPage');
+    console.log(this.whichPage)
   }
 
 
@@ -36,10 +45,25 @@ export class RegisterPage
       this.alert.showAlertSuccessAdmin()
       const db = firebase.firestore();
 
-      db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
-      .then(()=> {console.log("added new admin")
-      this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
-    })
+      if(this.whichPage == 1){
+          db.collection('Admin').doc(firebase.auth().currentUser.uid).set({})
+          .then(()=> {console.log("added new admin")
+          this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+          })
+      }
+      else{
+        db.collection('organizations').doc(firebase.auth().currentUser.uid).set({
+          contactName: this.contactName,
+          contactPhone:this.contactPhone,
+          organizationName:this.organizationName,
+          email: this.user.email
+          
+        
+        })
+        .then(()=> {console.log("added new organization")
+        this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+        })
+      }
     }
   }
 
