@@ -19,7 +19,7 @@ export class MatchPage {
   public numbers = new Array(); 
   IDlogged:any;
   acceptedMatch : boolean;
-  showMatch:boolean;
+  // showMatch:boolean;
   cancelText: boolean;
   cancelDescription: string;
   nameLogged: string;
@@ -35,11 +35,12 @@ export class MatchPage {
     this.IDlogged = this.navParams.get('IDlogged');
     console.log(this.userE)
     console.log(this.userV)
+    console.log(this.IDlogged)
 
     this.meetingDate = null
     this.cancelDescription = null; 
     this.acceptedMatch = false;
-    this.showMatch = false
+    // this.showMatch = false
     this.cancelText = false
 
     for(var i = 0 ; i < this.userV.length; i++){
@@ -119,20 +120,22 @@ export class MatchPage {
     
       this.cancelText = true        
       this.rejArr = null
+      this.userV[i].status = 3   
     }
       },
       {
         text: 'לא',
         handler: () => {
           console.log('no clicked');
+          this.cancelText = false;
+
         }
       }
     ]
   });
     alert.present();
   
-    this.cancelText = true;
-    this.userV[i].status = 3   
+  
 }
   
 
@@ -195,7 +198,7 @@ saveDescription(description, idE, idV ,i)
         status: 2
       }) .catch(error => console.log(error))
     
-   
+   console.log("idE: ",idE)
    db.collection("ElderlyUsers").doc(idE).update({
       status: 2
     }) .catch(error => console.log(error))
