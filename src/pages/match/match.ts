@@ -26,6 +26,7 @@ export class MatchPage {
   cancellationReason: boolean;
   rejArr :any[]
   meetingDate: any
+  everyHour: boolean;
 
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
     this.user.loggedIn = this.navParams.get('login');
@@ -42,6 +43,7 @@ export class MatchPage {
     this.acceptedMatch = false;
     // this.showMatch = false
     this.cancelText = false
+    this.everyHour=false;
 
     for(var i = 0 ; i < this.userV.length; i++){
  
