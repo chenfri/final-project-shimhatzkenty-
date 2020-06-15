@@ -19,6 +19,8 @@ export class RegisterPage
   contactName:string;
   contactPhone:number;
   organization:any[];
+  orgi: any
+  showOtherO: boolean
 
 
   constructor(public alert: AlertProvider ,public navCtrl: NavController, public array:Arrays,
@@ -37,6 +39,9 @@ export class RegisterPage
     console.log(this.whichPage)
 
     this.organization = this.array.organization
+    this.orgi = null
+    this.showOtherO = false
+    this.user.orgName = null
   }
 
 
@@ -59,7 +64,10 @@ export class RegisterPage
           contactName: this.contactName,
           contactPhone:this.contactPhone,
           organization:this.organization,
-          email: this.user.email
+          email: this.user.email,
+          organizationID: this.orgi,
+          otherOrgName: this.user.orgName
+  
           
         
         })
@@ -73,6 +81,12 @@ export class RegisterPage
 
   selectOrg(item)
   {
+    this.orgi = item.id
+    if(this.orgi == 4)
+      this.showOtherO = true;  
+    else 
+      this.showOtherO = false;
+
     for (let i = 0; i < this.organization.length; i++)
     {
       if (this.organization[i].currentValue) //cancel other radio if it pressed

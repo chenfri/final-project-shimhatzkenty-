@@ -81,16 +81,15 @@ export class Form
     else
       this.user.hideForm = true
 
+
     if(this.user.loggedIn && this.user.organization)
-    {
       this.get_data_fromFirebase_org()
-    }
+
     else if (this.user.loggedIn)
     {
       this.user.hideForm = true
       this.getData_fromFirebaseVol();
     }
-    
 
   }
 
@@ -235,9 +234,16 @@ export class Form
   //check that all user inputs are legal
   check_field_value()
   {
+  
     let flag = 0;
-    let phone =  "0" + this.user.phone;
-    let contact = "0" + this.user.contact
+    let phone = this.user.phone;
+    if(phone[0] != '0')
+      phone =  "0" + this.user.phone
+
+    let contact = this.user.contact;
+    if(this.user.contact != null && this.user.contact[0] != '0')
+      contact = "0" + this.user.contact
+  
 
     setTimeout(() => 
     {
@@ -374,10 +380,13 @@ export class Form
         if (this.user.fullName == null && this.user.elderly)
         this.user.fullName = 'חסוי'
 
+        this.user.phone = phone.substr(1, phone.length)
         if (this.user.elderly)
           this.add_data_to_firebase_Elderly();
         else
           this.add_data_to_firebase_Volunteer();
+
+          
       }
 
 
@@ -535,41 +544,23 @@ export class Form
   get_data_fromFirebase_org()
   {
     const db = firebase.firestore();
-
+    this.user.onBehalf = true;
     db.collection('organizations').doc(firebase.auth().currentUser.uid).get()
     .then(result => {
       if (!result.exists) return
       this.user.email = result.data().email,
       this.user.nameAssistant = result.data().contactName
-      this.user.contact = result.data().contactPhone
-      this.user.orgName = result.data().organizationName
-    
-      console.log('this.user.orgNameIN',this.user.orgName)
+      this.user.contact = "0" + result.data().contactPhone
+      this.organization = result.data().organization
+      this.orgi = result.data().organizationID
+      this.user.orgName = result.data().otherOrgName
 
-    }).catch(error => {console.log(error)}).then(result =>{
+      if(this.orgi == 4)
+        this.showOtherO = true
+      else
+        this.showOtherO = false
 
-    console.log('this.user.orgName',this.user.orgName)
-
-    
-    this.array.organization.forEach(element => {
-     if(element.species == this.user.orgName){
-      console.log('element.species 1 :',element.species)
-
-      element.currentValue = true
-      this.user.onBehalf = true;
-     }
-     else if(element.species == 'אחר' && this.user.onBehalf == false ){
-      console.log('element.species 1 :',element.species)
-
-      element.currentValue = true
-      this.user.onBehalf = true;
-     }
-     
-   });
-   console.log('this.user.orgName',this.user.orgName)
-
-   console.log('this.array.organization',this.array.organization)
-  });
+    }).catch(error => {console.log(error)})
   }
 
   
@@ -582,6 +573,8 @@ export class Form
       if (!result.exists) return
       this.user.fullName = result.data().fullName
       this.user.phone = result.data().phone
+      if(this.user.phone[0] != '0')
+        this.user.phone = "0" + result.data().phone
       this.user.email = result.data().email
       this.hobbies = result.data().hobbies
       this.language = result.data().language
@@ -728,11 +721,6 @@ export class Form
     {
       for(let i = 1 ; i < this.hours.length; i++)
         this.hours[i].currentValue = true;
-    }
-    else if(!this.hours[0].currentValue)
-    {
-      for(let i = 1 ; i < this.hours.length; i++)
-        this.hours[i].currentValue = false;
     }
 
   }
