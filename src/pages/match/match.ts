@@ -169,6 +169,7 @@ saveDescription(description, idE, idV ,i)
   this.userV[i].rejected = this.rejArr = this.rejArr
 
   db.collection("volunteerUsers").doc(idV).update({
+    status: 0,
     matching: null,
     rejected:this.rejArr,
   }).catch(error => {console.log(error)}) 

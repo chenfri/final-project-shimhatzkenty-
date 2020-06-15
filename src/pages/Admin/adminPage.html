@@ -5,7 +5,7 @@
         <ion-row>
             <ion-col style="text-align: left; ">
                 <button class="buttons" type="submit" (click)="click_home()">חזרה לדף הבית</button>
-                <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button>
+                <!-- <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button> -->
             </ion-col>
         </ion-row>
         <ion-row>
@@ -55,6 +55,7 @@
             <tr>
                 <th class="hidePhone">מחק משתמש</th>
                 <th class="hidePhone">הערות</th>
+                <th class="hidePhone">נמצאה התאמה</th>
                 <th>תאריך הרשמה</th>
                 <th>פלאפון איש קשר</th>
                 <th>שם איש קשר</th>
@@ -67,6 +68,10 @@
                 <td class="hidePhone"><button class="buttons del" (click)="deleteElderlyUser(value.docID)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
+                </td>
+                <td class="hidePhone">
+                    <label *ngIf="value.status != 0">כן</label>
+                    <label *ngIf="value.status == 0">לא</label>
                 </td>
                 <td>{{value.dateTime}}</td>
                 <td>{{value.contact}}</td>
@@ -93,6 +98,7 @@
             <tr>
                 <th class="hidePhone">מחק משתמש</th>
                 <th class="hidePhone">הערות</th>
+                <th class="hidePhone">נמצאה התאמה</th>
                 <th>סטודנט</th>
                 <th>תאריך הרשמה</th>
                 <th>כתובת</th>
@@ -104,6 +110,10 @@
                 <td class="hidePhone"><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
+                </td>
+                <td class="hidePhone">
+                    <label *ngIf="value.status != 0">כן</label>
+                    <label *ngIf="value.status == 0">לא</label>
                 </td>
                 <td>
                     <div *ngIf="value.student">כן</div>

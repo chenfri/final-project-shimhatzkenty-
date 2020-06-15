@@ -188,9 +188,9 @@ export class adminPage
                     
               db.collection('message').doc(item).delete().then(() =>
               {
-                this.event.publish('operateFunc', "1")    
+                this.event.publish('operateFunc', "1")
                 console.log("Document successfully deleted!");
-               // this.alert.showAlert_deleteMessage()
+                //this.alert.showAlert_deleteMessage()
             }).catch((error) => console.error("Error removing document: ", error));         
           }
         },
@@ -298,7 +298,7 @@ export class adminPage
   {
     this.matchV = this.userV[numVolunteer].docID
     console.log("idV: ",this.matchV)
-    this.userV[numVolunteer].manualM= true;
+    this.userV[numVolunteer].manualM = true;
 
     for(var i = 0 ; i <this.userV.length; i++)
         if(numVolunteer != i)
@@ -322,8 +322,7 @@ export class adminPage
   //the function check if there is allready exist match for this volunteer
   checkIfExistMacthVolunteer(numVolunteer)
   {
-    console.log(numVolunteer)
-    if (this.userV[numVolunteer].matching != "")
+    if (this.userV[numVolunteer].status == 1)
     {
       let alert = this.alertCtrl.create({
         title: 'למתנדב שבחרת כבר קיימת התאמה',
@@ -340,7 +339,9 @@ export class adminPage
           {
             text: 'לא',
             handler: () => {
+              this.userV[numVolunteer].manualM = true
               console.log('no clicked');
+              console.log(this.userV)
             }
           }
         ]
@@ -356,7 +357,6 @@ export class adminPage
 
   checkIfExistMacthElderly(numElderly)
   {
-    console.log(numElderly)
     if (this.userE[numElderly].matching.id != "")
     {
       let alert = this.alertCtrl.create({
@@ -375,6 +375,7 @@ export class adminPage
             text: 'לא',
             handler: () => {
               console.log('no clicked');
+              this.userE[numElderly].manualM = true
             }
           }
         ]
@@ -426,9 +427,9 @@ export class adminPage
       }
 
       this.matchE, this.matchV = null;
-     // this.sendEmailsVolunteer(this.userV[indexE].name, "chenfriedman93@gmail.com")
-     // this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, "chenfriedman93@gmail.com")
-      //this.sendSMS(this.userV[indexE].phone, this.userV[indexE].name)
+      this.sendEmailsVolunteer(this.userV[indexE].name, "chenfriedman93@gmail.com")
+      this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, "chenfriedman93@gmail.com")
+      this.sendSMS(this.userV[indexE].phone, this.userV[indexE].name)
       this.alert.showSuccessManual()
     }
   }
@@ -460,20 +461,20 @@ export class adminPage
 
         for(let k = 0; k < 3; k++) //save the best match
         {
-          let diff = 0;
+          //let diff = 0;
           if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
           {
-            if(this.userE[arrMatch[k].index].matching.grade == "manual")
-              diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching.date, this.date)
+            if(this.userE[arrMatch[k].index].matching.grade != "manual")
+            //  diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching.date, this.date)
 
             //if the current grade is bigger than the last or if pass 30 days
-            if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade || diff > 30)
-            {
+            // if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade || diff > 30)
+            // {
               this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
               date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
               console.log(this.userE[arrMatch[k].index].matching)
               break;
-            }
+            //}
           }
         }
       }
@@ -488,7 +489,7 @@ export class adminPage
         let idV = this.userE[k].matching.id
 
           db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
-            {
+          {
               matching: this.userE[k].matching,
               status: 1
             }).catch((error) => {console.log(error)})
@@ -496,7 +497,8 @@ export class adminPage
       
         db.collection('volunteerUsers').doc(idV).update(
         {
-          matching: this.userE[k].docID
+          matching: this.userE[k].docID,
+          status: 1
         }).catch((error) => {console.log(error)})
       }
     }

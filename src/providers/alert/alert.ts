@@ -313,7 +313,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'בוצע',
-      subTitle: '!ההודעה נשלחה בהצלחה',
+      subTitle: 'ההודעה נשלחה בהצלחה!',
       buttons: ['אישור']
     });
     alert.present();
@@ -324,7 +324,7 @@ export class AlertProvider
   {
     let alert = this.alertCtrl.create({
       title: 'בוצע',
-      subTitle: '!ההודעה נמחקה בהצלחה',
+      subTitle: 'ההודעה נמחקה בהצלחה!',
       buttons: ['אישור']
     });
     alert.present();

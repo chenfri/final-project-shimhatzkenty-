@@ -661,6 +661,7 @@ export class Form
         language: this.language,
         dayOfMeeting: this.dayOfMeeting,
         hours: this.hours,
+        status: 0,
         familyMember: this.familyMember,
         adminComments: this.user.comments
       })

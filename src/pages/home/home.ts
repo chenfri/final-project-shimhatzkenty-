@@ -33,6 +33,7 @@ export class HomePage
   organization: any;
   public organizations: any[]
   IDlogged : any;
+  subsVar: any;
 
   constructor(public navCtrl: NavController, public params: NavParams,  public alert: AlertProvider,
         public auth: AngularFireAuth, public func:Functions, public array:Arrays, private event: Events)
@@ -64,12 +65,12 @@ export class HomePage
 
 //for calling 'get_data_for_admin' function from adminPage
   ngOnInit() {
-    this.event.subscribe('operateFunc', (i)=> {this.get_data_for_admin(i)})
+   this.event.subscribe('operateFunc', (i)=> {this.get_data_for_admin(i)})  
   }
 
-  ngOnDestroy (){
-    this.event.unsubscribe('operateFunc')
-  }
+  // ngOnDestroy (){
+  //    this.event.unsubscribe('operateFunc')
+  // }
 
 
   add_AdminUser(whichPage)
@@ -270,11 +271,13 @@ scrollToBottom() {
     {
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
       if(whichPage == 1){
+        console.log("enter 1")
           this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
           'messages': messages ,'login': this.user.loggedIn, 'admin': this.user.Admin,
           'organizationEledry': groupbyOrg});
       }
       else if(whichPage == 2){
+        console.log("enter 2")
         this.navCtrl.push(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
            'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged});
       }
@@ -283,8 +286,6 @@ scrollToBottom() {
            'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged}); 
 
       }
-     
-    
       }
      
         , 1000);
