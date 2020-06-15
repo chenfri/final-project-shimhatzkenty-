@@ -5,6 +5,7 @@ import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
 import {Functions} from '../../providers/functions'
 import {AlertProvider} from '../../providers/alert/alert'
+import { Arrays } from '../../providers/arrays'
 
 @IonicPage()
 @Component({
@@ -17,10 +18,10 @@ export class RegisterPage
   whichPage:number;
   contactName:string;
   contactPhone:number;
-  organizationName:string;
+  organization:any[];
 
 
-  constructor(public alert: AlertProvider ,public navCtrl: NavController,
+  constructor(public alert: AlertProvider ,public navCtrl: NavController, public array:Arrays,
      public params: NavParams, public func: Functions) {
         
     console.log("if login:")
@@ -34,6 +35,8 @@ export class RegisterPage
     console.log("whichPage:")
     this.whichPage = this.params.get('whichPage');
     console.log(this.whichPage)
+
+    this.organization = this.array.organization
   }
 
 
@@ -55,7 +58,7 @@ export class RegisterPage
         db.collection('organizations').doc(firebase.auth().currentUser.uid).set({
           contactName: this.contactName,
           contactPhone:this.contactPhone,
-          organizationName:this.organizationName,
+          organization:this.organization,
           email: this.user.email
           
         
@@ -67,6 +70,20 @@ export class RegisterPage
     }
   }
 
+
+  selectOrg(item)
+  {
+    for (let i = 0; i < this.organization.length; i++)
+    {
+      if (this.organization[i].currentValue) //cancel other radio if it pressed
+        this.organization[i].currentValue = !this.organization[i].currentValue
+
+      if (this.organization[i] === item)
+        this.organization[i].currentValue =  !item.currentValue
+    }
+
+    console.log(this.organization)
+  }
 
   click_home()
   {

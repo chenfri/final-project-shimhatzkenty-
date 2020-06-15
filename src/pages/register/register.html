@@ -8,11 +8,11 @@
 
 
     <ion-grid>
-        <ion-row>
-           <h2 *ngIf="whichPage == 1" class="titleLogin">יצירת מנהל חדש</h2>
-           <h2 *ngIf="whichPage == 2" class="titleLogin">יצירת מנהל ארגון</h2>
+        <ion-row style="text-align: center !important;">
+            <h2 *ngIf="whichPage == 1" class="titleLogin">יצירת מנהל חדש</h2>
+            <h2 *ngIf="whichPage == 2" class="titleLogin">יצירת מנהל ארגון</h2>
         </ion-row>
-        
+
         <ion-row *ngIf="whichPage == 2">
 
             <ion-col col-4>
@@ -29,14 +29,25 @@
                 </ion-row>
             </ion-col>
 
+
             <ion-col col-4>
+                <ion-row style="font-weight: bold;font-size: initial;">שם הארגון</ion-row>
+                <ion-item no-lines style="direction: rtl; background-color:#307cc1;">
+                    <ion-label style="font-weight: bold;font-size: initial;">בחר שם ארגון</ion-label>
+                    <ion-select multiple="false" interface="popover">
+                        <ion-option *ngFor="let organization of organization" [value]="organization.species" [selected]="organization.currentValue" (ionSelect)="selectOrg(organization)">{{organization.species}}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <!-- <ion-col col-4>
                 <ion-row  style="font-weight: bold;font-size: initial;">שם האירגון</ion-row>
                 <ion-row>
                     <input type="text" [(ngModel)]="organizationName">
                 </ion-row>
             </ion-col>
-        </ion-row>
-        
+        </ion-row> -->
+
         <ion-row>
             <ion-col col-4>
                 <ion-row style="font-weight: bold;font-size: initial;">כתובת דוא"ל</ion-row>
@@ -51,17 +62,17 @@
                     <input type="password" name="password" [(ngModel)]="user.password">
                 </ion-row>
             </ion-col>
-            
+
         </ion-row>
 
         <ion-row>
             <button ion-button (click)="registry(user)">שמור</button>
         </ion-row>
 
-    
+
 
     </ion-grid>
 
-        
-  
+
+
 </ion-content>
