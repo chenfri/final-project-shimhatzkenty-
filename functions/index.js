@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 const sgMail = require('@sendgrid/mail');
 const SENDGRID_API_KEY = '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'
 sgMail.setApiKey(SENDGRID_API_KEY);
+
 const twilio = require('twilio');
 const accountSid = "ACb4e106132670f6e4725890c1ba32dfff"
 const authToken = "f6170502a3d62f931877ca00df67bccd"
@@ -15,7 +16,7 @@ admin.initializeApp();
 // Sends sms via HTTP - twilio
 exports.sendSms = functions.https.onCall(async(data, context) => {
     const textMessage = {
-        body: "שלום " + data.name + ",\nנמצאה לך התאמה באתר שמחקת זקנתי!\nלפרטים נוספים יש להיכנס לאתר ולבצע התחברות עם כתובת מייל וסיסמה\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי",
+        body: "שלום " + data.name + ",\nנמצאה לך התאמה באתר שמחקת זקנתי!\nלפרטים נוספים יש להיכנס לאתר ולבצע התחברות עם כתובת מייל וסיסמה\nלאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי",
         to: data.number,
         messagingServiceSid: 'MG605bbded57aace4b0b015499f114831a'
             //from: twilioNumber // From a valid Twilio number

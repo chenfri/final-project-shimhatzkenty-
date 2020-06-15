@@ -414,7 +414,6 @@ export class adminPage
         if(this.userE[i].manualM){
           this.userE[i].matching = {id: this.matchV, grade: "manual" ,date: this.date},
           this.userE[i].manualM = false;
-      
           indexE = i
           break }
       }
@@ -426,10 +425,10 @@ export class adminPage
           break}
       }
 
-      this.matchE, this.matchV = null;
-      this.sendEmailsVolunteer(this.userV[indexE].name, "chenfriedman93@gmail.com")
-      this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, "chenfriedman93@gmail.com")
-      this.sendSMS(this.userV[indexE].phone, this.userV[indexE].name)
+      this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
+      if(this.userE[indexE].email != null)
+        this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
+      this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
       this.alert.showSuccessManual()
     }
   }
@@ -511,7 +510,7 @@ export class adminPage
         //this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
         // if(this.userE[i].email != null)
         //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
-        //this.sendSMS(this.userE[i].matching.phoneV, this.userE[i].matching.name)
+        //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
       }
     }
 
