@@ -58,6 +58,11 @@ export class Arrays {
         'species': 'מופעי ליצנות',
         'currentValue': false
       }
+      , {
+        'species': 'אומנות/יצירה',
+        'currentValue': false
+      }
+
     ];
 
 
