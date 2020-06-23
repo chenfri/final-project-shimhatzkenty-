@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import * as papa from 'papaparse';
 import {AlertProvider} from '../../providers/alert/alert'
 import { User } from '../../module/User'
+import { Contact } from '../../module/Contact'
 import { HomePage } from '../home/home';
 import { PopoverPage } from '../popover/popover';
 
@@ -15,6 +16,7 @@ import { PopoverPage } from '../popover/popover';
 
 export class adminPage
 {
+  contact = {} as Contact
   user = {} as User
   organizationName: any;
   userE : any[]
@@ -29,7 +31,7 @@ export class adminPage
   public date: any;
   public adminComments: any;
   public studentArr :any[] = [];
- 
+  public contacts: any[]
  
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
@@ -41,11 +43,12 @@ export class adminPage
     this.userV = this.navParams.get('volunteer');
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
-   
+    this.contacts = this.navParams.get('contacts'); 
+    console.log("contacts: ", this.contacts)
+
     this.matchE = null;
     this.matchV = null;
     this.date = new Date().toISOString().substring(0, 10);
-    //this.sendSMS("+972508591865", "חן")
 
     this.sortArrByDates(this.userV)
     console.log(this.userV);
@@ -63,11 +66,13 @@ export class adminPage
   }
 
 
+
   saveConnemnts()
   {
     this.save_AdminComments(this.userV, "volunteerUsers")
     this.save_AdminComments(this.userE, "ElderlyUsers")
   }
+
 
 
   save_AdminComments(arr, collection)
@@ -76,11 +81,17 @@ export class adminPage
     for(let i = 0; i < arr.length; i++)
     {
       if(arr[i].commentTmp != arr[i].adminComments) // save only if the comment was change
+      {
+      console.log(i)
+      console.log(arr[i].adminComments)
+
           db.collection(collection).doc(arr[i].docID).update({
           adminComments: arr[i].adminComments
           }) .catch((error) => {console.log(error)})
+        }
     }
   }
+
 
 
   sortArrByDates(arr)
@@ -92,6 +103,7 @@ export class adminPage
       return da < db ? 1 : da > db ? -1 : 0
     });
   }
+
 
 
   //create excel file with the rellevant data
@@ -141,6 +153,7 @@ export class adminPage
   }
 
 
+
   //download excel file
   downloadCSV(csv, type)
   { 
@@ -162,6 +175,7 @@ export class adminPage
     document.body.removeChild(a);
   }
  
+
 
   // modal for get 'more details' about the users
   async openPopover(event , uid, userType)
@@ -227,7 +241,7 @@ export class adminPage
       handler: () => {
           console.log('yes clicked');
           const db = firebase.firestore();
-
+        if(item != "")
           db.collection("ElderlyUsers").doc(item).delete().then(() =>
           {
             this.event.publish('operateFunc', "1")    
@@ -245,6 +259,97 @@ export class adminPage
   });
     alert.present();
   }
+
+
+  addNewContact(){
+    let temp = {name: "", phone: "", jobTitle: "", email: "", comments: "", date: "", orgName: "", docID: ""}
+    let tempArr = []
+    for(let i = 0 ; i < this.contacts.length; i++)
+      tempArr.push(this.contacts[i])
+    tempArr.push(temp)
+    console.log(tempArr)
+    this.contacts = tempArr
+  }
+
+
+
+  saveNewContact()
+  {
+    const db = firebase.firestore();
+    for(let i = 0 ; i < this.contacts.length; i++)
+    {
+      if(this.contacts[i].docID != "") //update exist doc
+      {
+        db.collection("Contacts").doc(this.contacts[i].docID).update({
+          name: this.contacts[i].name,
+          phone: this.contacts[i].phone,
+          email: this.contacts[i].email,
+          orgName: this.contacts[i].orgName,
+          jobTitle: this.contacts[i].jobTitle,
+          comments: this.contacts[i].comments,
+          date: this.contacts[i].date
+    
+        }).catch((error) => console.error("Error add contact: ", error));
+        }
+      
+      else //create exist doc
+      {
+        var doc = db.collection("Contacts").doc()
+        doc.set({
+        name: this.contacts[i].name,
+        phone: this.contacts[i].phone,
+        email: this.contacts[i].email,
+        orgName: this.contacts[i].orgName,
+        jobTitle: this.contacts[i].jobTitle,
+        comments: this.contacts[i].comments,
+        date: this.contacts[i].date
+
+      }).then(() => this.contacts[i].docID = doc.id)
+         .catch((error) => console.error("Error add contact: ", error));
+
+      }
+  }
+      
+      
+  }
+
+
+
+  deleteContact(item)
+  {
+    console.log(item)
+    let alert = this.alertCtrl.create({
+      title: 'אזהרה',
+      subTitle: 'האם את/ה בטוח/ה שברצונך למחוק את האיש קשר?' ,
+      buttons: [
+      {
+        text: 'כן',
+        role: 'cancel',
+        handler: () => {
+          console.log('yes clicked');
+          const db = firebase.firestore();
+                
+          db.collection("Contacts").doc(item).delete().then(() =>
+          {
+            this.event.publish('operateFunc', "1")    
+            console.log("Document successfully deleted!");
+  
+          }).catch((error) => console.error("Error removing document: ", error));
+        }
+        },
+        {
+          text: 'לא',
+          handler: () => {
+            console.log('no clicked');
+          }
+        }
+      ]
+    });
+      alert.present();
+  }
+
+
+
 
 
   deleteVolunteerUser(item)

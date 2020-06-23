@@ -225,7 +225,7 @@
                     <th>שם מלא</th>
                 </tr>
                 <tr *ngFor="let value of organizationEledry['אחר'] ">
-                    <td>{{value.id}}</td>
+                    <td>{{value.orgName}}</td>
                     <td>0{{value.phoneA}}</td>
                     <td>{{value.assistName}}</td>
                     <td>0{{value.phoneE}}</td>
@@ -233,7 +233,54 @@
                 </tr>
             </table>
         </div>
+
+
+
+        <div class="hidePhone">
+            <h4 class="titles ">:אנשי קשר אירגוניים</h4>
+            <button class="buttons" type="submit" (click)="saveNewContact() ">שמור</button>
+            <button class="buttons" type="submit" (click)="addNewContact() ">הוסף איש קשר חדש</button>
+            <br><br>
+            <table id="customers" class="contactT" style="direction: rtl; width: 80%;">
+                <tr>
+                    <th>שם</th>
+                    <th>פלאפון</th>
+                    <th>כתובת מייל</th>
+                    <th>שם ארגון</th>
+                    <th>תפקיד</th>
+                    <th>תאריך</th>
+                    <th>הערות</th>
+                    <th>מחיקה</th>
+
+                </tr>
+                <tr *ngFor="let contact of contacts;">
+                    <td>
+                        <input class="inputContact" type="text" name="username" [(ngModel)]="contact.name">
+                    </td>
+                    <td>
+                        <input class="inputContact" type="text" name="username" [(ngModel)]="contact.phone">
+                    </td>
+                    <td>
+                        <input class="inputContact" type="text" name="username" [(ngModel)]="contact.email">
+                    </td>
+                    <td>
+                        <input class="inputContact" type="text" name="username" [(ngModel)]="contact.orgName">
+                    </td>
+                    <td>
+                        <input class="inputContact" type="text" name="username" [(ngModel)]="contact.jobTitle">
+                    </td>
+                    <td>
+                        <input class="inputContact" type="text" name="username" [(ngModel)]="contact.date">
+                    </td>
+                    <td>
+                        <ion-textarea cols="40" rows="1" type="text" name="comments" [(ngModel)]="contact.comments" style="direction: rtl;"></ion-textarea>
+                    </td>
+                    <td><button class="buttons del" (click)="deleteContact(contact.docID)">[x]</button></td>
+                </tr>
+            </table>
+        </div>
     </div>
+
 
     <br><br><br><br><br><br>
 </ion-content>

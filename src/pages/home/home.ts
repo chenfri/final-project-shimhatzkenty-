@@ -167,8 +167,8 @@ scrollToBottom() {
 
   get_data_for_admin(whichPage)
   {
-    let elderly = [] , volunteer = [] , messages = [] , organizationEledry=[]
-    let k = 0 , l = 0 , j = 0 , v = 0 , groupbyOrg = [] , tmpPhone = null
+    let elderly = [] , volunteer = [] , messages = [] , organizationEledry = [] , contacts = []
+    let k = 0 , l = 0 , j = 0 , v = 0 , t = 0, groupbyOrg = [] , tmpPhone = null
     const db = firebase.firestore();
 
     db.collection('ElderlyUsers').get().then(res => { res.forEach(i => { 
@@ -197,7 +197,8 @@ scrollToBottom() {
         email: i.data().email,
         description: i.data().description,
         status: i.data().status,
-        adminComments: i.data().adminComments
+        adminComments: i.data().adminComments,
+        commentTmp: i.data().adminComments
         }
         k++})}).catch(error => {console.log(error)})
 
@@ -213,7 +214,8 @@ scrollToBottom() {
                   phoneE: i.data().phone,
                   assistName: i.data().nameAssistant,
                   phoneA: i.data().contact,
-                  id: orgName,              
+                  id: orgName,    
+                  orgName: i.data().orgName
                 }        
               v++;
           }
@@ -255,10 +257,28 @@ scrollToBottom() {
         id: id,
         college: i.data().college,
         student: i.data().student,
-        adminComments: i.data().adminComments
+        adminComments: i.data().adminComments,
+        commentTmp: i.data().adminComments
       }
         j++})}).catch(error => {console.log(error)})
 
+
+
+        db.collection('Contacts').get().then(res => {res.forEach(i =>{ 
+
+          contacts[t] =
+          {
+            name: i.data().name,
+            phone: i.data().phone,
+            date: i.data().date,
+            email: i.data().email,
+            jobTitle: i.data().jobTitle,
+            orgName: i.data().orgName,
+            docID: i.id,
+            comments: i.data().comments
+          }
+            t++})}).catch(error => {console.log(error)})
+    
 
 
     db.collection('message').get().then(res => {res.forEach(i =>{ messages[l]={
@@ -274,7 +294,7 @@ scrollToBottom() {
         console.log("enter 1")
           this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
           'messages': messages ,'login': this.user.loggedIn, 'admin': this.user.Admin,
-          'organizationEledry': groupbyOrg});
+          'organizationEledry': groupbyOrg , 'contacts': contacts});
       }
       else if(whichPage == 2){
         console.log("enter 2")
