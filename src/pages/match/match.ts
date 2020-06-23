@@ -41,20 +41,23 @@ export class MatchPage {
     this.meetingDate = null
     this.cancelDescription = null; 
     this.acceptedMatch = false;
-    // this.showMatch = false
     this.cancelText = false
     this.everyHour=false;
 
     for(var i = 0 ; i < this.userV.length; i++){
  
       if(this.IDlogged == this.userV[i].docID)     
-        this.nameLogged = this.userV[i].name;;
+        this.nameLogged = this.userV[i].name
+      }
     }
 
+
+    
+  ngOnInit()
+  {
     this.getVolunteerNumbers();
     console.log('numbers' , this.numbers)
-
-    }
+  }
 
 
 
@@ -78,7 +81,6 @@ export class MatchPage {
 
       if(push == false)
           this.numbers.push(-1); }
-
 }
   
 

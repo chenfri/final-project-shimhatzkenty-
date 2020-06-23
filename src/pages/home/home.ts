@@ -64,14 +64,16 @@ export class HomePage
 
 
 //for calling 'get_data_for_admin' function from adminPage
-  ngOnInit() {
+  ngOnInit () {
+  console.log("ionViewDidEnter")
    this.event.subscribe('operateFunc', (i)=> {this.get_data_for_admin(i)})  
   }
 
-  // ngOnDestroy (){
-  //    this.event.unsubscribe('operateFunc')
-  // }
-
+  ngOnDestroy() {
+    console.log('HomePage destroyed!');
+   // this.event.unsubscribe('operateFunc')
+  }
+  
 
   add_AdminUser(whichPage)
   {
@@ -123,10 +125,7 @@ scrollToBottom() {
     x.className = "topnav";
     this.navCtrl.push(contactPage, {'login': this.user.loggedIn })
   }
-  // matchPage() {
-  //   this.navCtrl.push(MatchPage , {'admin': this.user.Admin, 'login': this.user.loggedIn })
-  // }
-  
+
 
   login(){
     var x = document.getElementById("topNav");
@@ -292,17 +291,17 @@ scrollToBottom() {
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
       if(whichPage == 1){
         console.log("enter 1")
-          this.navCtrl.push(adminPage, {'elderly': elderly, 'volunteer': volunteer,
+          this.navCtrl.setRoot(adminPage, {'elderly': elderly, 'volunteer': volunteer,
           'messages': messages ,'login': this.user.loggedIn, 'admin': this.user.Admin,
           'organizationEledry': groupbyOrg , 'contacts': contacts});
       }
       else if(whichPage == 2){
         console.log("enter 2")
-        this.navCtrl.push(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
+        this.navCtrl.setRoot(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
            'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged});
       }
       else{
-           this.navCtrl.push(ReportMatchesPage, {'elderly': elderly, 'volunteer': volunteer,
+           this.navCtrl.setRoot(ReportMatchesPage, {'elderly': elderly, 'volunteer': volunteer,
            'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged}); 
 
       }
