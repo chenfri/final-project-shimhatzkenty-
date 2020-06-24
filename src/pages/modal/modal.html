@@ -17,11 +17,11 @@
     padding: 10px 10px 10px 10px; margin-left: 25px; float: left;" (click)="closeModal()">אישור</button>
 </ion-content>
 
-<ion-content>
-    <ion-grid class="parametersPage">
+<ion-content class="parametersPage">
+    <ion-grid>
         <ion-row *ngIf="this.whichPage=='Admin'">
             <ion-col>
-                <h1 style="text-align:center !important; font-weight: bold;margin-bottom: 3rem;direction: rtl">בחירת פרמטרים לאלגוריתם התאמה:</h1>
+                <h3 style="text-align:center !important; font-weight: bold;margin-bottom: 3rem;direction: rtl">בחירת פרמטרים לאלגוריתם ההתאמה:</h3>
                 <ion-list radio-group class="item-list"><br>
                     <ion-item no-lines class="item-radios" *ngFor="let param of parameters">
                         <ion-label style="text-align: right;"> {{ param.species }} </ion-label>
@@ -30,10 +30,8 @@
                 </ion-list>
             </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col>
-                <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button>
-            </ion-col>
+        <ion-row style="align-self: center;">
+            <button class="buttons" type="submit" (click)="passParams()">הפעל את אלגוריתם ההתאמה</button>
         </ion-row>
     </ion-grid>
 </ion-content>

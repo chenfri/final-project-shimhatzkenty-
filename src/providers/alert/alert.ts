@@ -405,6 +405,16 @@ export class AlertProvider
   }
 
 
+  error_params()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'שגיאה',
+      subTitle: 'שים לב, לא ניתן להריץ את האלגוריתם ללא שום פרמטרים להתאמה' ,
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
   showErrorMsgPhone()
   {
     let alert = this.alertCtrl.create({

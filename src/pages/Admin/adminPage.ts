@@ -34,7 +34,7 @@ export class adminPage
   public adminComments: any;
   public studentArr :any[] = [];
   public contacts: any[]
- 
+  public params: any[]
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
      public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController,
@@ -66,19 +66,21 @@ export class adminPage
         j++}
     }
       console.log(this.studentArr)
+
   }
 
 
   async presentModal() {
-    const modal = await this.modalController.create(
-      ModalPage,{ whichPage: 'Admin' }
-      
-    );
-   modal.present();
+    const modal = await this.modalController.create(ModalPage, {whichPage: 'Admin'});
+    await modal.present();
+    await modal.onDidDismiss(data => {
+      this.params = data
+      this.matchingAlgorithm()
+    })
   }
 
 
-  
+
   saveConnemnts()
   {
     this.save_AdminComments(this.userV, "volunteerUsers")
@@ -567,71 +569,73 @@ export class adminPage
 
   matchingAlgorithm()
   {
-    const db = firebase.firestore();
-    for(let i = 0; i < this.userV.length; i++)
-    {
-      if(this.userV[i].status != 2 || this.userV[i].status != 4)
-      {
-        let arrMatch = [] , j = 0 
-        this.findMatches(i, j , arrMatch)
+    console.log("enter matchingAlgorithm")
+    console.log(this.params)
+    // const db = firebase.firestore();
+    // for(let i = 0; i < this.userV.length; i++)
+    // {
+    //   if(this.userV[i].status != 2 || this.userV[i].status != 4)
+    //   {
+    //     let arrMatch = [] , j = 0 
+    //     this.findMatches(i, j , arrMatch)
 
-        for(let k = 0; k < 3; k++) //save the best match
-        {
-          //let diff = 0;
-          if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
-          {
-            if(this.userE[arrMatch[k].index].matching.grade != "manual")
-            //  diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching.date, this.date)
+    //     for(let k = 0; k < 3; k++) //save the best match
+    //     {
+    //       //let diff = 0;
+    //       if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
+    //       {
+    //         if(this.userE[arrMatch[k].index].matching.grade != "manual")
+    //         //  diff = this.DiffrenceDates(this.userE[arrMatch[k].index].matching.date, this.date)
 
-            //if the current grade is bigger than the last or if pass 30 days
-            // if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade || diff > 30)
-            // {
-              this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
-              date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
-              console.log(this.userE[arrMatch[k].index].matching)
-              break;
-            //}
-          }
-        }
-      }
-    }
+    //         //if the current grade is bigger than the last or if pass 30 days
+    //         // if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade || diff > 30)
+    //         // {
+    //           this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
+    //           date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
+    //           console.log(this.userE[arrMatch[k].index].matching)
+    //           break;
+    //         //}
+    //       }
+    //     }
+    //   }
+    // }
 
-    for(let k = 0; k < this.userE.length; k++) //update the best 'matching' in documents
-    { 
-      //if 'matching' is empty and no found match or matching is confirm - status
-      if(this.userE[k].matching.id != "" && (this.userE[k].status != 2 || this.userE[k].status != 4 ))
-      {
-        console.log(this.userE[k].matching)
-        let idV = this.userE[k].matching.id
+    // for(let k = 0; k < this.userE.length; k++) //update the best 'matching' in documents
+    // { 
+    //   //if 'matching' is empty and no found match or matching is confirm - status
+    //   if(this.userE[k].matching.id != "" && (this.userE[k].status != 2 || this.userE[k].status != 4 ))
+    //   {
+    //     console.log(this.userE[k].matching)
+    //     let idV = this.userE[k].matching.id
 
-          db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
-          {
-              matching: this.userE[k].matching,
-              status: 1
-            }).catch((error) => {console.log(error)})
+    //       db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
+    //       {
+    //           matching: this.userE[k].matching,
+    //           status: 1
+    //         }).catch((error) => {console.log(error)})
       
       
-        db.collection('volunteerUsers').doc(idV).update(
-        {
-          matching: this.userE[k].docID,
-          status: 1
-        }).catch((error) => {console.log(error)})
-      }
-    }
+    //     db.collection('volunteerUsers').doc(idV).update(
+    //     {
+    //       matching: this.userE[k].docID,
+    //       status: 1
+    //     }).catch((error) => {console.log(error)})
+    //   }
+    // }
 
   
-    for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
-    {
-      if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 || this.userE[i].status != 4 ))
-      {
-        //this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
-        // if(this.userE[i].email != null)
-        //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
-        //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
-      }
-    }
+    // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
+    // {
+    //   if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 || this.userE[i].status != 4 ))
+    //   {
+    //     //this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
+    //     // if(this.userE[i].email != null)
+    //     //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
+    //     //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
+    //   }
+    // }
 
-      this.alert.showSuccessAlgorithm();
+    //   this.alert.showSuccessAlgorithm();
   } 
 
 

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 import { NavParams} from 'ionic-angular';
+import {AlertProvider} from '../../providers/alert/alert'
 
 @Component({
   selector: 'modal-page',
@@ -11,7 +12,7 @@ export class ModalPage {
   public whichPage: string;
   public parameters: any[];
 
-  constructor(params: NavParams,private modal: ViewController) {
+  constructor(params: NavParams,private modal: ViewController, public alert: AlertProvider) {
     this.whichPage = params.get('whichPage')
     console.log('whichPage', this.whichPage);
 
@@ -42,9 +43,23 @@ export class ModalPage {
   }
 
 
+
+  async passParams()
+  {
+    let chosen = false
+    for(let i = 0 ; i < this.parameters.length; i++)
+      if(this.parameters[i].currentValue)
+        chosen = true
+
+    if(!chosen)
+      this.alert.error_params();
+    else
+      this.modal.dismiss({'parameters': this.parameters });
+  }
+
+
   CheckboxClicked(item: any)
   {
-    console.log(item)
     this.parameters.forEach(element => {
       
       if(element == item){
@@ -55,7 +70,6 @@ export class ModalPage {
       }
     });
 
-    console.log('parameters',this.parameters)
-    
+    //sconsole.log('parameters',this.parameters) 
   }
 }
