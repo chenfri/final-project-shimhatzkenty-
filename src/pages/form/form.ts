@@ -124,7 +124,7 @@ export class Form
 
   async presentModal() {
     const modal = await this.modal.create(
-      ModalPage
+      ModalPage,{ whichPage: 'Form' }
     );
    modal.present();
   }

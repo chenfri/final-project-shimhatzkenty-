@@ -7,6 +7,8 @@ import { User } from '../../module/User'
 import { Contact } from '../../module/Contact'
 import { HomePage } from '../home/home';
 import { PopoverPage } from '../popover/popover';
+import { ModalController } from 'ionic-angular';
+import { ModalPage } from '../modal/modal';
 
 
 @Component({
@@ -35,7 +37,8 @@ export class adminPage
  
   
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
-     public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController) 
+     public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController,
+     public modalController: ModalController) 
   {
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
@@ -65,7 +68,19 @@ export class adminPage
       console.log(this.studentArr)
   }
 
-
+  // async presentModal() {
+  //   const modal = await this.modalController.create({
+  //     component: ModalPage
+  //   });
+  //   return await modal.present();
+  // }
+  async presentModal() {
+    const modal = await this.modalController.create(
+      ModalPage,{ whichPage: 'Admin' }
+      
+    );
+   modal.present();
+  }
 
   saveConnemnts()
   {
