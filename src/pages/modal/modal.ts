@@ -18,28 +18,31 @@ export class ModalPage {
 
     this.parameters = [{
       'species': 'ימים',
-      'currentValue': false
+      'currentValue': false,
+      'Threshold' : false
     },{
       'species': 'שעות',
-      'currentValue': false
+      'currentValue': false,
+      'Threshold' : false
     },{
       'species': 'מעוניין להיפגש עם',
-      'currentValue': false
+      'currentValue': false,
+      'Threshold' : false
     },{
       'species': 'תחומי עניין',
-      'currentValue': false
+      'currentValue': false,
+      'Threshold' : false
     },{
       'species': 'שפות',
-      'currentValue': false
+      'currentValue': false,
+      'Threshold' : false
     }]
 
   }
 
   async closeModal()
   {
-    this.modal.dismiss({
-        'dismissed': true
-      });
+    this.modal.dismiss("closed")
   }
 
 
@@ -57,6 +60,22 @@ export class ModalPage {
       this.modal.dismiss(this.parameters );
   }
 
+  
+  radioClicked(item: any)
+  {
+    this.parameters.forEach(element => {
+      
+      if(element == item){
+        if(!element.Threshold && element.currentValue)
+          element.Threshold = true
+        else
+          element.Threshold = false
+      }
+    });
+
+    console.log('parameters',this.parameters) 
+  }
+
 
   CheckboxClicked(item: any)
   {
@@ -70,6 +89,6 @@ export class ModalPage {
       }
     });
 
-    //sconsole.log('parameters',this.parameters) 
+    //console.log('parameters',this.parameters) 
   }
 }

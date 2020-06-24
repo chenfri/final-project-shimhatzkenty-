@@ -71,11 +71,14 @@ export class adminPage
 
 
   async presentModal() {
-    const modal = await this.modalController.create(ModalPage, {whichPage: 'Admin'});
+    const modal = await this.modalController.create(ModalPage, {whichPage: 'Admin'}, {enableBackdropDismiss:false});
     await modal.present();
     await modal.onDidDismiss(data => {
-      this.parameters = data
-      this.matchingAlgorithm()
+      if(data != "closed")
+      {
+        this.parameters = data
+        this.matchingAlgorithm()
+      }
     })
   }
 

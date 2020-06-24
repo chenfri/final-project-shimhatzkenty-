@@ -18,19 +18,32 @@
 </ion-content>
 
 <ion-content class="parametersPage">
+    <button class="close-icon" type="submit" style="text-align: right !important; margin-left: 5px;" (click)="closeModal()"></button>
     <ion-grid>
         <ion-row *ngIf="this.whichPage=='Admin'">
             <ion-col>
-                <h3 style="text-align:center !important; font-weight: bold;margin-bottom: 3rem;direction: rtl">בחירת פרמטרים לאלגוריתם ההתאמה:</h3>
-                <ion-list radio-group class="item-list"><br>
+                <h5 style="text-align:center !important; font-weight: bold;margin-top: 4rem;;direction: rtl">האם הפרמטר תנאי סף?</h5>
+                <ion-list radio-group class="item-list" style="margin-right: 3rem;"><br>
+                    <ion-item no-lines class="item-radios" *ngFor="let param of parameters">
+                        <ion-label style="text-align: right;" *ngIf="!param.Threshold">לא</ion-label>
+                        <ion-label style="text-align: right;" *ngIf="param.currentValue && param.Threshold">כן</ion-label>
+                        <ion-checkbox *ngIf="param.currentValue" item-right color="adminpagebutton" [checked]="param.Threshold" (click)="radioClicked(param)"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+
+            <ion-col>
+                <h5 style="text-align:center !important; font-weight: bold;margin-top: 4rem; direction: rtl">בחירת פרמטרים לאלגוריתם ההתאמה:</h5>
+                <ion-list radio-group><br>
                     <ion-item no-lines class="item-radios" *ngFor="let param of parameters">
                         <ion-label style="text-align: right;"> {{ param.species }} </ion-label>
                         <ion-checkbox item-right color="adminpagebutton" [checked]="param.currentValue" (click)="CheckboxClicked(param)"></ion-checkbox>
                     </ion-item>
                 </ion-list>
             </ion-col>
+
         </ion-row>
-        <ion-row style="align-self: center;">
+        <ion-row style="align-self: center; margin-top: 10px;">
             <button class="buttons" type="submit" (click)="passParams()">הפעל את אלגוריתם ההתאמה</button>
         </ion-row>
     </ion-grid>
