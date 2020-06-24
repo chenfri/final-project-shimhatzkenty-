@@ -199,7 +199,7 @@ saveDescription(description, idE, idV ,i)
     }) .catch(error => console.log(error))
 
     else
-      db.collection("volunteerUsers").doc(idV).update({
+      db.collection("ElderlyUsers").doc(idV).update({
         status: 2
       }) .catch(error => console.log(error))
     

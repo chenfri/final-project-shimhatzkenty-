@@ -54,7 +54,7 @@ export class ModalPage {
     if(!chosen)
       this.alert.error_params();
     else
-      this.modal.dismiss({'parameters': this.parameters });
+      this.modal.dismiss(this.parameters );
   }
 
 
