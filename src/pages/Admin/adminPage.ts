@@ -580,21 +580,22 @@ export class adminPage
         let arrMatch = [] , j = 0 
         this.findMatches(i, j , arrMatch)
 
-        for(let k = 0; k < 3; k++) //save the best match
-        {
-          if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
+        console.log("arrMatch :", arrMatch)
+          for(let k = 0; k < arrMatch.length; k++) //save the best match
           {
-            //if the current grade is bigger than the last garde
-            if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade)
+            if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
             {
-              this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
-              date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
-              console.log(this.userE[arrMatch[k].index].matching)
-              console.log(this.userE[arrMatch[k].index].name)
-              break;
+              //if the current grade is bigger than the last garde
+              if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade)
+              {
+                this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
+                date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
+                console.log(this.userE[arrMatch[k].index].matching)
+                console.log(this.userE[arrMatch[k].index].name)
+                break;
+              }
             }
           }
-        }
       }
     }
 
@@ -641,38 +642,83 @@ export class adminPage
   //the method find the 3 best matches for all volunteer and save it in 'arrMatch'
   findMatches(i, j , arrMatch)
   {
-    // console.log(this.parameters)
-  
+ 
       for(let l = 0; l < this.userE.length; l++)
       {
+        let res = 0 ,grade = 0
         if(this.userE[l].status != 2 && this.userE[l].status != 4)
         {
           console.log("volunteer name: ", this.userV[i].name + "\nelderly name: ", this.userE[l].name)
-          let grade = 0;
+          
           if(this.parameters[0].currentValue) //days
-            grade += this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting)
+          {
+            res = this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting)
+            if(this.parameters[0].Threshold && res == 0)
+                continue;
+            else
+            {
+              grade += res
+              res = 0
+              console.log("after days ", grade)  
+            }
+              
+          }
 
           if(this.parameters[1].currentValue) //hours  
-            grade += this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
+          {
+              res = this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
+              if(this.parameters[1].Threshold && res == 0)
+                continue
+              else
+              {
+                grade += res
+                res = 0  
+                console.log("after hours ", grade)
+              }
+          }
+        
 
-          if(this.parameters[2].currentValue && this.userV[i].meetingWith == this.userE[l].meetingWith) //meeting with   
-            grade +=1
+          if(this.parameters[2].currentValue)//meeting with 
+          {
+            res = this.checkMeetingWithArr(this.userV[i].meetingWith, this.userE[l].meetingWith)
+            if(this.parameters[2].Threshold  && res == 0)
+              continue;
+            else
+            {
+              grade += res
+              res = 0
+              console.log("after meetingwith ", grade)
+            }
+          }  
     
           if(this.parameters[3].currentValue) //hobbies
           {
-            grade += this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies)
-            grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
+            res = this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies)
+            if(this.parameters[3].Threshold && res == 0)
+              continue
+            else
+            {
+              grade += res
+              res = 0
+              console.log("after hobbies ", grade)
+              grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
+              console.log("after music style ", grade)
+            }
           }
 
           if(this.parameters[4].currentValue) //language
-            grade += this.checkMatchArr(this.userV[i].language, this.userE[l].language) 
+          {
+            res = this.checkMatchArr(this.userV[i].language, this.userE[l].language) 
+            if(this.parameters[4].Threshold && res == 0)
+              continue
+            else
+            {
+              grade += res
+              res = 0
+              console.log("after language ", grade)
+            }
+          }
 
-          // console.log("after days ", grade)  
-          // console.log("after hours ", grade)
-          // console.log("after meetingwith ", grade)
-          // console.log("after hobbies ", grade)
-          // console.log("after music style ", grade)
-          // console.log("after language ", grade)
           console.log("totle grade is: ", grade)
 
         let temp = {"grade": grade, "id": this.userE[l].docID, index: l}
@@ -686,7 +732,6 @@ export class adminPage
           this.update_gradesArr(arrMatch, grade, temp)
       }
     }
-   console.log("arrMatch :", arrMatch)
   }
 
 
@@ -762,7 +807,21 @@ export class adminPage
 
 
 
-  //the method check if the volunteer and the eldery chose the same options in the form
+  checkMeetingWithArr(vol, elder)
+  {
+    let grade = 0
+    if(vol == 1 || elder == 1) //לא משנה עם מי להיפגש
+      grade = 1
+    else if(vol == 2 && elder == 2) //נשים בלבד
+      grade = 1
+    else if(vol == 3 && elder == 3) //גברים בלבד
+      grade = 1
+
+    return grade
+  }
+
+
+
   checkMatchArr(arrV, arrE)
   {
     let grade = 0
@@ -773,6 +832,7 @@ export class adminPage
       }
     return grade;
   }
+
 
 
   //insert new grade to array in sort way
