@@ -68,12 +68,7 @@ export class adminPage
       console.log(this.studentArr)
   }
 
-  // async presentModal() {
-  //   const modal = await this.modalController.create({
-  //     component: ModalPage
-  //   });
-  //   return await modal.present();
-  // }
+
   async presentModal() {
     const modal = await this.modalController.create(
       ModalPage,{ whichPage: 'Admin' }
@@ -82,6 +77,8 @@ export class adminPage
    modal.present();
   }
 
+
+  
   saveConnemnts()
   {
     this.save_AdminComments(this.userV, "volunteerUsers")

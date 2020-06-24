@@ -17,33 +17,23 @@
     padding: 10px 10px 10px 10px; margin-left: 25px; float: left;" (click)="closeModal()">אישור</button>
 </ion-content>
 
-<ion-content class="parametersPage" *ngIf="this.whichPage=='Admin'">
-    <h1 style="text-align:center; font-weight: bold;margin-bottom: 3rem;">בחירת פרמטרים לאלגוריתם התאמה:</h1>
-
-    <ion-list radio-group class="item-list">
-        <ion-item no-lines  class="item-radios">
-            <ion-label item-right> ימים מועדפים  </ion-label>
-            <ion-radio item-right color="adminpagebutton"  [checked]="parameters[0].currentValue" (click)="CheckboxClicked('days')"></ion-radio >
-        </ion-item>
-        <ion-item no-lines   class="item-radios">
-            <ion-label item-right> שעות מועדפות </ion-label>
-            <ion-radio item-right color="adminpagebutton"  [checked]="parameters[1].currentValue" (click)="CheckboxClicked('hours')"></ion-radio >
-        </ion-item>
-        <ion-item no-lines  class="item-radios">
-            <ion-label item-right> מעוניין להיפגש עם </ion-label>
-            <ion-radio item-right color="adminpagebutton"  [checked]="parameters[2].currentValue" (click)="CheckboxClicked('meetingWith')"></ion-radio >
-        </ion-item>
-        <ion-item no-lines class="item-radios">
-            <ion-label item-right> תחביבים </ion-label>
-            <ion-radio item-right color="adminpagebutton"  [checked]="parameters[3].currentValue" (click)="CheckboxClicked('hobbies')"></ion-radio >
-        </ion-item>
-        <ion-item no-lines class="item-radios">
-            <ion-label item-right > שפות </ion-label>
-            <ion-radio item-right color="adminpagebutton"  [checked]="parameters[4].currentValue" (click)="CheckboxClicked('language')"></ion-radio >
-        </ion-item>
-    </ion-list>
-
-    <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button>
-
-
+<ion-content>
+    <ion-grid class="parametersPage">
+        <ion-row *ngIf="this.whichPage=='Admin'">
+            <ion-col>
+                <h1 style="text-align:center !important; font-weight: bold;margin-bottom: 3rem;direction: rtl">בחירת פרמטרים לאלגוריתם התאמה:</h1>
+                <ion-list radio-group class="item-list"><br>
+                    <ion-item no-lines class="item-radios" *ngFor="let param of parameters">
+                        <ion-label style="text-align: right;"> {{ param.species }} </ion-label>
+                        <ion-checkbox item-right color="adminpagebutton" [checked]="param.currentValue" (click)="CheckboxClicked(param)"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <button class="buttons" type="submit" (click)="matchingAlgorithm()">הפעל את אלגוריתם ההתאמה</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

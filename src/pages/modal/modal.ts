@@ -6,28 +6,29 @@ import { NavParams} from 'ionic-angular';
   selector: 'modal-page',
   templateUrl: 'modal.html',
 })
+
 export class ModalPage {
   public whichPage: string;
-  public parameters:any[];
+  public parameters: any[];
 
   constructor(params: NavParams,private modal: ViewController) {
     this.whichPage = params.get('whichPage')
     console.log('whichPage', this.whichPage);
 
-    this.parameters =   [{
-      'species': 'days',
+    this.parameters = [{
+      'species': 'ימים',
       'currentValue': false
     },{
-      'species': 'hours',
+      'species': 'שעות',
       'currentValue': false
     },{
-      'species': 'meetingWith',
+      'species': 'מעוניין להיפגש עם',
       'currentValue': false
     },{
-      'species': 'hobbies',
+      'species': 'תחומי עניין',
       'currentValue': false
     },{
-      'species': 'language',
+      'species': 'שפות',
       'currentValue': false
     }]
 
@@ -39,22 +40,22 @@ export class ModalPage {
         'dismissed': true
       });
   }
+
+
   CheckboxClicked(item: any)
   {
+    console.log(item)
     this.parameters.forEach(element => {
       
-      if(element.species == item){
-        element.currentValue =true
+      if(element == item){
+        if(element.currentValue)
+          element.currentValue = false
+        else
+          element.currentValue = true
       }
-      else{
-        element.currentValue =false
-      }
- 
-
-      
     });
 
     console.log('parameters',this.parameters)
     
-}
+  }
 }
