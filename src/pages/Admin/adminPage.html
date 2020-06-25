@@ -70,7 +70,7 @@
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
                 </td>
                 <td class="hidePhone">
-                    <label *ngIf="value.status != 0">כן</label>
+                    <label *ngIf="value.status != 0">{{dates[i]}}</label>
                     <label *ngIf="value.status == 0">לא</label>
                 </td>
                 <td>{{value.dateTime}}</td>
@@ -112,7 +112,7 @@
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
                 </td>
                 <td class="hidePhone">
-                    <label *ngIf="value.status != 0">כן</label>
+                    <label *ngIf="value.status != 0">{{dates[numbers[i]]}}</label>
                     <label *ngIf="value.status == 0">לא</label>
                 </td>
                 <td>

@@ -35,7 +35,9 @@ export class adminPage
   public studentArr :any[] = [];
   public contacts: any[]
   public parameters: any[]
-  
+  public dates:any[] = [];
+  public numbers: any[] = []
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
      public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController,
      public modalController: ModalController) 
@@ -57,8 +59,12 @@ export class adminPage
     console.log(this.userV);
     this.sortArrByDates(this.userE)
     console.log(this.userE);
+    this.getVolunteerNumbers();
+    console.log(this.numbers)
 
-    let j = 0;
+    this.arrangeDates(); 
+
+    let j = 0; //arrange array of students
     for(let i = 0 ; i < this.userV.length; i++)
     {
       if(this.userV[i].student){
@@ -67,6 +73,46 @@ export class adminPage
     }
       console.log(this.studentArr)
 
+  }
+
+
+
+  getVolunteerNumbers()
+  {
+    for(var i = 0; i < this.userV.length; i++)
+    {
+      if(this.userV[i].status != 0)
+      {
+        var eID = this.userV[i].matching;
+        var push = false;
+
+        for(var j = 0 ; j < this.userE.length; j++)
+        {         
+            if(this.userE[j].docID.localeCompare(eID) == 0 ){
+            this.numbers.push(j); 
+              push = true; }
+        } 
+      }
+
+      else
+          this.numbers.push(-1); }
+}
+
+
+  arrangeDates()
+  {
+    for(let i = 0 ; i < this.userE.length; i++)
+    {
+      if(this.userE[i].status != 0)
+      {
+      let date = this.userE[i].matching.date
+      let tmp = date[8] + date[9] + "-" + date[5] + date[6] + "-" + date[0] + date[1] + date[2] + date[3]
+      this.dates.push(tmp)
+      }
+      else
+        this.dates.push("")
+    }
+    console.log(this.dates)
   }
 
 

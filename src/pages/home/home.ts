@@ -257,7 +257,8 @@ scrollToBottom() {
         college: i.data().college,
         student: i.data().student,
         adminComments: i.data().adminComments,
-        commentTmp: i.data().adminComments
+        commentTmp: i.data().adminComments,
+        matching: i.data().matching
       }
         j++})}).catch(error => {console.log(error)})
 
