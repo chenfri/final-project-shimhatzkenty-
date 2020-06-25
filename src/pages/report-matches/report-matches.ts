@@ -19,6 +19,7 @@ export class ReportMatchesPage {
   matchesNotFoundList: any[] =[] ;
   notConfirmedMatchesList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
   acceptedMatchesList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
+  waitingForAdminAcceptList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
   MeetingList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
   RejectedMatch: {volName: any,  volIdDoc: any, elderlyName: any,  elderlyIdDoc: any,  reason: any}[] =[] ;
   IDlogged:any;
@@ -58,6 +59,8 @@ export class ReportMatchesPage {
     console.log('meetingList: ', this.MeetingList)
     console.log('RejectedMatch: ',this.RejectedMatch)
     console.log('matchesFoundList: ',this.matchesFoundList)
+    console.log('waitingForAdminAcceptList:   ',this.waitingForAdminAcceptList)
+
  }
 
   ionViewDidLoad() {
@@ -116,6 +119,8 @@ export class ReportMatchesPage {
             else if(this.userV[iV].status == 4)
               this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
 
+            else if(this.userV[iV].status == -1)
+              this.waitingForAdminAcceptList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
             break;
           }
         }
@@ -123,7 +128,45 @@ export class ReportMatchesPage {
    } 
   }  
 
+  adminAcceptence(match , type){
 
+
+    console.log('matchToaccept:  ', match)
+    const db = firebase.firestore();
+
+    if(type == "accept"){
+      db.collection('ElderlyUsers').doc(this.userE[match.elderlyIdDoc].docID).update(
+      {
+          matching: this.userE[match.elderlyIdDoc].matching,
+          status: 1
+        }).catch((error) => {console.log(error)})
+        
+        
+      db.collection('volunteerUsers').doc(this.userV[match.volIdDoc].docID).update(
+      {
+        matching: this.userE[match.elderlyIdDoc].docID,
+        status: 1
+      }).catch((error) => {console.log(error)})
+
+
+      this.userE[match.elderlyIdDoc].status = 1
+    }
+    else if(type == "reject"){
+      db.collection("volunteerUsers").doc(this.userV[match.volIdDoc].docID).update({
+        status: 0,
+        matching: null,
+      }).catch(error => {console.log(error)}) 
+    
+    
+      db.collection("ElderlyUsers").doc(this.userE[match.elderlyIdDoc].docID).update({
+        matching:{id: "", grade: 0, date: ""},
+        status: 0
+      }).catch(error => {console.log(error)})
+
+      this.userE[match.elderlyIdDoc].status = 0
+    }
+
+  }
 
     // modal for get 'more details' about the users
     async openPopover(event , uid, userType)

@@ -21,8 +21,8 @@
     <ion-grid no-padding>
         <ion-row style="justify-content: center;">
             <div *ngFor="let value of userE ; let i = index" class ="bigDiv" >
-            <ion-col  *ngIf="(value.matching.id!= '' && value.matching.id == IDlogged )|| 
-                ( value.matching.id != '' && user.Admin) " >
+            <ion-col  *ngIf="(value.matching.id!= '' && value.matching.id == IDlogged && value.status != -1 )|| 
+                             ( value.matching.id != '' && user.Admin && value.status != -1 ) " >
                 <ion-card style="background: #ffffff00;">
                     <ion-row  class="outsideCard" showMatch="true" text-center padding color="info-color">
 

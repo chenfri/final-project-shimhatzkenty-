@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
-import { NavParams} from 'ionic-angular';
+import { NavParams, PopoverController} from 'ionic-angular';
 import {AlertProvider} from '../../providers/alert/alert'
+import { PopoverPage } from '../popover/popover';
+import firebase from 'firebase';
 
 @Component({
   selector: 'modal-page',
@@ -11,10 +13,25 @@ import {AlertProvider} from '../../providers/alert/alert'
 export class ModalPage {
   public whichPage: string;
   public parameters: any[];
+  waitingForAdminAcceptList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
+  userE : any[]
+  userV : any[]
 
-  constructor(params: NavParams,private modal: ViewController, public alert: AlertProvider) {
+  constructor(public navParams: NavParams, params: NavParams,private modal: ViewController, public alert: AlertProvider,public popoverCtrl: PopoverController) {
     this.whichPage = params.get('whichPage')
     console.log('whichPage', this.whichPage);
+
+
+    this.userE =  this.navParams.get('userE');
+    console.log('userE: ', this.userE);
+
+    this.userV =  this.navParams.get('userV');
+    console.log('userV: ', this.userV);
+
+    if(this.whichPage == "matchAccept")
+        this.getWaitingList()
+
+    console.log("listtt: ", this.waitingForAdminAcceptList)
 
     this.parameters = [{
       'species': 'ימים',
@@ -40,6 +57,76 @@ export class ModalPage {
 
   }
 
+  getWaitingList(){
+    var volIdDoc;
+
+    for(var iE = 0 ; iE < this.userE.length ; iE++)
+    {
+      if(this.userE[iE].matching.id != "")
+      {
+        volIdDoc = this.userE[iE].matching.id;
+
+        for(var iV = 0 ; iV < this.userV.length; iV++)
+        {
+          if(this.userV[iV].docID == volIdDoc && this.userV[iV].status == -1){
+              this.waitingForAdminAcceptList.push({elderlyIdDoc: iE ,volIdDoc: iV})
+              console.log("name VO: ", this.userV[iV].name )
+              console.log("name El: ", this.userE[iE].name )
+              break;
+          }
+        }
+      }
+      }
+   
+  }
+  adminAcceptence(match , type){
+
+
+    console.log('matchToaccept:  ', match)
+    const db = firebase.firestore();
+
+    if(type == "accept"){
+      db.collection('ElderlyUsers').doc(this.userE[match.elderlyIdDoc].docID).update(
+      {
+          matching: this.userE[match.elderlyIdDoc].matching,
+          status: 1
+        }).catch((error) => {console.log(error)})
+        
+        
+      db.collection('volunteerUsers').doc(this.userV[match.volIdDoc].docID).update(
+      {
+        matching: this.userE[match.elderlyIdDoc].docID,
+        status: 1
+      }).catch((error) => {console.log(error)})
+
+
+      this.userE[match.elderlyIdDoc].status = 1
+    }
+    else if(type == "reject"){
+      db.collection("volunteerUsers").doc(this.userV[match.volIdDoc].docID).update({
+        status: 0,
+        matching: null,
+      }).catch(error => {console.log(error)}) 
+    
+    
+      db.collection("ElderlyUsers").doc(this.userE[match.elderlyIdDoc].docID).update({
+        matching:{id: "", grade: 0, date: ""},
+        status: 0
+      }).catch(error => {console.log(error)})
+
+      this.userE[match.elderlyIdDoc].status = 0
+    }
+
+  }
+    // modal for get 'more details' about the users
+    async openPopover(event , uid, userType)
+    {
+      console.log("openPopover")
+      let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid ,'userType': userType },{cssClass: 'custom-popover'});
+      popover.present({
+        ev: event
+      });
+    }
   async closeModal()
   {
     this.modal.dismiss("closed")

@@ -56,11 +56,11 @@ export class adminPage
     this.date = new Date().toISOString().substring(0, 10);
 
     this.sortArrByDates(this.userV)
-    console.log(this.userV);
+    console.log('this.userV: ', this.userV);
     this.sortArrByDates(this.userE)
-    console.log(this.userE);
+    console.log('this.userE: ', this.userE);
     this.getVolunteerNumbers();
-    console.log(this.numbers)
+    console.log('this.numbers', this.numbers)
 
     this.arrangeDates(); 
 
@@ -71,7 +71,7 @@ export class adminPage
         this.studentArr[j] = this.userV[i]
         j++}
     }
-      console.log(this.studentArr)
+      console.log('this.studentArr', this.studentArr)
 
   }
 
@@ -128,6 +128,18 @@ export class adminPage
     })
   }
 
+  async presentModalMatch() {
+    const modal = await this.modalController.create(ModalPage, {whichPage: 'matchAccept', userV: this.userV, userE: this.userE}
+    , {enableBackdropDismiss:false});
+    await modal.present();
+    // await modal.onDidDismiss(data => {
+    //   if(data != "closed")
+    //   {
+    //     this.parameters = data
+    //     this.matchingAlgorithm()
+    //   }
+    // })
+  }
 
 
   saveConnemnts()
@@ -618,32 +630,58 @@ export class adminPage
 
   matchingAlgorithm()
   {
-    const db = firebase.firestore();
-    for(let i = 0; i < this.userV.length; i++)
-    {
-      if(this.userV[i].status != 2 && this.userV[i].status != 4)
-      {
-        let arrMatch = [] , j = 0 
-        this.findMatches(i, j , arrMatch)
 
-        console.log("arrMatch :", arrMatch)
-          for(let k = 0; k < arrMatch.length; k++) //save the best match
-          {
-            if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
-            {
-              //if the current grade is bigger than the last garde
-              if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade)
-              {
-                this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
-                date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
-                console.log(this.userE[arrMatch[k].index].matching)
-                console.log(this.userE[arrMatch[k].index].name)
-                break;
-              }
-            }
-          }
-      }
-    }
+    this.userE[0].matching = {id: this.userV[0].docID, grade: 5 ,
+    date: this.date, nameV: this.userV[0].name, phoneV: this.userV[0].phone}
+    console.log('this.userE[0].matching: ', this.userE[0].matching)
+    console.log('this.userE[0].name: ', this.userE[0].name)
+
+    let idV = this.userE[0].matching.id
+    const db = firebase.firestore();
+
+    db.collection('ElderlyUsers').doc(this.userE[0].docID).update(
+    {
+        matching: this.userE[0].matching,
+        status: -1
+      }).catch((error) => {console.log(error)})
+      
+      
+    db.collection('volunteerUsers').doc(idV).update(
+    {
+      matching: this.userE[0].docID,
+      status: -1
+    }).catch((error) => {console.log(error)})
+
+    this.userE[0].status = -1
+    this.userV[0].status = -1
+
+
+    // const db = firebase.firestore();
+    // for(let i = 0; i < this.userV.length; i++)
+    // {
+    //   if(this.userV[i].status != 2 && this.userV[i].status != 4)
+    //   {
+    //     let arrMatch = [] , j = 0 
+    //     this.findMatches(i, j , arrMatch)
+
+    //     console.log("arrMatch :", arrMatch)
+    //       for(let k = 0; k < arrMatch.length; k++) //save the best match
+    //       {
+    //         if(!this.findIfReject(this.userV[i].matching ,arrMatch[k].id))
+    //         {
+    //           //if the current grade is bigger than the last garde
+    //           if(this.userE[arrMatch[k].index].matching.grade < arrMatch[k].grade)
+    //           {
+    //             this.userE[arrMatch[k].index].matching = {id: this.userV[i].docID, grade: arrMatch[k].grade ,
+    //             date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
+    //             console.log(this.userE[arrMatch[k].index].matching)
+    //             console.log(this.userE[arrMatch[k].index].name)
+    //             break;
+    //           }
+    //         }
+    //       }
+    //   }
+    // }
 
     // for(let k = 0; k < this.userE.length; k++) //update the best 'matching' in documents
     // { 
@@ -681,6 +719,8 @@ export class adminPage
     // }
 
       this.alert.showSuccessAlgorithm();
+      this.presentModalMatch();
+
   } 
 
 

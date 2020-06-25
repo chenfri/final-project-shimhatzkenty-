@@ -15,6 +15,43 @@
 
 
     <div class="tables">
+        <div *ngIf="waitingForAdminAcceptList.length > 0">
+            <h4 class="tableTitle">התאמות שמחכות לאישור מנהל</h4>
+            <table id="customers" class="tableD">
+                <tr>
+                    <th>שם המתנדב</th>
+                    <th>שם הקשיש</th>
+                    <th>אשר התאמה</th>
+                    <th>דחה התאמה</th>
+                </tr>
+
+                <tr style="direction: rtl;" *ngFor="let value of waitingForAdminAcceptList">
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userV[value.volIdDoc].docID, 'volunteer')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userV[value.volIdDoc].name}}
+                    </td>
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userE[value.elderlyIdDoc].docID, 'elderly')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userE[value.elderlyIdDoc].name}}
+                    </td>
+                    <td>
+                        <button *ngIf="userE[value.elderlyIdDoc].status == -1" class="buttons" type="submit" (click)="adminAcceptence(value , 'accept')">אשר
+                        </button>
+                        <label *ngIf="userE[value.elderlyIdDoc].status == 1" >ההתאמה אושרה
+                        </label>
+                    </td>
+                    <td>
+                        <button *ngIf="userE[value.elderlyIdDoc].status == -1" class="buttons" type="submit" (click)="adminAcceptence(value , 'reject')">דחה</button>
+                        <label *ngIf="userE[value.elderlyIdDoc].status == 0" >ההתאמה נדחתה
+                        </label>
+                    </td>
+                </tr>
+            </table><br><br>
+        </div>
 
         <div *ngIf="matchesNotFoundList.length > 0">
             <h4 class="tableTitle">קשישים שלא נמצאה עבורם התאמה</h4>
