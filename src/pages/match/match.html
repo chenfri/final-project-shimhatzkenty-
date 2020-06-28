@@ -188,7 +188,7 @@
 
                         <ion-grid style="    align-items: center; background-color: #ffffff00; justify-content: center;" *ngIf="numbers[i]!=-1">
 
-                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1">התאמה עדיין לא אושרה</ion-row>
+                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1"> התאמה עדיין לא אושרה ע"י מתנדב</ion-row>
 
                             <ion-row>
                                 <button *ngIf="user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
