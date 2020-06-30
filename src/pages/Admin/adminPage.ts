@@ -9,6 +9,7 @@ import { HomePage } from '../home/home';
 import { PopoverPage } from '../popover/popover';
 import { ModalController } from 'ionic-angular';
 import { ModalPage } from '../modal/modal';
+import { a } from '@angular/core/src/render3';
 
 
 @Component({
@@ -81,7 +82,9 @@ export class adminPage
   {
     for(var i = 0; i < this.userV.length; i++)
     {
-      if(this.userV[i].status != 0)
+      // if(i == 46)
+      //   console.log("a")
+      if(this.userV[i].status != 0 && this.userV[i].status != -1) 
       {
         var eID = this.userV[i].matching;
         var push = false;
@@ -633,8 +636,6 @@ export class adminPage
 
     this.userE[0].matching = {id: this.userV[0].docID, grade: 5 ,
     date: this.date, nameV: this.userV[0].name, phoneV: this.userV[0].phone}
-    console.log('this.userE[0].matching: ', this.userE[0].matching)
-    console.log('this.userE[0].name: ', this.userE[0].name)
 
     let idV = this.userE[0].matching.id
     const db = firebase.firestore();
@@ -654,6 +655,30 @@ export class adminPage
 
     this.userE[0].status = -1
     this.userV[0].status = -1
+
+
+    this.userE[1].matching = {id: this.userV[1].docID, grade: 5 ,
+      date: this.date, nameV: this.userV[1].name, phoneV: this.userV[1].phone}
+  
+      idV = this.userE[1].matching.id
+  
+  
+      db.collection('ElderlyUsers').doc(this.userE[1].docID).update(
+      {
+          matching: this.userE[1].matching,
+          status: -1
+        }).catch((error) => {console.log(error)})
+        
+        
+      db.collection('volunteerUsers').doc(idV).update(
+      {
+        matching: this.userE[1].docID,
+        status: -1
+      }).catch((error) => {console.log(error)})
+  
+      this.userE[1].status = -1
+      this.userV[1].status = -1
+
 
 
     // const db = firebase.firestore();
@@ -718,7 +743,7 @@ export class adminPage
     //   }
     // }
 
-      this.alert.showSuccessAlgorithm();
+      // this.alert.showSuccessAlgorithm();
       this.presentModalMatch();
 
   } 

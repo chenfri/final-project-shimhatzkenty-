@@ -4,6 +4,7 @@ import { HomePage } from '../home/home';
 import { User } from '../../module/User';
 import firebase from 'firebase';
 import { AlertController} from 'ionic-angular';
+import { ELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser/src/dom/debug/ng_probe';
 
 
 @IonicPage()

@@ -20,39 +20,39 @@
 
     <ion-grid no-padding>
         <ion-row style="justify-content: center;">
-            <div *ngFor="let value of userE ; let i = index" class ="bigDiv" >
-            <ion-col  *ngIf="(value.matching.id!= '' && value.matching.id == IDlogged && value.status != -1 )|| 
-                             ( value.matching.id != '' && user.Admin && value.status != -1 ) " >
-                <ion-card style="background: #ffffff00;">
-                    <ion-row  class="outsideCard" showMatch="true" text-center padding color="info-color">
+            <div *ngFor="let value of userE ; let i = index" class="bigDiv">
+                <ion-col *ngIf="(value.matching.id!= '' && value.matching.id == IDlogged && value.status != -1 )|| 
+                             ( value.matching.id != '' && user.Admin && value.status != -1 ) ">
+                    <ion-card style="background: #ffffff00;">
+                        <ion-row class="outsideCard" showMatch="true" text-center padding color="info-color">
 
-                        <ion-row class="textStyle">התאמה</ion-row>
-                        <br>
+                            <ion-row class="textStyle">התאמה</ion-row>
+                            <br>
 
-                        <ion-row style="justify-content: center;">
-                            <ion-col style="text-align: -webkit-center;" class="insideCard">
-                                <!-- <ion-card  text-center padding color="info-color"> -->
-
+                            <ion-row style="justify-content: center;">
+                                <ion-col style="text-align: -webkit-center;" class="insideCard">
+                                    <!-- <ion-card  text-center padding color="info-color"> -->
+                                    <ion-row *ngIf="user.Admin" class="sub-title-card">אזרח ותיק</ion-row>
                                     <ion-item text-wrap style=" text-align: -webkit-center;">
                                         <img *ngIf="value.gender == 1;" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2FElderly-women.png?alt=media&token=59ae802e-3080-42a0-87ff-02b69b16b05d" />
                                         <img *ngIf="value.gender == 2;" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2FElderly-men.png?alt=media&token=f33cc453-3e43-4962-aaa1-de9fde4ddf50" />
                                         <img *ngIf="value.gender == 3;" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fno-gender.png?alt=media&token=93302fbb-13a4-49c3-81ff-71cee5699ac0" />
 
-                                        
+
                                         <ion-card-title style="font-weight: bold;" text-wrap>{{value.name}} </ion-card-title>
 
-                                        <ion-row class="infoTextTitle" > מספר פלאפון: </ion-row>
-                                        <ion-row class="infoText" >  0{{value.phone}} </ion-row>
+                                        <ion-row class="infoTextTitle"> מספר פלאפון: </ion-row>
+                                        <ion-row class="infoText"> 0{{value.phone}} </ion-row>
 
-                                        
+
                                         <ion-row class="infoTextTitle" *ngIf="user.Admin"><br>כתובת: </ion-row>
                                         <ion-row class="infoText" *ngIf="user.Admin">{{value.address}}</ion-row>
 
-                                        
+
                                         <ion-row class="infoTextTitle" *ngIf="value.nameAssistant != null"><br>שם איש קשר: </ion-row>
                                         <ion-row class="infoText" *ngIf="value.nameAssistant != null">{{value.nameAssistant}}</ion-row>
 
-                                    
+
                                         <ion-row class="infoTextTitle" *ngIf="value.contact != null"><br>פלאפון איש קשר: </ion-row>
                                         <ion-row class="infoText" *ngIf="value.contact != null">{{value.contact}}</ion-row>
 
@@ -71,31 +71,31 @@
                                         </ion-row>
 
                                         <br>
-                                      
+
                                         <ion-row class="infoTextTitle">שעות מועדפות למפגש:</ion-row>
-                                        <ion-row  class="infoText" *ngIf="value.hours[0].species=='כל שעה ביום' && value.hours[0].currentValue; else elseBlock ">כל שעה ביום</ion-row>
-                                        <ng-template #elseBlock >
+                                        <ion-row class="infoText" *ngIf="value.hours[0].species=='כל שעה ביום' && value.hours[0].currentValue; else elseBlock ">כל שעה ביום</ion-row>
+                                        <ng-template #elseBlock>
                                             <ion-row class="infoText" *ngFor="let hours of value.hours">
                                                 <ion-row *ngIf="hours.species!='כל שעה ביום' && hours.currentValue">{{ hours.species }}</ion-row>
                                             </ion-row>
                                         </ng-template>
 
                                         <br>
-                                         
+
                                         <ion-row class="infoTextTitle">שפות:</ion-row>
                                         <ion-row class="infoText" *ngFor="let lang of value.language">
                                             <ion-row *ngIf="lang.currentValue">{{ lang.species }}</ion-row>
                                         </ion-row>
 
                                         <br>
-                                        
+
                                         <ion-row class="infoTextTitle">סגנון מוזיקלי:</ion-row>
                                         <ion-row class="infoText" *ngFor="let musical of value.musicStyle">
                                             <ion-row *ngIf="musical.currentValue">{{ musical.species }}</ion-row>
                                         </ion-row>
 
                                         <br>
-                                        
+
                                         <ion-row class="infoTextTitle">מעוניין להיפגש עם:</ion-row>
                                         <ion-row class="infoText">
                                             <ion-row *ngIf="value.meetingWith  == 1">אין העדפה</ion-row>
@@ -104,27 +104,28 @@
                                         </ion-row>
 
                                         <br>
-                                         
+
                                         <ion-row class="infoTextTitle" *ngIf="value.description !=null">מידע נוסף:</ion-row>
                                         <ion-row class="infoText" *ngIf="value.description !=null">{{value.description}}</ion-row>
-                                 
-                                        
+
+
                                     </ion-item>
 
-                                
-                            </ion-col>
-                            <ion-col text-center class="insideCard" *ngIf="user.Admin && numbers[i] != -1">
 
-                                    <ion-item text-wrap class="infoText"  style=" text-align: -webkit-center;" *ngIf="numbers[i]!= -1">
+                                </ion-col>
+                                <ion-col text-center class="insideCard" *ngIf="user.Admin && numbers[i] != -1">
+                                    <ion-row class="sub-title-card">מתנדב</ion-row>
+                                    <ion-item text-wrap class="infoText" style=" text-align: -webkit-center;" *ngIf="numbers[i]!= -1">
 
-                                        <img *ngIf=" userV[numbers[i]].gender == 1" style="justify-content: center;width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20women.png?alt=media&token=f31aaad6-ee85-47de-8370-3bca2241b155" />
-                                        <img *ngIf=" userV[numbers[i]].gender == 2" style="justify-content: center;width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20men.png?alt=media&token=54bc0512-5082-4eb6-bea2-a1d98582220b" />
+                                        <img *ngIf=" userV[numbers[i]].gender == 1" style="justify-content: center;width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20women.png?alt=media&token=f31aaad6-ee85-47de-8370-3bca2241b155"
+                                        />
+                                        <img *ngIf=" userV[numbers[i]].gender == 2" style="justify-content: center;width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fvolunteer%20-%20men.png?alt=media&token=54bc0512-5082-4eb6-bea2-a1d98582220b"
+                                        />
                                         <img *ngIf="userV[numbers[i]].gender == 3;" style="width: 25%;" src="https://firebasestorage.googleapis.com/v0/b/simhat-zkenty.appspot.com/o/matchPage%2Fno-gender.png?alt=media&token=93302fbb-13a4-49c3-81ff-71cee5699ac0" />
 
                                         <ion-card-title style="font-weight: bold;" text-wrap>{{userV[numbers[i]].name}}</ion-card-title>
-
-                                        <ion-row class="infoTextTitle" > מספר פלאפון: </ion-row>
-                                        <ion-row class="infoText" >  0{{userV[numbers[i]].phone}} </ion-row>
+                                        <ion-row class="infoTextTitle"> מספר פלאפון: </ion-row>
+                                        <ion-row class="infoText"> 0{{userV[numbers[i]].phone}} </ion-row>
 
                                         <br>
 
@@ -137,39 +138,39 @@
                                         <ion-row class="infoText" *ngFor="let days of userV[numbers[i]].dayOfMeeting">
                                             <ion-row *ngIf="days.currentValue">{{ days.species }}</ion-row>
                                         </ion-row>
-                                        
+
                                         <br>
 
                                         <ion-row class="infoTextTitle"> תחביבים:</ion-row>
                                         <ion-row class="infoText" *ngFor="let hobby of userV[numbers[i]].hobbies">
                                             <ion-row *ngIf="hobby.currentValue">{{ hobby.species }}</ion-row>
                                         </ion-row>
-                                        
+
                                         <br>
-                                      
+
                                         <ion-row class="infoTextTitle">שעות מועדפות למפגש:</ion-row>
-                                        <ion-row  class="infoText" *ngIf="userV[numbers[i]].hours[0].species=='כל שעה ביום' && userV[numbers[i]].hours[0].currentValue; else elseBlock2 ">כל שעה ביום</ion-row>
-                                        <ng-template #elseBlock2 >
+                                        <ion-row class="infoText" *ngIf="userV[numbers[i]].hours[0].species=='כל שעה ביום' && userV[numbers[i]].hours[0].currentValue; else elseBlock2 ">כל שעה ביום</ion-row>
+                                        <ng-template #elseBlock2>
                                             <ion-row class="infoText" *ngFor="let hours of userV[numbers[i]].hours">
                                                 <ion-row *ngIf="hours.species!='כל שעה ביום' && hours.currentValue">{{ hours.species }}</ion-row>
                                             </ion-row>
                                         </ng-template>
 
-                                        
+
                                         <br>
 
-                                        <ion-row class="infoTextTitle">שפות:</ion-row>   
+                                        <ion-row class="infoTextTitle">שפות:</ion-row>
                                         <ion-row class="infoText" *ngFor="let lang of userV[numbers[i]].language">
                                             <ion-row *ngIf="lang.currentValue">{{ lang.species }}</ion-row>
                                         </ion-row>
-                                        
+
                                         <br>
 
                                         <ion-row class="infoTextTitle">סגנון מוזיקלי:</ion-row>
                                         <ion-row class="infoText" *ngFor="let musical of userV[numbers[i]].musicStyle">
                                             <ion-row *ngIf="musical.currentValue">{{ musical.species }}</ion-row>
                                         </ion-row>
-                                        
+
                                         <br>
 
                                         <ion-row class="infoTextTitle">מעוניין להיפגש עם:</ion-row>
@@ -180,59 +181,59 @@
                                         </ion-row>
                                     </ion-item>
 
-                                <!-- </ion-card> -->
+                                    <!-- </ion-card> -->
 
-                            </ion-col>
+                                </ion-col>
+                            </ion-row>
+
+
+                            <ion-grid style="    align-items: center; background-color: #ffffff00; justify-content: center;" *ngIf="numbers[i]!=-1">
+
+                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1"> התאמה עדיין לא אושרה ע"י מתנדב</ion-row>
+
+                                <ion-row>
+                                    <button *ngIf="user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
+                                    <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
+                                </ion-row>
+
+                                <ion-row class="textStyle" *ngIf="this.user.status == 2">ההתאמה אושרה</ion-row>
+
+                                <ion-row>
+                                    <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
+                                    <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0, numbers[i])">אשר ביצוע מפגש</button>
+                                    <button *ngIf="this.userV[numbers[i]].status == 4" class="buttons" (click)="findNewMatching(userV[numbers[i]].docID, userE[i].docID)">מצא לי התאמה חדשה</button>
+                                </ion-row>
+
+                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">המפגש התקיים {{value.matching.meetingDate}}</ion-row>
+
+                                <ion-row *ngIf="this.userV[numbers[i]].status == 4">
+                                    <ion-item>
+                                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(i)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
+                                            [(ngModel)]="this.userE[i].matching.date">{{meetingDate}}</ion-datetime>
+                                    </ion-item>
+                                </ion-row>
+
+                                <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row>
+                                <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
+
+                                <ion-row>
+                                    <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 &&this.userV[numbers[i]].status != 4" (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
+                                </ion-row>
+                                <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="cancelText">
+                                    <ion-item>
+                                        <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
+                                        <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
+                                    </ion-item>
+                                    <button class="buttons" (click)="saveDescription(user.description , value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת ביטול</button>
+
+                                </ion-grid>
+                            </ion-grid>
                         </ion-row>
 
+                    </ion-card>
 
-                        <ion-grid style="    align-items: center; background-color: #ffffff00; justify-content: center;" *ngIf="numbers[i]!=-1">
-
-                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1"> התאמה עדיין לא אושרה ע"י מתנדב</ion-row>
-
-                            <ion-row>
-                                <button *ngIf="user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
-                                <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
-                            </ion-row>
-
-                            <ion-row class="textStyle" *ngIf="this.user.status == 2">ההתאמה אושרה</ion-row>
-
-                            <ion-row>
-                                <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
-                                <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0, numbers[i])">אשר ביצוע מפגש</button>
-                                <button *ngIf="this.userV[numbers[i]].status == 4" class="buttons" (click)="findNewMatching(userV[numbers[i]].docID, userE[i].docID)">מצא לי התאמה חדשה</button>
-                            </ion-row>
-                            
-                            <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">המפגש התקיים {{value.matching.meetingDate}}</ion-row>
-
-                            <ion-row *ngIf="this.userV[numbers[i]].status == 4">
-                                <ion-item>
-                                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(i)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
-                                        [(ngModel)]="this.userE[i].matching.date">{{meetingDate}}</ion-datetime>
-                                </ion-item>
-                            </ion-row>
-
-                            <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row>
-                            <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
-
-                            <ion-row>
-                                <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 &&this.userV[numbers[i]].status != 4" (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
-                            </ion-row>
-                            <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="cancelText">
-                                <ion-item>
-                                    <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
-                                    <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
-                                </ion-item>
-                                <button class="buttons" (click)="saveDescription(user.description , value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת ביטול</button>
-
-                            </ion-grid>
-                        </ion-grid>
-                    </ion-row>
-
-                </ion-card>
-
-            </ion-col >
-        </div>
+                </ion-col>
+            </div>
         </ion-row>
     </ion-grid>
     <!-- <div *ngIf="!showMatch">אין התאמה</div> -->

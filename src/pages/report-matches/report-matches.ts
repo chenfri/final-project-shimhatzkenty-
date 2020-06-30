@@ -16,7 +16,8 @@ export class ReportMatchesPage {
   userE : any[]
   userV : any[]
   matchesFoundList :{elderlyIdDoc: any,volIdDoc: any}[] =[] 
-  matchesNotFoundList: any[] =[] ;
+  ElderMatchesNotFound: any[] =[] ;
+  VolMatchesNotFound: any[] =[] ;
   notConfirmedMatchesList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
   acceptedMatchesList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
   waitingForAdminAcceptList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
@@ -52,8 +53,8 @@ export class ReportMatchesPage {
     }
    
     this.getDataToLists();
-
-    console.log('matchesNotFoundList: ',this.matchesNotFoundList)
+    console.log('VolMatchesNotFound: ',this.VolMatchesNotFound)
+    console.log('EldermatchesNotFound: ',this.ElderMatchesNotFound)
     console.log('notConfirmedMatchesList: ',this.notConfirmedMatchesList)
     console.log('acceptedMatchesList: ', this.acceptedMatchesList)
     console.log('meetingList: ', this.MeetingList)
@@ -75,7 +76,9 @@ export class ReportMatchesPage {
 
     for(var iV = 0 ; iV < this.userV.length; iV++) // for rejected matched table
     {
-      if(this.userV[iV].rejected != null)
+      if(this.userV[iV].status == 0 || this.userV[iV].status == -1 ) 
+        this.VolMatchesNotFound.push(this.userV[iV].index)
+      else if(this.userV[iV].rejected != null)
       {
         volName = this.userV[iV].name
         this.userV[iV].rejected.forEach(element => {
@@ -97,8 +100,8 @@ export class ReportMatchesPage {
 
     for(var iE = 0 ; iE < this.userE.length ; iE++)
     {
-      if(this.userE[iE].status == 0) // elderly not found for them matching
-        this.matchesNotFoundList.push(this.userE[iE].index)
+      if(this.userE[iE].status == 0 || this.userE[iE].status == -1) // elderly not found for them matching
+        this.ElderMatchesNotFound.push(this.userE[iE].index)
     
       else if(this.userE[iE].matching.id != "")
       {

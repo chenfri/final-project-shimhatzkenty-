@@ -41,26 +41,26 @@
                     <td>
                         <button *ngIf="userE[value.elderlyIdDoc].status == -1" class="buttons" type="submit" (click)="adminAcceptence(value , 'accept')">אשר
                         </button>
-                        <label *ngIf="userE[value.elderlyIdDoc].status == 1" >ההתאמה אושרה
+                        <label *ngIf="userE[value.elderlyIdDoc].status == 1">ההתאמה אושרה
                         </label>
                     </td>
                     <td>
                         <button *ngIf="userE[value.elderlyIdDoc].status == -1" class="buttons" type="submit" (click)="adminAcceptence(value , 'reject')">דחה</button>
-                        <label *ngIf="userE[value.elderlyIdDoc].status == 0" >ההתאמה נדחתה
+                        <label *ngIf="userE[value.elderlyIdDoc].status == 0">ההתאמה נדחתה
                         </label>
                     </td>
                 </tr>
             </table><br><br>
         </div>
 
-        <div *ngIf="matchesNotFoundList.length > 0">
+        <div *ngIf="ElderMatchesNotFound.length > 0">
             <h4 class="tableTitle">קשישים שלא נמצאה עבורם התאמה</h4>
             <table id="customers" class="tableD">
                 <tr>
                     <th>שם הקשיש</th>
                 </tr>
 
-                <tr style="direction: rtl;" *ngFor="let value of matchesNotFoundList">
+                <tr style="direction: rtl;" *ngFor="let value of ElderMatchesNotFound">
                     <td>
                         <a class="info-button" (click)="openPopover($event, userE[value].docID, 'elderly')">
                             <ion-icon name="ios-information-circle-outline"></ion-icon>
@@ -70,6 +70,27 @@
                 </tr>
             </table><br><br>
         </div>
+
+
+
+        <div *ngIf="VolMatchesNotFound.length > 0">
+            <h4 class="tableTitle">מתנדבים שלא נמצאה עבורם התאמה</h4>
+            <table id="customers" class="tableD">
+                <tr>
+                    <th>שם המתנדב</th>
+                </tr>
+
+                <tr style="direction: rtl;" *ngFor="let value of VolMatchesNotFound">
+                    <td>
+                        <a class="info-button" (click)="openPopover($event, userV[value].docID, 'volunteer')">
+                            <ion-icon name="ios-information-circle-outline"></ion-icon>
+                        </a>
+                        {{userV[value].name}}
+                    </td>
+                </tr>
+            </table><br><br>
+        </div>
+
 
         <div *ngIf="notConfirmedMatchesList.length > 0">
             <h4 class="tableTitle">התאמות שטרם אושרו ע"י מתנדב</h4>

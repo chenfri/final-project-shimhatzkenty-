@@ -16,30 +16,32 @@
         float: left;
         font-weight: bold;
     }
-
-    .insideCard{
-    
+    .insideCard {
         justify-content: center;
         width: max-content;
         background: white;
         margin: 5px;
     }
-    .outsideCard{
+    .sub-title-card {
+        font-weight: bold;
+        justify-content: center;
+    }
+    .outsideCard {
         // width: 50%;
         background-color: #5f9ea087;
         justify-content: center;
-        display: inline-block;    max-width: 500px;
+        display: inline-block;
+        max-width: 500px;
     }
-    .textStyle{
+    .textStyle {
         font-family: calibri;
         // color: white;
         justify-content: center;
         font-weight: bold;
-        font-size: x-large;       
+        font-size: x-large;
         direction: rtl;
-    
     }
-    .infoText{
+    .infoText {
         font-family: calibri;
         justify-content: center;
         direction: rtl;
@@ -48,57 +50,49 @@
         height: max-content;
         font-size: 15px;
     }
-    .infoTextTitle{
+    .infoTextTitle {
         font-family: calibri;
         justify-content: center;
         direction: rtl;
         font-weight: bold;
         font-size: 16px;
-
     }
-
- 
     // .item item-block item-md{
     //     background-color: #ffffff42;
     // }
-    .buttonStyle{
+    .buttonStyle {
         justify-content: center;
-
     }
-    .bigDiv{
+    .bigDiv {
         width: min-content;
         max-width: min-content;
     }
-  
     @media screen and (max-width: 470px) {
-        .insideCard{
+        .insideCard {
             width: min-content;
         }
-        .bigDiv{
+        .bigDiv {
             width: -webkit-fill-available;
         }
-        .outsideCard{
+        .outsideCard {
             width: -webkit-fill-available;
         }
     }
     @media screen and (max-width: 350px) {
-        .insideCard{
+        .insideCard {
             width: -webkit-fill-available;
         }
-        .bigDiv{
+        .bigDiv {
             width: -webkit-fill-available;
         }
-        .outsideCard{
+        .outsideCard {
             width: -webkit-fill-available;
         }
-        .infoText{
-          
+        .infoText {
             font-size: 10px;
         }
-        .infoTextTitle{
-         
+        .infoTextTitle {
             font-size: 11px;
-    
         }
     }
 }
