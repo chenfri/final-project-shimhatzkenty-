@@ -18,7 +18,7 @@
         <a class="navbarButton" ion-button *ngIf="user.loggedIn  && !user.organization" (click)="get_data_for_admin(2)">צפייה בהתאמות</a >
         <a class="navbarButton" ion-button *ngIf="user.Admin" (click)="get_data_for_admin(3)"> דו"ח התאמות</a>
         <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" add_AdminUser(1)">הוספת מנהל חדש</a>
-        <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" add_AdminUser(2)">הוספת מנהל ארגון</a>
+        <a class="navbarButton" ion-button *ngIf="user.Admin" (click)=" add_AdminUser(2)">רכז גיל שלישי/ עו"ס</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin && !user.organization" (click)="scrollToBottom()">גלריה</a>
         <a class="navbarButton" ion-button *ngIf="!user.Admin && !user.organization" (click)="contactPage()">צור קשר</a>
         <a class="navbarButton" ion-button *ngIf="user.loggedIn" (click)="logout()">התנתק</a >

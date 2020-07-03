@@ -237,8 +237,9 @@ export class Form
   
     let flag = 0;
     let phone = this.user.phone;
-    if(phone[0] != '0')
-      phone =  "0" + this.user.phone
+    if(phone != undefined)
+      if(phone[0] != '0')
+        phone =  "0" + this.user.phone
 
     let contact = this.user.contact;
     if(this.user.contact != null && this.user.contact[0] != '0')
@@ -264,8 +265,13 @@ export class Form
          flag = 1;
       }
   
-      else if (typeof (this.user.phone) === "undefined" ||
-       (!this.validateCellPhoneNumber(phone) && !this.validatePhoneNumber(phone))) {
+      else if (typeof (this.user.phone) === "undefined") {
+        this.alert.error_emptyPhone()
+        flag = 1;
+      }
+
+      else if(!this.validateCellPhoneNumber(phone) && !this.validatePhoneNumber(phone))
+      {
         this.alert.error_emptyPhone()
         flag = 1;
       }

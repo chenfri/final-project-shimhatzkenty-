@@ -37,12 +37,15 @@ export class adminPage
   public contacts: any[]
   public parameters: any[]
   public dates:any[] = [];
-  public numbers: any[] = []
+  public volunteerMatches: any[] = []
+  public elderMatches: any[] = []
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
      public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController,
      public modalController: ModalController) 
   {
+    //get parameters form other pages
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
@@ -50,18 +53,22 @@ export class adminPage
     this.organizationEledry = this.navParams.get('organizationEledry');
     this.messages = this.navParams.get('messages');
     this.contacts = this.navParams.get('contacts'); 
-    console.log("contacts: ", this.contacts)
 
+    //inialize variables
     this.matchE = null;
     this.matchV = null;
     this.date = new Date().toISOString().substring(0, 10);
 
+    //update array of users that would be sorted by dates
     this.sortArrByDates(this.userV)
     console.log('this.userV: ', this.userV);
     this.sortArrByDates(this.userE)
     console.log('this.userE: ', this.userE);
-    this.getVolunteerNumbers();
-    console.log('this.numbers', this.numbers)
+
+    this.getVolunteerMatches();
+    console.log('this.volunteerMatches', this.volunteerMatches)
+    this.getElderlyMatches();
+    console.log('this.elderMatches', this.elderMatches)
 
     this.arrangeDates(); 
 
@@ -78,12 +85,13 @@ export class adminPage
 
 
 
-  getVolunteerNumbers()
+  //the method return array that every index represent volunteer
+  // in cell we write the index of matcing elderly
+  getVolunteerMatches()
   {
     for(var i = 0; i < this.userV.length; i++)
     {
-      // if(i == 46)
-      //   console.log("a")
+
       if(this.userV[i].status != 0 && this.userV[i].status != -1) 
       {
         var eID = this.userV[i].matching;
@@ -92,16 +100,45 @@ export class adminPage
         for(var j = 0 ; j < this.userE.length; j++)
         {         
             if(this.userE[j].docID.localeCompare(eID) == 0 ){
-            this.numbers.push(j); 
+            this.volunteerMatches.push(j); 
               push = true; }
         } 
       }
 
       else
-          this.numbers.push(-1); }
+          this.volunteerMatches.push(-1); }
 }
 
 
+
+
+
+  //the method return array that every index represent elderly
+  // in cell we write the index of matcing volunteer
+  getElderlyMatches()
+  {
+    for(var i = 0; i < this.userE.length; i++)
+    {
+      if(this.userE[i].status != 0 && this.userE[i].status != -1) 
+      {
+        var volID = this.userE[i].matching.id;
+        var push = false;
+
+        for(var j = 0 ; j < this.userV.length; j++)
+        {      
+            if(this.userV[j].docID.localeCompare(volID) == 0 ){
+            this.elderMatches.push(j); 
+              push = true; }
+        } 
+      }
+
+      else
+          this.elderMatches.push(-1); }
+  }
+
+
+
+// arrange date of finding matching in tables
   arrangeDates()
   {
     for(let i = 0 ; i < this.userE.length; i++)
@@ -306,7 +343,7 @@ export class adminPage
 
 
 
-  deleteElderlyUser(item)
+  deleteElderlyUser(item , index)
   {
    
     let alert = this.alertCtrl.create({
@@ -322,6 +359,16 @@ export class adminPage
         if(item != "")
           db.collection("ElderlyUsers").doc(item).delete().then(() =>
           {
+
+            if(this.userE[index].status != 0 && this.userE[index].status != -1) 
+            {
+              let volId= this.userE[index].matching.id
+              
+              db.collection("volunteerUsers").doc(volId).update({
+                matching:"",
+                status: 0
+              }).catch(error => {console.log(error)}) 
+            }
             this.event.publish('operateFunc', "1")    
             console.log("Document successfully deleted!")
           }).catch((error) => console.error("Error removing document: ", error)); 
@@ -430,7 +477,7 @@ export class adminPage
 
 
 
-  deleteVolunteerUser(item)
+  deleteVolunteerUser(item, index)
   {  
     let alert = this.alertCtrl.create({
     title: 'אזהרה',
@@ -445,6 +492,18 @@ export class adminPage
               
         db.collection("volunteerUsers").doc(item).delete().then(() =>
         {
+       
+             //let elderIndex;
+             if(this.userV[index].status != 0 && this.userV[index].status != -1) 
+             {
+               let elderId= this.userV[index].matching
+   
+               db.collection("ElderlyUsers").doc(elderId).update({
+                 matching:{id: "", grade: 0, date: ""},
+                 status: 0
+               }).catch(error => {console.log(error)}) 
+             }
+            
           this.event.publish('operateFunc', "1")    
           console.log("Document successfully deleted!");
 
@@ -464,30 +523,6 @@ export class adminPage
 
 
 
-  elderlyRadioClicked(numElderly)
-  {
-    this.matchE = this.userE[numElderly].docID;
-    console.log("idE: ",this.matchE)
-    this.userE[numElderly].manualM = true;
-
-    for(var i = 0 ; i < this.userE.length; i++)
-        if(numElderly != i)
-          this.userE[i].manualM = false;
-  }
-
-
-  
-  volunteerRadioClicked(numVolunteer)
-  {
-    this.matchV = this.userV[numVolunteer].docID
-    console.log("idV: ",this.matchV)
-    this.userV[numVolunteer].manualM = true;
-
-    for(var i = 0 ; i <this.userV.length; i++)
-        if(numVolunteer != i)
-          this.userV[i].manualM = false;
-  }
-
 
   //the method gets 2 date and return the deffrence between them
   DiffrenceDates(d1, d2)
@@ -505,7 +540,7 @@ export class adminPage
   //the function check if there is allready exist match for this volunteer
   checkIfExistMacthVolunteer(numVolunteer)
   {
-    if (this.userV[numVolunteer].status == 1)
+    if(this.userV[numVolunteer].status != 0 && this.userV[numVolunteer].status != -1) 
     {
       let alert = this.alertCtrl.create({
         title: 'למתנדב שבחרת כבר קיימת התאמה',
@@ -516,31 +551,41 @@ export class adminPage
           role: 'cancel',
           handler: () => {
             console.log('yes clicked');
-            this.volunteerRadioClicked(numVolunteer)
+            this.userV[numVolunteer].manualM = true;
+
+            let elderId= this.userV[numVolunteer].matching
+            const db = firebase.firestore();
+            db.collection("ElderlyUsers").doc(elderId).update({
+              matching:{id: "", grade: 0, date: ""},
+              status: 0
+            }).catch(error => {console.log(error)}) 
+      
           }
           },
           {
             text: 'לא',
             handler: () => {
-              this.userV[numVolunteer].manualM = true
+              this.userV[numVolunteer].manualM = false
               console.log('no clicked');
-              console.log(this.userV)
             }
           }
         ]
       });
         alert.present();
     }
+    this.matchV = this.userV[numVolunteer].docID
+    this.userV[numVolunteer].manualM = true;
 
-    else
-      this.volunteerRadioClicked(numVolunteer)
+    for(var i = 0 ; i <this.userV.length; i++)
+        if(numVolunteer != i)
+          this.userV[i].manualM = false;
   }
 
 
 
   checkIfExistMacthElderly(numElderly)
   {
-    if (this.userE[numElderly].matching.id != "")
+    if(this.userE[numElderly].status != 0 && this.userE[numElderly].status != -1) 
     {
       let alert = this.alertCtrl.create({
         title: 'לאזרח הותיק שבחרת כבר קיימת התאמה',
@@ -551,23 +596,33 @@ export class adminPage
           role: 'cancel',
           handler: () => {
             console.log('yes clicked');
-            this.elderlyRadioClicked(numElderly)
+            this.userE[numElderly].manualM = true;
+
+            let volId= this.userE[numElderly].matching.id
+            const db = firebase.firestore();
+            db.collection("volunteerUsers").doc(volId).update({
+              matching:"",
+              status: 0
+            }).catch(error => {console.log(error)}) 
           }
           },
           {
             text: 'לא',
             handler: () => {
               console.log('no clicked');
-              this.userE[numElderly].manualM = true
+              this.userE[numElderly].manualM = false
             }
           }
         ]
       });
         alert.present();
     }
-    
-    else
-      this.elderlyRadioClicked(numElderly)
+    this.matchE = this.userE[numElderly].docID;
+    this.userE[numElderly].manualM = true;
+
+    for(var i = 0 ; i < this.userE.length; i++)
+        if(numElderly != i)
+          this.userE[i].manualM = false;
 
   }
 
@@ -583,6 +638,7 @@ export class adminPage
 
     else
     {
+      
       db.collection("ElderlyUsers").doc(this.matchE).update({
           matching: {id: this.matchV, grade:"manual", date: this.date},
           status: 1
@@ -611,7 +667,7 @@ export class adminPage
       this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
       if(this.userE[indexE].email != null)
         this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
-      this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
+        this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
       this.alert.showSuccessManual()
     }
   }

@@ -65,7 +65,7 @@
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userE; let i = index">
-                <td class="hidePhone"><button class="buttons del" (click)="deleteElderlyUser(value.docID)">[x]</button></td>
+                <td class="hidePhone"><button class="buttons del" (click)="deleteElderlyUser(value.docID , i)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
                 </td>
@@ -85,7 +85,7 @@
                     {{value.name}}
                 </td>
                 <td style="text-align: center;" class="hidePhone">
-                    <ion-radio [checked]="value.manualM" (click)="checkIfExistMacthElderly(i)" color="adminpagebutton"></ion-radio>
+                    <ion-radio [checked]="value.manualM==true" (click)="checkIfExistMacthElderly(i)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
         </table>
@@ -107,12 +107,12 @@
                 <th class="hidePhone">בחר להתאמה</th>
             </tr>
             <tr *ngFor="let value of userV; let i = index">
-                <td class="hidePhone"><button class="buttons del" (click)="deleteVolunteerUser(value.docID)">[x]</button></td>
+                <td class="hidePhone"><button class="buttons del" (click)="deleteVolunteerUser(value.docID, i)">[x]</button></td>
                 <td class="hidePhone">
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
                 </td>
                 <td class="hidePhone">
-                    <label *ngIf="value.status != 0 && value.status != -1">{{dates[numbers[i]]}}</label>
+                    <label *ngIf="value.status != 0 && value.status != -1">{{dates[volunteerMatches[i]]}}</label>
                     <label *ngIf="value.status == 0 || value.status == -1">לא</label>
                 </td>
                 <td>
@@ -128,7 +128,7 @@
                     </a> {{value.name}}
                 </td>
                 <td style="text-align: center;" class="hidePhone">
-                    <ion-radio [checked]="value.manualM" (click)="checkIfExistMacthVolunteer(i)" color="adminpagebutton"></ion-radio>
+                    <ion-radio [checked]="value.manualM==true" (click)="checkIfExistMacthVolunteer(i)" color="adminpagebutton"></ion-radio>
                 </td>
             </tr>
         </table>
