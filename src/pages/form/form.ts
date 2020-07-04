@@ -530,7 +530,8 @@ export class Form
         status: 0,
         matching: null,
         rejected: null,
-        adminComments: this.user.comments
+        adminComments: this.user.comments,
+        arrDates: null
       })
       .then(() => {
         if(this.user.loggedIn)

@@ -209,7 +209,7 @@
                                 <ion-row *ngIf="this.userV[numbers[i]].status == 4">
                                     <ion-item>
                                         <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(i)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
-                                            [(ngModel)]="this.userE[i].matching.date">{{meetingDate}}</ion-datetime>
+                                            [(ngModel)]="meetingDate">{{meetingDate}}</ion-datetime>
                                     </ion-item>
                                 </ion-row>
 
@@ -236,6 +236,34 @@
             </div>
         </ion-row>
     </ion-grid>
-    <!-- <div *ngIf="!showMatch">אין התאמה</div> -->
+
+    <br><br><br>
+    <ion-grid *ngIf="!user.Admin && userV[indexOfLogged].status == 4" style="align-items: center;">
+        <ion-row>
+            <h4 style="font-weight: bold;">:טבלת מעקב אחר מפגשים שהתקיימו</h4>
+        </ion-row>
+        <ion-row>
+            <h6>שימ/י לב יש ללחוץ על 'שמור' לאחר הוספת רשומה חדשה לטבלה</h6>
+        </ion-row>
+        <ion-row>
+            <button class="buttons" type="submit" (click)="saveNewDate()" style="margin: 10px;">שמור</button>
+            <button class="buttons" type="submit" (click)="addNewDateToTable()" style="margin: 10px;">הוסף רשומה חדשה</button>
+        </ion-row>
+        <br><br>
+
+        <table id="customers" style="direction: rtl; width: 50%;">
+            <tr>
+                <th>מספר מפגש</th>
+                <th>תאריך</th>
+            </tr>
+            <tr *ngFor="let date of userV[indexOfLogged].arrDates;">
+                <td>
+                    <input class="inputContact" type="text" name="username" [(ngModel)]="date.number">
+                </td>
+                <td>
+                    <input class="inputContact" type="text" name="username" [(ngModel)]="date.date">
+                </td>
+        </table>
+    </ion-grid>
 
 </ion-content>

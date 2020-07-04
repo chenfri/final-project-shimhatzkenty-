@@ -21,7 +21,7 @@ export class ReportMatchesPage {
   notConfirmedMatchesList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
   acceptedMatchesList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
   waitingForAdminAcceptList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
-  MeetingList: {elderlyIdDoc: any,volIdDoc: any}[] =[] ;
+  MeetingList: {elderlyIdDoc: any,volIdDoc: any , date: any}[] =[] ;
   RejectedMatch: {volName: any,  volIdDoc: any, elderlyName: any,  elderlyIdDoc: any,  reason: any}[] =[] ;
   IDlogged:any;
 
@@ -120,7 +120,21 @@ export class ReportMatchesPage {
               this.acceptedMatchesList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
 
             else if(this.userV[iV].status == 4)
-              this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
+            {
+              let tmp = this.userV[iV].arrDates
+              if(tmp != null)
+              {
+                for(let i = 0 ; i < tmp.length; i++)
+                this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index,
+                   date:tmp[i].date })
+              }
+                
+              else
+                this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index,
+                  date: this.userE[iE].matching.meetingDate})
+
+                   console.log(  this.MeetingList)
+            }
 
             else if(this.userV[iV].status == -1)
               this.waitingForAdminAcceptList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})

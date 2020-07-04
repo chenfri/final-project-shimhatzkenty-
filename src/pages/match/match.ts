@@ -20,10 +20,10 @@ export class MatchPage {
   public numbers = new Array(); 
   IDlogged:any;
   acceptedMatch : boolean;
-  // showMatch:boolean;
   cancelText: boolean;
   cancelDescription: string;
   nameLogged: string;
+  indexOfLogged: string
   cancellationReason: boolean;
   rejArr :any[]
   meetingDate: any
@@ -47,8 +47,12 @@ export class MatchPage {
 
     for(var i = 0 ; i < this.userV.length; i++){
  
-      if(this.IDlogged == this.userV[i].docID)     
+      if(this.IDlogged == this.userV[i].docID)
+      {
         this.nameLogged = this.userV[i].name
+        this.indexOfLogged = this.userV[i].index
+      }     
+        
       }
     }
 
@@ -84,6 +88,34 @@ export class MatchPage {
           this.numbers.push(-1); }
 }
   
+
+
+
+addNewDateToTable(){
+  let temp = {number: "", date: ""}
+  let tempArr = []
+  var tmp = this.userV[this.indexOfLogged].arrDates
+  if(tmp != null)
+    for(let i = 0 ; i < tmp.length; i++)
+      tempArr.push(tmp[i])
+  tempArr.push(temp)
+
+  this.userV[this.indexOfLogged].arrDates = tempArr
+}
+
+
+saveNewDate(){
+  const db = firebase.firestore(); 
+  var tmp = this.userV[this.indexOfLogged].arrDates
+  console.log(tmp)
+  for(let i = 0 ; i < tmp.length; i++)
+  {
+    db.collection("volunteerUsers").doc(this.IDlogged ).update({
+      arrDates: tmp
+    }).catch(error => {console.log(error)}) 
+  }
+}
+
 
 
   click_home()
@@ -215,11 +247,12 @@ saveDescription(description, idE, idV ,i)
 
   saveTheDate(index)
   {
+    console.log(this.meetingDate)
     let tmp = this.userE[index].matching
+    console.log(this.userE[index])
     const db = firebase.firestore();
     db.collection("ElderlyUsers").doc(this.userE[index].docID).update({
-        matching: {id: tmp.id, grade: tmp.grade ,date: tmp.date, nameV: tmp.nameV,
-           phoneV: tmp.phoneV, meetingDate: this.meetingDate}
+        matching: {id: tmp.id, grade: tmp.grade ,date: tmp.date, meetingDate: this.meetingDate}
       }) .catch(error => console.log(error))
   }
 

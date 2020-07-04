@@ -56,10 +56,10 @@ export class HomePage
     console.log(this.user.organization)
 
   //   const db = firebase.firestore();
-  //   db.collection("ElderlyUsers").doc("zeQRBGlTGgrQpIlDdyju").update({
-  //     matching: {id: "", grade:0, date: ""},
-  //     status: 1
+  //   db.collection("volunteerUsers").doc("yU4LWmMdSxc65WprVuqlwJpfc1C2").update({
+  //     arrDates: null
   // }) .catch((error) => {console.log(error)})
+
   }
 
 
@@ -258,7 +258,8 @@ scrollToBottom() {
         student: i.data().student,
         adminComments: i.data().adminComments,
         commentTmp: i.data().adminComments,
-        matching: i.data().matching
+        matching: i.data().matching,
+        arrDates: i.data().arrDates
       }
         j++})}).catch(error => {console.log(error)})
 
