@@ -4,7 +4,7 @@ import { HomePage } from '../home/home';
 import { User } from '../../module/User';
 import firebase from 'firebase';
 import { AlertController} from 'ionic-angular';
-import { ELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser/src/dom/debug/ng_probe';
+import {AlertProvider} from '../../providers/alert/alert'
 
 
 @IonicPage()
@@ -29,7 +29,7 @@ export class MatchPage {
   meetingDate: any
   everyHour: boolean;
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) { 
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public alert:AlertProvider) { 
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
     this.userE = this.navParams.get('elderly');
@@ -91,17 +91,17 @@ export class MatchPage {
 
 
 
-addNewDateToTable(){
-  let temp = {number: "", date: ""}
-  let tempArr = []
-  var tmp = this.userV[this.indexOfLogged].arrDates
-  if(tmp != null)
-    for(let i = 0 ; i < tmp.length; i++)
-      tempArr.push(tmp[i])
-  tempArr.push(temp)
+  addNewDateToTable(){
+    let temp = {number: "", date: "", idElder: this.userV[this.indexOfLogged].matching}
+    let tempArr = []
+    var tmp = this.userV[this.indexOfLogged].arrDates
+    if(tmp != null)
+      for(let i = 0 ; i < tmp.length; i++)
+        tempArr.push(tmp[i])
+    tempArr.push(temp)
 
-  this.userV[this.indexOfLogged].arrDates = tempArr
-}
+    this.userV[this.indexOfLogged].arrDates = tempArr
+  }
 
 
 saveNewDate(){
@@ -138,6 +138,8 @@ saveNewDate(){
       matching:{id: "", grade: 0, date: ""},
       status: 0
     }).catch(error => {console.log(error)}) 
+
+    this.alert.showFindNewMatch();
   }
 
 
@@ -185,13 +187,7 @@ saveDescription(description, idE, idV ,i)
   if(this.user.Admin == false && this.user.loggedIn)
       idV = firebase.auth().currentUser.uid
 
-  let alert = this.alertCtrl.create({
-    title: 'בוצע',
-    subTitle: 'סיבת הביטול נשמרה!',
-    buttons: ['אישור']
-  });
-  
-  alert.present();
+  this.alert.saveDeleteReason();
 
   this.rejArr = this.userV[i].rejected
 

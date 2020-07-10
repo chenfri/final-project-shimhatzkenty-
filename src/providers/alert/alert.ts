@@ -19,6 +19,27 @@ export class AlertProvider
   }
 
 
+  showFindNewMatch()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'הפרטים נקלטו בהצלחה',
+      subTitle: 'המערכת תחפש עבורך התאמה חדשה',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
+  saveDeleteReason()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'סיבת הביטול נשמרה!',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
   showAlertSuccessAdmin()
   {
     let alert = this.alertCtrl.create({

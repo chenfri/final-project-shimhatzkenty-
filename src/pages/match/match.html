@@ -5,7 +5,7 @@
             <button class="buttons" type="submit" (click)="click_home()">חזרה לדף הבית</button>
         </ion-row>
         <ion-row style="place-self: center;">
-            <h2 class="title">דף התאמות</h2>
+            <h2 style="font-weight: bold">דף התאמות</h2>
         </ion-row>
 
     </ion-grid> <br><br>
@@ -13,12 +13,17 @@
 
     <section text-center margin-bottom>
         <ion-icon name="person"></ion-icon>
-        <h1 *ngIf="user.Admin " style="font-size:1.4em" no-margin>,שלום <br> מר מנהל כללי</h1>
-        <h1 *ngIf="!user.Admin " style="font-size:1.4em" no-margin>,שלום <br> {{this.nameLogged}}</h1>
+        <h1 *ngIf="user.Admin " style="font-size:1.4em" no-margin>שלום מנהל</h1>
+        <h1 *ngIf="!user.Admin " style="font-size:1.4em" no-margin>שלום {{this.nameLogged}}</h1>
     </section>
 
 
     <ion-grid no-padding>
+        <div *ngFor="let value of userV ; let i = index">
+            <ion-row *ngIf="(value.docID == IDlogged &&(value.status == -1  || value.status == 0))" style="justify-content: center;padding-top: 10rem;">
+                <h5>מצטערים, עדיין לא נמצאה עבורך התאמה</h5>
+            </ion-row>
+        </div>
         <ion-row style="justify-content: center;">
             <div *ngFor="let value of userE ; let i = index" class="bigDiv">
                 <ion-col *ngIf="(value.matching.id!= '' && value.matching.id == IDlogged && value.status != -1 )|| 
@@ -26,7 +31,8 @@
                     <ion-card style="background: #ffffff00;">
                         <ion-row class="outsideCard" showMatch="true" text-center padding color="info-color">
 
-                            <ion-row class="textStyle">התאמה</ion-row>
+                            <ion-row *ngIf="user.Admin" class="textStyle">התאמה</ion-row>
+                            <ion-row *ngIf="!user.Admin" class="textStyle">ההתאמה שנמצאה עבורך:</ion-row>
                             <br>
 
                             <ion-row style="justify-content: center;">
@@ -189,24 +195,27 @@
 
                             <ion-grid style="    align-items: center; background-color: #ffffff00; justify-content: center;" *ngIf="numbers[i]!=-1">
 
-                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1"> התאמה עדיין לא אושרה ע"י מתנדב</ion-row>
-
+                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1 && user.Admin"> ההתאמה עדיין לא אושרה ע"י מתנדב</ion-row>
+                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 1 && !user.Admin"> ההתאמה עדיין לא אושרה</ion-row>
                                 <ion-row>
                                     <button *ngIf="user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID,  userV[numbers[i]].docID, numbers[i] )">אשר התאמה</button>
                                     <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 1" class="buttons" type="submit" (click)="acceptMatch(value.docID , 0, numbers[i])">אשר התאמה</button>
                                 </ion-row>
 
-                                <ion-row class="textStyle" *ngIf="this.user.status == 2">ההתאמה אושרה</ion-row>
+                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 2">ההתאמה אושרה</ion-row>
 
                                 <ion-row>
                                     <button *ngIf="user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID  ,userV[numbers[i]].docID, numbers[i])">אשר ביצוע מפגש</button>
                                     <button *ngIf="!user.Admin && this.userV[numbers[i]].status == 2" class="buttons" type="submit" (click)="acceptedMeeting(value.docID, 0, numbers[i])">אשר ביצוע מפגש</button>
-                                    <button *ngIf="this.userV[numbers[i]].status == 4" class="buttons" (click)="findNewMatching(userV[numbers[i]].docID, userE[i].docID)">מצא לי התאמה חדשה</button>
+                                    <button *ngIf="this.userV[numbers[i]].status == 4 && !user.Admin" class="buttons" (click)="findNewMatching(userV[numbers[i]].docID, userE[i].docID)">מצא לי התאמה חדשה</button>
                                 </ion-row>
 
-                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">המפגש התקיים {{value.matching.meetingDate}}</ion-row>
+                                <ion-row class="textStyle" *ngIf="this.userV[numbers[i]].status == 4">המפגש הראשון התקיים {{value.matching.meetingDate}}</ion-row>
 
-                                <ion-row *ngIf="this.userV[numbers[i]].status == 4">
+                                <ion-row *ngIf="this.userV[numbers[i]].status == 4 && !user.Admin">
+                                    <h6>לדיווח על תאריכי מפגש נוספים יש לעדכן בטבלה מטה</h6>
+                                </ion-row>
+                                <ion-row style="padding-top:10px" *ngIf="this.userV[numbers[i]].status == 4 && !value.matching.meetingDate">
                                     <ion-item>
                                         <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(i)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
                                             [(ngModel)]="meetingDate">{{meetingDate}}</ion-datetime>

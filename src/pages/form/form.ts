@@ -634,8 +634,7 @@ export class Form
     this.arrangeAddress();
     //arrange date
     this.date = new Date().toISOString().substring(0, 10);
-    this.user.dateTime = this.date[8] + this.date[9] + "-" +this.date[5] + this.date[6] + "-"
-     + this.date[0] + this.date[1]+this.date[2] + this.date[3];
+    this.user.dateTime = this.date.split("-").reverse().join("-");
     
     if(this.hideMoreContact)
       this.add_familyMembers();

@@ -98,6 +98,7 @@
                 <tr>
                     <th>שם המתנדב</th>
                     <th>שם הקשיש</th>
+                    <th>תאריך ההתאמה</th>
                 </tr>
 
                 <tr style="direction: rtl;" *ngFor="let value of notConfirmedMatchesList">
@@ -113,6 +114,7 @@
                         </a>
                         {{userE[value.elderlyIdDoc].name}}
                     </td>
+                    <td>{{userE[value.elderlyIdDoc].matching.date}}</td>
                 </tr>
             </table><br><br>
         </div>

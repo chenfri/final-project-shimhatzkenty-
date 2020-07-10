@@ -36,37 +36,32 @@ export class ReportMatchesPage {
     console.log(this.userE)
     console.log(this.userV)
 
+    //reverse dates
     for(let i = 0 ;i < this.userE.length ;i++)
     {
-      let date = this.userE[i].matching.date
-
-      if(this.userE[i].matching.meetingDate)
+      if(this.userE[i].status != 0 || this.userE[i].status != -1)
       {
+        let date = this.userE[i].matching.date
         let date2 = this.userE[i].matching.meetingDate
-        this.userE[i].matching.meetingDate = date2[8] + date2[9] + "-" + date2[5] + date2[6] + "-"
-        + date2[0] + date2[1]+ date2[2] + date2[3]
+        if(date2)
+          this.userE[i].matching.meetingDate = date2.split("-").reverse().join("-");      
+        this.userE[i].matching.date = date.split("-").reverse().join("-");
       }
-  
-
-      this.userE[i].matching.date = date[8] + date[9] + "-" + date[5] + date[6] + "-"
-      + date[0] + date[1]+ date[2] + date[3];
     }
    
+   
     this.getDataToLists();
-    console.log('VolMatchesNotFound: ',this.VolMatchesNotFound)
-    console.log('EldermatchesNotFound: ',this.ElderMatchesNotFound)
-    console.log('notConfirmedMatchesList: ',this.notConfirmedMatchesList)
+  
+    console.log('VolMatchesNotFound:',this.VolMatchesNotFound)
+    console.log('EldermatchesNotFound:',this.ElderMatchesNotFound)
+    console.log('notConfirmedMatchesList:',this.notConfirmedMatchesList)
     console.log('acceptedMatchesList: ', this.acceptedMatchesList)
-    console.log('meetingList: ', this.MeetingList)
-    console.log('RejectedMatch: ',this.RejectedMatch)
-    console.log('matchesFoundList: ',this.matchesFoundList)
-    console.log('waitingForAdminAcceptList:   ',this.waitingForAdminAcceptList)
+    console.log('meetingList:', this.MeetingList)
+    console.log('RejectedMatch:',this.RejectedMatch)
+    console.log('matchesFoundList:',this.matchesFoundList)
+    console.log('waitingForAdminAcceptList:',this.waitingForAdminAcceptList)
 
  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ReportMatchesPage');
-  }
 
 
 
@@ -109,8 +104,19 @@ export class ReportMatchesPage {
 
         for(var iV = 0 ; iV < this.userV.length; iV++)
         {
+          
           if(this.userV[iV].docID == volIdDoc)
           {
+
+            let tmp = this.userV[iV].arrDates
+            if(tmp != null)
+            {
+              for(let i = 0 ; i < tmp.length; i++)
+                this.MeetingList.push({elderlyIdDoc: this.findElderIndex(tmp[i].idElder) ,volIdDoc: this.userV[iV].index,
+                  date:tmp[i].date })
+              
+            }
+
             this.matchesFoundList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
 
             if(this.userV[iV].status == 1)
@@ -120,21 +126,8 @@ export class ReportMatchesPage {
               this.acceptedMatchesList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
 
             else if(this.userV[iV].status == 4)
-            {
-              let tmp = this.userV[iV].arrDates
-              if(tmp != null)
-              {
-                for(let i = 0 ; i < tmp.length; i++)
-                this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index,
-                   date:tmp[i].date })
-              }
-                
-              else
-                this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index,
-                  date: this.userE[iE].matching.meetingDate})
-
-                   console.log(  this.MeetingList)
-            }
+              this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index,
+                date: this.userE[iE].matching.meetingDate})
 
             else if(this.userV[iV].status == -1)
               this.waitingForAdminAcceptList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
@@ -145,9 +138,19 @@ export class ReportMatchesPage {
    } 
   }  
 
-  adminAcceptence(match , type){
 
 
+  findElderIndex(id)
+  {
+    for(let i = 0; i < this.userE.length; i++)
+      if(this.userE[i].docID == id)
+        return this.userE[i].index
+  }
+
+
+
+  adminAcceptence(match , type)
+  {
     console.log('matchToaccept:  ', match)
     const db = firebase.firestore();
 
@@ -185,6 +188,7 @@ export class ReportMatchesPage {
 
   }
 
+
     // modal for get 'more details' about the users
     async openPopover(event , uid, userType)
     {
@@ -194,6 +198,9 @@ export class ReportMatchesPage {
         ev: event
       });
     }
+
+
+
   click_home()
   {
     this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 

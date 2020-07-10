@@ -18,7 +18,7 @@
     #customers {
         font-family: calibri;
         border-collapse: collapse;
-        //width: 80%;
+        width: 40%;
         align-items: center;
     }
     #customers td,
@@ -77,9 +77,6 @@
     .tables table {
         width: 45%;
     }
-    // .tables .buttons {
-    //     padding: 6px 18px !important;
-    // }
     button.buttons.del {
         padding: 6px 18px !important;
     }

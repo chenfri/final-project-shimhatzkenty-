@@ -70,6 +70,7 @@ export class adminPage
     this.getElderlyMatches();
     console.log('this.elderMatches', this.elderMatches)
 
+
     this.arrangeDates(); 
 
     let j = 0; //arrange array of students
@@ -146,7 +147,7 @@ export class adminPage
       if(this.userE[i].status != 0)
       {
       let date = this.userE[i].matching.date
-      let tmp = date[8] + date[9] + "-" + date[5] + date[6] + "-" + date[0] + date[1] + date[2] + date[3]
+      let tmp = date.split("-").reverse().join("-");
       this.dates.push(tmp)
       }
       else
@@ -664,10 +665,11 @@ export class adminPage
           break}
       }
 
-      this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
-      if(this.userE[indexE].email != null)
-        this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
-        this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
+      // this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
+      // if(this.userE[indexE].email != null)
+      //   this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
+      //if(this.userV[indexV].phone.length == 8)
+      //   this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
       this.alert.showSuccessManual()
     }
   }
@@ -795,6 +797,7 @@ export class adminPage
     //     //this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
     //     // if(this.userE[i].email != null)
     //     //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
+          //if(this.userV[indexV].phone.length == 8)
     //     //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
     //   }
     // }
