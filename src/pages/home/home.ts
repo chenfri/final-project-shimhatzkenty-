@@ -292,13 +292,11 @@ scrollToBottom() {
     {
       groupbyOrg = this.groupByFuntion(organizationEledry,"id")
       if(whichPage == 1){
-        console.log("enter 1")
           this.navCtrl.setRoot(adminPage, {'elderly': elderly, 'volunteer': volunteer,
           'messages': messages ,'login': this.user.loggedIn, 'admin': this.user.Admin,
           'organizationEledry': groupbyOrg , 'contacts': contacts});
       }
       else if(whichPage == 2){
-        console.log("enter 2")
         this.navCtrl.setRoot(MatchPage, {'elderly': elderly, 'volunteer': volunteer,
            'login': this.user.loggedIn, 'admin': this.user.Admin , 'IDlogged': this.IDlogged});
       }

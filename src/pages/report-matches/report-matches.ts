@@ -203,7 +203,7 @@ export class ReportMatchesPage {
 
   click_home()
   {
-    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin, 'IDlogged':this.IDlogged }); 
   }
 
 }

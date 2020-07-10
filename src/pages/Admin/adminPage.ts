@@ -9,7 +9,6 @@ import { HomePage } from '../home/home';
 import { PopoverPage } from '../popover/popover';
 import { ModalController } from 'ionic-angular';
 import { ModalPage } from '../modal/modal';
-import { a } from '@angular/core/src/render3';
 
 
 @Component({

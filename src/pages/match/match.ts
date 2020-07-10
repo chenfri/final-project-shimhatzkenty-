@@ -114,13 +114,16 @@ saveNewDate(){
       arrDates: tmp
     }).catch(error => {console.log(error)}) 
   }
+
+  this.alert.saveArrDates()
 }
 
 
 
   click_home()
   {
-    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin}); 
+    this.navCtrl.setRoot(HomePage, {'login': this.user.loggedIn , 'admin': this.user.Admin 
+    , 'IDlogged':this.IDlogged }); 
   }
 
 

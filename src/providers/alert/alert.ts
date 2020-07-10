@@ -40,6 +40,18 @@ export class AlertProvider
     alert.present();
   }
 
+
+  saveArrDates()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'הטבלה נשמרה בהצלחה',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
   showAlertSuccessAdmin()
   {
     let alert = this.alertCtrl.create({

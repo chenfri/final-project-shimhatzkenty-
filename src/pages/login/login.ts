@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController} from 'ionic-angular';
 import { User } from '../../module/user';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
@@ -16,8 +16,7 @@ export class LoginPage
 {
   user= {} as User;
 
-  constructor(public navCtrl: NavController ,public alertCtrl: AlertController,
-     private auth: AngularFireAuth, public alert: AlertProvider)
+  constructor(public navCtrl: NavController , public auth: AngularFireAuth, public alert: AlertProvider)
   {
     this.user.loggedIn = false;
     this.user.Admin = false;

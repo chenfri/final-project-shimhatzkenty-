@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage,ViewController, NavController, NavParams } from 'ionic-angular';
+import { IonicPage,ViewController, NavParams } from 'ionic-angular';
 import { User } from '../../module/User'
 import firebase from 'firebase';
 import { Arrays } from '../../providers/arrays'
 
-/**
- * Generated class for the PopoverPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -32,7 +26,9 @@ export class PopoverPage {
   uid = null;
   userType =  null;
 
-  constructor(public array:Arrays,public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
+  constructor(public array:Arrays, public navParams: NavParams, public viewCtrl: ViewController)
+  {
+
    //update variables
    this.selectedFav = null
    this.selectedNH = null
@@ -73,21 +69,17 @@ export class PopoverPage {
    this.neighborhoods = this.array.neighborhoods
    this.relationship = this.array.relationship
 
-   console.log("POPOVER")
-
   this.uid = this.navParams.get('uid');
   this.userType = this.navParams.get('userType');
 
   this.getDataFromFirebase(this.uid , this.userType);
 }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PopoverPage');
-  }
 
   close(){
     this.viewCtrl.dismiss();
   }
+
 
   getDataFromFirebase(uid, userType)
   {
@@ -120,7 +112,6 @@ export class PopoverPage {
       this.language = result.data().language
       this.dayOfMeeting = result.data().dayOfMeeting
       this.musicStyle = result.data().musicStyle
-      // this.user.range = result.data().range,
       this.user.age = result.data().age
       this.user.id = result.data().id
       this.user.student = result.data().student
@@ -132,9 +123,6 @@ export class PopoverPage {
       this.gender = result.data().gender
       this.address = result.data().address
       this.user.dateTime = result.data().dateTime
-      // this.user.city = result.data().city
-      // this.user.street = result.data().street
-      // this.selectedNH = result.data().neighborhood
       this.user.hideMusic = result.data().hideMusic
       this.selectedFav = result.data().favoriteNegibrhood
 
@@ -156,10 +144,8 @@ export class PopoverPage {
       this.language = result.data().language
       this.dayOfMeeting = result.data().dayOfMeeting
       this.musicStyle = result.data().musicStyle
-      // this.user.range = result.data().range,
       this.musical_instrument = result.data().musical_instrument
       this.meetingWith = result.data().meetingWith
-      // this.numOfMeeting = result.data().num_of_meetings
       this.hours = result.data().hours
       this.gender = result.data().gender
       this.address = result.data().address
@@ -178,15 +164,4 @@ export class PopoverPage {
  
   }
 
-  // getSpeciesfromDB(arr)
-  // {
-  //   for (let i = 0; i < arr.length; i++)
-  //   {
-
-  //     if (arr[i].currentValue === true){
-  //       this.hobbies_.push(arr[i].species);
-  
-  //     }
-  //   }
-  // }
 }
