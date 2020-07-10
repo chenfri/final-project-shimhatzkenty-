@@ -52,6 +52,18 @@ export class AlertProvider
   }
 
 
+  sendReminder()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'בוצע',
+      subTitle: 'נשלחה תזכורת למתנדבים',
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
+
   showAlertSuccessAdmin()
   {
     let alert = this.alertCtrl.create({

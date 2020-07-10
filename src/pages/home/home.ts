@@ -55,10 +55,20 @@ export class HomePage
     this.user.organization = this.params.get('organization');
     console.log(this.user.organization)
 
-  //   const db = firebase.firestore();
+    const db = firebase.firestore();
   //   db.collection("volunteerUsers").doc("yU4LWmMdSxc65WprVuqlwJpfc1C2").update({
-  //     arrDates: null
+  //     dateSendRemider: ""
   // }) .catch((error) => {console.log(error)})
+
+
+  
+//   db.collection("volunteerUsers").get().then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//         doc.ref.update({
+//           dateSendRemider: ""
+//         });
+//     });
+// });
 
   }
 
@@ -259,7 +269,8 @@ scrollToBottom() {
         adminComments: i.data().adminComments,
         commentTmp: i.data().adminComments,
         matching: i.data().matching,
-        arrDates: i.data().arrDates
+        arrDates: i.data().arrDates,
+        dateSendRemider: i.data().dateSendRemider
       }
         j++})}).catch(error => {console.log(error)})
 

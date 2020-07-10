@@ -16,7 +16,7 @@ admin.initializeApp();
 // Sends sms via HTTP - twilio
 exports.sendSms = functions.https.onCall(async(data, context) => {
     const textMessage = {
-        body: "שלום " + data.name + ",\nנמצאה לך התאמה באתר שמחקת זקנתי!\nלפרטים נוספים יש להיכנס לאתר ולבצע התחברות עם כתובת מייל וסיסמה\nלאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי",
+        body: data.msg,
         to: data.number,
         messagingServiceSid: 'MG605bbded57aace4b0b015499f114831a'
             //from: twilioNumber // From a valid Twilio number
@@ -24,6 +24,8 @@ exports.sendSms = functions.https.onCall(async(data, context) => {
     return client.messages.create(textMessage).then(message => console.log(message.sid, 'success'))
         .catch(err => console.log(err))
 })
+
+
 
 
 

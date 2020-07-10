@@ -627,6 +627,36 @@ export class adminPage
   }
 
 
+//send reminder to volunteers to reports on meetings once a month
+  sendReminders(){
+
+    for(let i = 0 ; i < this.userV.length; i++)
+    {
+     if(this.userV[i].status == 4)
+      {
+        if(this.DiffrenceDates(this.date, this.userV[i].dateSendRemider) >= 30)
+        {
+          let msg =  "שלום " + this.userV[i].name + ",\nרצינו להזכיר לך לדווח באתר תאריכים של מפגשים שהתקיימו עם האזרח הותיק שהותאם לך,\nיש לבצע התחברות לאתר ולהיכנס לדף 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
+          let sendEmail = firebase.functions().httpsCallable('sendSms');
+    
+          const db = firebase.firestore(); 
+          db.collection('volunteerUsers').doc(this.userV[i].docID).update(
+          {
+            dateSendRemider: new Date().toISOString().substring(0, 10)
+          }).catch((error) => {console.log(error)})
+      
+          sendEmail({number: "+972" + this.userV[i].phone , msg: msg}).then(function() {
+          console.log("success calling sendSms1")
+           }).catch(function(error) {
+          console.log("error from calling sendSms1 functions - ", error.message)
+          });
+
+        }
+      }
+    }
+
+    this.alert.sendReminder();
+  }
 
 
   manual_matching()
@@ -667,8 +697,8 @@ export class adminPage
       // this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
       // if(this.userE[indexE].email != null)
       //   this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
-      //if(this.userV[indexV].phone.length == 8)
-      //   this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
+      if(this.userV[indexV].phone.length == 9)
+        this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
       this.alert.showSuccessManual()
     }
   }
@@ -796,7 +826,7 @@ export class adminPage
     //     //this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
     //     // if(this.userE[i].email != null)
     //     //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
-          //if(this.userV[indexV].phone.length == 8)
+          //if(this.userV[indexV].phone.length == 9)
     //     //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
     //   }
     // }
@@ -966,8 +996,10 @@ export class adminPage
   //this code is call sendSms (firebase Functions) from backend
   sendSMS(number , name)
   {
+    let msg =  "שלום " + name + ",\nנמצאה לך התאמה באתר שמחקת זקנתי!\nלפרטים נוספים יש להיכנס לאתר ולבצע התחברות עם כתובת מייל וסיסמה\nלאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
     let sendEmail = firebase.functions().httpsCallable('sendSms');
-    sendEmail({number: number , name: name}).then(function(result) {
+
+    sendEmail({number: number , msg: msg}).then(function(result) {
       console.log("success calling sendSms1 - ", result.data)
     }).catch(function(error) {
       console.log("error from calling sendSms1 functions - ", error.message ,error.code)
