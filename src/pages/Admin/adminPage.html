@@ -51,16 +51,18 @@
         <button class="buttons hidePhone" type="submit" (click)="saveConnemnts()">שמירת הערות</button>
 
         <h4 class="titles">:קשישים שנרשמו</h4>
-        <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry')">ייצוא טבלת קשישים לאקסל</button><br><br>
+        <div *ngIf="!androidPlat">
+            <button class="buttons" type="submit" (click)="csvFile(userE ,'eledry')">ייצוא טבלת קשישים לאקסל</button><br><br>
+        </div>
         <table id="customers" class="table-style">
             <tr>
                 <th class="hidePhone">מחק משתמש</th>
                 <th class="hidePhone">הערות</th>
                 <th class="hidePhone">נמצאה התאמה</th>
-                <th>תאריך הרשמה</th>
+                <th class="hidePhone">תאריך הרשמה</th>
                 <th>פלאפון איש קשר</th>
                 <th>שם איש קשר</th>
-                <th>כתובת</th>
+                <th class="hidePhone">כתובת</th>
                 <th>טלפון</th>
                 <th>שם מלא</th>
                 <th class="hidePhone">בחר להתאמה</th>
@@ -74,10 +76,10 @@
                     <label *ngIf="value.status != 0 && value.status != -1">{{dates[i]}}</label>
                     <label *ngIf="value.status == 0 || value.status == -1">לא</label>
                 </td>
-                <td>{{value.dateTime}}</td>
+                <td class="hidePhone">{{value.dateTime}}</td>
                 <td>{{value.contact}}</td>
                 <td>{{value.nameAssistant}}</td>
-                <td>{{value.address}}</td>
+                <td class="hidePhone">{{value.address}}</td>
                 <td>0{{value.phone}}</td>
                 <td>
                     <a class="info-button" (click)="openPopover($event, value.docID, 'elderly')">
@@ -93,8 +95,9 @@
 
 
         <h4 class="titles">:מתנדבים שנרשמו</h4>
-        <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
-
+        <div *ngIf="!androidPlat">
+            <button class="buttons" type="submit" (click)="csvFile(userV, 'volunteer')">ייצוא טבלת מתנדבים לאקסל</button><br><br>
+        </div>
         <table id="customers" class="table-style">
             <tr>
                 <th class="hidePhone">מחק משתמש</th>
@@ -135,7 +138,9 @@
         </table>
 
         <h4 class="titles">:סטודנטים שנרשמו</h4>
-        <button class="buttons" type="submit" (click)="csvFile(userV , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
+        <div *ngIf="!androidPlat">
+            <button class="buttons" type="submit" (click)="csvFile(userV , 'student')">ייצוא טבלת סטודנטים לאקסל</button><br><br>
+        </div>
         <table id="customers" class="table-style">
             <tr>
                 <th>מוסד אקדמי</th>
@@ -153,7 +158,9 @@
 
         <div *ngIf="organizationEledry['יד שרה'] != undefined">
             <h4 class="titles ">:קשישים שנרשמו דרך יד שרה</h4>
-            <button class="buttons" type="submit" (click)="csvFile(organizationEledry[ 'יד שרה'], 'organization') ">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
+            <div *ngIf="!androidPlat">
+                <button class="buttons" type="submit" (click)="csvFile(organizationEledry[ 'יד שרה'], 'organization') ">ייצוא טבלת קשישים מיד שרה לאקסל</button><br><br>
+            </div>
             <table id="customers" class="table-style">
                 <tr>
                     <th>שם הארגון</th>
@@ -174,7 +181,9 @@
 
         <div *ngIf="organizationEledry[ 'מלבב'] != undefined">
             <h4 class="titles">:קשישים שנרשמו דרך מלבב</h4>
-            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization')">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
+            <div *ngIf="!androidPlat">
+                <button class="buttons" type="submit" (click)="csvFile(organizationEledry['מלבב'], 'organization')">ייצוא טבלת קשישים ממלבב לאקסל</button><br><br>
+            </div>
             <table id="customers" class="table-style">
                 <tr>
                     <th>שם הארגון</th>
@@ -195,7 +204,9 @@
 
         <div *ngIf="organizationEledry['עזר מציון'] != undefined">
             <h4 class="titles ">:קשישים שנרשמו דרך עזר מציון</h4>
-            <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'עזר מציון'] , 'organization') ">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
+            <div *ngIf="!androidPlat">
+                <button class="buttons " type="submit " (click)="csvFile(organizationEledry[ 'עזר מציון'] , 'organization') ">ייצוא טבלת קשישים מעזר מציון לאקסל</button><br><br>
+            </div>
             <table id="customers " class="table-style">
                 <tr>
                     <th>שם הארגון</th>
@@ -216,7 +227,9 @@
 
         <div *ngIf="organizationEledry['אחר'] != undefined">
             <h4 class="titles ">:קשישים שנרשמו דרך ארגונים אחרים</h4>
-            <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] , 'organization') ">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
+            <div *ngIf="!androidPlat">
+                <button class="buttons" type="submit" (click)="csvFile(organizationEledry['אחר'] , 'organization') ">ייצוא טבלת קשישים מאירגונים לאקסל</button><br><br>
+            </div>
             <table id="customers" class="table-style">
                 <tr>
                     <th>שם הארגון</th>

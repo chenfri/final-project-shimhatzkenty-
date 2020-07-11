@@ -9,6 +9,7 @@ import { HomePage } from '../home/home';
 import { PopoverPage } from '../popover/popover';
 import { ModalController } from 'ionic-angular';
 import { ModalPage } from '../modal/modal';
+import { Platform } from 'ionic-angular';
 
 
 @Component({
@@ -38,11 +39,11 @@ export class adminPage
   public dates:any[] = [];
   public volunteerMatches: any[] = []
   public elderMatches: any[] = []
-
+  public androidPlat = false
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
      public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController,
-     public modalController: ModalController) 
+     public modalController: ModalController, public platform: Platform) 
   {
     //inialize variables
     this.matchE = null;
@@ -53,6 +54,10 @@ export class adminPage
 
   ngOnInit()
   {
+
+    if (this.platform.is('android'))
+      this.androidPlat = true;
+
     //get parameters form other pages
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
