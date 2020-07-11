@@ -44,19 +44,23 @@ export class adminPage
      public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController,
      public modalController: ModalController) 
   {
-    //get parameters form other pages
-    this.user.loggedIn = this.navParams.get('login');
-    this.user.Admin = this.navParams.get('admin');
-    this.userE = this.navParams.get('elderly');
-    this.userV = this.navParams.get('volunteer');
-    this.organizationEledry = this.navParams.get('organizationEledry');
-    this.messages = this.navParams.get('messages');
-    this.contacts = this.navParams.get('contacts'); 
-
     //inialize variables
     this.matchE = null;
     this.matchV = null;
     this.date = new Date().toISOString().substring(0, 10);
+  }
+
+
+  ngOnInit()
+  {
+    //get parameters form other pages
+    this.user.loggedIn = this.navParams.get('login');
+    this.user.Admin = this.navParams.get('admin');
+    this.organizationEledry = this.navParams.get('organizationEledry');
+    this.messages = this.navParams.get('messages');
+    this.contacts = this.navParams.get('contacts'); 
+    this.userE = this.navParams.get('elderly');
+    this.userV = this.navParams.get('volunteer');
 
     //update array of users that would be sorted by dates
     this.sortArrByDates(this.userV)
@@ -69,8 +73,7 @@ export class adminPage
     this.getElderlyMatches();
     console.log('this.elderMatches', this.elderMatches)
 
-
-    this.arrangeDates(); 
+    this.reverseDates(); 
 
     let j = 0; //arrange array of students
     for(let i = 0 ; i < this.userV.length; i++)
@@ -82,7 +85,6 @@ export class adminPage
       console.log('this.studentArr', this.studentArr)
 
   }
-
 
 
   //the method return array that every index represent volunteer
@@ -138,8 +140,8 @@ export class adminPage
 
 
 
-// arrange date of finding matching in tables
-  arrangeDates()
+// reverse the dates in tables
+  reverseDates()
   {
     for(let i = 0 ; i < this.userE.length; i++)
     {
@@ -167,6 +169,7 @@ export class adminPage
       }
     })
   }
+
 
   async presentModalMatch() {
     const modal = await this.modalController.create(ModalPage, {whichPage: 'matchAccept', userV: this.userV, userE: this.userE}
@@ -366,7 +369,8 @@ export class adminPage
               
               db.collection("volunteerUsers").doc(volId).update({
                 matching:"",
-                status: 0
+                status: 0,
+                dateSendRemider: ""
               }).catch(error => {console.log(error)}) 
             }
             this.event.publish('operateFunc', "1")    
@@ -602,7 +606,8 @@ export class adminPage
             const db = firebase.firestore();
             db.collection("volunteerUsers").doc(volId).update({
               matching:"",
-              status: 0
+              status: 0,
+              dateSendRemider: ""
             }).catch(error => {console.log(error)}) 
           }
           },
@@ -632,17 +637,22 @@ export class adminPage
 
     for(let i = 0 ; i < this.userV.length; i++)
     {
-     if(this.userV[i].status == 4)
+     if(this.userV[i].status == 4 || this.userV[i].status == 2)
       {
-        if(this.DiffrenceDates(this.date, this.userV[i].dateSendRemider) >= 30)
+        if(this.DiffrenceDates(this.date, this.userV[i].dateSendRemider) >= 30 || this.userV[i].dateSendRemider == "")
         {
-          let msg =  "שלום " + this.userV[i].name + ",\nרצינו להזכיר לך לדווח באתר תאריכים של מפגשים שהתקיימו עם האזרח הותיק שהותאם לך,\nיש לבצע התחברות לאתר ולהיכנס לדף 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
+          let msg =  "שלום " +  this.userV[i].name
+          if(this.userV[i].status == 4)
+            msg += ",\nרצינו להזכיר לך לדווח באתר תאריכים של מפגשים שהתקיימו עם האזרח הותיק שהותאם לך,\nיש לבצע התחברות לאתר ולהיכנס לדף 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
+          else
+            msg += ",\nראינו שעדיין לא ביצעת מפגש עם האזרח הותיק שהותאם לך, הוא מחכה לך!\nלפרטים נוספים יש לבצע התחברות לאתר ולהיכנס לדף 'צפייה בהתאמות', שם צריך לעדכן האם המפגש התקיים \nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
+         
           let sendEmail = firebase.functions().httpsCallable('sendSms');
     
           const db = firebase.firestore(); 
           db.collection('volunteerUsers').doc(this.userV[i].docID).update(
           {
-            dateSendRemider: new Date().toISOString().substring(0, 10)
+            dateSendRemider: this.date
           }).catch((error) => {console.log(error)})
       
           sendEmail({number: "+972" + this.userV[i].phone , msg: msg}).then(function() {
@@ -675,7 +685,8 @@ export class adminPage
       }) .catch((error) => {console.log(error)})
       db.collection("volunteerUsers").doc(this.matchV).update({
           matching: this.matchE,
-          status: 1
+          status: 1,
+          dateSendRemider: ""
       }) 
 
       let indexE = 0, indexV = 0;
@@ -697,8 +708,8 @@ export class adminPage
       // this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
       // if(this.userE[indexE].email != null)
       //   this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
-      if(this.userV[indexV].phone.length == 9)
-        this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
+      // if(this.userV[indexV].phone.length == 9)
+      //   this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
       this.alert.showSuccessManual()
     }
   }
@@ -813,7 +824,7 @@ export class adminPage
     //     db.collection('volunteerUsers').doc(idV).update(
     //     {
     //       matching: this.userE[k].docID,
-    //       status: 1
+    //       status: 1,
     //     }).catch((error) => {console.log(error)})
     //   }
     // }

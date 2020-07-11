@@ -90,8 +90,9 @@ export class MatchPage {
   
 
 
-
-  addNewDateToTable(){
+//handle with add new record to dates of meeting table
+  addNewDateToTable()
+  {
     let temp = {number: "", date: "", idElder: this.userV[this.indexOfLogged].matching}
     let tempArr = []
     var tmp = this.userV[this.indexOfLogged].arrDates
@@ -104,19 +105,21 @@ export class MatchPage {
   }
 
 
-saveNewDate(){
-  const db = firebase.firestore(); 
-  var tmp = this.userV[this.indexOfLogged].arrDates
-  console.log(tmp)
-  for(let i = 0 ; i < tmp.length; i++)
+//save dates of meeting table
+  saveNewDate()
   {
-    db.collection("volunteerUsers").doc(this.IDlogged ).update({
-      arrDates: tmp
-    }).catch(error => {console.log(error)}) 
-  }
+    const db = firebase.firestore(); 
+    var tmp = this.userV[this.indexOfLogged].arrDates
+    console.log(tmp)
+    for(let i = 0 ; i < tmp.length; i++)
+    {
+      db.collection("volunteerUsers").doc(this.IDlogged ).update({
+        arrDates: tmp
+      }).catch(error => {console.log(error)}) 
+    }
 
-  this.alert.saveArrDates()
-}
+    this.alert.saveArrDates()
+  }
 
 
 
@@ -127,13 +130,14 @@ saveNewDate(){
   }
 
 
-
+//handle with the case the volunteer ask for new matcing 
   findNewMatching(idV, idE)
   {
     const db = firebase.firestore(); 
     db.collection("volunteerUsers").doc(idV).update({
       matching: null,
       status: 0,
+      dateSendRemider: ""
     }).catch(error => {console.log(error)}) 
   
   
@@ -147,7 +151,7 @@ saveNewDate(){
 
 
 
-  CancelMatch(idE, idV ,i)
+  CancelMatch(i)
   {
 
   let alert = this.alertCtrl.create({
@@ -181,13 +185,12 @@ saveNewDate(){
 }
   
 
-
-saveDescription(description, idE, idV ,i)
+//handle with the case that the volunteer denied the matching that found for him
+updateRejected(idE, idV ,i)
 {
-  console.log('saveDescription', this.cancelDescription)
   const db = firebase.firestore(); 
 
-  if(this.user.Admin == false && this.user.loggedIn)
+  if(!this.user.Admin && this.user.loggedIn)
       idV = firebase.auth().currentUser.uid
 
   this.alert.saveDeleteReason();
@@ -206,6 +209,7 @@ saveDescription(description, idE, idV ,i)
     status: 0,
     matching: null,
     rejected:this.rejArr,
+    dateSendRemider: ""
   }).catch(error => {console.log(error)}) 
 
 
@@ -220,7 +224,7 @@ saveDescription(description, idE, idV ,i)
 }
 
 
-
+//handle with the case that the volunteer accept the matching that found for him
   acceptMatch(idE , idV, i)
   {
     const db = firebase.firestore();       
@@ -244,6 +248,34 @@ saveDescription(description, idE, idV ,i)
   }
 
 
+//Handle in case the volunteer confirms that the meeting has occurred
+  acceptedMeeting(idE , idV, i)
+  {
+    const db = firebase.firestore();       
+    if(idV == 0)
+      db.collection("volunteerUsers").doc(this.IDlogged).update({
+        status: 4,
+        dateSendRemider: ""
+      }) .catch(error => console.log(error))
+
+    else
+      db.collection("volunteerUsers").doc(idV).update({
+        status: 4,
+        dateSendRemider: ""
+      }).catch(error => console.log(error))
+    
+      
+    db.collection("ElderlyUsers").doc(idE).update({
+      status: 4 
+     }).catch(error => console.log(error))
+
+      this.user.status = 4;   
+      this.userV[i].status = 4   
+   }
+
+
+
+  //save the date that meeting has occurred 
   saveTheDate(index)
   {
     console.log(this.meetingDate)
@@ -255,27 +287,5 @@ saveDescription(description, idE, idV ,i)
       }) .catch(error => console.log(error))
   }
 
-
-  acceptedMeeting(idE , idV, i)
-  {
-    const db = firebase.firestore();       
-    if(idV == 0)
-      db.collection("volunteerUsers").doc(this.IDlogged).update({
-        status: 4
-      }) .catch(error => console.log(error))
-
-    else
-      db.collection("volunteerUsers").doc(idV).update({
-        status: 4
-      }).catch(error => console.log(error))
-    
-      
-    db.collection("ElderlyUsers").doc(idE).update({
-      status: 4 
-     }).catch(error => console.log(error))
-
-      this.user.status = 4;   
-      this.userV[i].status = 4   
-   }
 
 }

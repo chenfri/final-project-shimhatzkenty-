@@ -36,7 +36,7 @@ export class ReportMatchesPage {
     console.log(this.userE)
     console.log(this.userV)
 
-    //reverse dates
+    //reverse dates in the tables
     for(let i = 0 ;i < this.userE.length ;i++)
     {
       if(this.userE[i].status != 0 || this.userE[i].status != -1)
@@ -64,16 +64,17 @@ export class ReportMatchesPage {
  }
 
 
-
+//the method initialize all tables
   getDataToLists()
   {
     var volIdDoc, volName;
 
-    for(var iV = 0 ; iV < this.userV.length; iV++) // for rejected matched table
+    for(var iV = 0 ; iV < this.userV.length; iV++) 
     {
-      if(this.userV[iV].status == 0 || this.userV[iV].status == -1 ) 
+      if(this.userV[iV].status == 0 || this.userV[iV].status == -1) // volunteers not found for them matching
         this.VolMatchesNotFound.push(this.userV[iV].index)
-      else if(this.userV[iV].rejected != null)
+
+      else if(this.userV[iV].rejected != null) // rejected table
       {
         volName = this.userV[iV].name
         this.userV[iV].rejected.forEach(element => {
@@ -139,7 +140,7 @@ export class ReportMatchesPage {
   }  
 
 
-
+//the method return the index of matched elderly
   findElderIndex(id)
   {
     for(let i = 0; i < this.userE.length; i++)
@@ -149,6 +150,7 @@ export class ReportMatchesPage {
 
 
 
+  //handle with the case that admin accept matching from algorithm
   adminAcceptence(match , type)
   {
     console.log('matchToaccept:  ', match)
@@ -175,6 +177,7 @@ export class ReportMatchesPage {
       db.collection("volunteerUsers").doc(this.userV[match.volIdDoc].docID).update({
         status: 0,
         matching: null,
+        dateSendRemider: ""
       }).catch(error => {console.log(error)}) 
     
     

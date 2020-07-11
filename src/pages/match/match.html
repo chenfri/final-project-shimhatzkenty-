@@ -226,14 +226,14 @@
                                 <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
 
                                 <ion-row>
-                                    <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 &&this.userV[numbers[i]].status != 4" (click)="CancelMatch(value.docID, userV[numbers[i]].docID,numbers[i])">ביטול התאמה</button>
+                                    <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 && this.userV[numbers[i]].status != 4" (click)="CancelMatch(numbers[i])">ביטול התאמה</button>
                                 </ion-row>
                                 <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="cancelText">
                                     <ion-item>
                                         <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
                                         <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
                                     </ion-item>
-                                    <button class="buttons" (click)="saveDescription(user.description , value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת ביטול</button>
+                                    <button class="buttons" (click)="updateRejected(value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת ביטול</button>
 
                                 </ion-grid>
                             </ion-grid>
