@@ -18,13 +18,13 @@
         <ion-label>תעודת זהות: {{ this.user.id }}</ion-label>
     </ion-item>
     <ion-item *ngIf="this.volunteer && this.gender ==1 ">
-        <ion-label>מין: נקבה</ion-label>
+        <ion-label>מגדר: נקבה</ion-label>
     </ion-item>
     <ion-item *ngIf="this.volunteer && this.gender ==2 ">
-        <ion-label>מין: זכר</ion-label>
+        <ion-label>מגדר: זכר</ion-label>
     </ion-item>
     <ion-item *ngIf="this.volunteer && this.gender ==3 ">
-        <ion-label>מין: לא צויין</ion-label>
+        <ion-label>מגדר: לא צויין</ion-label>
     </ion-item>
     <ion-item>
         <ion-label>כתובת: {{ this.address}}</ion-label>
@@ -71,7 +71,7 @@
         </ion-row>
     </ion-item>
 
-    <ion-item >
+    <ion-item>
         <ion-row class="midTitle"> מעוניין להיפגש עם:</ion-row>
         <ion-row *ngIf=" this.meetingWith  == 1">אין העדפה</ion-row>
         <ion-row *ngIf="this.meetingWith  == 2">נשים בלבד</ion-row>

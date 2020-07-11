@@ -252,6 +252,7 @@ scrollToBottom() {
         date: i.data().date,
         docID: i.id,
         index: j,
+        age: i.data().age,
         manualM: false,
         gender: i.data().gender,
         dayOfMeeting: i.data().dayOfMeeting,
