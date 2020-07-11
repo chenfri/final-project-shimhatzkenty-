@@ -9,6 +9,7 @@ import { HomePage } from '../home/home';
 import { PopoverPage } from '../popover/popover';
 import { ModalController } from 'ionic-angular';
 import { ModalPage } from '../modal/modal';
+import { Platform } from 'ionic-angular';
 
 
 @Component({
@@ -38,11 +39,11 @@ export class adminPage
   public dates:any[] = [];
   public volunteerMatches: any[] = []
   public elderMatches: any[] = []
-
+  public androidPlat = false
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
      public alert: AlertProvider, private event: Events, public popoverCtrl: PopoverController,
-     public modalController: ModalController) 
+     public modalController: ModalController, public platform: Platform) 
   {
     //inialize variables
     this.matchE = null;
@@ -53,6 +54,10 @@ export class adminPage
 
   ngOnInit()
   {
+
+    if (this.platform.is('android'))
+      this.androidPlat = true;
+
     //get parameters form other pages
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
@@ -233,6 +238,24 @@ export class adminPage
     {
       for(let i = 0 ; i < array.length ; i++)
       {
+        var meetingWith = ""
+        if(array[i].meetingWith == 1)
+          meetingWith = "אין העדפה"
+        else if(array[i].meetingWith == 2)
+          meetingWith = "נשים בלבד"
+        else
+          meetingWith = "גברים בלבד"
+
+          
+        let gender = ""
+        if(array[i].gender == 1)
+          gender = "נקבה"
+        else if(array[i].gender == 2)
+          gender = "זכר"
+        else
+          gender = "לא רלוונטי"
+
+
         if(type == "organization")
         {
           this.headerRow = ["שם", "פלאפון הקשיש" ,"שם איש קשר","פלאפון איש קשר" , "שם האירגון"]
@@ -244,12 +267,37 @@ export class adminPage
           this.headerRow = ["שם", "פלאפון" , "כתובת", "שם איש קשר", "פלאפון איש קשר", "תאריך הרשמה"]
           tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].nameAssistant,
           array[i].contact, array[i].dateTime]  
+
+
+          this.headerRow = ["שם", "פלאפון", "כתובת", 
+          "תאריך הרשמה", "שם איש קשר" ,"פלאפון איש קשר","אימייל","תיאור","מגדר","תחומי עיניין" 
+          ,"ימים מועדפים", "שעות מועדפות", "מעוניין להיפגש עם", "שפות"]
+          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].dateTime,
+           array[i].nameAssistant,array[i].contact, array[i].email, array[i].description, gender,
+            this.checkedFunction(array[i].hobbies), this.checkedFunction(array[i].dayOfMeeting),
+            this.checkedFunction(array[i].hours), meetingWith, this.checkedFunction(array[i].language)]
         }
 
         if(type == "volunteer")
         {
-          this.headerRow = ["שם", "פלאפון" , "כתובת", "תאריך הרשמה"]
-          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].dateTime]  
+          let student = ""
+          if(array[i].student)
+            student = "כן"
+          else
+            student = "לא"
+
+
+          let college = ""
+          if(array[i].college != null)
+            college = array[i].college
+
+          this.headerRow = ["שם", "פלאפון", "כתובת", 
+          "תאריך הרשמה", "תעודת זהות" ,"אימייל","גיל","סטודנט" ,"מוסד אקדמי","מגדר","תחומי עיניין" 
+          ,"ימים מועדפים", "שעות מועדפות", "מעוניין להיפגש עם", "שפות"]
+          tmp[i] = [array[i].name, array[i].phone, array[i].address, array[i].dateTime,
+           array[i].id, array[i].email, array[i].age,student, college, gender,
+            this.checkedFunction(array[i].hobbies), this.checkedFunction(array[i].dayOfMeeting),
+            this.checkedFunction(array[i].hours), meetingWith, this.checkedFunction(array[i].language)]  
         }
 
         if(type == "student") {
@@ -271,6 +319,19 @@ export class adminPage
   }
 
 
+  checkedFunction(arr)
+  {
+    let str = ""
+    for(let i = 0 ; i < arr.length; i++)
+    {
+      if(arr[i].currentValue && i != 0)
+        str += ", " + arr[i].species
+      else if(arr[i].currentValue)
+        str += arr[i].species
+
+    }
+    return str;
+  }
 
   //download excel file
   downloadCSV(csv, type)

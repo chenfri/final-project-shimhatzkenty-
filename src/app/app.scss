@@ -12,12 +12,9 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 .custom-popover .popover-content {
-  transform: translateX(-100%) !important;
-  width: 20% !important;
-
-
+    transform: translateX(-100%) !important;
+    // width: 20% !important;
 }
 
 .alert-md .alert-head {
@@ -58,8 +55,8 @@
     direction: rtl;
 }
 
-
-.item-label-stacked .ionic-selectable, .item-label-floating .ionic-selectable {
+.item-label-stacked .ionic-selectable,
+.item-label-floating .ionic-selectable {
     -webkit-align-self: stretch;
     -ms-flex-item-align: stretch;
     align-self: stretch;
@@ -67,68 +64,72 @@
     padding-left: 0;
     padding-top: 8px;
     padding-bottom: 8px;
-  }
-  
-  .item-label-stacked .ionic-selectable-value, .item-label-floating .ionic-selectable-value {
+}
+
+.item-label-stacked .ionic-selectable-value,
+.item-label-floating .ionic-selectable-value {
     padding-top: 0;
     padding-bottom: 0;
     min-height: 19px;
-  }
-  
-  .item-label-stacked .ionic-selectable-icon-inner, .item-label-floating .ionic-selectable-icon-inner {
+}
+
+.item-label-stacked .ionic-selectable-icon-inner,
+.item-label-floating .ionic-selectable-icon-inner {
     top: 7px;
-  }
-  
-  .item-label-stacked .ionic-selectable-ios .ionic-selectable-value, .item-label-floating .ionic-selectable-ios .ionic-selectable-value {
+}
+
+.item-label-stacked .ionic-selectable-ios .ionic-selectable-value,
+.item-label-floating .ionic-selectable-ios .ionic-selectable-value {
     padding-top: 0;
     padding-bottom: 0;
     min-height: 20px;
-  }
-  
-  .item-label-stacked .ionic-selectable-ios .ionic-selectable-icon-inner, .item-label-floating .ionic-selectable-ios .ionic-selectable-icon-inner {
+}
+
+.item-label-stacked .ionic-selectable-ios .ionic-selectable-icon-inner,
+.item-label-floating .ionic-selectable-ios .ionic-selectable-icon-inner {
     top: 8px;
-  }
-  
-  .item:not(.item-label-stacked):not(.item-label-floating) .ionic-selectable-md .ionic-selectable-value {
+}
+
+.item:not(.item-label-stacked):not(.item-label-floating) .ionic-selectable-md .ionic-selectable-value {
     padding-left: 16px;
-  }
-  
-  .item:not(.item-label-stacked):not(.item-label-floating) .ionic-selectable-ios .ionic-selectable-value {
+}
+
+.item:not(.item-label-stacked):not(.item-label-floating) .ionic-selectable-ios .ionic-selectable-value {
     padding-left: 16px;
-  }
-  
-  .item-ionic-selectable .item-inner .input-wrapper {
+}
+
+.item-ionic-selectable .item-inner .input-wrapper {
     -webkit-box-align: normal;
     -webkit-align-items: normal;
     -ms-flex-align: normal;
     align-items: normal;
-  }
-  
-  .item-ionic-selectable ion-label {
+}
+
+.item-ionic-selectable ion-label {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
     max-width: initial;
-  }
-  
-  .ionic-selectable {
+}
+
+.ionic-selectable {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     max-width: 45%;
-  }
-  
-  .ionic-selectable:not(.ionic-selectable-is-enabled) {
+}
+
+.ionic-selectable:not(.ionic-selectable-is-enabled) {
     opacity: 0.4;
-  }
-  
-  .ionic-selectable-has-placeholder .ionic-selectable-value-item {
+}
+
+.ionic-selectable-has-placeholder .ionic-selectable-value-item {
     color: #999;
-  }
-  
-  .ionic-selectable-value {
+}
+
+.ionic-selectable-value {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -136,24 +137,24 @@
     padding-top: 13px;
     padding-bottom: 13px;
     overflow: hidden;
-  }
-  
-  .ionic-selectable-value-item {
+}
+
+.ionic-selectable-value-item {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-  }
-  
-  .ionic-selectable-value-item:not(:last-child) {
+}
+
+.ionic-selectable-value-item:not(:last-child) {
     margin-bottom: 5px;
-  }
-  
-  .ionic-selectable-icon {
+}
+
+.ionic-selectable-icon {
     position: relative;
     width: 20px;
-  }
-  
-  .ionic-selectable-icon-inner {
+}
+
+.ionic-selectable-icon-inner {
     position: absolute;
     top: 20px;
     left: 5px;
@@ -161,45 +162,45 @@
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
     pointer-events: none;
-  }
-  
-  .ionic-selectable-item-button {
+}
+
+.ionic-selectable-item-button {
     width: 25px;
-  }
-  
-  .ionic-selectable-item-icon-template[item-left] {
+}
+
+.ionic-selectable-item-icon-template[item-left] {
     /*Correct item icon template position.*/
     margin: 0 0 0 1px;
-  }
-  
-  .ionic-selectable-ios.ionic-selectable-has-placeholder .ionic-selectable-value-item {
+}
+
+.ionic-selectable-ios.ionic-selectable-has-placeholder .ionic-selectable-value-item {
     color: #999;
-  }
-  
-  .ionic-selectable-ios .ionic-selectable-value {
+}
+
+.ionic-selectable-ios .ionic-selectable-value {
     padding-top: 11px;
     padding-bottom: 11px;
-  }
-  
-  .ionic-selectable-ios .ionic-selectable-icon-inner {
+}
+
+.ionic-selectable-ios .ionic-selectable-icon-inner {
     top: 19px;
     color: #999;
-  }
-  
-  .ionic-selectable-md .ionic-selectable-icon-inner {
+}
+
+.ionic-selectable-md .ionic-selectable-icon-inner {
     color: #999;
-  }
-  
-  .ionic-selectable-spinner {
+}
+
+.ionic-selectable-spinner {
     position: fixed;
     bottom: 0;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1;
-  }
-  
-  .ionic-selectable-spinner-background {
+}
+
+.ionic-selectable-spinner-background {
     top: 0;
     bottom: 0;
     left: 0;
@@ -207,99 +208,102 @@
     position: absolute;
     background-color: #000000;
     opacity: 0.05;
-  }
-  
-  .ionic-selectable-spinner ion-spinner {
+}
+
+.ionic-selectable-spinner ion-spinner {
     position: absolute;
     top: 50%;
     left: 50%;
     z-index: 10;
     margin-top: -14px;
     margin-left: -14px;
-  }
-  
-  .ionic-selectable-add-item-template {
+}
+
+.ionic-selectable-add-item-template {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     background-color: #ffffff;
-  }
-  
-  .ionic-selectable-modal-ios .ionic-selectable-message {
+}
+
+.ionic-selectable-modal-ios .ionic-selectable-message {
     padding: 8px;
-  }
-  
-  .ionic-selectable-modal-md .ionic-selectable-message {
+}
+
+.ionic-selectable-modal-md .ionic-selectable-message {
     padding: 8px 12px;
-  }
-  
-  .ionic-selectable-modal.ionic-selectable-modal-can-clear.ionic-selectable-modal-is-multiple .footer .col:first-child {
+}
+
+.ionic-selectable-modal.ionic-selectable-modal-can-clear.ionic-selectable-modal-is-multiple .footer .col:first-child {
     padding-right: 8px;
-  }
-  
-  .ionic-selectable-modal.ionic-selectable-modal-can-clear.ionic-selectable-modal-is-multiple .footer .col:last-child {
+}
+
+.ionic-selectable-modal.ionic-selectable-modal-can-clear.ionic-selectable-modal-is-multiple .footer .col:last-child {
     padding-left: 8px;
-  }
-  
-  .ionic-selectable-modal.ionic-selectable-modal-is-searching .scroll-content {
+}
+
+.ionic-selectable-modal.ionic-selectable-modal-is-searching .scroll-content {
     overflow-y: hidden;
-  }
-  
-  .ionic-selectable-modal.ionic-selectable-modal-is-add-item-template-visible > .content > .scroll-content {
+}
+
+.ionic-selectable-modal.ionic-selectable-modal-is-add-item-template-visible>.content>.scroll-content {
     overflow-y: hidden;
-  }
-  
-  .ionic-selectable-modal ion-footer ion-toolbar {
+}
+
+.ionic-selectable-modal ion-footer ion-toolbar {
     padding: 5px 16px;
-  }
-  
+}
+
 .toolbar-background-md {
     border-color: #b2b2b2;
     background: #035445;
     font-family: calibri;
-  }
-  
-  ion-app.md [margin], ion-app.md [margin] .scroll-content {
+}
+
+ion-app.md [margin],
+ion-app.md [margin] .scroll-content {
     margin: 16px;
     direction: rtl;
-  }
-  
-  .button-md {
+}
+
+.button-md {
     background-color: #259262;
-  }
-  
-  .button-md:hover:not(.disable-hover) {
+}
+
+.button-md:hover:not(.disable-hover) {
     background-color: #fcbe47;
-  }
-  
-  .toolbar.toolbar-md {
+}
+
+.toolbar.toolbar-md {
     direction: rtl;
-  }
-  
-  .ionic-selectable-group {
+}
+
+.ionic-selectable-group {
     direction: rtl;
-  }
-  
-  .searchbar-md .searchbar-input {
-    background-color: #259262;
-    color: #FCBE47;
-    font-family: calibri;
-  }
-  
-  .ionic-selectable-item {
-    background-color: #035445;
-    color: #FCBE47;
-  }
-  
-  .searchbar-input {
-    text-align: right;
-  }
-  .searchbar-md .searchbar-input {
+}
+
+.searchbar-md .searchbar-input {
     background-color: #259262;
     color: #FCBE47;
     font-family: calibri;
 }
+
+.ionic-selectable-item {
+    background-color: #035445;
+    color: #FCBE47;
+}
+
+.searchbar-input {
+    text-align: right;
+}
+
+.searchbar-md .searchbar-input {
+    background-color: #259262;
+    color: #FCBE47;
+    font-family: calibri;
+}
+
 .toolbar-title-md {
     padding: 0 12px;
     font-size: 2rem;
