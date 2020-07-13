@@ -126,9 +126,13 @@ export class ReportMatchesPage {
             else if(this.userV[iV].status == 2)
               this.acceptedMatchesList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
 
-            else if(this.userV[iV].status == 4)
-              this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index,
-                date: this.userE[iE].matching.meetingDate})
+            // else if(this.userV[iV].status == 4)
+            // {
+            //   // if(this.userE[iE].matching.meetingDate)
+            //     this.MeetingList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index,
+            //       date: this.userE[iE].matching.meetingDate})
+            // }
+              
 
             else if(this.userV[iV].status == -1)
               this.waitingForAdminAcceptList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})

@@ -222,7 +222,7 @@
                                 </ion-row>
                                 <ion-row style="padding-top:10px" *ngIf="this.userV[numbers[i]].status == 4 && !value.matching.meetingDate">
                                     <ion-item>
-                                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(i)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
+                                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" cancelText="ביטול" doneText="בחר" (ionChange)="saveTheDate(this.userV[numbers[i]].index, value.docID)" placeholder="בחר תאריך מפגש" min="2020-01-01" max="2021-12-31" monthNames="ינואר, פברואר, מרץ, אפריל, מאי, יוני, יולי, אוגוסט, ספטמבר, אוקטובר, נובמבר, דצמבר"
                                             [(ngModel)]="meetingDate">{{meetingDate}}</ion-datetime>
                                     </ion-item>
                                 </ion-row>
