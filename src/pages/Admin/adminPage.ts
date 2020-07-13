@@ -87,7 +87,7 @@ export class adminPage
         this.studentArr[j] = this.userV[i]
         j++}
     }
-      console.log('this.studentArr', this.studentArr)
+  //    console.log('this.studentArr', this.studentArr)
 
   }
 
@@ -159,7 +159,7 @@ export class adminPage
       else
         this.dates.push("")
     }
-    console.log(this.dates)
+    //console.log(this.dates)
   }
 
 
