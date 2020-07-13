@@ -81,7 +81,7 @@ export class HomePage
 
   ngOnDestroy() {
     console.log('HomePage destroyed!');
-   // this.event.unsubscribe('operateFunc')
+    // this.event.unsubscribe('operateFunc')
   }
   
 

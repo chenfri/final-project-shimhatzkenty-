@@ -276,14 +276,14 @@ updateRejected(idE, idV ,i)
 
 
   //save the date that meeting has occurred 
-  saveTheDate(index)
+  saveTheDate(index, elderId)
   {
-    console.log(this.meetingDate)
-    let tmp = this.userE[index].matching
-    console.log(this.userE[index])
+    let date = this.meetingDate.split("-").reverse().join("-");
+    let tmp = this.userV[index].arrDates
+    tmp.push ({date: date, idElder: elderId, number: tmp.length +1})
     const db = firebase.firestore();
-    db.collection("ElderlyUsers").doc(this.userE[index].docID).update({
-        matching: {id: tmp.id, grade: tmp.grade ,date: tmp.date, meetingDate: this.meetingDate}
+    db.collection("volunteerUsers").doc(this.userV[index].docID).update({
+      arrDates: tmp
       }) .catch(error => console.log(error))
   }
 

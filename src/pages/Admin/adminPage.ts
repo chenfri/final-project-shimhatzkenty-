@@ -87,7 +87,7 @@ export class adminPage
         this.studentArr[j] = this.userV[i]
         j++}
     }
-      console.log('this.studentArr', this.studentArr)
+  //    console.log('this.studentArr', this.studentArr)
 
   }
 
@@ -166,7 +166,7 @@ export class adminPage
       else
         this.dates.push("")
     }
-    console.log(this.dates)
+    //console.log(this.dates)
   }
 
 
@@ -434,11 +434,22 @@ export class adminPage
             if(this.userE[index].status != 0 && this.userE[index].status != -1) 
             {
               let volId= this.userE[index].matching.id
+              let volIndex = this.elderMatches[index]
+              let arrDates = this.userV[volIndex].arrDates
+              let arrTmp = []
+
+              if(arrDates)
+              {
+                for(let i = 0 ; i < arrDates.length; i++)
+                  if(arrDates[i].idElder != item)
+                    arrTmp.push(arrDates[i])
+              }
               
               db.collection("volunteerUsers").doc(volId).update({
                 matching:"",
                 status: 0,
-                dateSendRemider: ""
+                dateSendRemider: "",
+                arrDates: arrTmp
               }).catch(error => {console.log(error)}) 
             }
             this.event.publish('operateFunc', "1")    
