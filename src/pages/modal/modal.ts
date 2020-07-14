@@ -62,13 +62,13 @@ export class ModalPage {
 
     for(var iE = 0 ; iE < this.userE.length ; iE++)
     {
-      if(this.userE[iE].matching.id != "")
+      if(this.userE[iE].status == -1)
       {
         volIdDoc = this.userE[iE].matching.id;
 
         for(var iV = 0 ; iV < this.userV.length; iV++)
         {
-          if(this.userV[iV].docID == volIdDoc && this.userV[iV].status == -1){
+          if(this.userV[iV].docID == volIdDoc){
               this.waitingForAdminAcceptList.push({elderlyIdDoc: iE ,volIdDoc: iV})
               console.log("name VO: ", this.userV[iV].name )
               console.log("name El: ", this.userE[iE].name )
@@ -77,15 +77,18 @@ export class ModalPage {
         }
       }
       }
-   
   }
-  adminAcceptence(match , type){
 
 
+  adminAcceptence(match , type)
+  {
     console.log('matchToaccept:  ', match)
     const db = firebase.firestore();
 
-    if(type == "accept"){
+    if(type == "accept")
+    {
+
+      
       db.collection('ElderlyUsers').doc(this.userE[match.elderlyIdDoc].docID).update(
       {
           matching: this.userE[match.elderlyIdDoc].matching,
@@ -101,8 +104,17 @@ export class ModalPage {
 
 
       this.userE[match.elderlyIdDoc].status = 1
-    }
-    else if(type == "reject"){
+
+    //this.sendEmailsVolunteer(this.userV[match.volIdDoc].name, this.userV[match.volIdDoc].email)
+    // if(this.userE[i].email != null)
+    //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].name, "this.userE[i].nameVthis.userE[i].email")
+    //if(this.userV[match.volIdDoc].phone.length == 9)
+    //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
+      }
+    
+
+    else if(type == "reject")
+    {
       db.collection("volunteerUsers").doc(this.userV[match.volIdDoc].docID).update({
         status: 0,
         matching: null,

@@ -39,6 +39,7 @@ export class adminPage
   public dates:any[] = [];
   public volunteerMatches: any[] = []
   public elderMatches: any[] = []
+  public elderMatchesIndex: any[] = []
   public androidPlat = false
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController ,
@@ -70,27 +71,26 @@ export class adminPage
 
     this.getVolunteerMatches();
     console.log('this.volunteerMatches', this.volunteerMatches)
-    this.getElderlyMatches();
+    this.getElderlyMatchesIndex();
+    console.log('this.elderMatchesIndex', this.elderMatchesIndex)
+
+    this.getElderlyTempMatches();
     console.log('this.elderMatches', this.elderMatches)
 
     this.reverseDates(); 
 
-    let j = 0; //arrange array of students
+    let j = 0; //arrange array of students (because the style of the table)
     for(let i = 0 ; i < this.userV.length; i++)
     {
       if(this.userV[i].student){
         this.studentArr[j] = this.userV[i]
         j++}
     }
-  //    console.log('this.studentArr', this.studentArr)
 
   }
 
 
-  ngOnInit()
-  {
-
-    
+  ngOnInit(){ 
   }
 
 
@@ -124,42 +124,49 @@ export class adminPage
 
   //the method return array that every index represent elderly
   // in cell we write the index of matcing volunteer
-  getElderlyMatches()
+  getElderlyMatchesIndex()
   {
-    // for(var i = 0; i < this.userE.length; i++)
-    // {
-    //   if(this.userE[i].status != 0 && this.userE[i].status != -1) 
-    //   {
-    //     var volID = this.userE[i].matching.id;
-    //     var push = false;
+    for(var i = 0; i < this.userE.length; i++)
+    {
+      if(this.userE[i].status != 0 && this.userE[i].status != -1) 
+      {
+        var volID = this.userE[i].matching.id;
+        var push = false;
 
-    //     for(var j = 0 ; j < this.userV.length; j++)
-    //     {      
-    //         if(this.userV[j].docID.localeCompare(volID) == 0 ){
-    //         this.elderMatches.push(j); 
-    //           push = true; }
-    //     } 
-    //   }
+        for(var j = 0 ; j < this.userV.length; j++)
+        {      
+            if(this.userV[j].docID.localeCompare(volID) == 0 ){
+            this.elderMatchesIndex.push(j); 
+              push = true; }
+        } 
+      }
 
-    //   else
-    //       this.elderMatches.push(-1); }
+      else
+          this.elderMatchesIndex.push(-1); }
+  }
+
+
+
+//the method find all temporary matching in status 1 (not manually) and 1-
+  getElderlyTempMatches()
+  {
     this.userE.forEach(elder => {
-      if(elder.status == 2 || elder.status == 4 || elder.matching.grade == 'manual' )
-        this.elderMatches.push([-1,-1])
-      else if(elder.status != 2 ){
+      if((elder.status == 1 &&  elder.matching.grade != 'manual')|| elder.status == -1)
+      {
         let IndexdMatch = -1
-
-        for(let i=0 ; i<this.userV.length ; i++) {
+        for(let i = 0 ; i < this.userV.length ; i++)
+        {
           if(this.userV[i].docID == elder.matching.id){
             IndexdMatch = i
-            break;
-            
+            break;           
           }
         }
         this.elderMatches.push([elder.matching.grade , IndexdMatch])
       }
-      else
+      else if(elder.status == 0)
         this.elderMatches.push([0 , -1])
+      else
+        this.elderMatches.push([-1 , -1])
     });
   
   }
@@ -201,13 +208,6 @@ export class adminPage
     const modal = await this.modalController.create(ModalPage, {whichPage: 'matchAccept', userV: this.userV, userE: this.userE}
     , {enableBackdropDismiss:false});
     await modal.present();
-    // await modal.onDidDismiss(data => {
-    //   if(data != "closed")
-    //   {
-    //     this.parameters = data
-    //     this.matchingAlgorithm()
-    //   }
-    // })
   }
 
 
@@ -448,7 +448,7 @@ export class adminPage
             if(this.userE[index].status != 0 && this.userE[index].status != -1) 
             {
               let volId= this.userE[index].matching.id
-              let volIndex = this.elderMatches[index]
+              let volIndex = this.elderMatchesIndex[index]
               let arrDates = this.userV[volIndex].arrDates
               let arrTmp = []
 
@@ -762,6 +762,7 @@ export class adminPage
   }
 
 
+
   manual_matching()
   {
     const db = firebase.firestore();    
@@ -798,11 +799,11 @@ export class adminPage
           break}
       }
 
-      // this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
-      // if(this.userE[indexE].email != null)
-      //   this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
-      // if(this.userV[indexV].phone.length == 9)
-      //   this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
+      this.sendEmailsVolunteer(this.userV[indexV].name, this.userV[indexV].email)
+      if(this.userE[indexE].email != null)
+        this.sendEmailsElder(this.userE[indexE].nameAssistant, this.userE[indexE].name, this.userE[indexE].email)
+      if(this.userV[indexV].phone.length == 9)
+        this.sendSMS("+972" + this.userV[indexV].phone, this.userV[indexV].name)
       this.alert.showSuccessManual()
     }
   }
@@ -824,158 +825,78 @@ export class adminPage
 
   matchingAlgorithm()
   {
-    
-
-  
-
-    // this.userE[0].matching = {id: this.userV[0].docID, grade: 5 ,
-    // date: this.date, nameV: this.userV[0].name, phoneV: this.userV[0].phone}
-    // console.log('this.userE[0].matching: ', this.userE[0].matching)
-    // console.log('this.userE[0].name: ', this.userE[0].name)
-
-    // let idV = this.userE[0].matching.id
-    // const db = firebase.firestore();
-
-    // db.collection('ElderlyUsers').doc(this.userE[0].docID).update(
-    // {
-    //     matching: this.userE[0].matching,
-    //     status: -1
-    //   }).catch((error) => {console.log(error)})
-      
-      
-    // db.collection('volunteerUsers').doc(idV).update(
-    // {
-    //   matching: this.userE[0].docID,
-    //   status: -1
-    // }).catch((error) => {console.log(error)})
-
-    // this.userE[0].status = -1
-    // this.userV[0].status = -1
-
-
     const db = firebase.firestore();
+    let numOfAlreadyMatched = 0, numOfUsers = 0
 
-    var numOfElderly = this.userE.length
-    var numOfAlreadyMatched = 0
-    var k=0;
-    var ElderlyAlreadyChecked= new Array(); 
-    ElderlyAlreadyChecked = [];
-    var foundMatch = false
-    
+    if(this.userV.length >= this.userE.length) //for while Stop condition
+      numOfUsers = this.userE.length
+    else
+      numOfUsers = this.userV.length
 
-    this.userE.forEach(element => {
-      if(element.status ==2 || element.status == 4 || element.matching.grade == 'manual' )
-        numOfAlreadyMatched = numOfAlreadyMatched + 1
+    this.userE.forEach(element => { //counts number of exist matcings
+      if(element.status == 2 || element.status == 4 || element.matching.grade == 'manual' )
+        numOfAlreadyMatched += 1
     });
 
-    console.log("numOfElderly1",numOfElderly)
-    console.log("numOfAlreadyMatched1" , numOfAlreadyMatched)
-    console.log(foundMatch)
 
-    while(numOfElderly!=numOfAlreadyMatched){
+    while(numOfUsers != numOfAlreadyMatched)
+    {
+      console.log("numOfAlreadyMatched: " , numOfAlreadyMatched)
 
-      console.log("ENTER WHILE")
-      console.log("numOfElderly2",numOfElderly)
-      console.log("numOfAlreadyMatched2" , numOfAlreadyMatched)
+      for(var i = 0 ; i < this.userV.length ; i++)
+      {  
+        let arrMatch = [], elderlyIndex; 
 
-      for(var i=0 ; i<this.userV.length ; i++){
-        
-        ElderlyAlreadyChecked = [];
+       //Check if there isn't match for this volunteer 
+        if(this.userV[i].status != 2 && this.userV[i].status != 4 )
+        {
+          arrMatch = this.findMatches(i) //find the best elderly for this volunteer
+          elderlyIndex = arrMatch[0]
+          console.log("arrMatch :", arrMatch)
 
-        console.log("numOfElderly3",numOfElderly)
-        console.log("numOfAlreadyMatched3" , numOfAlreadyMatched)
+          if(elderlyIndex != -1)
+          {
+            if(this.userE[elderlyIndex].matching.id == "") //if there is no match for elderly update new matching
+            { 
+                numOfAlreadyMatched += 1
+                console.log("numOfAlreadyMatched: " , numOfAlreadyMatched)
 
-        if(this.userV[i].status == 2 || this.userV[i].status == 4 )  //Check if there is match for this vol
-            foundMatch = true
-        else
-            foundMatch = false
-
-        console.log("volunteer: ",this.userV[i].name , " foundMatch" , foundMatch)
-
-        while(!foundMatch){
-
-            if(this.userV[i].docID == 'Zkp3mVakfFNOJEMWu6JAKLj6SJM2')
-                console.log("STOP") 
-
-
-            let arrMatch = [], elderlyIndex; 
-            arrMatch = this.findMatches(i, ElderlyAlreadyChecked)
-            if (arrMatch[0] == -1){
-              foundMatch=true 
-              continue
-            }
-            elderlyIndex = arrMatch[0]
-
-            let checkMatch = this.userE[elderlyIndex].matching
-            let checkStatus = this.userE[elderlyIndex].status
-
-            console.log("ElderlyAlreadyChecked", ElderlyAlreadyChecked)
-
-
-            console.log("arrMatch :", arrMatch)
-            console.log("elderlyIndex :", elderlyIndex)
-            console.log("this.userE[elderlyIndex].matching.id :", this.userE[elderlyIndex].matching.id)
-            console.log("this.userE[elderlyIndex].matching.grade" , this.userE[elderlyIndex].matching.grade)
-
-         
-
-              if(this.userE[elderlyIndex].matching.grade == 'manual' || this.userE[elderlyIndex].status == 4 || this.userE[elderlyIndex].status == 2){ 
-                ElderlyAlreadyChecked.push(this.userE[elderlyIndex].docID)
-                foundMatch = false
-              }
-              else
-              {
-                if(this.userE[elderlyIndex].matching.id == ""){  //if there is no match for the first elderly
-                    numOfAlreadyMatched = numOfAlreadyMatched + 1
-                    console.log("numOfAlreadyMatched = numOfAlreadyMatched + 1" , numOfAlreadyMatched)
-                    
-                    this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
-                                    date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
-                    this.userE[elderlyIndex].status = -1
-                    foundMatch = true
-                    ElderlyAlreadyChecked = [];
-                    this.elderMatches[elderlyIndex][0]= arrMatch[1]
-                    this.elderMatches[elderlyIndex][1]= i
-              
+                this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
+                                date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
+                                
+                this.userE[elderlyIndex].status = -1
+                this.elderMatches[elderlyIndex][0]= arrMatch[1]
+                this.elderMatches[elderlyIndex][1]= i   
               } 
-                else{           //if there is already match for this elderly
-                  console.log("this.elderMatches[elderlyIndex][0]",this.elderMatches[elderlyIndex][0])
-                  if(this.elderMatches[elderlyIndex][0] >= arrMatch[1]){  //If the existing grade is higher than the new grade
-                    
-                    console.log("HIGHER")
-                    ElderlyAlreadyChecked.push(this.userE[elderlyIndex].docID)
-                    foundMatch = false
-                  }
-                  else{
-                    console.log("LOWER")
-                    let prevIdMatch = this.elderMatches[elderlyIndex][1]
 
-                    this.userV[prevIdMatch].status = 0
-                    this.userV[prevIdMatch].matching = null
-                
-                    this.elderMatches[elderlyIndex][0]= arrMatch[1]
-                    this.elderMatches[elderlyIndex][1]= i
+              else  //if this elderly has allready matching - in status -1 or 1 (not manually)
+              { 
 
-                    this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
-                                                              date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
-                    this.userV[i].matching =  this.userE[elderlyIndex].docID
-                    this.userV[i].status = -1
-                    foundMatch = true
-                    ElderlyAlreadyChecked = [];
-                  }
-                }
+                //If the existing grade is higher than the new grade
+                if(this.elderMatches[elderlyIndex][0] < arrMatch[1])      
+                {
+                  console.log("LOWER")
 
+                  this.elderMatches[elderlyIndex][0]= arrMatch[1]
+                  this.elderMatches[elderlyIndex][1]= i
+
+                  this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
+                                  date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
+                  this.userV[i].matching =  this.userE[elderlyIndex].docID
+                  this.userV[i].status = -1
+                  this.userE[elderlyIndex].status = -1         
+              }
             }
-            // else{
-            //   ElderlyAlreadyChecked.push(this.userE[elderlyIndex].docID)
-            //   foundMatch = false
-            // }
-        }}
-    
-    // for(let k = 0; k < this.userE.length; k++) //update the best 'matching' in documents
+          }
+        }
+      
+      }
+    } 
+
+          //for save macting in DB
+    // for(let k = 0; k < this.userE.length; k++) 
     // { 
-    //   //if 'matching' is empty and no found match or matching is confirm - status
-    //   if(this.userE[k].matching.id != "" && (this.userE[k].status != 2 && this.userE[k].status != 4 ))
+    //   if(this.userE[k].status != -1 || this.userE[k].status != 1)
     //   {
     //     console.log(this.userE[k].matching)
     //     let idV = this.userE[k].matching.id
@@ -983,30 +904,17 @@ export class adminPage
     //       db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
     //       {
     //           matching: this.userE[k].matching,
-    //           status: 1
+    //           status: -1
     //         }).catch((error) => {console.log(error)})
       
       
     //     db.collection('volunteerUsers').doc(idV).update(
     //     {
     //       matching: this.userE[k].docID,
-    //       status: 1
+    //       status: -1
     //     }).catch((error) => {console.log(error)})
     //   }
     // }
-
-  
-    // for(let i = 0 ; i < this.userE.length; i++) //for sending emails and sms
-    // {
-    //   if(this.userE[i].matching.id != "" && (this.userE[i].status != 2 && this.userE[i].status != 4 ))
-    //   {
-    //     //this.sendEmailsVolunteer(this.userE[i].matching.nameV, "chenfriedman93@gmail.com")
-    //     // if(this.userE[i].email != null)
-    //     //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].nameV, "chenfriedman93@gmail.com")
-    //     //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
-    //   }
-    // }
-} 
 
       console.log("this.elderMatches", this.elderMatches)
       this.alert.showSuccessAlgorithm();
@@ -1016,38 +924,26 @@ export class adminPage
   }
 
 
-  //the method find the 3 best matches for all volunteer and save it in 'arrMatch'
-  findMatches(i, ElderlyAlreadyChecked)
+  //the method find the best matching for volunteer and save it in 'arrMatch'
+  findMatches(indexVol)
   {
       var alreadyChecked = false;
       var bestElderlyIndex = -1;
       let arrMatch = []
-      let higherGrade=0 
-      let currentGrade = 0
-      let res = 0 ,grade = 0
+      let higherGrade = 0, currentGrade = 0, res = 0 ,grade = 0
 
       for(let l = 0; l < this.userE.length; l++)
       { 
         currentGrade = this.elderMatches[l][0]
-        console.log("this.userE[l].docID  : " , this.userE[l].docID  )
-        console.log("ElderlyAlreadyChecked[0]: " , ElderlyAlreadyChecked[0])
-        
-        for(let k=0 ; k<ElderlyAlreadyChecked.length ; k++){
-            console.log("ENTER FOR ALREADY")
-            if(this.userE[l].docID.toString() == ElderlyAlreadyChecked[k]){
-                alreadyChecked = true
-                console.log("ENTER ALREADY")
-                break
-            }
-        }
 
-        if(!alreadyChecked && this.userE[l].status != 2 && this.userE[l].status != 4 && this.userE[l].matching.grade != 'manual'  ){
+        if(!alreadyChecked && this.userE[l].status != 2 && this.userE[l].status != 4 && this.userE[l].matching.grade != 'manual')
+        {
             res = 0 ,grade = 0 
-            console.log("volunteer name: ", this.userV[i].name + "\nelderly name: ", this.userE[l].name)
+            console.log("volunteer name: ", this.userV[indexVol].name + "\nelderly name: ", this.userE[l].name)
             
             if(this.parameters[0].currentValue) //days
             {
-              res = this.checkMatchArr(this.userV[i].dayOfMeeting, this.userE[l].dayOfMeeting)
+              res = this.checkMatchArr(this.userV[indexVol].dayOfMeeting, this.userE[l].dayOfMeeting)
               if(this.parameters[0].Threshold && res == 0)
                   continue;
               else
@@ -1061,7 +957,7 @@ export class adminPage
 
             if(this.parameters[1].currentValue) //hours  
             {
-                res = this.checkMatchArr(this.userV[i].hours, this.userE[l].hours) //hours
+                res = this.checkMatchArr(this.userV[indexVol].hours, this.userE[l].hours) //hours
                 if(this.parameters[1].Threshold && res == 0)
                   continue
                 else
@@ -1075,7 +971,7 @@ export class adminPage
 
             if(this.parameters[2].currentValue)//meeting with 
             {
-              res = this.checkMeetingWithArr(this.userV[i].meetingWith, this.userE[l].meetingWith)
+              res = this.checkMeetingWithArr(this.userV[indexVol].meetingWith, this.userE[l].meetingWith)
               if(this.parameters[2].Threshold  && res == 0)
                 continue;
               else
@@ -1088,7 +984,7 @@ export class adminPage
       
             if(this.parameters[3].currentValue) //hobbies
             {
-              res = this.checkMatchArr(this.userV[i].hobbies, this.userE[l].hobbies)
+              res = this.checkMatchArr(this.userV[indexVol].hobbies, this.userE[l].hobbies)
               if(this.parameters[3].Threshold  && res == 0)
                 continue
               else
@@ -1096,14 +992,14 @@ export class adminPage
                 grade += res
                 res = 0
                 console.log("after hobbies ", grade)
-                grade += this.checkMatchArr(this.userV[i].musicStyle, this.userE[l].musicStyle) //music style
+                grade += this.checkMatchArr(this.userV[indexVol].musicStyle, this.userE[l].musicStyle) //music style
                 console.log("after music style ", grade)
               }
             }
 
             if(this.parameters[4].currentValue) //language
             {
-              res = this.checkMatchArr(this.userV[i].language, this.userE[l].language) 
+              res = this.checkMatchArr(this.userV[indexVol].language, this.userE[l].language) 
               if(this.parameters[4].Threshold  && res == 0)
                 continue
               else
@@ -1122,25 +1018,14 @@ export class adminPage
             }
             else if(bestElderlyIndex == -1)
               bestElderlyIndex = l
-            
-            // let j = 0 
-            // let temp = {"grade": grade, "id": this.userE[l].docID, index: l}
-            // if(j < 3)
-            // {
-            //   //insert temp to arrMatch with sorting way
-            //   this.sortArr(arrMatch, j , temp , grade)
-            //   j++;
-            // }
-            // else // check if the grade need to inserted to arrMatch
-            //   this.update_gradesArr(arrMatch, grade, temp)
         }
       
-  }
-  arrMatch[0] = bestElderlyIndex
-  arrMatch[1] = higherGrade
+    }
+    arrMatch[0] = bestElderlyIndex
+    arrMatch[1] = higherGrade
 
-  return arrMatch
-}
+    return arrMatch
+  }
 
 
 
