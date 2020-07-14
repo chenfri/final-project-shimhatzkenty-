@@ -838,17 +838,29 @@ export class adminPage
         numOfAlreadyMatched += 1
     });
 
+    let counter = 0
+    let breakLoop = false
 
     while(numOfUsers != numOfAlreadyMatched)
     {
+      console.log("counter: ", counter)
+      if(breakLoop)
+        break;
+   
       console.log("numOfAlreadyMatched: " , numOfAlreadyMatched)
 
       for(var i = 0 ; i < this.userV.length ; i++)
       {  
-        let arrMatch = [], elderlyIndex; 
+        if(counter == this.userV.length)
+        {
+          breakLoop = true;
+          break
+        }
+          
+        let arrMatch = [-1,-1], elderlyIndex; 
 
        //Check if there isn't match for this volunteer 
-        if(this.userV[i].status != 2 && this.userV[i].status != 4 )
+        if(this.userV[i].status != 2 && this.userV[i].status != 4 && this.userV[i].status != -2)
         {
           arrMatch = this.findMatches(i) //find the best elderly for this volunteer
           elderlyIndex = arrMatch[0]
@@ -859,7 +871,7 @@ export class adminPage
             if(this.userE[elderlyIndex].matching.id == "") //if there is no match for elderly update new matching
             { 
                 numOfAlreadyMatched += 1
-                console.log("numOfAlreadyMatched: " , numOfAlreadyMatched)
+              //  console.log("numOfAlreadyMatched: " , numOfAlreadyMatched)
 
                 this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
                                 date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
@@ -875,7 +887,6 @@ export class adminPage
                 //If the existing grade is higher than the new grade
                 if(this.elderMatches[elderlyIndex][0] < arrMatch[1])      
                 {
-                  console.log("LOWER")
 
                   this.elderMatches[elderlyIndex][0]= arrMatch[1]
                   this.elderMatches[elderlyIndex][1]= i
@@ -883,11 +894,13 @@ export class adminPage
                   this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
                                   date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
                   this.userV[i].matching =  this.userE[elderlyIndex].docID
-                  this.userV[i].status = -1
+                  this.userV[i].status = -2 //כדי שלא נעבור על הקשיש הזה שוב באיטרציה הבאה
                   this.userE[elderlyIndex].status = -1         
               }
             }
           }
+          else
+            counter++;
         }
       
       }
@@ -927,7 +940,6 @@ export class adminPage
   //the method find the best matching for volunteer and save it in 'arrMatch'
   findMatches(indexVol)
   {
-      var alreadyChecked = false;
       var bestElderlyIndex = -1;
       let arrMatch = []
       let higherGrade = 0, currentGrade = 0, res = 0 ,grade = 0
@@ -936,35 +948,35 @@ export class adminPage
       { 
         currentGrade = this.elderMatches[l][0]
 
-        if(!alreadyChecked && this.userE[l].status != 2 && this.userE[l].status != 4 && this.userE[l].matching.grade != 'manual')
+        if(this.userE[l].status != 2 && this.userE[l].status != 4 && this.userE[l].matching.grade != 'manual')
         {
             res = 0 ,grade = 0 
-            console.log("volunteer name: ", this.userV[indexVol].name + "\nelderly name: ", this.userE[l].name)
+           // console.log("volunteer name: ", this.userV[indexVol].name + "\nelderly name: ", this.userE[l].name)
             
             if(this.parameters[0].currentValue) //days
             {
-              res = this.checkMatchArr(this.userV[indexVol].dayOfMeeting, this.userE[l].dayOfMeeting)
+              res = this.checkMatchArr(this.userV[indexVol].dayOfMeeting, this.userE[l].dayOfMeeting, 1)
               if(this.parameters[0].Threshold && res == 0)
                   continue;
               else
               {
                 grade += res
                 res = 0
-                console.log("after days ", grade)  
+               // console.log("after days ", grade)  
               }
                 
             }
 
             if(this.parameters[1].currentValue) //hours  
             {
-                res = this.checkMatchArr(this.userV[indexVol].hours, this.userE[l].hours) //hours
+                res = this.checkMatchArr(this.userV[indexVol].hours, this.userE[l].hours, 0) //hours
                 if(this.parameters[1].Threshold && res == 0)
                   continue
                 else
                 {
                   grade += res
                   res = 0  
-                  console.log("after hours ", grade)
+                 // console.log("after hours ", grade)
                 }
             }
           
@@ -978,49 +990,52 @@ export class adminPage
               {
                 grade += res
                 res = 0
-                console.log("after meetingwith ", grade)
+               // console.log("after meetingwith ", grade)
               }
             }  
       
             if(this.parameters[3].currentValue) //hobbies
             {
-              res = this.checkMatchArr(this.userV[indexVol].hobbies, this.userE[l].hobbies)
+              res = this.checkMatchArr(this.userV[indexVol].hobbies, this.userE[l].hobbies, 0)
               if(this.parameters[3].Threshold  && res == 0)
                 continue
               else
               {
                 grade += res
                 res = 0
-                console.log("after hobbies ", grade)
-                grade += this.checkMatchArr(this.userV[indexVol].musicStyle, this.userE[l].musicStyle) //music style
-                console.log("after music style ", grade)
+              //  console.log("after hobbies ", grade)
+                grade += this.checkMatchArr(this.userV[indexVol].musicStyle, this.userE[l].musicStyle, 0) //music style
+               // console.log("after music style ", grade)
               }
             }
 
             if(this.parameters[4].currentValue) //language
             {
-              res = this.checkMatchArr(this.userV[indexVol].language, this.userE[l].language) 
+              res = this.checkMatchArr(this.userV[indexVol].language, this.userE[l].language, 0) 
               if(this.parameters[4].Threshold  && res == 0)
                 continue
               else
               {
                 grade += res
                 res = 0
-                console.log("after language ", grade)
+              //  console.log("after language ", grade)
               }
             }
 
-            console.log("totle grade is: ", grade)
+            // console.log("totle grade is: ", grade)
+            // console.log("currentGrade: ",currentGrade)
+            // console.log("higherGrade: ",higherGrade)
           
-            if(higherGrade <= grade && grade > currentGrade ){
+            if(higherGrade <= grade && grade > currentGrade){
+              console.log("volunteer name: ", this.userV[indexVol].name + "\nelderly name: ", this.userE[l].name)
               bestElderlyIndex = l
               higherGrade = grade
             }
-            else if(bestElderlyIndex == -1)
-              bestElderlyIndex = l
+         
         }
       
     }
+    
     arrMatch[0] = bestElderlyIndex
     arrMatch[1] = higherGrade
 
@@ -1117,10 +1132,10 @@ export class adminPage
 
 
 
-  checkMatchArr(arrV, arrE)
+  checkMatchArr(arrV, arrE , indexToStart)
   {
     let grade = 0
-      for(let i = 0 ; i < arrV.length; i++)
+      for(let i = indexToStart ; i < arrV.length; i++)
       {
         if(arrV[i].currentValue && arrE[i].currentValue)
           grade+= 1

@@ -70,8 +70,6 @@ export class ModalPage {
         {
           if(this.userV[iV].docID == volIdDoc){
               this.waitingForAdminAcceptList.push({elderlyIdDoc: iE ,volIdDoc: iV})
-              console.log("name VO: ", this.userV[iV].name )
-              console.log("name El: ", this.userE[iE].name )
               break;
           }
         }
