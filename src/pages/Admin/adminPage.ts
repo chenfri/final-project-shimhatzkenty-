@@ -53,7 +53,11 @@ export class adminPage
 
     if (this.platform.is('android'))
       this.androidPlat = true;
+  }
 
+
+  ngOnInit()
+  { 
     //get parameters form other pages
     this.user.loggedIn = this.navParams.get('login');
     this.user.Admin = this.navParams.get('admin');
@@ -86,11 +90,6 @@ export class adminPage
         this.studentArr[j] = this.userV[i]
         j++}
     }
-
-  }
-
-
-  ngOnInit(){ 
   }
 
 
@@ -843,11 +842,8 @@ export class adminPage
 
     while(numOfUsers != numOfAlreadyMatched)
     {
-      console.log("counter: ", counter)
       if(breakLoop)
         break;
-   
-      console.log("numOfAlreadyMatched: " , numOfAlreadyMatched)
 
       for(var i = 0 ; i < this.userV.length ; i++)
       {  
@@ -871,14 +867,11 @@ export class adminPage
             if(this.userE[elderlyIndex].matching.id == "") //if there is no match for elderly update new matching
             { 
                 numOfAlreadyMatched += 1
-              //  console.log("numOfAlreadyMatched: " , numOfAlreadyMatched)
-
-                this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
-                                date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}
-                                
                 this.userE[elderlyIndex].status = -1
-                this.elderMatches[elderlyIndex][0]= arrMatch[1]
-                this.elderMatches[elderlyIndex][1]= i   
+                this.elderMatches[elderlyIndex][0] = arrMatch[1]
+                this.elderMatches[elderlyIndex][1] = i  
+                this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
+                                date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}              
               } 
 
               else  //if this elderly has allready matching - in status -1 or 1 (not manually)
@@ -906,28 +899,28 @@ export class adminPage
       }
     } 
 
-          //for save macting in DB
-    // for(let k = 0; k < this.userE.length; k++) 
-    // { 
-    //   if(this.userE[k].status != -1 || this.userE[k].status != 1)
-    //   {
-    //     console.log(this.userE[k].matching)
-    //     let idV = this.userE[k].matching.id
+    //for save macting in DB
+    for(let k = 0; k < this.userE.length; k++) 
+    { 
+      if(this.userE[k].status == -1)
+      {
+        console.log(this.userE[k].matching)
+        let idV = this.userE[k].matching.id
 
-    //       db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
-    //       {
-    //           matching: this.userE[k].matching,
-    //           status: -1
-    //         }).catch((error) => {console.log(error)})
+          db.collection('ElderlyUsers').doc(this.userE[k].docID).update(
+          {
+              matching: this.userE[k].matching,
+              status: -1
+            }).catch((error) => {console.log(error)})
       
       
-    //     db.collection('volunteerUsers').doc(idV).update(
-    //     {
-    //       matching: this.userE[k].docID,
-    //       status: -1
-    //     }).catch((error) => {console.log(error)})
-    //   }
-    // }
+          db.collection('volunteerUsers').doc(idV).update(
+          {
+            matching: this.userE[k].docID,
+            status: -1
+          }).catch((error) => {console.log(error)})
+      }
+    }
 
       console.log("this.elderMatches", this.elderMatches)
       this.alert.showSuccessAlgorithm();
@@ -1023,11 +1016,8 @@ export class adminPage
             }
 
             // console.log("totle grade is: ", grade)
-            // console.log("currentGrade: ",currentGrade)
-            // console.log("higherGrade: ",higherGrade)
-          
+    
             if(higherGrade <= grade && grade > currentGrade){
-              console.log("volunteer name: ", this.userV[indexVol].name + "\nelderly name: ", this.userE[l].name)
               bestElderlyIndex = l
               higherGrade = grade
             }
@@ -1105,7 +1095,7 @@ export class adminPage
   //this code is call sendSms (firebase Functions) from backend
   sendSMS(number , name)
   {
-    let msg =  "שלום " + name + ",\nנמצאה לך התאמה באתר שמחקת זקנתי!\nלפרטים נוספים יש להיכנס לאתר ולבצע התחברות עם כתובת מייל וסיסמה\nלאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
+    let msg =  "שלום " + name + ",\nנמצאה לך התאמה באתר שמחת זקנתי!\nלפרטים נוספים יש להיכנס לאתר ולבצע התחברות עם כתובת מייל וסיסמה\nלאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
     let sendEmail = firebase.functions().httpsCallable('sendSms');
 
     sendEmail({number: number , msg: msg}).then(function(result) {

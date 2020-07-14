@@ -20,7 +20,7 @@
 <ion-content class="parametersPage" *ngIf="this.whichPage=='Admin'">
     <button class="close-icon" type="submit" style="text-align: right !important; margin-left: 5px;" (click)="closeModal()"></button>
     <ion-grid>
-        <ion-row >
+        <ion-row>
             <ion-col>
                 <h5 style="text-align:center !important; font-weight: bold;margin-top: 4rem;;direction: rtl">האם הפרמטר תנאי סף?</h5>
                 <ion-list radio-group class="item-list" style="margin-right: 3rem;"><br>
@@ -48,13 +48,13 @@
         </ion-row>
     </ion-grid>
 </ion-content>
- 
+
 <ion-content class="parametersPage" *ngIf="this.whichPage=='matchAccept'">
     <button class="close-icon" type="submit" style="text-align: right !important; margin-left: 5px;" (click)="closeModal()"></button>
 
     <div class="tables">
         <div *ngIf="waitingForAdminAcceptList.length > 0">
-            <h4 class="tableTitle">התאמות שמחכות לאישור מנהל</h4>
+            <h4 class="tableTitle">התאמות שממתינות לאישור מנהל</h4>
             <table id="customers" class="tableD">
                 <tr>
                     <th>שם המתנדב</th>
@@ -79,12 +79,12 @@
                     <td>
                         <button *ngIf="userE[value.elderlyIdDoc].status == -1" class="buttons" type="submit" (click)="adminAcceptence(value , 'accept')">אשר
                         </button>
-                        <label *ngIf="userE[value.elderlyIdDoc].status == 1" >ההתאמה אושרה
+                        <label *ngIf="userE[value.elderlyIdDoc].status == 1">ההתאמה אושרה
                         </label>
                     </td>
                     <td>
                         <button *ngIf="userE[value.elderlyIdDoc].status == -1" class="buttons" type="submit" (click)="adminAcceptence(value , 'reject')">דחה</button>
-                        <label *ngIf="userE[value.elderlyIdDoc].status == 0" >ההתאמה נדחתה
+                        <label *ngIf="userE[value.elderlyIdDoc].status == 0">ההתאמה נדחתה
                         </label>
                     </td>
                 </tr>

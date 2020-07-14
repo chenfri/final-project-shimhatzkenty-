@@ -57,7 +57,8 @@ export class ModalPage {
 
   }
 
-  getWaitingList(){
+  getWaitingList()
+  {
     var volIdDoc;
 
     for(var iE = 0 ; iE < this.userE.length ; iE++)
@@ -103,11 +104,12 @@ export class ModalPage {
 
       this.userE[match.elderlyIdDoc].status = 1
 
-    //this.sendEmailsVolunteer(this.userV[match.volIdDoc].name, this.userV[match.volIdDoc].email)
-    // if(this.userE[i].email != null)
-    //   this.sendEmailsElder(this.userE[i].nameAssistant, this.userE[i].name, "this.userE[i].nameVthis.userE[i].email")
-    //if(this.userV[match.volIdDoc].phone.length == 9)
-    //this.sendSMS("+972" + this.userE[i].matching.phoneV, this.userE[i].matching.name)
+      //send emails and sms
+      this.sendEmailsVolunteer(this.userV[match.volIdDoc].name, this.userV[match.volIdDoc].email)
+      if(this.userE[match.elderlyIdDoc].email != null)
+        this.sendEmailsElder(this.userE[match.elderlyIdDoc].nameAssistant, this.userE[match.elderlyIdDoc].name, this.userE[match.elderlyIdDoc].email)
+      if(this.userV[match.volIdDoc].phone.length == 9)
+        this.sendSMS("+972" + this.userV[match.volIdDoc].phone, this.userV[match.volIdDoc].name)
       }
     
 
@@ -188,4 +190,76 @@ export class ModalPage {
 
     //console.log('parameters',this.parameters) 
   }
+
+
+
+  sendEmailsVolunteer(username, email)
+  {
+    let text = "שלום "+ username +",\nרצינו לעדכן אותך שמצאנו לך התאמה :)\n" +
+    "לפרטים נוספים לחץ/י על הקישור ובצע/י התחברות עם כתובת המייל והסיסמה שלך\n" +
+    "לאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות' bit.ly/2WDBZTZ \n\n" +
+    "תודה על שיתוף הפעולה,\n" +
+    "שמחת זקנתי"
+
+    let subject =  "נמצאה לך התאמה באתר שמחת זקנתי!"
+
+    let sendEmail = firebase.functions().httpsCallable('sendEmail');
+    sendEmail({email: email, subject: subject, text: text}).then(function(result) {
+      console.log("success calling sendEmail - ", result.data)
+    }).catch(function(error) {
+      console.log("error from calling sendEmail functions - ", error.message ,error.code)
+    });
+  }
+
+
+
+  //this code is call sendEmail (firebase Functions) from backend 
+  sendEmailsElder(username , nameE, email)
+  {
+    let text = "שלום "
+
+    if(username != undefined)
+      text += username +",\n";   
+    else
+      text += nameE +",\n";
+
+    if(username != nameE && username != undefined)
+    {
+      text +="רצינו לעדכן אותך שנמצאה התאמה עבור אזרח ותיק שרשמת באתר שלנו"
+      if(nameE != "חסוי")
+        text += " - " + nameE;
+
+      text +=  "\nבימים הקרובים יצרו עמכם קשר\n\n"
+    }
+    
+    else
+      text += "רצינו לעדכן אותך שנמצאה עבורך התאמה :) \nבימים הקרובים יצרו עימך קשר,\n\n"
+
+    text +="בברכה,\nצוות שמחת זקנתי"
+
+    let subject =  "נמצאה התאמה באתר שמחת זקנתי!"
+
+    let sendEmail = firebase.functions().httpsCallable('sendEmail');
+    sendEmail({email: email, subject: subject, text: text}).then(function(result) {
+      console.log("success calling sendEmail - ", result.data)
+    }).catch(function(error) {
+      console.log("error from calling sendEmail functions - ", error.message ,error.code)
+    });
+  }
+
+
+
+  //this code is call sendSms (firebase Functions) from backend
+  sendSMS(number , name)
+  {
+    let msg =  "שלום " + name + ",\nנמצאה לך התאמה באתר שמחת זקנתי!\nלפרטים נוספים יש להיכנס לאתר ולבצע התחברות עם כתובת מייל וסיסמה\nלאחר מכאן לחץ/י בתפריט על 'צפייה בהתאמות'\nhttps://simhat-zkenty.firebaseapp.com\n\nצוות שמחת זקנתי"
+    let sendEmail = firebase.functions().httpsCallable('sendSms');
+
+    sendEmail({number: number , msg: msg}).then(function(result) {
+      console.log("success calling sendSms1 - ", result.data)
+    }).catch(function(error) {
+      console.log("error from calling sendSms1 functions - ", error.message ,error.code)
+    });
+  }
+
 }
