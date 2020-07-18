@@ -105,11 +105,11 @@ export class ModalPage {
       this.userE[match.elderlyIdDoc].status = 1
 
       //send emails and sms
-      // this.sendEmailsVolunteer(this.userV[match.volIdDoc].name, this.userV[match.volIdDoc].email)
-      // if(this.userE[match.elderlyIdDoc].email != null)
-      //   this.sendEmailsElder(this.userE[match.elderlyIdDoc].nameAssistant, this.userE[match.elderlyIdDoc].name, this.userE[match.elderlyIdDoc].email)
-      // if(this.userV[match.volIdDoc].phone.length == 9)
-      //   this.sendSMS("+972" + this.userV[match.volIdDoc].phone, this.userV[match.volIdDoc].name)
+      this.sendEmailsVolunteer(this.userV[match.volIdDoc].name, this.userV[match.volIdDoc].email)
+      if(this.userE[match.elderlyIdDoc].email != null)
+        this.sendEmailsElder(this.userE[match.elderlyIdDoc].nameAssistant, this.userE[match.elderlyIdDoc].name, this.userE[match.elderlyIdDoc].email)
+      if(this.userV[match.volIdDoc].phone.length == 9)
+        this.sendSMS("+972" + this.userV[match.volIdDoc].phone, this.userV[match.volIdDoc].name)
       }
     
 
