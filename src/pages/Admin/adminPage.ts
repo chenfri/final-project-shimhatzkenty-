@@ -825,7 +825,7 @@ export class adminPage
   matchingAlgorithm()
   {
     const db = firebase.firestore();
-    let numOfAlreadyMatched = 0, numOfUsers = 0
+    let numOfAlreadyMatched = 0, numOfUsers = 0 
 
     if(this.userV.length >= this.userE.length) //for while Stop condition
       numOfUsers = this.userE.length
@@ -870,8 +870,7 @@ export class adminPage
                 this.userE[elderlyIndex].status = -1
                 this.elderMatches[elderlyIndex][0] = arrMatch[1]
                 this.elderMatches[elderlyIndex][1] = i  
-                this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,
-                                date: this.date, nameV: this.userV[i].name, phoneV: this.userV[i].phone}              
+                this.userE[elderlyIndex].matching = {id: this.userV[i].docID, grade: arrMatch[1] ,date: this.date}              
               } 
 
               else  //if this elderly has allready matching - in status -1 or 1 (not manually)
@@ -935,7 +934,7 @@ export class adminPage
   {
       var bestElderlyIndex = -1;
       let arrMatch = []
-      let higherGrade = 0, currentGrade = 0, res = 0 ,grade = 0
+      let higherGrade = 0, currentGrade = 0, res = 0 ,grade = 0 , ifReject = false
 
       for(let l = 0; l < this.userE.length; l++)
       { 
@@ -945,7 +944,22 @@ export class adminPage
         {
             res = 0 ,grade = 0 
            // console.log("volunteer name: ", this.userV[indexVol].name + "\nelderly name: ", this.userE[l].name)
-            
+           
+           let rejected = this.userV[indexVol].rejected
+           if(rejected != null)
+           {
+             for(let i = 0 ; i < rejected.length; i++)
+             {
+              if(rejected[i].id == this.userE[l].docID){
+                console.log("rejeced: ",this.userE[l].name)
+                ifReject = true;
+                break;}
+              }
+
+              if(ifReject)
+                continue
+           }
+
             if(this.parameters[0].currentValue) //days
             {
               res = this.checkMatchArr(this.userV[indexVol].dayOfMeeting, this.userE[l].dayOfMeeting, 1)

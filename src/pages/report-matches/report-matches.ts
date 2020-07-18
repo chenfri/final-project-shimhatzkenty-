@@ -56,7 +56,7 @@ export class ReportMatchesPage {
     // console.log('EldermatchesNotFound:',this.ElderMatchesNotFound)
     // console.log('notConfirmedMatchesList:',this.notConfirmedMatchesList)
     // console.log('acceptedMatchesList: ', this.acceptedMatchesList)
-    // console.log('meetingList:', this.MeetingList)
+    console.log('meetingList:', this.MeetingList)
     // console.log('RejectedMatch:',this.RejectedMatch)
     // console.log('matchesFoundList:',this.matchesFoundList)
     // console.log('waitingForAdminAcceptList:',this.waitingForAdminAcceptList)
@@ -91,6 +91,17 @@ export class ReportMatchesPage {
               })
           }});
       }
+
+      
+      let tmp = this.userV[iV].arrDates
+      if(tmp != null)
+      {
+        for(let i = 0 ; i < tmp.length; i++)
+          this.MeetingList.push({elderlyIdDoc: this.findElderIndex(tmp[i].idElder) ,volIdDoc: this.userV[iV].index,
+            date:tmp[i].date })
+        
+      }
+      
     }
 
 
@@ -108,15 +119,6 @@ export class ReportMatchesPage {
           
           if(this.userV[iV].docID == volIdDoc)
           {
-
-            let tmp = this.userV[iV].arrDates
-            if(tmp != null)
-            {
-              for(let i = 0 ; i < tmp.length; i++)
-                this.MeetingList.push({elderlyIdDoc: this.findElderIndex(tmp[i].idElder) ,volIdDoc: this.userV[iV].index,
-                  date:tmp[i].date })
-              
-            }
 
             this.matchesFoundList.push({elderlyIdDoc: this.userE[iE].index ,volIdDoc: this.userV[iV].index})
 

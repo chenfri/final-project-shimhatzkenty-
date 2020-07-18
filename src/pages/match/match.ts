@@ -96,9 +96,9 @@ export class MatchPage {
     let temp = {number: "", date: "", idElder: this.userV[this.indexOfLogged].matching}
     let tempArr = []
     var tmp = this.userV[this.indexOfLogged].arrDates
-    if(tmp != null)
+    if(tmp != null){
       for(let i = 0 ; i < tmp.length; i++)
-        tempArr.push(tmp[i])
+        tempArr.push(tmp[i])}
     tempArr.push(temp)
 
     this.userV[this.indexOfLogged].arrDates = tempArr
@@ -278,9 +278,19 @@ updateRejected(idE, idV ,i)
   //save the date that meeting has occurred 
   saveTheDate(index, elderId)
   {
+    console.log("saveTheDate")
     let date = this.meetingDate.split("-").reverse().join("-");
-    let tmp = this.userV[index].arrDates
-    tmp.push ({date: date, idElder: elderId, number: tmp.length +1})
+    let tmp = [] , length = 0
+    if(this.userV[index].arrDates != null)
+    {
+      tmp = this.userV[index].arrDates
+      length = tmp.length
+    }
+    
+    var x = {date: date, idElder: elderId, number:length +1}
+    console.log(x)
+    tmp.push(x)
+    console.log(tmp)
     const db = firebase.firestore();
     db.collection("volunteerUsers").doc(this.userV[index].docID).update({
       arrDates: tmp
