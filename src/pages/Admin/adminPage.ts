@@ -870,6 +870,13 @@ export class adminPage
           
         let arrMatch = [-1,-1], elderlyIndex; 
 
+        let indexElder = this.volMatchesIndex[i]
+        if(indexElder != -1){
+          if(this.userE[indexElder].matching.grade == "manual")
+            continue;}
+          
+          
+
        //Check if there isn't match for this volunteer 
         if(this.userV[i].status != 2 && this.userV[i].status != 4 && this.userV[i].status != -2)
         {
@@ -882,7 +889,6 @@ export class adminPage
 
             if(this.userE[elderlyIndex].matching.id == "") //if there is no match for elderly update new matching
             { 
-              console.log("a")
                 numOfAlreadyMatched += 1
                 this.userE[elderlyIndex].status = -1
                 this.elderMatches[elderlyIndex][0] = arrMatch[1]
