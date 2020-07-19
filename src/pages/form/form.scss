@@ -203,11 +203,11 @@ ion-content.formCSS {
         color: rgb(226, 222, 222);
     }
     .label_behalf {
-        // for android app 12px
+        // for android app 12px and for web 20px
         font-size: 20px;
     }
     label {
-        //במקום 13.3333px
+        //for android 13.3333px and for web 16px
         font-size: 16px;
     }
 }

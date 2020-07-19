@@ -116,7 +116,7 @@
                     <ion-textarea cols="40" rows="2" type="text" name="comments" [(ngModel)]="value.adminComments" style="direction: rtl;"></ion-textarea>
                 </td>
                 <td class="hidePhone">
-                    <label *ngIf="value.status != 0 && value.status != -1">{{dates[volunteerMatches[i]]}}</label>
+                    <label *ngIf="value.status != 0 && value.status != -1">{{dates[volMatchesIndex[i]]}}</label>
                     <label *ngIf="value.status == 0 || value.status == -1">לא</label>
                 </td>
                 <td>

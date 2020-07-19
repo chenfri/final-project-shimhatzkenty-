@@ -23,10 +23,10 @@ export class ModalPage {
 
 
     this.userE =  this.navParams.get('userE');
-    console.log('userE: ', this.userE);
+    //console.log('userE: ', this.userE);
 
     this.userV =  this.navParams.get('userV');
-    console.log('userV: ', this.userV);
+   // console.log('userV: ', this.userV);
 
     if(this.whichPage == "matchAccept")
         this.getWaitingList()
@@ -81,13 +81,11 @@ export class ModalPage {
 
   adminAcceptence(match , type)
   {
-    console.log('matchToaccept:  ', match)
+    //console.log('matchToaccept:  ', match)
     const db = firebase.firestore();
 
     if(type == "accept")
     {
-
-      
       db.collection('ElderlyUsers').doc(this.userE[match.elderlyIdDoc].docID).update(
       {
           matching: this.userE[match.elderlyIdDoc].matching,
@@ -133,7 +131,7 @@ export class ModalPage {
     // modal for get 'more details' about the users
     async openPopover(event , uid, userType)
     {
-      console.log("openPopover")
+      //console.log("openPopover")
       let popover = this.popoverCtrl.create(PopoverPage , {'uid': uid ,'userType': userType },{cssClass: 'custom-popover'});
       popover.present({
         ev: event
@@ -172,7 +170,7 @@ export class ModalPage {
       }
     });
 
-    console.log('parameters',this.parameters) 
+    //console.log('parameters',this.parameters) 
   }
 
 
