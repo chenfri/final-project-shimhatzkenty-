@@ -25,7 +25,7 @@
 
     <ion-grid no-padding>
         <div *ngFor="let value of userV ; let i = index">
-            <ion-row *ngIf="(value.docID == IDlogged &&(value.status == -1  || value.status == 0))" style="justify-content: center;padding-top: 10rem;">
+            <ion-row *ngIf="(!user.Admin && value.docID == IDlogged &&(value.status == -1  || value.status == 0))" style="justify-content: center;padding-top: 10rem;">
                 <h5>מצטערים, עדיין לא נמצאה עבורך התאמה</h5>
             </ion-row>
         </div>
@@ -228,17 +228,18 @@
                                 </ion-row>
 
                                 <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3">התאמה נדחתה</ion-row>
-                                <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת הביטול: {{cancelDescription}}<br><br></ion-row><br><br>
+                                <ion-row class="textStyle" *ngIf=" this.userV[numbers[i]].status == 3 && cancellationReason == true ">סיבת דחייה: {{cancelDescription}}<br><br></ion-row><br><br>
 
                                 <ion-row>
-                                    <button class="buttons" type="submit" *ngIf="this.userV[numbers[i]].status != 3 && this.userV[numbers[i]].status != 4" (click)="CancelMatch(numbers[i])">ביטול התאמה</button>
+                                    <button class="buttons" type="submit" *ngIf="!user.Admin && this.userV[numbers[i]].status != 2 && this.userV[numbers[i]].status != 3 && this.userV[numbers[i]].status != 4" (click)="rejectMatchVol(numbers[i])">דחיית התאמה</button>
+                                    <button class="buttons" type="submit" *ngIf="user.Admin" (click)="CancelMatchAdmin(value.docID, this.userV[numbers[i]].docID)">ביטול התאמה</button>
                                 </ion-row>
-                                <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="cancelText">
+                                <ion-grid style="width: fit-content; height: auto; float:right;" *ngIf="this.userV[numbers[i]].status == 3">
                                     <ion-item>
-                                        <ion-label>נשמח לדעת את סיבת הדחייה</ion-label>
-                                        <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription"></ion-textarea>
+                                        <!-- <ion-label>נשמח לדעת את סיבת הדחייה</ion-label> -->
+                                        <ion-textarea clearOnEdit="true" [(ngModel)]="cancelDescription" placeholder="נשמח לדעת את סיבת הדחייה"></ion-textarea>
                                     </ion-item>
-                                    <button class="buttons" (click)="updateRejected(value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת ביטול</button>
+                                    <button class="buttons" (click)="updateRejected(value.docID, userV[numbers[i]].docID,numbers[i])">שמירת סיבת הדחייה</button>
 
                                 </ion-grid>
                             </ion-grid>

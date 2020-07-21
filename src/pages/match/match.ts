@@ -151,7 +151,50 @@ export class MatchPage {
 
 
 
-  CancelMatch(i)
+  CancelMatchAdmin(idE , idV)
+  {
+
+  let alert = this.alertCtrl.create({
+    title: 'אזהרה',
+    subTitle: 'האם את/ה בטוח/ה שברצונך לבטל את ההתאמה שנמצאה?' ,
+    buttons: [
+    {
+      text: 'כן',
+      role: 'cancel',
+      handler: () => {
+      console.log('yes clicked');
+    
+      const db = firebase.firestore(); 
+      db.collection("volunteerUsers").doc(idV).update({
+        status: 0,
+        matching: null,
+        dateSendRemider: ""
+      }).catch(error => {console.log(error)}) 
+
+
+      db.collection("ElderlyUsers").doc(idE).update({
+        matching:{id: "", grade: 0, date: ""},
+        status: 0
+      }).catch(error => {console.log(error)}) 
+
+    }
+    },
+    {
+      text: 'לא',
+      handler: () => {
+        console.log('no clicked');
+        this.cancelText = false;
+
+      }
+    }
+    ]
+  });
+    alert.present();
+}
+  
+
+
+rejectMatchVol(i)
   {
 
   let alert = this.alertCtrl.create({
@@ -180,10 +223,9 @@ export class MatchPage {
     ]
   });
     alert.present();
-  
-  
 }
-  
+
+
 
 //handle with the case that the volunteer denied the matching that found for him
 updateRejected(idE, idV ,i)
