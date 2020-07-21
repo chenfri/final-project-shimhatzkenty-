@@ -128,7 +128,7 @@ export class adminPage
   {
     for(var i = 0; i < this.userE.length; i++)
     {
-      if(this.userE[i].status != 0 && this.userE[i].status != -1) 
+      if(this.userE[i].status != 0) 
       {
         var volID = this.userE[i].matching.id;
         var push = false;
@@ -444,11 +444,14 @@ export class adminPage
         if(item != "")
           db.collection("ElderlyUsers").doc(item).delete().then(() =>
           {
-
-            if(this.userE[index].status != 0 && this.userE[index].status != -1) 
+console.log("index: ", index)
+            if(this.userE[index].status != 0) 
             {
+              
               let volId= this.userE[index].matching.id
+              console.log("volId: ", volId)
               let volIndex = this.elderMatchesIndex[index]
+              console.log("volIndex: ", volIndex)
               let arrDates = this.userV[volIndex].arrDates
               let arrTmp = []
 
@@ -591,7 +594,7 @@ export class adminPage
         {
        
              //let elderIndex;
-             if(this.userV[index].status != 0 && this.userV[index].status != -1) 
+             if(this.userV[index].status != 0) 
              {
                let elderId= this.userV[index].matching
    
@@ -871,7 +874,9 @@ export class adminPage
         let arrMatch = [-1,-1], elderlyIndex; 
 
         let indexElder = this.volMatchesIndex[i]
-        if(indexElder != -1){
+        console.log("i ",i)
+        console.log("indexElder ",indexElder)
+        if(indexElder != -1 ){
           if(this.userE[indexElder].matching.grade == "manual")
             continue;}
           
