@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "648272650299-l4clquba74il72bbbls338jfa3v2ik3f.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 1,
           "android_info": {
             "package_name": "com.simhat_zkenty.app",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "648272650299-0u3sl5e453tcm1amimgnpsc75ntmgo2j.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyARiESjzj95Zo57mVgNRRRw5zrKIE_Acds"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "648272650299-0u3sl5e453tcm1amimgnpsc75ntmgo2j.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 3
             }
           ]
@@ -52,7 +52,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "648272650299-1coidlp2qr0li4ms2q7uo1eul7g1fpvf.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 1,
           "android_info": {
             "package_name": "com.simhat_zkenty.app",
@@ -60,20 +60,20 @@
           }
         },
         {
-          "client_id": "648272650299-0u3sl5e453tcm1amimgnpsc75ntmgo2j.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyARiESjzj95Zo57mVgNRRRw5zrKIE_Acds"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "648272650299-0u3sl5e453tcm1amimgnpsc75ntmgo2j.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 3
             }
           ]

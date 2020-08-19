@@ -473,7 +473,7 @@ export class Form
     };
 
     xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," +
-      long + "&key=AIzaSyCZBHhiOHheytNnAa-8tfwek4rZNQtSTzs", true);
+      long + "&key=", true);
     xhttp.send();
   }
 

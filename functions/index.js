@@ -1,13 +1,13 @@
 const functions = require('firebase-functions');
 const admin = require("firebase-admin");
 const sgMail = require('@sendgrid/mail');
-const SENDGRID_API_KEY = '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'
+const SENDGRID_API_KEY = ""
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 const twilio = require('twilio');
-const accountSid = "ACb4e106132670f6e4725890c1ba32dfff"
-const authToken = "f6170502a3d62f931877ca00df67bccd"
-const twilioNumber = '+12057518750' // your twilio phone number
+const accountSid = ""
+const authToken = ""
+const twilioNumber = '' // your twilio phone number
 const client = new twilio(accountSid, authToken);
 
 admin.initializeApp();
@@ -18,7 +18,7 @@ exports.sendSms = functions.https.onCall(async(data, context) => {
     const textMessage = {
         body: data.msg,
         to: data.number,
-        messagingServiceSid: 'MG605bbded57aace4b0b015499f114831a'
+        messagingServiceSid: ''
             //from: twilioNumber // From a valid Twilio number
     }
     return client.messages.create(textMessage).then(message => console.log(message.sid, 'success'))
